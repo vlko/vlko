@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.web", "vlko.web\vlko.web.csproj", "{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.web.Tests", "vlko.web.Tests\vlko.web.Tests.csproj", "{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepository", "GenericRepository\GenericRepository.csproj", "{A8D10733-3E24-4C6E-BA00-F8C07F9171A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralRepositoryTest", "GeneralRepositoryTest\GeneralRepositoryTest.csproj", "{900862FB-24EA-4F84-8591-53C6B6022DF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core", "vlko.core\vlko.core.csproj", "{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.Tests", "vlko.core.Tests\vlko.core.Tests.csproj", "{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1C0B78A4-CD91-4154-81FF-618CC8AE868F}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		vlko.vsmdi = vlko.vsmdi
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = vlko.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8D10733-3E24-4C6E-BA00-F8C07F9171A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D10733-3E24-4C6E-BA00-F8C07F9171A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8D10733-3E24-4C6E-BA00-F8C07F9171A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8D10733-3E24-4C6E-BA00-F8C07F9171A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{900862FB-24EA-4F84-8591-53C6B6022DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{900862FB-24EA-4F84-8591-53C6B6022DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{900862FB-24EA-4F84-8591-53C6B6022DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{900862FB-24EA-4F84-8591-53C6B6022DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
