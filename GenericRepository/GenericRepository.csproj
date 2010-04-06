@@ -45,15 +45,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="QueryInitializeContext.cs" />
+    <Compile Include="Exceptions\ActionNotRegisteredException.cs" />
+    <Compile Include="IAction.cs" />
+    <Compile Include="InitializeContext.cs" />
     <Compile Include="BaseRepository.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
-    <Compile Include="Exceptions\RepositoryIoCNotInitializeException.cs" />
+    <Compile Include="Exceptions\RepositoryFactoryNotInitializeException.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="ITransaction.cs" />
-    <Compile Include="RepositoryIoC.cs" />
-    <Compile Include="IQuery.cs" />
-    <Compile Include="IIoCResolver.cs" />
+    <Compile Include="RepositoryAction\ICreateAction.cs" />
+    <Compile Include="RepositoryAction\IDeleteAction.cs" />
+    <Compile Include="RepositoryAction\IFindByPkAction.cs" />
+    <Compile Include="RepositoryAction\ISaveAction.cs" />
+    <Compile Include="RepositoryFactory.cs" />
+    <Compile Include="IQueryAction.cs" />
+    <Compile Include="IRepositoryFactoryResolver.cs" />
     <Compile Include="IQueryResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exceptions\QueryNotRegisteredException.cs" />

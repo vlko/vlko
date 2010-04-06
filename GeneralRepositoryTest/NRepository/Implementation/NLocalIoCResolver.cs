@@ -1,20 +1,31 @@
-﻿using GenericRepository;
+﻿using System;
+using GenericRepository;
+using GenericRepository.RepositoryAction;
 using vlko.core.ActiveRecord;
+using vlko.core.ActiveRecord.RepositoryAction;
 
 namespace GeneralRepositoryTest.NRepository
 {
-    public class NLocalIoCResolver : IRepositoryIoCResolver
+    public class NLocalFactoryResolver : IRepositoryFactoryResolver
     {
 
-        public T ResolveQuery<T>() where T : class
+        public T ResolveAction<T>() where T : class
         {
-            if (typeof(T) == typeof(NFilterLinqQuery))
+            Type type = typeof (T);
+            if (type == typeof(NFilterLinqQueryAction))
             {
-                return new NFilterLinqQuery() as T;
+                return new NFilterLinqQueryAction() as T;
             }
-            if (typeof(T) == typeof(NFilterCriterion))
+            if (type == typeof(NFilterCriterion))
             {
                 return new NFilterCriterion() as T;
+            }
+            if ((type == typeof(ISaveAction<NTestObject>))
+                || (type == typeof(ICreateAction<NTestObject>))
+                || (type == typeof(IFindByPkAction<NTestObject>))
+                || (type == typeof(IDeleteAction<NTestObject>)))
+            {
+                return new CRUDActions<NTestObject>() as T;
             }
             return null;
         }

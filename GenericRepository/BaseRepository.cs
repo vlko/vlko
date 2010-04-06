@@ -11,65 +11,61 @@ namespace GenericRepository
         /// </summary>
         /// <typeparam name="TQType">The type of the query.</typeparam>
         /// <returns>Query.</returns>
-        /// <exception cref="RepositoryIoCNotInitializeException">BaseRepository not initialized.</exception>
+        /// <exception cref="RepositoryFactoryNotInitializeException">BaseRepository not initialized.</exception>
         /// <exception cref="QueryNotRegisteredException">If type TQType not registered in BaseRepository.</exception>
-        public TQType GetQuery<TQType>() where TQType : class, IQuery<T>
+        public TQType GetQuery<TQType>() where TQType : class, IQueryAction<T>
         {
-            var query = RepositoryIoC.IoCResolver.ResolveQuery<TQType>();
+            var query = GetInternalAction<TQType>();
             if (query == null)
             {
                 throw new QueryNotRegisteredException(typeof(TQType), this.GetType(), typeof(T));
             }
-            InitalizeQuery(query);
             return query;
         }
 
         /// <summary>
-        /// Initalizes the query.
+        /// Gets the action.
         /// </summary>
-        /// <param name="query">The query.</param>
-        protected virtual void InitalizeQuery(IQuery<T> query)
+        /// <typeparam name="TAType">The type of the action.</typeparam>
+        /// <returns>Query.</returns>
+        /// <exception cref="RepositoryFactoryNotInitializeException">BaseRepository not initialized.</exception>
+        /// <exception cref="ActionNotRegisteredException">If type TAType not registered in BaseRepository.</exception>
+        public TAType GetAction<TAType>() where TAType : class, IAction<T>
         {
-            query.Initialize(new QueryInitializeContext<T>(this));
+            var action = GetInternalAction<TAType>();
+            if (action == null)
+            {
+                throw new ActionNotRegisteredException(typeof(TAType), this.GetType(), typeof(T));
+            }
+
+            return action;
         }
 
-
         /// <summary>
-        /// Finds the by PK.
+        /// Gets the internal action.
         /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns>Item matching id or exception if not exists.</returns>
-        public T FindByPk(object id)
+        /// <typeparam name="TAType">The type of the Action.</typeparam>
+        /// <returns>Action</returns>
+        private TAType GetInternalAction<TAType>() where TAType : class, IAction<T>
         {
-            return FindByPk(id, true);
+            var action = RepositoryFactory.FactoryResolver.ResolveAction<TAType>();
+            if (action != null)
+            {
+                if (!action.Initialized)
+                {
+                    InitalizeAction(action);
+                }
+            }
+            return action;
         }
 
         /// <summary>
-        /// Finds item by PK.
+        /// Initalizes the queryAction.
         /// </summary>
-        /// <param name="id">The id.</param>
-        /// <param name="throwOnNotFound">if set to <c>true</c> [throw exception on not found].</param>
-        /// <returns>Item matching id or null/exception if not exists.</returns>
-        public abstract T FindByPk(object id, bool throwOnNotFound);
-
-        /// <summary>
-        /// Saves the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns>Saved item.</returns>
-        public abstract T Save(T item);
-
-        /// <summary>
-        /// Creates the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns>Created item.</returns>
-        public abstract T Create(T item);
-
-        /// <summary>
-        /// Deletes the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        public abstract void Delete(T item);
+        /// <param name="action">The action.</param>
+        protected virtual void InitalizeAction(IAction<T> action)
+        {
+            action.Initialize(new InitializeContext<T>(this));
+        }
     }
 }

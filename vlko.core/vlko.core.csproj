@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AntiXSSLibrary, Version=3.1.3524.16873, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_dependencies\AntiXSSLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.ActiveRecord, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\Castle.ActiveRecord.dll</HintPath>
@@ -80,7 +84,18 @@
       <HintPath>..\_dependencies\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml.Linq">
@@ -93,16 +108,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveRecord\BaseCriterionQuery.cs" />
-    <Compile Include="ActiveRecord\BaseLinqQuery.cs" />
+    <Compile Include="ActiveRecord\BaseCriterionQueryAction.cs" />
+    <Compile Include="ActiveRecord\BaseLinqQueryAction.cs" />
     <Compile Include="ActiveRecord\CriterionQueryResult.cs" />
     <Compile Include="ActiveRecord\Repository.cs" />
     <Compile Include="ActiveRecord\ProjectionQueryResult.cs" />
+    <Compile Include="ActiveRecord\RepositoryAction\CRUDActions.cs" />
     <Compile Include="ActiveRecord\Transaction.cs" />
     <Compile Include="ActiveRecord\UnitOfWork.cs" />
-    <Compile Include="ModelInitializer.cs" />
+    <Compile Include="Authentication\AuthorizeRolesAttribute.cs" />
+    <Compile Include="Authentication\Implementation\UserAuthenticationService.cs" />
+    <Compile Include="Authentication\AccountValidation.cs" />
+    <Compile Include="Authentication\Implementation\FormsAuthenticationService.cs" />
+    <Compile Include="Authentication\IFormsAuthenticationService.cs" />
+    <Compile Include="Authentication\IUserAuthenticationService.cs" />
+    <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
+    <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />
+    <Compile Include="ValidationAtribute\ValidatePasswordLengthAttribute.cs" />
+    <Compile Include="ValidationAtribute\PropertiesMustMatchAttribute.cs" />
+    <Compile Include="ApplicationInit.cs" />
+    <Compile Include="Base\BaseController.cs" />
     <Compile Include="IoC\IoC.cs" />
-    <Compile Include="IoC\RepositoryIoCResolver.cs" />
+    <Compile Include="IoC\RepositoryFactoryResolver.cs" />
+    <Compile Include="Models\Action\AuthenicationStatuses.cs" />
+    <Compile Include="Models\Action\Implementation\CreateAdminAction.cs" />
+    <Compile Include="Models\Action\ICreateAdminAction.cs" />
+    <Compile Include="Models\Action\Implementation\CommentCrud.cs" />
+    <Compile Include="Models\Action\ICommentCrud.cs" />
+    <Compile Include="Models\Action\Implementation\StaticTextCrud.cs" />
+    <Compile Include="Models\Action\IStaticTextCrud.cs" />
+    <Compile Include="Models\Action\ActionModel\CommentActionModel.cs" />
+    <Compile Include="Models\Action\ActionModel\StaticTextActionModel.cs" />
+    <Compile Include="Models\Action\IUserAuthentication.cs" />
+    <Compile Include="Models\Action\Implementation\UserAuthentication.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentVersion.cs" />
     <Compile Include="Models\Content.cs" />
@@ -112,6 +150,11 @@
     <Compile Include="Models\StaticTextVersion.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Implementation\EmailService.cs" />
+    <Compile Include="Services\Implementation\AppInfoService.cs" />
+    <Compile Include="Services\IAppInfoService.cs" />
+    <Compile Include="Services\IEmailService.cs" />
+    <Compile Include="Services\MailTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GenericRepository\GenericRepository.csproj">

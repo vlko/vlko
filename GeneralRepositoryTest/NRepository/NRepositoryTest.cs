@@ -1,4 +1,5 @@
 ﻿using GenericRepository.Exceptions;
+using GenericRepository.RepositoryAction;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GeneralRepositoryTest.NRepository
@@ -28,9 +29,9 @@ namespace GeneralRepositoryTest.NRepository
                 Type = TypeEnum.Ignore
             };
 
-            BaseRepository.Create(testObj);
+            BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(testObj);
 
-            var check = BaseRepository.FindByPk(100);
+            var check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(100);
 
             Assert.AreEqual(testObj, check);
         }
@@ -45,9 +46,9 @@ namespace GeneralRepositoryTest.NRepository
                 Type = TypeEnum.Ignore
             };
 
-            BaseRepository.Create(testObj);
+            BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(testObj);
 
-            var check = BaseRepository.FindByPk(200);
+            var check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(200);
 
             Assert.AreEqual(testObj, check);
 
@@ -58,9 +59,9 @@ namespace GeneralRepositoryTest.NRepository
                 Type = TypeEnum.Ignore
             };
 
-            BaseRepository.Save(updateObj);
+            BaseRepository.GetAction<ISaveAction<NTestObject>>().Save(updateObj);
 
-            check = BaseRepository.FindByPk(200);
+            check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(200);
 
             Assert.AreEqual(updateObj, check);
 
@@ -77,15 +78,15 @@ namespace GeneralRepositoryTest.NRepository
                 Type = TypeEnum.Ignore
             };
 
-            BaseRepository.Create(testObj);
+            BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(testObj);
 
-            var check = BaseRepository.FindByPk(300);
+            var check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(300);
 
             Assert.AreEqual(testObj, check);
 
-            BaseRepository.Delete(testObj);
+            BaseRepository.GetAction<IDeleteAction<NTestObject>>().Delete(testObj);
 
-            check = BaseRepository.FindByPk(300);
+            check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(300);
         }
     }
 }

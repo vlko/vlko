@@ -7,41 +7,68 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using vlko.web.ViewModel;
+using GenericRepository;
+using vlko.core.Authentication;
+using vlko.core.Authentication.Implementation;
+using vlko.core.Base;
+using vlko.core.Models.Action;
+using vlko.model.IoC;
+using vlko.web.ViewModel.Account;
+using ChangePasswordModel = vlko.web.ViewModel.Account.ChangePasswordModel;
+using LogOnModel = vlko.web.ViewModel.Account.LogOnModel;
+using RegisterModel = vlko.web.ViewModel.Account.RegisterModel;
+using ResetPasswordModel = vlko.web.ViewModel.Account.ResetPasswordModel;
+
 
 namespace vlko.web.Controllers
 {
 
     [HandleError]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
 
         public IFormsAuthenticationService FormsService { get; set; }
-        public IMembershipService MembershipService { get; set; }
+        public IUserAuthenticationService UserAuthenticationService { get; set; }
 
+        /// <summary>
+        /// Initializes data that might not be available when the constructor is called.
+        /// </summary>
+        /// <param name="requestContext">The HTTP context and route data.</param>
         protected override void Initialize(RequestContext requestContext)
         {
-            if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
-            if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
+            if (FormsService == null) {
+                FormsService = IoC.Resolve<IFormsAuthenticationService>();
+            }
+            if (UserAuthenticationService == null)
+            {
+                UserAuthenticationService = IoC.Resolve<IUserAuthenticationService>();
+            }
 
             base.Initialize(requestContext);
         }
 
-        // **************************************
-        // URL: /Account/LogOn
-        // **************************************
-
+        /// <summary>
+        /// URL: /Account/LogOn
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult LogOn()
         {
             return View();
         }
 
+        /// <summary>
+        /// URL: /Account/LogOn
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="returnUrl">The return URL.</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                if (MembershipService.ValidateUser(model.UserName, model.Password))
+                var verifyStatus = UserAuthenticationService.ValidateUser(model.UserName, model.Password);
+                if (verifyStatus == ValidateUserStatus.Success)
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);
                     if (!String.IsNullOrEmpty(returnUrl))
@@ -55,7 +82,7 @@ namespace vlko.web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("", AccountValidation.ValidateUserErrorCodeToString(verifyStatus));
                 }
             }
 
@@ -63,10 +90,10 @@ namespace vlko.web.Controllers
             return View(model);
         }
 
-        // **************************************
-        // URL: /Account/LogOff
-        // **************************************
-
+        /// <summary>
+        /// URL: /account/LogOff
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult LogOff()
         {
             FormsService.SignOut();
@@ -74,58 +101,87 @@ namespace vlko.web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // **************************************
-        // URL: /Account/Register
-        // **************************************
-
+        /// <summary>
+        /// URL: /Account/Register
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult Register()
         {
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewData["PasswordLength"] = UserAuthenticationService.MinPasswordLength;
             return View();
         }
 
+        /// <summary>
+        /// URL: /Account/Register
+        /// </summary>
+        /// <param name="model">The model</param>
+        /// <returns>Action result.</returns>
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
+                CreateUserStatus createStatus = UserAuthenticationService.CreateUser(model.UserName, model.Password, model.Email);
 
-                if (createStatus == MembershipCreateStatus.Success)
+                if (createStatus == CreateUserStatus.Success)
                 {
-                    FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
+                    ModelState.AddModelError("", AccountValidation.CreateUserErrorCodeToString(createStatus));
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewData["PasswordLength"] = UserAuthenticationService.MinPasswordLength;
             return View(model);
         }
 
-        // **************************************
-        // URL: /Account/ChangePassword
-        // **************************************
+        /// <summary>
+        /// URL: /Account/ConfirmRegistration
+        /// </summary>
+        /// <param name="verifyToken">The verify token</param>
+        /// <returns>Action result.</returns>
+        public ActionResult ConfirmRegistration(string verifyToken)
+        {
+            if (!string.IsNullOrEmpty(verifyToken))
+            {
+                var username = UserAuthenticationService.ResolveToken(verifyToken);
+                if (UserAuthenticationService.ConfirmRegistration(verifyToken))
+                {
+                    FormsService.SignIn(username, false /* createPersistentCookie */);
+                    ViewData["user"] = username;
+                    return View();
+                }
+            }
+            return View("NotValidToken");
+        }
 
+        /// <summary>
+        /// URL: /Account/ChangePassword
+        /// </summary>
+        /// <returns>Action result.</returns>
         [Authorize]
         public ActionResult ChangePassword()
         {
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewData["PasswordLength"] = UserAuthenticationService.MinPasswordLength;
             return View();
         }
 
+        /// <summary>
+        /// URL: /Account/ChangePassword
+        /// </summary>
+        /// <param name="model">The model</param>
+        /// <returns>Action result.</returns>
         [Authorize]
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
             {
-                if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
+                if (UserAuthenticationService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
                 {
                     return RedirectToAction("ChangePasswordSuccess");
                 }
@@ -136,18 +192,108 @@ namespace vlko.web.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewData["PasswordLength"] = UserAuthenticationService.MinPasswordLength;
             return View(model);
         }
 
-        // **************************************
-        // URL: /Account/ChangePasswordSuccess
-        // **************************************
-
+        /// <summary>
+        /// URL: /Account/ChangePasswordSuccess
+        /// </summary>
+        /// <returns>Action result.</returns>
         public ActionResult ChangePasswordSuccess()
         {
             return View();
         }
 
+        /// <summary>
+        /// URL: /Account/ResetPassword
+        /// </summary>
+        /// <returns>Action result.</returns>
+        public ActionResult ResetPassword()
+        {
+            ViewData["PasswordLength"] = UserAuthenticationService.MinPasswordLength;
+            return View();
+        }
+
+        /// <summary>
+        /// URL: /Account/ResetPassword
+        /// </summary>
+        /// <param name="model">The model</param>
+        /// <returns>Action result.</returns>
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Attempt to reset password
+                ResetUserPasswordStatus resetStatus = UserAuthenticationService.GetResetPasswordToken(model.Email);
+
+                if (resetStatus == ResetUserPasswordStatus.Success)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", AccountValidation.ResetPasswordErrorCodeToString(resetStatus));
+                }
+            }
+            return View(model);
+        }
+
+        /// <summary>
+        /// URL: /Account/ConfirmResetPassword
+        /// </summary>
+        /// <param name="verifyToken">The verify token</param>
+        /// <returns>Action result.</returns>
+        public ActionResult ConfirmResetPassword(string verifyToken)
+        {
+            if (!string.IsNullOrEmpty(verifyToken))
+            {
+                var username = UserAuthenticationService.ResolveToken(verifyToken);
+                ViewData["PasswordLength"] = UserAuthenticationService.MinPasswordLength;
+
+                return View(new ConfirmResetPasswordModel()
+                                {
+                                    Username = username,
+                                    VerifyToken = verifyToken
+                                });
+            }
+            return View("NotValidToken");
+        }
+
+        /// <summary>
+        /// URL: /Account/ResetPassword
+        /// </summary>
+        /// <param name="model">The model</param>
+        /// <returns>Action result.</returns>
+        [HttpPost]
+        public ActionResult ConfirmResetPassword(ConfirmResetPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Attempt to reset password
+                bool succeed = UserAuthenticationService.ConfirmResetPassword(model.Username, model.VerifyToken, model.NewPassword);
+
+                if (succeed)
+                {
+                    FormsService.SignIn(model.Username, false /* createPersistentCookie */);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Unable to reset password. Please contact administrator.");
+                }
+            }
+            return View(model);
+        }
+
+        /// <summary>
+        /// URL: /Account/NotAuthorized
+        /// </summary>
+        /// <returns>Action result.</returns>
+        public ActionResult NotAuthorized()
+        {
+            return View();
+        }
     }
 }

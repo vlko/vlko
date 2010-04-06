@@ -40,7 +40,7 @@ namespace vlko.core.Models
         /// Gets or sets all static text versions.
         /// </summary>
         /// <value>All static text versions.</value>
-        [HasMany(typeof(StaticTextVersion), ColumnKey = "StaticTextId", Cascade = ManyRelationCascadeEnum.AllDeleteOrphan, Lazy = true, Inverse = true)]
+        [HasMany(typeof(StaticTextVersion), ColumnKey = "StaticTextId", Cascade = ManyRelationCascadeEnum.AllDeleteOrphan, Lazy = true)]
         public IList<StaticTextVersion> StaticTextVersions { get; set; }
     }
 }

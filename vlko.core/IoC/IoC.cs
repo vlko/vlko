@@ -22,7 +22,7 @@ namespace vlko.model.IoC
             {
                 if (_container == null)
                 {
-                    Exception ex = new ApplicationException("IoC container not initialized, please call IoC.IntitializeWith(IWindsorContainer) before using this library!");
+                    Exception ex = new ApplicationException("IoC container not initialized, please call IoC.InitializeWith(IWindsorContainer) before using this library!");
                     NLog.LogManager.GetCurrentClassLogger().FatalException(ex.Message, ex);
                     throw ex;
                 }
@@ -35,15 +35,15 @@ namespace vlko.model.IoC
         }
 
         /// <summary>
-        /// Intitialize this static instance the with specified container.
+        /// Initialize this static instance the with specified container.
         /// </summary>
         /// <param name="container">The container.</param>
-        public static void IntitializeWith(IWindsorContainer container)
+        public static void InitializeWith(IWindsorContainer container)
         {
             NLog.LogManager.GetCurrentClassLogger().Info("Initializing IoC...");
             _container = container;
             // Initialize repository IoC resolver
-            RepositoryIoC.IntitializeWith(new RepositoryIoCResolver());
+            RepositoryFactory.IntitializeWith(new RepositoryFactoryResolver());
         }
 
         /// <summary>

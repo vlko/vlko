@@ -109,19 +109,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOCResolved\BaseTest.cs" />
-    <Compile Include="IOCResolved\Queries\QueryProjectionCriterion.cs" />
-    <Compile Include="IOCResolved\Queries\IQueryProjection.cs" />
-    <Compile Include="IOCResolved\Queries\QueryProjectionLinq.cs" />
-    <Compile Include="IOCResolved\Queries\QueryReservationForDayCriterion.cs" />
+    <Compile Include="IOCResolved\Queries\QueryActionProjectionCriterion.cs" />
+    <Compile Include="IOCResolved\Queries\IQueryActionProjection.cs" />
+    <Compile Include="IOCResolved\Queries\QueryActionProjectionLinq.cs" />
+    <Compile Include="IOCResolved\Queries\QueryActionReservationForDayCriterion.cs" />
     <Compile Include="IOCResolved\Queries\QueryReservationsForDateLinq.cs" />
-    <Compile Include="IOCResolved\Queries\IQueryReservationForDay.cs" />
-    <Compile Include="IOCResolved\Queries\QueryHotelRoomsCriterion.cs" />
+    <Compile Include="IOCResolved\Queries\IQueryActionReservationForDay.cs" />
+    <Compile Include="IOCResolved\Queries\QueryActionHotelRoomsCriterion.cs" />
     <Compile Include="IOCResolved\Queries\QueryAllCriterion.cs" />
     <Compile Include="IOCResolved\IoCNRepositoryCriterionTest.cs" />
-    <Compile Include="IOCResolved\Queries\IQueryAll.cs" />
-    <Compile Include="IOCResolved\Queries\IQueryHotelRooms.cs" />
+    <Compile Include="IOCResolved\Queries\IQueryActionAll.cs" />
+    <Compile Include="IOCResolved\Queries\IQueryActionHotelRooms.cs" />
     <Compile Include="IOCResolved\Queries\QueryAllLinq.cs" />
-    <Compile Include="IOCResolved\Queries\QueryHotelRoomsLinq.cs" />
+    <Compile Include="IOCResolved\Queries\QueryActionHotelRoomsLinq.cs" />
     <Compile Include="IOCResolved\Model\Hotel.cs" />
     <Compile Include="IOCResolved\Model\Reservation.cs" />
     <Compile Include="IOCResolved\Model\Room.cs" />
@@ -133,7 +133,7 @@
     <Compile Include="NRepository\Implementation\NLocalIoCResolver.cs" />
     <Compile Include="NRepository\NRepositoryLinqQueryTest.cs" />
     <Compile Include="NRepository\NRepositoryTest.cs" />
-    <Compile Include="NRepository\Implementation\NFilterLinqQuery.cs" />
+    <Compile Include="NRepository\Implementation\NFilterLinqQueryAction.cs" />
     <Compile Include="NRepository\Implementation\NTestObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryTest.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using GenericRepository.RepositoryAction;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Castle.ActiveRecord.Testing;
 using GeneralRepositoryTest.IOCResolved.Model;
@@ -7,6 +8,7 @@ using Castle.MicroKernel.Registration;
 using GenericRepository;
 using GeneralRepositoryTest.IOCResolved.Queries;
 using vlko.core.ActiveRecord;
+using vlko.core.ActiveRecord.RepositoryAction;
 using vlko.model.IoC;
 
 namespace GeneralRepositoryTest.IOCResolved
@@ -26,12 +28,15 @@ namespace GeneralRepositoryTest.IOCResolved
                 Component.For<BaseRepository<Hotel>>().ImplementedBy<Repository<Hotel>>(),
                 Component.For<BaseRepository<Room>>().ImplementedBy<Repository<Room>>(),
                 Component.For<BaseRepository<Reservation>>().ImplementedBy<Repository<Reservation>>(),
-                Component.For<IQueryAll<Hotel>>().ImplementedBy<QueryAllLinq<Hotel>>().LifeStyle.Transient,
-                Component.For<IQueryHotelRooms>().ImplementedBy<QueryHotelRoomsLinq>().LifeStyle.Transient,
-                Component.For<IQueryReservationForDay>().ImplementedBy<QueryReservationForDayLinq>().LifeStyle.Transient,
-                Component.For<IQueryProjection>().ImplementedBy<QueryProjectionLinq>().LifeStyle.Transient
+                Component.For<ICreateAction<Hotel>>().ImplementedBy<CRUDActions<Hotel>>(),
+                Component.For<ICreateAction<Room>>().ImplementedBy<CRUDActions<Room>>(),
+                Component.For<ICreateAction<Reservation>>().ImplementedBy<CRUDActions<Reservation>>(),
+                Component.For<IQueryActionAll<Hotel>>().ImplementedBy<QueryActionAllLinq<Hotel>>().LifeStyle.Transient,
+                Component.For<IQueryActionHotelRooms>().ImplementedBy<QueryActionHotelRoomsLinq>().LifeStyle.Transient,
+                Component.For<IQueryActionReservationForDay>().ImplementedBy<QueryActionReservationForDayLinq>().LifeStyle.Transient,
+                Component.For<IQueryActionProjection>().ImplementedBy<QueryActionProjectionLinq>().LifeStyle.Transient
                 );
-            IoC.IntitializeWith(container);
+            IoC.InitializeWith(container);
             base.SetUp();
             _Test = new BaseTest();
             _Test.Intialize();

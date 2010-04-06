@@ -9,14 +9,14 @@ namespace GenericRepository
         /// Orders by the query.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns>Ordered IQuery.</returns>
+        /// <returns>Ordered IQueryAction.</returns>
         IQueryResult<T> OrderBy(Expression<Func<T, object>> query);
 
         /// <summary>
         /// Orders by descending the query.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns>Ordered IQuery.</returns>
+        /// <returns>Ordered IQueryAction.</returns>
         IQueryResult<T> OrderByDescending(Expression<Func<T, object>> query);
 
         /// <summary>

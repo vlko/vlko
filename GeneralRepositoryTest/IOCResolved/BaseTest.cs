@@ -2,6 +2,7 @@
 using GenericRepository;
 using GeneralRepositoryTest.IOCResolved.Model;
 using GeneralRepositoryTest.IOCResolved.Queries;
+using GenericRepository.RepositoryAction;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.model.IoC;
 
@@ -15,13 +16,13 @@ namespace GeneralRepositoryTest.IOCResolved
 
         public virtual void Intialize()
         {
-            using (var tran = RepositoryIoC.StartTransaction())
+            using (var tran = RepositoryFactory.StartTransaction())
             {
                 var hotel1 = new Hotel { Id = Guid.NewGuid(), Name = "Hotel1" };
-                _hotelBaseRepository.Create(hotel1);
+                _hotelBaseRepository.GetAction<ICreateAction<Hotel>>().Create(hotel1);
                 var hotel2 = new Hotel { Id = Guid.NewGuid(), Name = "Hotel2" };
 
-                _hotelBaseRepository.Create(hotel2);
+                _hotelBaseRepository.GetAction<ICreateAction<Hotel>>().Create(hotel2);
                 var rooms = new Room[] { 
                     new Room { Id = Guid.NewGuid(), Name = "101",
                         HasBathroom = false, HasToilet = false, Beds = 2,
@@ -58,7 +59,7 @@ namespace GeneralRepositoryTest.IOCResolved
                 };
                 foreach (var room in rooms)
                 {
-                    _roomBaseRepository.Create(room);
+                    _roomBaseRepository.GetAction<ICreateAction<Room>>().Create(room);
                 }
 
                 var reservations = new Reservation[] { 
@@ -85,7 +86,7 @@ namespace GeneralRepositoryTest.IOCResolved
                 };
                 foreach (var reservation in reservations)
                 {
-                    _reservationBaseRepository.Create(reservation);
+                    _reservationBaseRepository.GetAction<ICreateAction<Reservation>>().Create(reservation);
                 }
 
                 tran.Commit();
@@ -98,9 +99,9 @@ namespace GeneralRepositoryTest.IOCResolved
         /// </summary>
         public virtual void QueryAllHotels()
         {
-            using (var session = RepositoryIoC.StartUnitOfWork())
+            using (var session = RepositoryFactory.StartUnitOfWork())
             {
-                var query = _hotelBaseRepository.GetQuery<IQueryAll<Hotel>>()
+                var query = _hotelBaseRepository.GetQuery<IQueryActionAll<Hotel>>()
                     .Execute()
                     .OrderBy(room => room.Name);
 
@@ -117,9 +118,9 @@ namespace GeneralRepositoryTest.IOCResolved
         /// </summary>
         public virtual void QueryHotelRoomsByName()
         {
-            using (var session = RepositoryIoC.StartUnitOfWork())
+            using (var session = RepositoryFactory.StartUnitOfWork())
             {
-                var query = _roomBaseRepository.GetQuery<IQueryHotelRooms>()
+                var query = _roomBaseRepository.GetQuery<IQueryActionHotelRooms>()
                     .WhereHotelName("Hotel1")
                     .OrderBy(room => room.Name);
 
@@ -139,9 +140,9 @@ namespace GeneralRepositoryTest.IOCResolved
         /// </summary>
         public virtual void QueryReservationsForDate()
         {
-            using (var session = RepositoryIoC.StartUnitOfWork())
+            using (var session = RepositoryFactory.StartUnitOfWork())
             {
-                var query = _reservationBaseRepository.GetQuery<IQueryReservationForDay>()
+                var query = _reservationBaseRepository.GetQuery<IQueryActionReservationForDay>()
                     .WhereDate(new DateTime(2009, 1, 2))
                     .OrderBy(reserv => reserv.Room.Name);
 
@@ -158,9 +159,9 @@ namespace GeneralRepositoryTest.IOCResolved
         /// </summary>
         public virtual void QueryProjection()
         {
-            using (var session = RepositoryIoC.StartUnitOfWork())
+            using (var session = RepositoryFactory.StartUnitOfWork())
             {
-                var query = _roomBaseRepository.GetQuery<IQueryProjection>()
+                var query = _roomBaseRepository.GetQuery<IQueryActionProjection>()
                     .DoProjection()
                     .OrderBy(proj => proj.HotelName)
                     .OrderBy(proj => proj.RoomName);

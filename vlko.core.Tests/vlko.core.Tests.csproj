@@ -112,13 +112,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\CommentActions.cs" />
     <Compile Include="Model\DBInitializationTest.cs" />
+    <Compile Include="Model\StaticTextActions.cs" />
+    <Compile Include="Model\UserAuthenticationActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj">
+      <Project>{A8D10733-3E24-4C6E-BA00-F8C07F9171A9}</Project>
+      <Name>GenericRepository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\vlko.core\vlko.core.csproj">
       <Project>{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}</Project>
       <Name>vlko.core</Name>

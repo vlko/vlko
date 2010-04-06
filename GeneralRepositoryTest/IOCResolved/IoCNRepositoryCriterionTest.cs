@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GenericRepository.RepositoryAction;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Castle.ActiveRecord.Testing;
 using GeneralRepositoryTest.IOCResolved.Model;
@@ -9,6 +10,7 @@ using GenericRepository;
 using GeneralRepositoryTest.IOCResolved.Queries;
 using System.Xml;
 using vlko.core.ActiveRecord;
+using vlko.core.ActiveRecord.RepositoryAction;
 using vlko.model.IoC;
 
 namespace GeneralRepositoryTest.IOCResolved
@@ -31,13 +33,16 @@ namespace GeneralRepositoryTest.IOCResolved
                 Component.For<BaseRepository<Hotel>>().ImplementedBy<Repository<Hotel>>(),
                 Component.For<BaseRepository<Room>>().ImplementedBy<Repository<Room>>(),
                 Component.For<BaseRepository<Reservation>>().ImplementedBy<Repository<Reservation>>(),
-                Component.For<IQueryAll<Hotel>>().ImplementedBy<QueryAllCriterion<Hotel>>().LifeStyle.Transient,
-                Component.For<IQueryHotelRooms>().ImplementedBy<QueryHotelRoomsCriterion>().LifeStyle.Transient,
-                Component.For<IQueryReservationForDay>().ImplementedBy<QueryReservationForDayCriterion>().LifeStyle.Transient,
-                Component.For<IQueryProjection>().ImplementedBy<QueryProjectionCriterion>().LifeStyle.Transient
+                Component.For<ICreateAction<Hotel>>().ImplementedBy<CRUDActions<Hotel>>(),
+                Component.For<ICreateAction<Room>>().ImplementedBy<CRUDActions<Room>>(),
+                Component.For<ICreateAction<Reservation>>().ImplementedBy<CRUDActions<Reservation>>(),
+                Component.For<IQueryActionAll<Hotel>>().ImplementedBy<QueryActionAllCriterion<Hotel>>().LifeStyle.Transient,
+                Component.For<IQueryActionHotelRooms>().ImplementedBy<QueryActionHotelRoomsCriterion>().LifeStyle.Transient,
+                Component.For<IQueryActionReservationForDay>().ImplementedBy<QueryActionReservationForDayCriterion>().LifeStyle.Transient,
+                Component.For<IQueryActionProjection>().ImplementedBy<QueryActionProjectionCriterion>().LifeStyle.Transient
                 );
             log4net.LogManager.GetLogger("test").Debug("test");
-            IoC.IntitializeWith(container);
+            IoC.InitializeWith(container);
             base.SetUp();
       
             _Test = new BaseTest();

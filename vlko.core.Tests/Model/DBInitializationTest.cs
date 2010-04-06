@@ -25,13 +25,13 @@ namespace vlko.core.Tests.Model
 
         public override Type[] GetTypes()
         {
-            return ModelInitializer.ListOfModelTypes();
+            return ApplicationInit.ListOfModelTypes();
         }
 
         [TestMethod]
         public void Test_querying_all_model_types()
         {
-            foreach (Type modelType in ModelInitializer.ListOfModelTypes())
+            foreach (Type modelType in ApplicationInit.ListOfModelTypes())
             {
                 var modelItems = ActiveRecordMediator.FindAll(modelType);
                 Assert.AreEqual(0, modelItems.Length);

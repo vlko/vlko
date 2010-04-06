@@ -20,7 +20,7 @@ namespace GeneralRepositoryTest.NRepository
         [TestMethod]
         public void Test_Query_1_count_and_toArray()
         {
-            var items = BaseRepository.GetQuery<NFilterLinqQuery>()
+            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
                 .WhereType(TypeEnum.SomeFirstType)
                 .Result();
 
@@ -31,7 +31,7 @@ namespace GeneralRepositoryTest.NRepository
         [TestMethod]
         public void Test_Query_2_count_and_toArray()
         {
-            var items = BaseRepository.GetQuery<NFilterLinqQuery>()
+            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
                 .WhereType(TypeEnum.SomeOtherType)
                 .Result();
 
@@ -46,7 +46,7 @@ namespace GeneralRepositoryTest.NRepository
         [TestMethod]
         public void Test_Query_2_count_and_toArray_ordered()
         {
-            var items = BaseRepository.GetQuery<NFilterLinqQuery>()
+            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
                 .WhereType(TypeEnum.SomeOtherType)
                 .Result();
 
@@ -64,7 +64,7 @@ namespace GeneralRepositoryTest.NRepository
         [TestMethod]
         public void Test_Query_3_extended_filter_count_and_toArray()
         {
-            var items = BaseRepository.GetQuery<NFilterLinqQuery>()
+            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
                 .WhereType(TypeEnum.SomeOtherType)
                 .WhereTextStart("test")
                 .Result();
@@ -78,7 +78,7 @@ namespace GeneralRepositoryTest.NRepository
         [TestMethod]
         public void Test_Query_3_paged_result()
         {
-            var items = BaseRepository.GetQuery<NFilterLinqQuery>()
+            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
                 .WhereType(TypeEnum.SomeOtherType)
                 .Result();
 

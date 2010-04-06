@@ -14,11 +14,11 @@ namespace vlko.core.Models
         public virtual Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the created.
+        /// Gets or sets the created date.
         /// </summary>
-        /// <value>The created.</value>
+        /// <value>The created date.</value>
         [Property]
-        public virtual DateTime Created { get; set; }
+        public virtual DateTime CreatedDate { get; set; }
 
         /// <summary>
         /// Gets or sets the version.

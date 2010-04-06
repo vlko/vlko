@@ -1,9 +1,9 @@
 ﻿using NHibernate.Criterion;
-using vlko.model.ActiveRecord;
+using vlko.core.ActiveRecord;
 
 namespace GeneralRepositoryTest.NRepository
 {
-    public class NFilterCriterion : BaseCriterionQuery<NTestObject>
+    public class NFilterCriterion : BaseCriterionQueryAction<NTestObject>
     {
         /// <summary>
         /// Adds the type filter.

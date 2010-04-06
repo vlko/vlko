@@ -33,7 +33,14 @@ namespace vlko.core.Models
         /// </summary>
         /// <value>The creator.</value>
         [BelongsTo("CreatorId")]
-        public virtual User Creator { get; set; }
+        public virtual User CreatedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created date.
+        /// </summary>
+        /// <value>The created date.</value>
+        [Property]
+        public virtual DateTime CreatedDate { get; set; }
 
         /// <summary>
         /// Gets or sets the static text.

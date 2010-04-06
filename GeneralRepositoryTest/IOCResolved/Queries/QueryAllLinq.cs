@@ -2,10 +2,10 @@
 
 namespace GeneralRepositoryTest.IOCResolved.Queries
 {
-    public class QueryAllCriterion<T> : BaseLinqQuery<T>, IQueryAll<T> where T : class
+    public class QueryActionAllCriterion<T> : BaseLinqQueryAction<T>, IQueryActionAll<T> where T : class
     {
         /// <summary>
-        /// Executes query.
+        /// Executes queryAction.
         /// </summary>
         /// <returns>Query result.</returns>
         public GenericRepository.IQueryResult<T> Execute()

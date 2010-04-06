@@ -35,7 +35,7 @@ namespace GenericRepository
         /// Orders by the query.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns>Ordered IQuery.</returns>
+        /// <returns>Ordered IQueryAction.</returns>
         public IQueryResult<T> OrderBy(Expression<Func<T, object>> query)
         {
             return GetNewInstance(_queryable.OrderBy(query));
@@ -44,7 +44,7 @@ namespace GenericRepository
         /// Orders by descending the query.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns>Ordered IQuery.</returns>
+        /// <returns>Ordered IQueryAction.</returns>
         public IQueryResult<T> OrderByDescending(Expression<Func<T, object>> query)
         {
             return GetNewInstance(_queryable.OrderByDescending(query));

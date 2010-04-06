@@ -8,7 +8,7 @@ using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.LambdaExtensions;
 
-namespace vlko.model.ActiveRecord
+namespace vlko.core.ActiveRecord
 {
     /// <summary>
     /// Criterion query result.

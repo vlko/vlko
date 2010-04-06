@@ -1,6 +1,7 @@
 ﻿using System;
 using GenericRepository;
 using Castle.ActiveRecord.Testing;
+using GenericRepository.RepositoryAction;
 
 namespace GeneralRepositoryTest.NRepository
 {
@@ -21,32 +22,32 @@ namespace GeneralRepositoryTest.NRepository
         public void Initialize()
         {
             SetUp();
-            RepositoryIoC.IntitializeWith(new NLocalIoCResolver());
+            RepositoryFactory.IntitializeWith(new NLocalFactoryResolver());
 
-            _session = RepositoryIoC.StartUnitOfWork();
+            _session = RepositoryFactory.StartUnitOfWork();
 
-            BaseRepository = RepositoryIoC.GetRepository<NTestObject>();
-            using (var tran = RepositoryIoC.StartTransaction())
+            BaseRepository = RepositoryFactory.GetRepository<NTestObject>();
+            using (var tran = RepositoryFactory.StartTransaction())
             {
-                BaseRepository.Create(new NTestObject
+                BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(new NTestObject
                 {
                     ID = 1,
                     Text = "testFirst",
                     Type = TypeEnum.SomeFirstType
                 });
-                BaseRepository.Create(new NTestObject
+                BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(new NTestObject
                 {
                     ID = 2,
                     Text = "testSecond",
                     Type = TypeEnum.SomeOtherType
                 });
-                BaseRepository.Create(new NTestObject
+                BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(new NTestObject
                 {
                     ID = 3,
                     Text = "testThird",
                     Type = TypeEnum.SomeOtherType
                 });
-                BaseRepository.Create(new NTestObject
+                BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(new NTestObject
                 {
                     ID = 4,
                     Text = "Four",
