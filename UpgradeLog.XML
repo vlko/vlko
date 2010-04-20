@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="vlko">
+</Property><Property Name="Solution File" Value="D:\Vlastne programy\preweb\vlko\vlko.sln">
+</Property><Property Name="Date" Value="20. apríla 2010">
+</Property><Property Name="Time" Value="17:38">
+</Property></Properties><Event ErrorLevel="0" Project="vlko.web" Source="vlko.web\vlko.web.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="vlko.web" Source="vlko.web\vlko.web.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="vlko.web.Tests" Source="vlko.web.Tests\vlko.web.Tests.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="vlko.web.Tests" Source="vlko.web.Tests\vlko.web.Tests.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="GenericRepository" Source="GenericRepository\GenericRepository.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="GenericRepository" Source="GenericRepository\GenericRepository.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="GeneralRepositoryTest" Source="GeneralRepositoryTest\GeneralRepositoryTest.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="GeneralRepositoryTest" Source="GeneralRepositoryTest\GeneralRepositoryTest.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="vlko.core" Source="vlko.core\vlko.core.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="vlko.core" Source="vlko.core\vlko.core.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="vlko.core.Tests" Source="vlko.core.Tests\vlko.core.Tests.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="vlko.core.Tests" Source="vlko.core.Tests\vlko.core.Tests.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="vlko.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="vlko.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="vlko.web" Source="vlko.web\vlko.web.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="3" Project="" Source="LocalTestRun.testrunconfig" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="LocalTestRun.testrunconfig" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="3" Project="" Source="vlko.vsmdi" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="vlko.vsmdi" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="0" Project="vlko.web.Tests" Source="vlko.web.Tests\vlko.web.Tests.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="GenericRepository" Source="GenericRepository\GenericRepository.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="GeneralRepositoryTest" Source="GeneralRepositoryTest\GeneralRepositoryTest.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="vlko.core" Source="vlko.core\vlko.core.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="vlko.core.Tests" Source="vlko.core.Tests\vlko.core.Tests.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

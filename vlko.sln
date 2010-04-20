@@ -1,6 +1,12 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1C0B78A4-CD91-4154-81FF-618CC8AE868F}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		vlko.vsmdi = vlko.vsmdi
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.web", "vlko.web\vlko.web.csproj", "{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.web.Tests", "vlko.web.Tests\vlko.web.Tests.csproj", "{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}"
@@ -12,12 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core", "vlko.core\vlko.core.csproj", "{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.Tests", "vlko.core.Tests\vlko.core.Tests.csproj", "{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1C0B78A4-CD91-4154-81FF-618CC8AE868F}"
-	ProjectSection(SolutionItems) = preProject
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-		vlko.vsmdi = vlko.vsmdi
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
