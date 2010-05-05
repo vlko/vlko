@@ -5,7 +5,6 @@ using vlko.core.ValidationAtribute;
 
 namespace vlko.web.ViewModel.Account
 {
-    [AntiXss]
     [PropertiesMustMatch("Password", "ConfirmPassword", ErrorMessage = "The password and confirmation password do not match.")]
     public class RegisterModel
     {

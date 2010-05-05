@@ -12,6 +12,7 @@ using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
 using vlko.core.Base;
 using vlko.core.Models.Action;
+using vlko.core.ValidationAtribute;
 using vlko.model.IoC;
 using vlko.web.ViewModel.Account;
 using ChangePasswordModel = vlko.web.ViewModel.Account.ChangePasswordModel;
@@ -117,6 +118,7 @@ namespace vlko.web.Controllers
         /// <param name="model">The model</param>
         /// <returns>Action result.</returns>
         [HttpPost]
+        [AntiXss]
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)

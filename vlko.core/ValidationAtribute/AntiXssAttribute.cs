@@ -4,26 +4,14 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 using Microsoft.Security.Application;
 
 namespace vlko.core.ValidationAtribute
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
-    public class AntiXssAttribute : ValidationAttribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    public class AntiXssAttribute : ActionFilterAttribute, IAuthorizationFilter
     {
-        public override bool IsValid(object value)
-        {
-            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(value);
-            foreach (PropertyDescriptor property in properties)
-            {
-                if (property.PropertyType == typeof(string))
-                {
-                    ProcessProperty(value, property);
-                }
-            }
-            return true;
-        }
-
         /// <summary>
         /// Processes the property.
         /// </summary>
@@ -39,6 +27,48 @@ namespace vlko.core.ValidationAtribute
             {
                 property.SetValue(value, AntiXss.HtmlEncode((string)property.GetValue(value)));
             }
+        }
+
+        /// <summary>
+        /// Called by the MVC framework before the action method executes.
+        /// </summary>
+        /// <param name="filterContext">The filter context.</param>
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            base.OnActionExecuting(filterContext);
+            foreach (KeyValuePair<string, object> actionParameter in filterContext.ActionParameters)
+            {
+                var value = actionParameter.Value;
+                if (value is string)
+                {
+                    filterContext.ActionParameters[actionParameter.Key] = AntiXss.HtmlEncode((string)value);
+                }
+                else
+                {
+                    PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(value);
+                    foreach (PropertyDescriptor property in properties)
+                    {
+                        if (property.PropertyType == typeof (string))
+                        {
+                            ProcessProperty(value, property);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called when authorization is required.
+        /// </summary>
+        /// <param name="filterContext">The filter context.</param>
+        public void OnAuthorization(AuthorizationContext filterContext)
+        {
+            if (filterContext == null)
+            {
+                throw new ArgumentNullException("filterContext");
+            }
+            // disable default validation request
+            filterContext.Controller.ValidateRequest = false;
         }
     }
 }
