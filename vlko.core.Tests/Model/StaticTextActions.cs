@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
@@ -23,6 +24,10 @@ namespace vlko.core.Tests.Model
         [TestInitialize]
         public void Init()
         {
+            var doc = new XmlDocument();
+            doc.Load("log4net.config");
+            log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
+
             model.IoC.IoC.InitializeWith(new WindsorContainer());
             ApplicationInit.InitializeRepositories();
             base.SetUp();
@@ -36,6 +41,7 @@ namespace vlko.core.Tests.Model
                 var statText1 = new StaticText
                                     {
                                         Title = "text1",
+                                        FriendlyUrl = "text1",
                                         CreatedBy = _user,
                                         CreatedDate = DateTime.Now,
                                         ActualVersion = 1,
@@ -59,9 +65,77 @@ namespace vlko.core.Tests.Model
                                                                          }
                                                                  }
                                     };
+                statText1.Comments = new List<Comment>
+                                         {
+                                             new Comment
+                                                 {
+                                                     Name = "first_comment",
+                                                     Content = statText1,
+                                                     Owner = _user,
+                                                     AnonymousName = null,
+                                                     CreatedDate = new DateTime(2002, 1, 1),
+                                                     ActualVersion = 0,
+                                                     CommentVersions = new List<CommentVersion>()
+                                                                           {
+                                                                               new CommentVersion
+                                                                                   {
+                                                                                       CreatedDate =
+                                                                                           new DateTime(2002,
+                                                                                                        1, 1),
+                                                                                       CreatedBy = _user,
+                                                                                       ClientIp =
+                                                                                           "192.168.1.1",
+                                                                                       UserAgent = "mozilla",
+                                                                                       Text =
+                                                                                           "this is unique commen",
+                                                                                       Version = 0
+                                                                                   }
+                                                                           }
+                                                 },
+                                             new Comment
+                                                 {
+                                                     Name = "first_comment",
+                                                     Content = statText1,
+                                                     Owner = _user,
+                                                     AnonymousName = null,
+                                                     CreatedDate = new DateTime(2002, 1, 1),
+                                                     ActualVersion = 1,
+                                                     CommentVersions = new List<CommentVersion>()
+                                                                           {
+                                                                               new CommentVersion
+                                                                                   {
+                                                                                       CreatedDate =
+                                                                                           new DateTime(2002,
+                                                                                                        1, 1),
+                                                                                       CreatedBy = _user,
+                                                                                       ClientIp =
+                                                                                           "192.168.1.1",
+                                                                                       UserAgent = "mozilla",
+                                                                                       Text =
+                                                                                           "this is unique commen",
+                                                                                       Version = 0
+                                                                                   },
+                                                                               new CommentVersion
+                                                                                   {
+                                                                                       CreatedDate =
+                                                                                           new DateTime(2002,
+                                                                                                        2, 1),
+                                                                                       CreatedBy = _user,
+                                                                                       ClientIp =
+                                                                                           "192.168.2.1",
+                                                                                       UserAgent = "mozilla",
+                                                                                       Text =
+                                                                                           "this is unique commen - change",
+                                                                                       Version = 1
+                                                                                   }
+                                                                           }
+                                                 }
+
+                                         };
                 var statText2 = new StaticText
                 {
                     Title = "text2",
+                    FriendlyUrl = "text2",
                     CreatedBy = _user,
                     CreatedDate = DateTime.Now,
                     ActualVersion = 2,
@@ -95,6 +169,7 @@ namespace vlko.core.Tests.Model
                 var statText3 = new StaticText
                 {
                     Title = "text3",
+                    FriendlyUrl = "text",
                     CreatedBy = _user,
                     CreatedDate = DateTime.Now,
                     ActualVersion = 0,
@@ -174,7 +249,8 @@ namespace vlko.core.Tests.Model
                                    ChangeDate = new DateTime(2002, 1, 1),
                                    PublishDate = new DateTime(2002, 2, 1),
                                    AllowComments = true,
-                                   Title = "create new",
+                                   Title = "čreate new",
+                                   FriendlyUrl = "create-new",
                                    Text = "create new content"
                                };
 
@@ -186,10 +262,12 @@ namespace vlko.core.Tests.Model
                     tran.Commit();
                 }
 
+                Assert.AreEqual("create-new", item.FriendlyUrl);
 
                 var storedItem = crudActions.FindByPk(item.Id);
 
                 Assert.AreEqual(item.Id, storedItem.Id);
+                Assert.AreEqual(item.FriendlyUrl, storedItem.FriendlyUrl);
                 Assert.AreEqual(item.Creator.Id, storedItem.Creator.Id);
                 Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
                 Assert.AreEqual(item.PublishDate, storedItem.PublishDate);
@@ -210,7 +288,8 @@ namespace vlko.core.Tests.Model
                     ChangeDate = new DateTime(2002, 1, 1),
                     PublishDate = new DateTime(2002, 2, 1),
                     AllowComments = true,
-                    Title = "updateable new",
+                    Title = "text",
+                    FriendlyUrl = "text_update",
                     Text = "updateable new content"
                 };
 
@@ -226,6 +305,7 @@ namespace vlko.core.Tests.Model
                 var storedItem = crudActions.FindByPk(item.Id);
 
                 Assert.AreEqual(item.Id, storedItem.Id);
+                Assert.AreEqual(item.FriendlyUrl, storedItem.FriendlyUrl);
                 Assert.AreEqual(item.Creator.Id, storedItem.Creator.Id);
                 Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
                 Assert.AreEqual(item.PublishDate, storedItem.PublishDate);
@@ -247,6 +327,7 @@ namespace vlko.core.Tests.Model
                 storedItem = crudActions.FindByPk(item.Id);
 
                 Assert.AreEqual(item.Id, storedItem.Id);
+                Assert.AreEqual(item.FriendlyUrl, storedItem.FriendlyUrl);
                 Assert.AreEqual(item.Creator.Id, storedItem.Creator.Id);
                 Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
                 Assert.AreEqual(item.PublishDate, storedItem.PublishDate);
@@ -332,9 +413,82 @@ namespace vlko.core.Tests.Model
                     tran.Commit();
                 }
 
-                Assert.AreEqual(initialStaticTextCount , ActiveRecordMediator<StaticText>.Count());
-                Assert.AreEqual(initialStaticTextVersionCount, ActiveRecordMediator<StaticTextVersion>.Count());
+                Assert.AreEqual(initialStaticTextCount, RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>().GetAll().Count());
+                Assert.AreEqual(1, RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>().GetDeleted().Count());
             }
+        }
+
+        [TestMethod]
+        public void Data_get_by_id()
+        {
+            using (RepositoryFactory.StartUnitOfWork())
+            {
+                var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+
+                // check existing
+                foreach (StaticText staticText in _testData)
+                {
+                    var statData = dataActions.Get(staticText.Id);
+
+                    Assert.IsNotNull(statData);
+                    Assert.AreEqual(staticText.Id, statData.Id);
+                    Assert.AreEqual(staticText.Comments == null ? 0 : staticText.Comments.Count, statData.CommentCounts);
+                }
+
+                // check not existing
+                var statDataNotExisting = dataActions.Get(Guid.NewGuid());
+
+                Assert.IsNull(statDataNotExisting);
+            }
+        }
+
+        [TestMethod]
+        public void Data_get_by_friendly_url()
+        {
+            using (RepositoryFactory.StartUnitOfWork())
+            {
+                var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+
+                // check existing
+                foreach (StaticText staticText in _testData)
+                {
+                    var statData = dataActions.Get(staticText.FriendlyUrl);
+
+                    Assert.IsNotNull(statData);
+                    Assert.AreEqual(staticText.Id, statData.Id);
+                    Assert.AreEqual(staticText.FriendlyUrl, statData.FriendlyUrl);
+                    Assert.AreEqual(staticText.Comments == null ? 0 : staticText.Comments.Count, statData.CommentCounts);
+                }
+
+                // check not existing
+                var statDataNotExisting = dataActions.Get("not-a-text");
+
+                Assert.IsNull(statDataNotExisting);
+            }
+        }
+
+        [TestMethod]
+        public void Data_get_all()
+        {
+            using (RepositoryFactory.StartUnitOfWork())
+            {
+                var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+
+                var dataItems = dataActions.GetAll().OrderBy(item => item.FriendlyUrl).ToArray();
+                var originalItems = _testData.OrderBy(item => item.FriendlyUrl).ToArray();
+
+                Assert.AreEqual(dataItems.Length, originalItems.Length);
+
+                for (int i = 0; i < _testData.Length; i++)
+                {
+                    var dataItem = dataItems[i];
+                    var originalItem = originalItems[i];
+
+                    Assert.AreEqual(originalItem.Id, dataItem.Id);
+                    Assert.AreEqual(originalItem.FriendlyUrl, dataItem.FriendlyUrl);
+                    Assert.AreEqual(originalItem.Comments == null ? 0 : originalItem.Comments.Count, dataItem.CommentCounts);
+                }
+           }
         }
     }
 }

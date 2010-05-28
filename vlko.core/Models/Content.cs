@@ -56,6 +56,13 @@ namespace vlko.core.Models
         public virtual bool AreCommentAllowed { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Content"/> is deleted.
+        /// </summary>
+        /// <value><c>true</c> if deleted; otherwise, <c>false</c>.</value>
+        [Property]
+        public virtual bool Deleted { get; set; }
+
+        /// <summary>
         /// Gets or sets the created by.
         /// </summary>
         /// <value>The created by.</value>

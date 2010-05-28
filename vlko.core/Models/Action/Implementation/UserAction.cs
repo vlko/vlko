@@ -3,10 +3,11 @@ using System.Linq;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Linq;
 using GenericRepository;
+using vlko.core.Authentication;
 
 namespace vlko.core.Models.Action.Implementation
 {
-    public class CreateAdminAction : ICreateAdminAction
+    public class UserAction : IUserAction
     {
         /// <summary>
         /// Gets a value indicating whether this <see cref="IAction&lt;T&gt;"/> is initialized.
@@ -48,6 +49,7 @@ namespace vlko.core.Models.Action.Implementation
                                        Email = adminEmail,
                                        Password = UserAuthentication.HashPassword(defaultPassword),
                                        LastSeen = DateTime.Now,
+                                       Roles = AccountValidation.AdminRole,
                                        Verified = true,
 
                                    };
@@ -58,6 +60,16 @@ namespace vlko.core.Models.Action.Implementation
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// Gets the name of the by.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns>User instance.</returns>
+        public User GetByName(string username)
+        {
+            return ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Name == username);
         }
     }
 }

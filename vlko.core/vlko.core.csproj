@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>vlko.core</RootNamespace>
     <AssemblyName>vlko.core</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -31,6 +31,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,6 +81,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\_dependencies\MvcFutures\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\NHibernate.dll</HintPath>
@@ -115,7 +119,10 @@
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_dependencies\mvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -143,6 +150,24 @@
     <Compile Include="Authentication\Implementation\FormsAuthenticationService.cs" />
     <Compile Include="Authentication\IFormsAuthenticationService.cs" />
     <Compile Include="Authentication\IUserAuthenticationService.cs" />
+    <Compile Include="Authentication\UserInfo.cs" />
+    <Compile Include="Components\IPagedModel.cs" />
+    <Compile Include="Components\PagerModel.cs" />
+    <Compile Include="Components\PagedModel.cs" />
+    <Compile Include="Components\ExtendedModelBinder.cs" />
+    <Compile Include="HtmlExtender\CssManager.cs" />
+    <Compile Include="HtmlExtender\Localization.cs" />
+    <Compile Include="HtmlExtender\ScriptManager.cs" />
+    <Compile Include="ModelResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Action\IStaticTextData.cs" />
+    <Compile Include="Models\Action\Implementation\StaticTextData.cs" />
+    <Compile Include="Models\Action\ViewModel\StaticTextViewModel.cs" />
+    <Compile Include="Tools\InstanceCreator.cs" />
+    <Compile Include="Tools\FriendlyUrlGenerator.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
     <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />
     <Compile Include="ValidationAtribute\ValidatePasswordLengthAttribute.cs" />
@@ -152,8 +177,8 @@
     <Compile Include="IoC\IoC.cs" />
     <Compile Include="IoC\RepositoryFactoryResolver.cs" />
     <Compile Include="Models\Action\AuthenicationStatuses.cs" />
-    <Compile Include="Models\Action\Implementation\CreateAdminAction.cs" />
-    <Compile Include="Models\Action\ICreateAdminAction.cs" />
+    <Compile Include="Models\Action\Implementation\UserAction.cs" />
+    <Compile Include="Models\Action\IUserAction.cs" />
     <Compile Include="Models\Action\Implementation\CommentCrud.cs" />
     <Compile Include="Models\Action\ICommentCrud.cs" />
     <Compile Include="Models\Action\Implementation\StaticTextCrud.cs" />
@@ -202,6 +227,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ModelResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ModelResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

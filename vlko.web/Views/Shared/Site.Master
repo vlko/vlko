@@ -3,38 +3,45 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
-    <link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
+	<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+	<% 
+		Html.CssInclude("~/Content/Site.css");
+		Html.CssInclude("~/Content/jquery-ui-1.8.1.custom.css");
+		Html.ScriptInclude("~/Scripts/jquery-1.4.2.js", "~/Scripts/jquery-1.4.2.min.js");
+		Html.ScriptInclude("~/Scripts/jquery-ui-1.8.1.custom.min.js");
+		Html.ScriptInclude("~/Scripts/Common.js"); 
+	%>
+	<%= Html.RenderCss() %>
 </head>
 
 <body>
-    <div class="page">
-
-        <div id="header">
-            <div id="title">
-                <h1>My MVC Application</h1>
-            </div>
-              
-            <div id="logindisplay">
-                <% Html.RenderPartial("LogOnUserControl"); %>
-            </div> 
-            
-            <div id="menucontainer">
-            
-                <ul id="menu">              
-                    <li><%= Html.ActionLink("Home", "Index", "Home")%></li>
-                    <li><%= Html.ActionLink("About", "About", "Home")%></li>
-                </ul>
-            
-            </div>
-        </div>
-
-        <div id="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-
-            <div id="footer">
-            </div>
-        </div>
-    </div>
+	<div class="page">
+		<div id="header">
+			<div id="title">
+				<h1>My MVC Application</h1>
+			</div>
+			<div id="logindisplay">
+				<% Html.RenderPartial("~/Views/Shared/LogOnUserControl.ascx"); %>
+			</div> 
+			<div id="menucontainer">
+			
+				<ul id="menu">              
+					<li><%= Html.ActionLink("Home", "Index", "Home")%></li>
+					<li><%= Html.ActionLink("About", "About", "Home")%></li>
+					<li><%= Html.ActionLink("Static text", "Index", "StaticPage")%></li>
+				</ul>
+			
+			</div>
+		</div>
+		<div id="main">
+			<div id="content">
+			<asp:ContentPlaceHolder ID="MainContent" runat="server" />
+			</div>
+			<div id="footer">
+			</div>
+		</div>
+	</div>
+	<%= Html.RenderScripts() %>
+	<% Html.RenderInlineScripts(); %>
 </body>
 </html>

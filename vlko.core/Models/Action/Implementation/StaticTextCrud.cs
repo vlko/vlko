@@ -10,6 +10,7 @@ using NHibernate.Criterion;
 using NHibernate.LambdaExtensions;
 using vlko.core.ActiveRecord;
 using vlko.core.Models.Action.ActionModel;
+using vlko.core.Tools;
 using NotFoundException = GenericRepository.Exceptions.NotFoundException;
 
 namespace vlko.core.Models.Action.Implementation
@@ -41,6 +42,7 @@ namespace vlko.core.Models.Action.Implementation
             var staticText = new StaticText
                                  {
                                      Title = item.Title,
+                                     FriendlyUrl = item.FriendlyUrl,
                                      CreatedDate = item.ChangeDate,
                                      PublishDate = item.PublishDate,
                                      CreatedBy = item.Creator,
@@ -106,6 +108,9 @@ namespace vlko.core.Models.Action.Implementation
                         staticTextVersion => staticTextVersion.StaticText.Id)
                              .As(() => result.Id))
                     .Add(LambdaProjection.Property<StaticTextVersion>(
+                        staticTextVersion => staticTextVersion.StaticText.FriendlyUrl)
+                             .As(() => result.FriendlyUrl))
+                    .Add(LambdaProjection.Property<StaticTextVersion>(
                         staticTextVersion => staticTextVersion.StaticText.Title)
                              .As(() => result.Title))
                     .Add(LambdaProjection.Property<StaticTextVersion>(
@@ -137,12 +142,18 @@ namespace vlko.core.Models.Action.Implementation
         /// Updates the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns>Updted item.</returns>
+        /// <returns>Updated item.</returns>
         public StaticTextActionModel Update(StaticTextActionModel item)
         {
             var staticText = ActiveRecordMediator<StaticText>.FindByPrimaryKey(item.Id);
 
+                        if (string.IsNullOrEmpty(item.FriendlyUrl))
+            {
+                item.FriendlyUrl = item.Title;
+            }
+
             staticText.Title = item.Title;
+            staticText.FriendlyUrl = item.FriendlyUrl;
             staticText.PublishDate = item.PublishDate;
             staticText.CreatedBy = item.Creator;
             staticText.AreCommentAllowed = item.AllowComments;
@@ -170,7 +181,8 @@ namespace vlko.core.Models.Action.Implementation
         public void Delete(StaticTextActionModel item)
         {
             var staticText = ActiveRecordMediator<StaticText>.FindByPrimaryKey(item.Id);
-            ActiveRecordMediator<StaticText>.Delete(staticText);
+            staticText.Deleted = true;
+            ActiveRecordMediator<StaticText>.Save(staticText);
         }
     }
 }

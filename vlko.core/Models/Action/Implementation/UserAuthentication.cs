@@ -190,7 +190,7 @@ namespace vlko.core.Models.Action.Implementation
         /// </summary>
         /// <param name="verifyToken">The verify token.</param>
         /// <returns>
-        /// True if registration proces succed otherwise false;
+        /// True if registration process succeed otherwise false;
         /// </returns>
         public bool ConfirmRegistration(string verifyToken)
         {
@@ -250,13 +250,13 @@ namespace vlko.core.Models.Action.Implementation
         }
 
         /// <summary>
-        /// Resets the pasword.
+        /// Resets the password.
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="verifyToken">The verify token.</param>
         /// <param name="newPassword">The new password.</param>
         /// <returns>True if password changed.</returns>
-        public bool ResetPasword(string username, string verifyToken, string newPassword)
+        public bool ResetPassword(string username, string verifyToken, string newPassword)
         {
             var userToReset = ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Name == username);
             if (userToReset != null

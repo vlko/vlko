@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
 using GenericRepository;
+using vlko.core.Authentication;
 
 namespace vlko.core.Base
 {
@@ -14,6 +15,12 @@ namespace vlko.core.Base
     public class BaseController : Controller
     {
         /// <summary>
+        /// Gets or sets the user info.
+        /// </summary>
+        /// <value>The user info.</value>
+        public UserInfo UserInfo { get; set; }
+
+        /// <summary>
         /// Executes the specified request context.
         /// </summary>
         /// <param name="requestContext">The request context.</param>
@@ -22,8 +29,41 @@ namespace vlko.core.Base
         {
             using (RepositoryFactory.StartUnitOfWork())
             {
+                UserInfo = new UserInfo(requestContext.HttpContext.User.Identity.Name);
                 base.Execute(requestContext);
             }
+        }
+
+        /// <summary>
+        /// Views the with ajax support.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>View.</returns>
+        protected ViewResult ViewWithAjax(object model = null)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                return View(null, "~/Views/Shared/Ajax.Master", model);
+            }
+            return View(model);
+        }
+
+        /// <summary>
+        /// Redirects to action with ajax support.
+        /// </summary>
+        /// <param name="actionName">Name of the action.</param>
+        /// <returns>Action result.</returns>
+        protected ActionResult RedirectToActionWithAjax(string actionName, string controllerName = null)
+        {
+            if (controllerName == null)
+            {
+                controllerName = this.ValueProvider.GetValue("controller").RawValue.ToString();
+            }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { actionName, controllerName}, "json");
+            }
+            return RedirectToAction(actionName);
         }
     }
 }

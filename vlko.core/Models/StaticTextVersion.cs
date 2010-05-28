@@ -25,7 +25,7 @@ namespace vlko.core.Models
         /// Gets or sets the text.
         /// </summary>
         /// <value>The text.</value>
-        [Property]
+        [Property(ColumnType = "StringClob")]
         public virtual string Text { get; set; }
 
         /// <summary>

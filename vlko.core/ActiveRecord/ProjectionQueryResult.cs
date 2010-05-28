@@ -37,7 +37,9 @@ namespace vlko.core.ActiveRecord
         /// <returns>Order query result.</returns>
         public IQueryResult<T> OrderBy(Expression<Func<T, object>> query)
         {
-            return new ProjectionQueryResult<ARType, T>(CriteriaTransformer.Clone(_criteria).AddOrder(query, Order.Asc), _projectionList);
+            return new ProjectionQueryResult<ARType, T>(CriteriaTransformer.Clone(_criteria)
+                .AddOrder(new Order(GetProjectionFromOrderQuery(query, _projectionList), true)),
+                _projectionList);
         }
 
         /// <summary>
@@ -47,7 +49,41 @@ namespace vlko.core.ActiveRecord
         /// <returns>Order query result.</returns>
         public IQueryResult<T> OrderByDescending(Expression<Func<T, object>> query)
         {
-            return new ProjectionQueryResult<ARType, T>(CriteriaTransformer.Clone(_criteria).AddOrder(query, Order.Desc), _projectionList);
+            return new ProjectionQueryResult<ARType, T>(CriteriaTransformer.Clone(_criteria)
+                .AddOrder(new Order(GetProjectionFromOrderQuery(query, _projectionList), false)),
+                _projectionList);
+        }
+
+        /// <summary>
+        /// Gets the projection from order query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="projectionList">The projection list.</param>
+        /// <returns>Projection based on query.</returns>
+        private static IProjection GetProjectionFromOrderQuery(Expression<Func<T, object>> query, ProjectionList projectionList)
+        {
+            string alias = string.Empty;
+            if (((LambdaExpression)query).Body is UnaryExpression)
+            {
+                alias = ((MemberExpression)((UnaryExpression)((LambdaExpression)query).Body).Operand).Member.Name;
+            }
+            else
+            {
+                alias = ((MemberExpression) ((LambdaExpression) query).Body).Member.Name;
+            }
+            for (int i = 0; i < projectionList.Aliases.Length; i++)
+            {
+                var reducatedAlias = projectionList.Aliases[i];
+                if (reducatedAlias.Contains('.'))
+                {
+                    reducatedAlias = reducatedAlias.Remove(0, reducatedAlias.IndexOf('.') + 1);
+                }
+                if (reducatedAlias == alias)
+                {
+                    return projectionList[i];
+                }
+            }
+            return null;
         }
 
         /// <summary>

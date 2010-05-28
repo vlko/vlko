@@ -56,7 +56,7 @@ namespace vlko.core.Models.Action
         /// Confirms the registration.
         /// </summary>
         /// <param name="verifyToken">The verify token.</param>
-        /// <returns>True if registration proces succed otherwise false;</returns>
+        /// <returns>True if registration process succeed otherwise false;</returns>
         bool ConfirmRegistration(string verifyToken);
 
         /// <summary>
@@ -68,12 +68,12 @@ namespace vlko.core.Models.Action
         ResetUserPasswordStatus GetResetPasswordToken(string email, out string verifyToken);
 
         /// <summary>
-        /// Resets the pasword.
+        /// Resets the password.
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="verifyToken">The verify token.</param>
         /// <param name="newPassword">The new password.</param>
         /// <returns>True if password changed.</returns>
-        bool ResetPasword(string username, string verifyToken, string newPassword);
+        bool ResetPassword(string username, string verifyToken, string newPassword);
     }
 }

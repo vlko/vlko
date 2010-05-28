@@ -6,8 +6,12 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.ActiveRecord;
 using Castle.Windsor;
+using GenericRepository;
+using Microsoft.Web.Mvc.AspNet4;
+using NLog;
 using vlko.core;
 using vlko.core.Models.Action;
+using vlko.core.Models.Action.ActionModel;
 using vlko.model.IoC;
 
 namespace vlko.web
@@ -48,15 +52,72 @@ namespace vlko.web
 
             RegisterRoutes(RouteTable.Routes);
 
+            // register data annotations provider for .net 4
+            ModelMetadataProviders.Current = new DataAnnotations4ModelMetadataProvider();
+            DataAnnotations4ModelValidatorProvider.RegisterProvider();
+
             IoC.InitializeWith(new WindsorContainer());
             ApplicationInit.InitializeRepositories();
             ApplicationInit.InitializeServices();
+            ApplicationInit.RegisterBinders();
 
             ActiveRecordStarter.Initialize();
             ActiveRecordStarter.RegisterTypes(ApplicationInit.ListOfModelTypes());
             ActiveRecordStarter.CreateSchema();
 
-            IoC.Resolve<ICreateAdminAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+            using (var tran = RepositoryFactory.StartTransaction())
+            {
+
+                IoC.Resolve<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+                var admin = IoC.Resolve<IUserAction>().GetByName("vlko"); 
+                IoC.Resolve<IStaticTextCrud>().Create(
+                    new StaticTextActionModel
+                        {
+                            AllowComments = false,
+                            Creator = admin,
+                            Title = "Home",
+                            FriendlyUrl = "Home",
+                            ChangeDate = DateTime.Now,
+                            PublishDate = DateTime.Now,
+                            Text = "Welcome to vlko"
+                        });
+                for (int i = 0; i < 1000; i++)
+                {
+                    IoC.Resolve<IStaticTextCrud>().Create(
+                    new StaticTextActionModel
+                    {
+                        AllowComments = false,
+                        Creator = admin,
+                        Title = "StaticPage" + i,
+                        FriendlyUrl = "StaticPage" + i,
+                        ChangeDate = DateTime.Now,
+                        PublishDate = DateTime.Now,
+                        Text = "Static page" + i
+                    });
+                }
+                tran.Commit();
+            }
+        }
+
+        protected virtual void Application_Error(object sender, EventArgs e)
+        {
+            string user = "unknown";
+            string url = "unknown";
+            if ((User != null) && (User.Identity != null))
+            {
+                user = User.Identity.Name;
+            }
+            try
+            {
+                url = Request.Url.ToString();
+            }
+            catch
+            {
+
+            }
+            LogManager.GetLogger("Error").ErrorException(string.Format("For user {0} on url {1} exception {2}",
+                user, url, Server.GetLastError().Message),
+                Server.GetLastError());
         }
     }
 }

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using GenericRepository;
 using vlko.core.ActiveRecord;
 using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
+using vlko.core.Components;
 using vlko.core.Models;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.Implementation;
@@ -49,13 +51,14 @@ namespace vlko.core
 
                 Component.For<BaseRepository<StaticText>>().ImplementedBy<Repository<StaticText>>(),
                 Component.For<IStaticTextCrud>().ImplementedBy<StaticTextCrud>(),
+                Component.For<IStaticTextData>().ImplementedBy<StaticTextData>(),
 
                 Component.For<BaseRepository<Comment>>().ImplementedBy<Repository<Comment>>(),
                 Component.For<ICommentCrud>().ImplementedBy<CommentCrud>(),
 
                 Component.For<BaseRepository<User>>().ImplementedBy<Repository<User>>(),
                 Component.For<IUserAuthentication>().ImplementedBy<UserAuthentication>(),
-                Component.For<ICreateAdminAction>().ImplementedBy<CreateAdminAction>()
+                Component.For<IUserAction>().ImplementedBy<UserAction>()
                 );
         }
 
@@ -71,6 +74,14 @@ namespace vlko.core
                 Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>(),
                 Component.For<IUserAuthenticationService>().ImplementedBy<UserAuthenticationService>()
                 );
+        }
+
+        /// <summary>
+        /// Registers the binders.
+        /// </summary>
+        public static void RegisterBinders()
+        {
+            ModelBinders.Binders.DefaultBinder = new ExtendedModelBinder();
         }
     }
 }

@@ -1,0 +1,6 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<asp:contentplaceholder id="TitleContent" runat="server" Visible="false">
+</asp:contentplaceholder>
+<asp:ContentPlaceHolder ID="MainContent" runat="server" />
+<%= Html.RenderScripts() %>
+<% Html.RenderInlineScripts(); %>

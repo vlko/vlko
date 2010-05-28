@@ -156,7 +156,7 @@ namespace vlko.core.Authentication.Implementation
             if (String.IsNullOrEmpty(token)) throw new ArgumentException("Token cannot be null or empty.", "token");
             if (String.IsNullOrEmpty(newPassword)) throw new ArgumentException("Password cannot be null or empty.", "newPassword");
 
-            return _userAuthentication.ResetPasword(username, token, newPassword);
+            return _userAuthentication.ResetPassword(username, token, newPassword);
         }
 
         /// <summary>

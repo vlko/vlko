@@ -26,8 +26,15 @@ namespace vlko.core.Models
         /// Gets or sets the title.
         /// </summary>
         /// <value>The title.</value>
-        [Property]
+        [Property(Length = 80)]
         public virtual string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the friendly URL.
+        /// </summary>
+        /// <value>The friendly URL.</value>
+        [Property(Unique = true)]
+        public virtual string FriendlyUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the actual version.

@@ -7,7 +7,7 @@ body
 {
     background-color: #5c87b2;
     font-size: .75em;
-    font-family: Verdana, Helvetica, Sans-Serif;
+    font-family: Helvetica, Arial, Sans-Serif;
     margin: 0;
     padding: 0;
     color: #696969;
@@ -237,7 +237,10 @@ table th
   background-color: #e8eef4; 
   border: solid 1px #e8eef4;   
 }
-
+table .no_wrap
+{
+    white-space: nowrap;
+}
 /* MISC  
 ----------------------------------------------------------*/
 .clear

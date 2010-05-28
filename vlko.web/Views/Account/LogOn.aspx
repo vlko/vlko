@@ -12,7 +12,7 @@
     </p>
 
     <% using (Html.BeginForm()) { %>
-        <%= Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.") %>
+        <%= Html.ValidationSummary(excludePropertyErrors: true, message:"Login was unsuccessful. Please correct the errors and try again.") %>
         <div>
             <fieldset>
                 <legend>Account Information</legend>

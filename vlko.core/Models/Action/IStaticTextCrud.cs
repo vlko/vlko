@@ -40,7 +40,7 @@ namespace vlko.core.Models.Action
         /// Updates the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns>Updted item.</returns>
+        /// <returns>Updated item.</returns>
         StaticTextActionModel Update(StaticTextActionModel item);
 
         /// <summary>

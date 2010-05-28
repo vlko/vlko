@@ -174,7 +174,7 @@ namespace vlko.core.Tests.Model
 
 
                 //  reset password should failed on not existed user
-                var resetResult = authentication.ResetPasword(userName, string.Empty, password);
+                var resetResult = authentication.ResetPassword(userName, string.Empty, password);
                 Assert.AreEqual(false, resetResult);
 
                 string token;
@@ -192,7 +192,7 @@ namespace vlko.core.Tests.Model
                 Assert.AreEqual(null, resettoken);
 
                 // also reset password should failed
-                resetResult = authentication.ResetPasword(userName, token, password);
+                resetResult = authentication.ResetPassword(userName, token, password);
                 Assert.AreEqual(false, resetResult);
 
                 // confirm registration);
@@ -209,7 +209,7 @@ namespace vlko.core.Tests.Model
 
                 // finally reset password
                 password = "new_password";
-                resetResult = authentication.ResetPasword(userName, token, password);
+                resetResult = authentication.ResetPassword(userName, token, password);
                 Assert.AreEqual(true, resetResult);
 
                 // validation now should pass
@@ -217,7 +217,7 @@ namespace vlko.core.Tests.Model
                 Assert.AreEqual(ValidateUserStatus.Success, verifyStatus);
 
                 // password already was reset and now should failed
-                resetResult = authentication.ResetPasword(userName, resettoken, password);
+                resetResult = authentication.ResetPassword(userName, resettoken, password);
                 Assert.AreEqual(false, resetResult);
             }
         }
@@ -235,7 +235,7 @@ namespace vlko.core.Tests.Model
 
 
                 //  reset password should failed on not existed user
-                var resetResult = authentication.ResetPasword(userName, string.Empty, password);
+                var resetResult = authentication.ResetPassword(userName, string.Empty, password);
                 Assert.AreEqual(false, resetResult);
 
                 string token;
@@ -277,7 +277,7 @@ namespace vlko.core.Tests.Model
 
 
                 //  reset password should failed on not existed user
-                var resetResult = authentication.ResetPasword(userName, string.Empty, password);
+                var resetResult = authentication.ResetPassword(userName, string.Empty, password);
                 Assert.AreEqual(false, resetResult);
 
                 string token;

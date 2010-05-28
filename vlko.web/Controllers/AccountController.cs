@@ -118,7 +118,6 @@ namespace vlko.web.Controllers
         /// <param name="model">The model</param>
         /// <returns>Action result.</returns>
         [HttpPost]
-        [AntiXss]
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
