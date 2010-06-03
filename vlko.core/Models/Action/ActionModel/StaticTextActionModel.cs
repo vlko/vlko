@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using vlko.core.ValidationAtribute;
 
 
 namespace vlko.core.Models.Action.ActionModel
@@ -67,7 +68,8 @@ namespace vlko.core.Models.Action.ActionModel
         /// <value>The text.</value>
         [Display(ResourceType = typeof(ModelResources), Name = "Text")]
         [Required(ErrorMessageResourceType = typeof(ModelResources), ErrorMessageResourceName = "TextRequireError")]
-        [DataType(DataType.MultilineText)]
+        [DataType(DataType.Html)]
+        [AntiXssHtmlText]
         public string Text { get; set; }
 
         /// <summary>

@@ -10,6 +10,7 @@ using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
 using vlko.core.Tools;
+using vlko.core.ValidationAtribute;
 using vlko.model.IoC;
 
 namespace vlko.web.Controllers
@@ -103,6 +104,7 @@ namespace vlko.web.Controllers
         /// <param name="model">The model.</param>
         /// <returns>Action result.</returns>
         [HttpPost]
+        [AntiXss]
         public ActionResult Edit(StaticTextActionModel model)
         {
             if (ModelState.IsValid)
@@ -165,6 +167,7 @@ namespace vlko.web.Controllers
         /// <param name="model">The model.</param>
         /// <returns>Action result.</returns>
         [HttpPost]
+        [AntiXss]
         public ActionResult Create(StaticTextActionModel model)
         {
             if (ModelState.IsValid)
