@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using Rhino.Mocks;
 
@@ -15,22 +16,35 @@ namespace vlko.web.Tests
         /// Mocks the request ajax.
         /// </summary>
         /// <param name="controller">The controller.</param>
-        public static void MockRequestAjax(this ControllerBase controller)
+        /// <param name="valueProvider">The value provider.</param>
+        public static void MockRequestAjax(this ControllerBase controller, NameValueCollection formValues = null)
         {
             var controllerContext = MockRepository.GenerateMock<ControllerContext>();
-            controllerContext.Expect(c => c.HttpContext.Request["X-Requested-With"]).Return("XMLHttpRequest");
+            var request = MockRepository.GenerateMock<HttpRequestBase>();
+            controllerContext.Expect(c => c.HttpContext.Request).Return(request);
+            request.Expect(c => c["X-Requested-With"]).Return("XMLHttpRequest");
             controller.ControllerContext = controllerContext;
+            if (formValues != null)
+            {
+                request.Expect(c => c.Form).Return(formValues);
+            }
         }
 
         /// <summary>
         /// Mocks the request.
         /// </summary>
         /// <param name="controller">The controller.</param>
-        public static void MockRequest(this ControllerBase controller)
+        public static void MockRequest(this ControllerBase controller, NameValueCollection formValues = null)
         {
             var controllerContext = MockRepository.GenerateMock<ControllerContext>();
-            controllerContext.Expect(c => c.HttpContext.Request["X-Requested-With"]).Return("");
+            var request = MockRepository.GenerateMock<HttpRequestBase>();
+            controllerContext.Expect(c => c.HttpContext.Request).Return(request);
+            request.Expect(c => c["X-Requested-With"]).Return("");
             controller.ControllerContext = controllerContext;
+            if (formValues != null)
+            {
+                request.Expect(c => c.Form).Return(formValues);
+            }
         }
 
         /// <summary>

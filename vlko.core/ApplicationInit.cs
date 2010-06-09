@@ -58,7 +58,9 @@ namespace vlko.core
 
                 Component.For<BaseRepository<User>>().ImplementedBy<Repository<User>>(),
                 Component.For<IUserAuthentication>().ImplementedBy<UserAuthentication>(),
-                Component.For<IUserAction>().ImplementedBy<UserAction>()
+                Component.For<IUserAction>().ImplementedBy<UserAction>(),
+
+                Component.For<IFileBrowserAction>().ImplementedBy<FileBrowserAction>()
                 );
         }
 

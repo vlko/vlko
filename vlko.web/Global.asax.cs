@@ -90,8 +90,8 @@ namespace vlko.web
                         Creator = admin,
                         Title = "StaticPage" + i,
                         FriendlyUrl = "StaticPage" + i,
-                        ChangeDate = DateTime.Now,
-                        PublishDate = DateTime.Now,
+                        ChangeDate = DateTime.Now.AddDays(-i),
+                        PublishDate = DateTime.Now.AddDays(-i),
                         Text = "Static page" + i
                     });
                 }

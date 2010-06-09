@@ -35,21 +35,24 @@ function ajaxException(xhr, ajaxOptions, thrownError) {
 }
 
 // create content dialog
-function createContentDialog(title, data, buttons) {
+function createContentDialog(title, data, buttons, dialogName) {
 	if (!buttons) {
 		buttons = { "Ok": function () { $(this).dialog("close") } };
 	}
-	var contentDialog = $('<div class="content_dialog"></div>')
+	if (!dialogName) {
+		dialogName = "content_dialog";
+	}
+	var contentDialog = $('<div class="' + dialogName + '"></div>')
 
 						.dialog({
-						    autoOpen: false,
-						    modal: true,
-						    width: $("#content").width(),
-						    draggable: true,
-						    resizable: true,
-						    title: title,
-						    close: function () { $(".content_dialog").empty(); },
-						    buttons: buttons
+							autoOpen: false,
+							modal: true,
+							width: $("#content").width(),
+							draggable: true,
+							resizable: true,
+							title: title,
+							close: function () { $("." + dialogName).empty(); },
+							buttons: buttons
 						});
 	fillContentWithData(contentDialog, data);
 	return contentDialog;
@@ -59,4 +62,8 @@ function fillContentWithData(form, data) {
 	form.html(data);
 	form.children(":not(form, .ajax_content)").hide();
 	form.children("form").children(":not(.ajax_content)").hide();
+}
+
+function updateEffect(content) {
+	content.effect("pulsate", { times: 1 }, 500);
 }

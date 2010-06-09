@@ -159,4 +159,28 @@
   <data name="TitleRequireError" xml:space="preserve">
     <value>Title empty.</value>
   </data>
+  <data name="FileDeleteFailedError" xml:space="preserve">
+    <value>File deletion failed.</value>
+  </data>
+  <data name="FileIdent" xml:space="preserve">
+    <value>New file name</value>
+  </data>
+  <data name="FileIdentExistsError" xml:space="preserve">
+    <value>File ident '{0}' already used.</value>
+  </data>
+  <data name="FileIdentRequireError" xml:space="preserve">
+    <value>File ident (without extension) required.</value>
+  </data>
+  <data name="FileTooBigError" xml:space="preserve">
+    <value>File too big (max size {0}).</value>
+  </data>
+  <data name="FileUploadFailedError" xml:space="preserve">
+    <value>File upload failed.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>File size</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>Url path</value>
+  </data>
 </root>

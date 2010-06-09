@@ -11,7 +11,7 @@ function AttachPagerAjax() {
 					var content = $("#content");
 					content.html(data);
 					closeLoading();
-					content.effect("pulsate", { times: 1 }, 500);
+					updateEffect(content);
 				},
 				error: ajaxException
 			});

@@ -18,6 +18,13 @@ namespace vlko.core.Services
         /// </summary>
         /// <value>The root URL.</value>
         string RootUrl { get; }
+
+        /// <summary>
+        /// Gets the root path.
+        /// </summary>
+        /// <value>The root path.</value>
+        string RootPath { get; }
+
         /// <summary>
         /// Gets the registration mail template.
         /// </summary>

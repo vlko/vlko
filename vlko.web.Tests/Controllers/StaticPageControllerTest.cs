@@ -158,6 +158,32 @@ namespace vlko.web.Tests.Controllers
         }
 
         [TestMethod]
+        public void Delete_post_failed()
+        {
+            // Arrange
+            StaticPageController controller = new StaticPageController();
+            controller.MockRequest();
+            controller.MockValueProvider("StaticPage");
+
+            MockUser(controller, "vlko");
+
+            var id = IoC.Resolve<IStaticTextData>().Get("staticpage0").Id;
+            var dataModel = IoC.Resolve<IStaticTextCrud>().FindByPk(id);
+
+            // Act
+            ActionResult result = controller.Delete(dataModel);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
+            Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+
+            var deletedItems = IoC.Resolve<IStaticTextData>().GetDeleted();
+            Assert.AreEqual(1, deletedItems.Count());
+            Assert.AreEqual(id, deletedItems.ToArray()[0].Id);
+        }
+
+        [TestMethod]
         public void Delete_post_fail_for_not_owner()
         {
             // Arrange

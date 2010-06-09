@@ -41,11 +41,22 @@ namespace vlko.core.Base
         /// <returns>View.</returns>
         protected ViewResult ViewWithAjax(object model = null)
         {
+            return ViewWithAjax(null, model);
+        }
+
+        /// <summary>
+        /// Views the with ajax.
+        /// </summary>
+        /// <param name="viewName">Name of the view.</param>
+        /// <param name="model">The model.</param>
+        /// <returns>View.</returns>
+        protected ViewResult ViewWithAjax(string viewName, object model = null)
+        {
             if (Request.IsAjaxRequest())
             {
-                return View(null, "~/Views/Shared/Ajax.Master", model);
+                return View(viewName, "~/Views/Shared/Ajax.Master", model);
             }
-            return View(model);
+            return View(viewName, model);
         }
 
         /// <summary>

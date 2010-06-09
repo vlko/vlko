@@ -74,6 +74,12 @@
 	<p>
 		<%: Html.ActionLink<StaticPageController>(c => c.Create(), "Create new", new { @class = "grid_create", title = "Create new" })%> 
 	</p>
-
+<% Html.ScriptInlineInclude(() => {%>
+<script type="text/javascript">
+	$(function () {
+		$("#content").ajaxGrid();
+	});
+</script> 
+<% }); %>
 </asp:Content>
 

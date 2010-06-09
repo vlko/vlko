@@ -97,6 +97,60 @@ namespace vlko.core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File deletion failed..
+        /// </summary>
+        public static string FileDeleteFailedError {
+            get {
+                return ResourceManager.GetString("FileDeleteFailedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New file name.
+        /// </summary>
+        public static string FileIdent {
+            get {
+                return ResourceManager.GetString("FileIdent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File ident &apos;{0}&apos; already used..
+        /// </summary>
+        public static string FileIdentExistsError {
+            get {
+                return ResourceManager.GetString("FileIdentExistsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File ident (without extension) required..
+        /// </summary>
+        public static string FileIdentRequireError {
+            get {
+                return ResourceManager.GetString("FileIdentRequireError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File too big (max size {0})..
+        /// </summary>
+        public static string FileTooBigError {
+            get {
+                return ResourceManager.GetString("FileTooBigError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File upload failed..
+        /// </summary>
+        public static string FileUploadFailedError {
+            get {
+                return ResourceManager.GetString("FileUploadFailedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Friendly URL.
         /// </summary>
         public static string FriendlyUrl {
@@ -142,6 +196,15 @@ namespace vlko.core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File size.
+        /// </summary>
+        public static string Size {
+            get {
+                return ResourceManager.GetString("Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text.
         /// </summary>
         public static string Text {
@@ -183,6 +246,15 @@ namespace vlko.core {
         public static string TitleRequireError {
             get {
                 return ResourceManager.GetString("TitleRequireError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Url path.
+        /// </summary>
+        public static string Url {
+            get {
+                return ResourceManager.GetString("Url", resourceCulture);
             }
         }
     }

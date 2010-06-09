@@ -19,7 +19,19 @@ namespace vlko.core.Services.Implementation
         /// <value>The root URL.</value>
         public string RootUrl
         {
-            get { return "http://vlko.preweb.sk"; }
+            get { return string.Empty; }
+        }
+
+        /// <summary>
+        /// Gets the root path.
+        /// </summary>
+        /// <value>The root path.</value>
+        public string RootPath
+        {
+            get
+            {
+                return System.Web.HttpContext.Current.Request.PhysicalApplicationPath;
+            }
         }
 
         /// <summary>

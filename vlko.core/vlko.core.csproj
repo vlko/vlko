@@ -163,8 +163,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Action\Implementation\FileBrowserAction.cs" />
+    <Compile Include="Models\Action\IFileBrowserAction.cs" />
     <Compile Include="Models\Action\IStaticTextData.cs" />
     <Compile Include="Models\Action\Implementation\StaticTextData.cs" />
+    <Compile Include="Models\Action\ViewModel\FileViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\StaticTextViewModel.cs" />
     <Compile Include="Tools\InstanceCreator.cs" />
     <Compile Include="Tools\FriendlyUrlGenerator.cs" />
@@ -232,6 +235,7 @@
     <EmbeddedResource Include="ModelResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ModelResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
