@@ -183,4 +183,13 @@
   <data name="Url" xml:space="preserve">
     <value>Url path</value>
   </data>
+	<data name="NotAllowedToChangeError">
+		<value xml:space="preserve">You are not allowed to change this item.</value>
+	</data>
+	<data name="ItemNotExistsError">
+		<value xml:space="preserve">Item not exists.</value>
+	</data>
+	<data name="NotAllowedToDeleteError">
+		<value xml:space="preserve">You are not allowed to delete this item.</value>
+	</data>
 </root>

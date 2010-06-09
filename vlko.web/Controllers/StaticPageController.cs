@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using GenericRepository;
+using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.Components;
@@ -83,7 +84,7 @@ namespace vlko.web.Controllers
                 }
                 return RedirectToActionWithAjax("Index");
             }
-            ModelState.AddModelError(string.Empty, "You are not allowed to delete this item.");
+            ModelState.AddModelError(string.Empty, ModelResources.NotAllowedToDeleteError);
 
             return ViewWithAjax(model);
         }
@@ -125,7 +126,7 @@ namespace vlko.web.Controllers
                             model.FriendlyUrl = model.Title;
                         }
 
-                        model.FriendlyUrl = GenerateUniqueFriendlyUrl(model.FriendlyUrl, Guid.Empty);
+                        model.FriendlyUrl = GenerateUniqueFriendlyUrl(model.FriendlyUrl, model.Id);
                         model.ChangeDate = DateTime.Now;
                         model.Creator = IoC.Resolve<IUserAction>().GetByName(UserInfo.Name);
 
@@ -138,12 +139,12 @@ namespace vlko.web.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "You are not allowed to change this item.");
+                        ModelState.AddModelError(string.Empty, ModelResources.NotAllowedToChangeError);
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Item not exists.");
+                    ModelState.AddModelError(string.Empty, ModelResources.ItemNotExistsError);
                 }
             }
             return ViewWithAjax(model);

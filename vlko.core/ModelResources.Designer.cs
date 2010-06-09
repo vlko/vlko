@@ -178,6 +178,33 @@ namespace vlko.core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item not exists..
+        /// </summary>
+        public static string ItemNotExistsError {
+            get {
+                return ResourceManager.GetString("ItemNotExistsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to change this item..
+        /// </summary>
+        public static string NotAllowedToChangeError {
+            get {
+                return ResourceManager.GetString("NotAllowedToChangeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to delete this item..
+        /// </summary>
+        public static string NotAllowedToDeleteError {
+            get {
+                return ResourceManager.GetString("NotAllowedToDeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publish date.
         /// </summary>
         public static string PublishDate {
