@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace vlko.core.Models.Action.ViewModel
 {
@@ -40,6 +41,7 @@ namespace vlko.core.Models.Action.ViewModel
         /// Gets or sets the id.
         /// </summary>
         /// <value>The id.</value>
+        [Key]
         public Guid Id { get; set; }
 
         /// <summary>

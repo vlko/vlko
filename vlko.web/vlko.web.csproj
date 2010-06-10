@@ -138,6 +138,41 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeTemplates\AddView\PagedList.cs">
+      <DependentUpon>PagedList.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\Create.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\Delete.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\Details.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\Edit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\Empty.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Empty.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeTemplates\AddView\List.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>List.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FileBrowserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -421,6 +456,39 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Ajax.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CodeTemplates\AddView\PagedList.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PagedList.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\Create.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Create.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\Delete.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Delete.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\Details.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Details.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Edit.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\Empty.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Empty.cs</LastGenOutput>
+    </None>
+    <None Include="CodeTemplates\AddView\List.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>List.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
