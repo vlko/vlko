@@ -55,6 +55,7 @@ namespace vlko.core
 
                 Component.For<BaseRepository<Comment>>().ImplementedBy<Repository<Comment>>(),
                 Component.For<ICommentCrud>().ImplementedBy<CommentCrud>(),
+				Component.For<ICommentData>().ImplementedBy<CommentData>(),
 
                 Component.For<BaseRepository<User>>().ImplementedBy<Repository<User>>(),
                 Component.For<IUserAuthentication>().ImplementedBy<UserAuthentication>(),

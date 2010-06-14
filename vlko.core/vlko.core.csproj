@@ -163,10 +163,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Action\Implementation\CommentData.cs" />
+    <Compile Include="Models\Action\ICommentData.cs" />
     <Compile Include="Models\Action\Implementation\FileBrowserAction.cs" />
     <Compile Include="Models\Action\IFileBrowserAction.cs" />
     <Compile Include="Models\Action\IStaticTextData.cs" />
     <Compile Include="Models\Action\Implementation\StaticTextData.cs" />
+    <Compile Include="Models\Action\ViewModel\CommentTreeViewModel.cs" />
+    <Compile Include="Models\Action\ViewModel\CommentViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\FileViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\StaticTextViewModel.cs" />
     <Compile Include="Tools\InstanceCreator.cs" />

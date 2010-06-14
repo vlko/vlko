@@ -14,7 +14,7 @@
     </p>
 
     <% using (Html.BeginForm()) { %>
-        <%= Html.ValidationSummary(true, "Password change was unsuccessful. Please correct the errors and try again.") %>
+        <%= Html.ValidationSummary(excludePropertyErrors: true, message: "Password change was unsuccessful. Please correct the errors and try again.", cssClass: "ui-state-error ui-corner-all") %>
         <div>
             <fieldset>
                 <legend>Account Information</legend>

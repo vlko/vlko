@@ -12,7 +12,7 @@
     </p>
 
     <% using (Html.BeginForm()) { %>
-        <%= Html.ValidationSummary(true, "Reset password was unsuccessful. Please correct the errors and try again.") %>
+        <%= Html.ValidationSummary(excludePropertyErrors: true, message: "Reset password was unsuccessful. Please correct the errors and try again.", cssClass: "ui-state-error ui-corner-all")%>
         <div>
             <fieldset>
                 <legend>Account email</legend>

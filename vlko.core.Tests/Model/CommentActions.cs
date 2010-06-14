@@ -81,7 +81,7 @@ namespace vlko.core.Tests.Model
                                                  },
                                              new Comment
                                                  {
-                                                     Name = "first_comment",
+                                                     Name = "second_comment",
                                                      Content = _testText,
                                                      Owner = _user,
                                                      AnonymousName = null,
@@ -358,5 +358,239 @@ namespace vlko.core.Tests.Model
                 Assert.AreEqual(initialCommentVersionCount, ActiveRecordMediator<CommentVersion>.Count());
             }
         }
+
+		[TestMethod]
+		public void GetAllFlat()
+		{
+			using (RepositoryFactory.StartUnitOfWork())
+			{
+				CreateCommentTree();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var data = dataActions.GetAllByDate(_testText.Id).ToArray();
+
+				Assert.AreEqual("first_comment", data[0].Name);
+				Assert.AreEqual("second_comment", data[1].Name);
+				// 2003, 1, 1
+				Assert.AreEqual("item0", data[2].Name);
+				Assert.AreEqual("item00", data[3].Name);
+				Assert.AreEqual("item000", data[4].Name);
+				// 2003, 1, 2
+				Assert.AreEqual("item1", data[5].Name);
+				Assert.AreEqual("item01", data[6].Name);
+				Assert.AreEqual("item001", data[7].Name);
+				// 2003, 1, 3
+				Assert.AreEqual("item2", data[8].Name);
+				Assert.AreEqual("item02", data[9].Name);
+				Assert.AreEqual("item20", data[10].Name);
+				Assert.AreEqual("item200", data[11].Name);
+				Assert.AreEqual("item2000", data[12].Name);
+				Assert.AreEqual("item20000", data[13].Name);
+				// 2003, 1, 4
+				Assert.AreEqual("item03", data[14].Name);
+			}
+		}
+
+		[TestMethod]
+		public void GetAllFlatDesc()
+		{
+			using (RepositoryFactory.StartUnitOfWork())
+			{
+				CreateCommentTree();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var data = dataActions.GetAllByDateDesc(_testText.Id).ToArray();
+				// 2003, 1, 4
+				Assert.AreEqual("item03", data[0].Name);
+				// 2003, 1, 3
+				Assert.AreEqual("item20000", data[1].Name);
+				Assert.AreEqual("item2000", data[2].Name);
+				Assert.AreEqual("item200", data[3].Name);
+				Assert.AreEqual("item02", data[4].Name);
+				Assert.AreEqual("item20", data[5].Name);
+				Assert.AreEqual("item2", data[6].Name);
+				// 2003, 1, 2
+				Assert.AreEqual("item001", data[7].Name);
+				Assert.AreEqual("item01", data[8].Name);
+				Assert.AreEqual("item1", data[9].Name);
+				// 2003, 1, 1
+				Assert.AreEqual("item000", data[10].Name);
+				Assert.AreEqual("item00", data[11].Name);
+				Assert.AreEqual("item0", data[12].Name);
+				
+				Assert.AreEqual("first_comment", data[13].Name);
+				Assert.AreEqual("second_comment", data[14].Name);
+				
+			}
+		}
+
+		/// <summary>
+		/// Creates the comment tree.
+		/// </summary>
+		/// <remarks>
+		/// 
+		/// </remarks>
+		private void CreateCommentTree()
+		{
+			using (var tran = RepositoryFactory.StartTransaction())
+			{
+				var crudActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentCrud>();
+				var item0 = crudActions.Create(new CommentActionModel()
+				                               	{
+				                               		Name = "item0",
+				                               		ParentId = null,
+				                               		ChangeUser = _user,
+				                               		AnonymousName = null,
+				                               		ClientIp = "127.0.0.1",
+				                               		Content = _testText,
+				                               		Text = "item0",
+				                               		ChangeDate = new DateTime(2003, 1, 1),
+				                               		UserAgent = "ie6"
+				                               	});
+				var item00 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item00",
+					ParentId = item0.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item00",
+					ChangeDate = new DateTime(2003, 1, 1),
+					UserAgent = "ie6"
+				});
+				var item000 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item000",
+					ParentId = item00.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item000",
+					ChangeDate = new DateTime(2003, 1, 1),
+					UserAgent = "ie6"
+				});
+				var item001 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item001",
+					ParentId = item00.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item001",
+					ChangeDate = new DateTime(2003, 1, 2),
+					UserAgent = "ie6"
+				});
+				var item01 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item01",
+					ParentId = item0.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item01",
+					ChangeDate = new DateTime(2003, 1, 2),
+					UserAgent = "ie6"
+				});
+				var item02 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item02",
+					ParentId = item0.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item02",
+					ChangeDate = new DateTime(2003, 1, 3),
+					UserAgent = "ie6"
+				});
+				var item03 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item03",
+					ParentId = item0.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item03",
+					ChangeDate = new DateTime(2003, 1, 4),
+					UserAgent = "ie6"
+				});
+				var item1 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item1",
+					ParentId = null,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item1",
+					ChangeDate = new DateTime(2003, 1, 2),
+					UserAgent = "ie6"
+				});
+				var item2 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item2",
+					ParentId = null,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item2",
+					ChangeDate = new DateTime(2003, 1, 3),
+					UserAgent = "ie6"
+				});
+				var item20 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item20",
+					ParentId = item2.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item20",
+					ChangeDate = new DateTime(2003, 1, 3),
+					UserAgent = "ie6"
+				});
+				var item200 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item200",
+					ParentId = item20.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item200",
+					ChangeDate = new DateTime(2003, 1, 3),
+					UserAgent = "ie6"
+				});
+				var item2000 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item2000",
+					ParentId = item200.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item2000",
+					ChangeDate = new DateTime(2003, 1, 3),
+					UserAgent = "ie6"
+				});
+				var item20000 = crudActions.Create(new CommentActionModel()
+				{
+					Name = "item20000",
+					ParentId = item2000.Id,
+					ChangeUser = _user,
+					AnonymousName = null,
+					ClientIp = "127.0.0.1",
+					Content = _testText,
+					Text = "item20000",
+					ChangeDate = new DateTime(2003, 1, 3),
+					UserAgent = "ie6"
+				});
+				tran.Commit();
+			}
+		}
     }
 }
