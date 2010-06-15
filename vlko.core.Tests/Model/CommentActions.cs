@@ -120,6 +120,8 @@ namespace vlko.core.Tests.Model
 
                                          };
 
+            	_testText.Comments[0].TopComment = _testText.Comments[0];
+				_testText.Comments[1].TopComment = _testText.Comments[1];
                 ActiveRecordMediator<User>.Create(_user);
                 ActiveRecordMediator<StaticText>.Create(_testText);
                 tran.VoteCommit();
@@ -419,6 +421,39 @@ namespace vlko.core.Tests.Model
 				Assert.AreEqual("first_comment", data[13].Name);
 				Assert.AreEqual("second_comment", data[14].Name);
 				
+			}
+		}
+
+		[TestMethod]
+		public void GetAllTree()
+		{
+			using (RepositoryFactory.StartUnitOfWork())
+			{
+				CreateCommentTree();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var data = dataActions.GetCommentTree(_testText.Id).ToArray();
+
+				
+				Assert.AreEqual("first_comment", data[0].Name);
+				Assert.AreEqual("second_comment", data[1].Name);
+
+				Assert.AreEqual("item0", data[2].Name);
+				var level01 = data[2].ChildNodes.ToArray();
+				Assert.AreEqual("item00", level01[0].Name);
+				Assert.AreEqual("item01", level01[1].Name);
+				Assert.AreEqual("item02", level01[2].Name);
+				Assert.AreEqual("item03", level01[3].Name);
+				var level02 = level01[0].ChildNodes.ToArray();
+				Assert.AreEqual("item000", level02[0].Name);
+				Assert.AreEqual("item001", level02[1].Name);
+
+				Assert.AreEqual("item1", data[3].Name);
+				Assert.AreEqual("item2", data[4].Name);
+				
+				Assert.AreEqual("item20", data[4].ChildNodes.ToArray()[0].Name);
+				Assert.AreEqual("item200", data[4].ChildNodes.ToArray()[0].ChildNodes.ToArray()[0].Name);
+				Assert.AreEqual("item2000", data[4].ChildNodes.ToArray()[0].ChildNodes.ToArray()[0].ChildNodes.ToArray()[0].Name);
+				Assert.AreEqual("item20000", data[4].ChildNodes.ToArray()[0].ChildNodes.ToArray()[0].ChildNodes.ToArray()[0].ChildNodes.ToArray()[0].Name);
 			}
 		}
 

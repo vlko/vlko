@@ -4,6 +4,7 @@ using Castle.ActiveRecord.Queries;
 using GenericRepository;
 using NHibernate.Criterion;
 using NHibernate.LambdaExtensions;
+using NHibernate.SqlCommand;
 using vlko.core.ActiveRecord;
 using vlko.core.Models.Action.ViewModel;
 
@@ -35,7 +36,124 @@ namespace vlko.core.Models.Action.Implementation
 		/// </returns>
 		public IEnumerable<CommentTreeViewModel> GetCommentTree(Guid contentId)
 		{
-			throw new NotImplementedException();
+			var result = new List<CommentTreeViewModel>();
+
+			var dataTreeEnumerator = GetTreeData(contentId);
+
+			CommentTreeViewModel currentTop = null;
+			foreach (var current in dataTreeEnumerator)
+			{
+				if (current.ParentCommentId == Guid.Empty)
+				{
+					currentTop = current;
+					result.Add(currentTop);
+				}
+				else
+				{
+					if (!AddToTree(currentTop, current, current.Level - 1))
+					{
+						throw new Exception("Inconsistent data for comment tree.");
+					}
+				}
+			}
+			return result;
+		}
+
+		/// <summary>
+		/// Adds to tree.
+		/// </summary>
+		/// <param name="currentNode">The current node.</param>
+		/// <param name="current">The current.</param>
+		/// <param name="level">The level.</param>
+		/// <returns>True if success, otherwise false.</returns>
+		private bool AddToTree(CommentTreeViewModel currentNode, CommentTreeViewModel current, int level)
+		{
+			if (level == 0)
+			{
+				if (currentNode.Id == current.ParentCommentId)
+				{
+					currentNode.AddChildNode(current);
+					return true;
+				}
+				return false;
+			}
+			foreach (var childNode in currentNode.ChildNodes)
+			{
+				if (AddToTree(childNode, current, level - 1))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Gets the tree data.
+		/// </summary>
+		/// <param name="contentId">The content id.</param>
+		/// <returns>Raw tree data.</returns>
+		private IEnumerable<CommentTreeViewModel> GetTreeData(Guid contentId)
+		{
+			// lambda helpers
+			CommentTreeViewModel result = null;
+			Comment Comment = null;
+			Comment ParentComment = null;
+			Comment TopComment = null;
+			Content Content = null;
+
+			// projection query
+			var projection = new ProjectionQueryResult<CommentVersion, CommentTreeViewModel>(
+
+				// add alias and filter
+				DetachedCriteria.For<CommentVersion>()
+					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment, () => Comment)
+					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.ParentComment, () => ParentComment, JoinType.LeftOuterJoin)
+					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.TopComment, () => TopComment)
+					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.Content, () => Content)
+					.Add<CommentVersion>(
+						commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version)
+					.Add<Comment>(comment => comment.Content.Id == contentId)
+					.AddOrder<Comment>(comment => comment.TopComment.CreatedDate, Order.Asc)
+					.AddOrder<CommentVersion>(commentVersion => commentVersion.Comment.Level, Order.Asc)
+					.AddOrder<CommentVersion>(commentVersion => commentVersion.Comment.CreatedDate, Order.Asc),
+
+				// map projection
+				Projections.ProjectionList()
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.Id)
+							.As(() => result.Id))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.TopComment.Id)
+							.As(() => result.TopCommentId))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.ParentComment.Id)
+							.As(() => result.ParentCommentId))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.Name)
+							.As(() => result.Name))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.CreatedDate)
+							.As(() => result.CreatedDate))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Text)
+							.As(() => result.Text))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Version)
+							.As(() => result.Version))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.Owner)
+							.As(() => result.Owner))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.AnonymousName)
+							.As(() => result.AnonymousName))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.ClientIp)
+							.As(() => result.ClientIp))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.Level)
+							.As(() => result.Level)));
+
+			return projection.ToArray();
 		}
 
 		/// <summary>

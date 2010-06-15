@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -175,6 +176,8 @@ namespace vlko.web.Tests.Controllers
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+			var queryString = new NameValueCollection();
+			controller.MockRequest(queryStringValues: queryString);
 
 			// Act
 			ActionResult result = controller.LogOn();

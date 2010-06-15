@@ -6,6 +6,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Registration finished successfully for user <%= ViewData["user"] %>.</h2>
+	<h2>Registration finished successfully for user <%= ViewData["user"] %>.</h2>
 
 </asp:Content>
