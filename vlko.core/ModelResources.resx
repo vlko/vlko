@@ -183,13 +183,28 @@
   <data name="Url" xml:space="preserve">
     <value>Url path</value>
   </data>
-	<data name="NotAllowedToChangeError">
-		<value xml:space="preserve">You are not allowed to change this item.</value>
-	</data>
-	<data name="ItemNotExistsError">
-		<value xml:space="preserve">Item not exists.</value>
-	</data>
-	<data name="NotAllowedToDeleteError">
-		<value xml:space="preserve">You are not allowed to delete this item.</value>
-	</data>
+  <data name="NotAllowedToChangeError" xml:space="preserve">
+    <value>You are not allowed to change this item.</value>
+  </data>
+  <data name="ItemNotExistsError" xml:space="preserve">
+    <value>Item not exists.</value>
+  </data>
+  <data name="NotAllowedToDeleteError" xml:space="preserve">
+    <value>You are not allowed to delete this item.</value>
+  </data>
+  <data name="Changed" xml:space="preserve">
+    <value>Changed</value>
+  </data>
+  <data name="ClientIp" xml:space="preserve">
+    <value>Ip of client</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Date of creation</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Name of user</value>
+  </data>
 </root>

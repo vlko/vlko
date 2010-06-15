@@ -169,10 +169,12 @@
     <Compile Include="Models\Action\IFileBrowserAction.cs" />
     <Compile Include="Models\Action\IStaticTextData.cs" />
     <Compile Include="Models\Action\Implementation\StaticTextData.cs" />
+    <Compile Include="Models\Action\ViewModel\CommentForAdminViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\CommentTreeViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\CommentViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\FileViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\StaticTextViewModel.cs" />
+    <Compile Include="Models\ContentType.cs" />
     <Compile Include="Tools\InstanceCreator.cs" />
     <Compile Include="Tools\FriendlyUrlGenerator.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />

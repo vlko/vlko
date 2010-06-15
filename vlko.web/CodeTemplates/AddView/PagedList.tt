@@ -89,7 +89,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 	if(primaryKeys.Count > 0) {
 #>
             <td>
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.<#= primaryKeys[0] #>), new { @class = "grid_edit", title = "Edit" })%>&nbsp;
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.<#= primaryKeys[0] #>), "Edit", new { @class = "grid_edit", title = "Edit" })%>&nbsp;
                 <%<#= nugget #> Html.ActionLink<change_me>(c => c.Details(item.<#= primaryKeys[0] #>), "Details", new { @class = "grid_details", title = "Details" })%>&nbsp;
                 <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.<#= primaryKeys[0] #>), "Delete", new { @class = "grid_delete", title = "Delete" })%> 
             </td>
@@ -97,7 +97,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 	} else {
 #>
             <td>
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.PrimaryKey), new { @class = "grid_edit", title = "Edit" })%>&nbsp;
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.PrimaryKey), "Edit", new { @class = "grid_edit", title = "Edit" })%>&nbsp;
                 <%<#= nugget #> Html.ActionLink<change_me>(c => c.Details(item.PrimaryKey), "Details", new { @class = "grid_details", title = "Details" })%>&nbsp;
                 <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.PrimaryKey), "Delete", new { @class = "grid_delete", title = "Delete" })%>             </td>
 <#

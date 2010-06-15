@@ -53,7 +53,11 @@
 		 }
 	 }
  }
+ if (pagesNumber > 1)
+ {
 %>
-<%= Html.ActionLink(pagesNumber.ToString(), Model.Action, routeValues: new { Page = pagesNumber })%>
+<%=Html.ActionLink(pagesNumber.ToString(), Model.Action, routeValues: new {Page = pagesNumber})%>
+<%
+ }%>
 <span class="pager_info"><%= string.Format("{0} - {1} of {2}", Model.StartItemNumber, Model.EndItemNumber, Model.TotalCount) %></span>
 </div>

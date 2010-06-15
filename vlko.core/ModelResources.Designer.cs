@@ -70,6 +70,15 @@ namespace vlko.core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changed.
+        /// </summary>
+        public static string Changed {
+            get {
+                return ResourceManager.GetString("Changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last change date.
         /// </summary>
         public static string ChangeDate {
@@ -79,11 +88,29 @@ namespace vlko.core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ip of client.
+        /// </summary>
+        public static string ClientIp {
+            get {
+                return ResourceManager.GetString("ClientIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of comments.
         /// </summary>
         public static string CommentCounts {
             get {
                 return ResourceManager.GetString("CommentCounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of creation.
+        /// </summary>
+        public static string CreatedDate {
+            get {
+                return ResourceManager.GetString("CreatedDate", resourceCulture);
             }
         }
         
@@ -187,6 +214,15 @@ namespace vlko.core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are not allowed to change this item..
         /// </summary>
         public static string NotAllowedToChangeError {
@@ -282,6 +318,15 @@ namespace vlko.core {
         public static string Url {
             get {
                 return ResourceManager.GetString("Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of user.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
     }

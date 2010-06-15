@@ -174,6 +174,7 @@
       <DependentUpon>List.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FileBrowserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StaticPageController.cs" />
@@ -391,6 +392,7 @@
     <Content Include="Views\Account\NotAuthorized.aspx" />
     <Content Include="Views\Account\NotValidToken.aspx" />
     <Content Include="Views\Account\ResetPassword.aspx" />
+    <Content Include="Views\Comment\Index.aspx" />
     <Content Include="Views\FileBrowser\Delete.aspx" />
     <Content Include="Views\FileBrowser\Index.aspx" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.ascx" />

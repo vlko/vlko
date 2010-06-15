@@ -29,5 +29,11 @@ namespace vlko.core.Models.Action
 		/// <param name="contentId">The content id.</param>
 		/// <returns>Get all comments in flat format ordered by date</returns>
 		IQueryResult<CommentViewModel> GetAllByDate(Guid contentId);
+
+		/// <summary>
+		/// Gets all for administration.
+		/// </summary>
+		/// <returns>Get all comments in flat format for all contents.</returns>
+		IQueryResult<CommentForAdminViewModel> GetAllForAdmin();
 	}
 }

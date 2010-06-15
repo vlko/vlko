@@ -16,20 +16,26 @@ namespace vlko.core.Components
         /// <param name="controller">The controller.</param>
         public PagerModel(IPagedModel pageModel, string action, string controller = null)
         {
-            Controller = controller;
-            Action = action;
-            CurrentPage = pageModel.CurrentPage;
-            PagesNumber = pageModel.PagesNumber;
-            TotalCount = pageModel.Count;
-            StartItemNumber = (pageModel.CurrentPage - 1)*pageModel.PageItems + 1;
-            EndItemNumber = StartItemNumber + pageModel.PageItems - 1;
-            if (EndItemNumber > TotalCount)
-            {
-                EndItemNumber = TotalCount;
-            }
+        	Controller = controller;
+        	Action = action;
+        	CurrentPage = pageModel.CurrentPage;
+        	PagesNumber = pageModel.PagesNumber;
+        	TotalCount = pageModel.Count;
+
+        	StartItemNumber = (pageModel.CurrentPage - 1)*pageModel.PageItems + 1;
+        	if (StartItemNumber < 0)
+        	{
+        		StartItemNumber = 0;
+        	}
+
+        	EndItemNumber = StartItemNumber + pageModel.PageItems - 1;
+        	if (EndItemNumber > TotalCount)
+        	{
+        		EndItemNumber = TotalCount;
+        	}
         }
 
-        /// <summary>
+    	/// <summary>
         /// Gets or sets the current page.
         /// </summary>
         /// <value>The current page.</value>

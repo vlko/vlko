@@ -4,13 +4,7 @@ using Castle.ActiveRecord;
 
 namespace vlko.core.Models
 {
-    public enum ContentType
-    {
-        RssFeed,
-        StaticText
-    }
-
-    [ActiveRecord, JoinedBase]
+	[ActiveRecord, JoinedBase]
     public class Content
     {
         /// <summary>
