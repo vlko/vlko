@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<vlko.core.Components.PagedModel<vlko.core.Models.Action.ViewModel.StaticTextViewModel>>" %>
 <%@ Import Namespace="vlko.core.Models.Action.ViewModel" %>
+<%@ Import Namespace="vlko.web.Areas.Admin.Controllers" %>
 <%@ Import Namespace="vlko.web.Controllers" %>
 <%@ Import Namespace="vlko.core.Components" %>
 <%@ Import Namespace="System.Linq.Expressions" %>

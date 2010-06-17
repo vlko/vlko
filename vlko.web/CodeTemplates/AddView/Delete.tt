@@ -83,7 +83,8 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 	}
 #>
 
-    </fieldset>
+    	</fieldset>
+	</div>
     <% using (Html.BeginForm()) { %>
         <p>
 <#

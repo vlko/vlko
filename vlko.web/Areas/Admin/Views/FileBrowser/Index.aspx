@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<vlko.web.ViewModel.FileBrowser.FileBrowserViewModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<vlko.web.Areas.Admin.ViewModel.FileBrowser.FileBrowserViewModel>" %>
+<%@ Import Namespace="vlko.web.Areas.Admin.Controllers" %>
 <%@ Import Namespace="vlko.web.Controllers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">

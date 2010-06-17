@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<vlko.core.Models.Action.ActionModel.StaticTextActionModel>" %>
+<%@ Import Namespace="vlko.web.Areas.Admin.Controllers" %>
 <%@ Import Namespace="vlko.web.Controllers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">

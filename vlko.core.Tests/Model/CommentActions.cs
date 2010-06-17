@@ -154,7 +154,7 @@ namespace vlko.core.Tests.Model
 				Assert.AreEqual(_testText.Comments[0].CommentVersions[0].CreatedDate, first.ChangeDate);
 				Assert.AreEqual(_testText.Comments[0].CommentVersions[0].Text, first.Text);
 				Assert.AreEqual(_testText.Comments[0].CommentVersions[0].CreatedBy.Id, first.ChangeUser.Id);
-				Assert.AreEqual(_testText.Comments[0].Content.Id, first.Content.Id);
+				Assert.AreEqual(_testText.Id, first.ContentId);
 
 				// get second
 				var second = crudActions.FindByPk(_testText.Comments[1].Id);
@@ -163,7 +163,7 @@ namespace vlko.core.Tests.Model
 				Assert.AreEqual(_testText.Comments[1].CommentVersions[1].CreatedDate, second.ChangeDate);
 				Assert.AreEqual(_testText.Comments[1].CommentVersions[1].Text, second.Text);
 				Assert.AreEqual(_testText.Comments[1].CommentVersions[1].CreatedBy.Id, second.ChangeUser.Id);
-				Assert.AreEqual(_testText.Comments[1].Content.Id, second.Content.Id);
+				Assert.AreEqual(_testText.Id, second.ContentId);
 			}
 		}
 
@@ -179,7 +179,7 @@ namespace vlko.core.Tests.Model
 								   ChangeUser = _user,
 								   AnonymousName = null,
 								   ClientIp = "127.0.0.1",
-								   Content = _testText,
+								   ContentId = _testText.Id,
 								   Text = "test",
 								   ChangeDate = new DateTime(2002, 1, 1),
 								   UserAgent = "ie6"
@@ -203,7 +203,7 @@ namespace vlko.core.Tests.Model
 				Assert.AreEqual(item.ClientIp, storedItem.ClientIp);
 				Assert.AreEqual(item.Name, storedItem.Name);
 				Assert.AreEqual(item.Text, storedItem.Text);
-				Assert.AreEqual(item.Content.Id, storedItem.Content.Id);
+				Assert.AreEqual(item.ContentId, storedItem.ContentId);
 
 				var subItem = new CommentActionModel()
 								  {
@@ -212,7 +212,7 @@ namespace vlko.core.Tests.Model
 									  ChangeUser = _user,
 									  AnonymousName = null,
 									  ClientIp = "127.0.0.1",
-									  Content = _testText,
+									  ContentId = _testText.Id,
 									  Text = "subtest",
 									  ChangeDate = new DateTime(2002, 1, 1),
 									  UserAgent = "ie6"
@@ -233,7 +233,7 @@ namespace vlko.core.Tests.Model
 				Assert.AreEqual(subItem.ClientIp, storedItem.ClientIp);
 				Assert.AreEqual(subItem.Name, storedItem.Name);
 				Assert.AreEqual(subItem.Text, storedItem.Text);
-				Assert.AreEqual(subItem.Content.Id, storedItem.Content.Id);
+				Assert.AreEqual(subItem.ContentId, storedItem.ContentId);
 				Assert.AreEqual(subItem.ParentId, item.Id);
 
 				var realItem = ActiveRecordMediator<Comment>.FindByPrimaryKey(item.Id);
@@ -255,7 +255,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "test_update",
 					ChangeDate = new DateTime(2002, 1, 1),
 					UserAgent = "ie6"
@@ -279,7 +279,7 @@ namespace vlko.core.Tests.Model
 				Assert.AreEqual(item.ClientIp, storedItem.ClientIp);
 				Assert.AreEqual(item.Name, storedItem.Name);
 				Assert.AreEqual(item.Text, storedItem.Text);
-				Assert.AreEqual(item.Content.Id, storedItem.Content.Id);
+				Assert.AreEqual(item.ContentId, storedItem.ContentId);
 
 				item.Text = "test_update_changed";
 				item.ChangeDate = new DateTime(2002, 1, 1);
@@ -301,7 +301,7 @@ namespace vlko.core.Tests.Model
 				Assert.AreEqual(item.ClientIp, storedItem.ClientIp);
 				Assert.AreEqual(item.Name, storedItem.Name);
 				Assert.AreEqual(item.Text, storedItem.Text);
-				Assert.AreEqual(item.Content.Id, storedItem.Content.Id);
+				Assert.AreEqual(item.ContentId, storedItem.ContentId);
 			}
 		}
 
@@ -320,7 +320,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "test_delete",
 					ChangeDate = new DateTime(2002, 1, 1),
 					UserAgent = "ie6"
@@ -345,7 +345,7 @@ namespace vlko.core.Tests.Model
 				Assert.AreEqual(item.ClientIp, storedItem.ClientIp);
 				Assert.AreEqual(item.Name, storedItem.Name);
 				Assert.AreEqual(item.Text, storedItem.Text);
-				Assert.AreEqual(item.Content.Id, storedItem.Content.Id);
+				Assert.AreEqual(item.ContentId, storedItem.ContentId);
 
 				Assert.AreNotEqual(initialCommentCount, ActiveRecordMediator<Comment>.Count());
 				Assert.AreNotEqual(initialCommentVersionCount, ActiveRecordMediator<CommentVersion>.Count());
@@ -515,7 +515,7 @@ namespace vlko.core.Tests.Model
 													ChangeUser = _user,
 													AnonymousName = null,
 													ClientIp = "127.0.0.1",
-													Content = _testText,
+													ContentId = _testText.Id,
 													Text = "item0",
 													ChangeDate = new DateTime(2003, 1, 1),
 													UserAgent = "ie6"
@@ -527,7 +527,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item00",
 					ChangeDate = new DateTime(2003, 1, 1),
 					UserAgent = "ie6"
@@ -539,7 +539,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item000",
 					ChangeDate = new DateTime(2003, 1, 1),
 					UserAgent = "ie6"
@@ -551,7 +551,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item001",
 					ChangeDate = new DateTime(2003, 1, 2),
 					UserAgent = "ie6"
@@ -563,7 +563,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item01",
 					ChangeDate = new DateTime(2003, 1, 2),
 					UserAgent = "ie6"
@@ -575,7 +575,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item02",
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
@@ -587,7 +587,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item03",
 					ChangeDate = new DateTime(2003, 1, 4),
 					UserAgent = "ie6"
@@ -599,7 +599,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item1",
 					ChangeDate = new DateTime(2003, 1, 2),
 					UserAgent = "ie6"
@@ -611,7 +611,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item2",
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
@@ -623,7 +623,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item20",
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
@@ -635,7 +635,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item200",
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
@@ -647,7 +647,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item2000",
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
@@ -659,7 +659,7 @@ namespace vlko.core.Tests.Model
 					ChangeUser = _user,
 					AnonymousName = null,
 					ClientIp = "127.0.0.1",
-					Content = _testText,
+					ContentId = _testText.Id,
 					Text = "item20000",
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"

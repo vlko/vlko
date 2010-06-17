@@ -7,15 +7,14 @@ using GenericRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.Authentication;
-using vlko.core.Authentication.Implementation;
 using vlko.core.Components;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
 using vlko.model.IoC;
-using vlko.web.Controllers;
+using vlko.web.Areas.Admin.Controllers;
 
-namespace vlko.web.Tests.Controllers
+namespace vlko.web.Tests.Controllers.Admin
 {
     [TestClass]
     public class StaticPageControllerTest : InMemoryTest

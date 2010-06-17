@@ -28,7 +28,8 @@
 				<ul id="menu">              
 					<li><%= Html.ActionLink("Home", "Index", "Home")%></li>
 					<li><%= Html.ActionLink("About", "About", "Home")%></li>
-					<li><%= Html.ActionLink("Static text", "Index", "StaticPage")%></li>
+					<li><%= Html.ActionLink("Static text", "Index", "StaticPage", routeValues: new { area = "Admin" })%></li>
+					<li><%= Html.ActionLink("Comments", "Index", "Comment", routeValues: new { area = "Admin" })%></li>
 				</ul>
 			
 			</div>

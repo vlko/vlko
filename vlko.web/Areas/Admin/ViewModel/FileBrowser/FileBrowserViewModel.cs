@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web;
 using vlko.core;
 using vlko.core.Models.Action.ViewModel;
 
-namespace vlko.web.ViewModel.FileBrowser
+namespace vlko.web.Areas.Admin.ViewModel.FileBrowser
 {
     public class FileBrowserViewModel
     {

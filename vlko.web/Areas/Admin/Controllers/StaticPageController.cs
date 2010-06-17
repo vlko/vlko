@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Web;
 using System.Web.Mvc;
 using GenericRepository;
 using vlko.core;
@@ -14,13 +12,14 @@ using vlko.core.Tools;
 using vlko.core.ValidationAtribute;
 using vlko.model.IoC;
 
-namespace vlko.web.Controllers
+namespace vlko.web.Areas.Admin.Controllers
 {
     [Authorize]
+	[AreaCheck("Admin")]
     public class StaticPageController : BaseController
     {
         /// <summary>
-        /// URL: StaticPage/Index
+        /// URL: Admin/StaticPage/Index
         /// </summary>
         /// <param name="pageModel">The page model.</param>
         /// <returns>Action result.</returns>
@@ -32,7 +31,7 @@ namespace vlko.web.Controllers
         }
 
         /// <summary>
-        /// URL: StaticPage/Deleted
+		/// URL: Admin/StaticPage/Deleted
         /// </summary>
         /// <param name="pageModel">The page model.</param>
         /// <returns>Action result.</returns>
@@ -45,7 +44,7 @@ namespace vlko.web.Controllers
         }
 
         /// <summary>
-        /// URL: StaticPage/Details
+		/// URL: Admin/StaticPage/Details
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns>Action result.</returns>
@@ -56,7 +55,7 @@ namespace vlko.web.Controllers
         }
 
         /// <summary>
-        /// URL: StaticPage/Delete
+		/// URL: Admin/StaticPage/Delete
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns>Action result.</returns>
@@ -66,7 +65,7 @@ namespace vlko.web.Controllers
         }
 
         /// <summary>
-        /// URL: StaticPage/Delete
+		/// URL: Admin/StaticPage/Delete
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>Action result.</returns>
@@ -100,7 +99,7 @@ namespace vlko.web.Controllers
         }
 
         /// <summary>
-        /// URL: StaticPage/Edit
+		/// URL: Admin/StaticPage/Edit
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>Action result.</returns>
@@ -151,7 +150,7 @@ namespace vlko.web.Controllers
         }
 
         /// <summary>
-        /// URL: StaticPage/Create
+		/// URL: Admin/StaticPage/Create
         /// </summary>
         /// <returns>Action result.</returns>
         public ActionResult Create()
@@ -163,7 +162,7 @@ namespace vlko.web.Controllers
         }
 
         /// <summary>
-        /// URL: StaticPage/Create
+		/// URL: Admin/StaticPage/Create
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>Action result.</returns>

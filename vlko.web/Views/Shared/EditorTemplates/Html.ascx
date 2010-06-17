@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+<%@ Import Namespace="vlko.web.Areas.Admin.Controllers" %>
 <%@ Import Namespace="vlko.web.Controllers" %>
 <div class="editor-label">
 	<%: Html.LabelFor(model => model)%>
@@ -18,7 +19,8 @@
 <% 
 	Html.ScriptInclude("~/Scripts/ckeditor/ck_mvc_integration.js");
 	Html.ScriptInclude("~/Scripts/ckeditor/ckeditor.js");
-	Html.ScriptInclude("~/Scripts/ckeditor/adapters/jquery.js"); 
+	Html.ScriptInclude("~/Scripts/ckeditor/adapters/jquery.js");
+	Html.ScriptInclude("~/Scripts/ckeditor/jquery.ui.dialog-patch.js");
 %>
 <% Html.ScriptInlineInclude(() => {%>
 <script type="text/javascript">

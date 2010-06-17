@@ -70,9 +70,14 @@ namespace vlko.core.Base
             {
                 controllerName = this.ValueProvider.GetValue("controller").RawValue.ToString();
             }
-            if (Request.IsAjaxRequest())
+        	string area = null;
+			if (RouteData.DataTokens["area"] != null)
+			{
+				area = RouteData.DataTokens["area"].ToString();
+			}
+        	if (Request.IsAjaxRequest())
             {
-                return Json(new { actionName, controllerName}, "json");
+                return Json(new { actionName, controllerName, area}, "json");
             }
             return RedirectToAction(actionName);
         }

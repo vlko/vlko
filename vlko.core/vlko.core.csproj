@@ -179,6 +179,7 @@
     <Compile Include="Tools\FriendlyUrlGenerator.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
     <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />
+    <Compile Include="ValidationAtribute\AreaCheckAttribute.cs" />
     <Compile Include="ValidationAtribute\ValidatePasswordLengthAttribute.cs" />
     <Compile Include="ValidationAtribute\PropertiesMustMatchAttribute.cs" />
     <Compile Include="ApplicationInit.cs" />

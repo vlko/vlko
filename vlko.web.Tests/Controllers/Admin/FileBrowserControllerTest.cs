@@ -1,28 +1,22 @@
 using System;
-using System.Reflection;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Castle.ActiveRecord.Testing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using GenericRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.Authentication;
-using vlko.core.Authentication.Implementation;
 using vlko.core.Base;
-using vlko.core.Components;
 using vlko.core.Models.Action;
-using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
 using vlko.core.Services;
 using vlko.model.IoC;
-using vlko.web.Controllers;
-using vlko.web.ViewModel.FileBrowser;
+using vlko.web.Areas.Admin.Controllers;
+using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 
-namespace vlko.web.Tests.Controllers
+namespace vlko.web.Tests.Controllers.Admin
 {
     [TestClass]
     public class FileBrowserControllerTest

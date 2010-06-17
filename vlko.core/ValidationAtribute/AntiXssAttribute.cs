@@ -9,7 +9,7 @@ using Microsoft.Security.Application;
 
 namespace vlko.core.ValidationAtribute
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class AntiXssAttribute : ActionFilterAttribute, IAuthorizationFilter
     {
         /// <summary>

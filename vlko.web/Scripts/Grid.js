@@ -13,7 +13,7 @@
 					if (data.actionName) {
 						$(dialog).dialog("close");
 						$.ajax({
-							url: "/" + data.controllerName + "/" + data.actionName + "?ajaxTime=" + new Date().getTime(),
+							url: (data.area ? "/" + data.area : "") + "/" + data.controllerName + "/" + data.actionName + "?ajaxTime=" + new Date().getTime(),
 							success: function (data) {
 								var content = $(config.content);
 								content.html(data);

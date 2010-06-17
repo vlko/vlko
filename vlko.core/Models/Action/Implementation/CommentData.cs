@@ -262,7 +262,7 @@ namespace vlko.core.Models.Action.Implementation
 				DetachedCriteria.For<CommentVersion>()
 					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment, () => Comment)
 					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.Content, () => Content)
-					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.Owner, () => Owner)
+					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.Owner, () => Owner, JoinType.LeftOuterJoin)
 					.Add<CommentVersion>(commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version),
 
 				// map projection

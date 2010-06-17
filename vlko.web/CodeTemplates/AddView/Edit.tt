@@ -84,7 +84,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 <#
 	foreach(KeyValuePair<string, string> property in properties) {
 #>
-			<%<#= nugget #> Html.EditFor(model => model.<#= property.Key #>) %>	     
+			<%<#= nugget #> Html.EditorFor(model => model.<#= property.Key #>) %>	     
 <#
 	}
 #>

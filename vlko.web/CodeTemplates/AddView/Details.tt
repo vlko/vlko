@@ -77,7 +77,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 <#
 	foreach(KeyValuePair<string, string> property in properties) {
 #>
-			<%= Html.DisplayFor(model => model.<#= property.Key #>) %>        
+			<%<#= nugget #> Html.DisplayFor(model => model.<#= property.Key #>) %>        
 <#
 	}
 #>

@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using vlko.core.Base;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ViewModel;
+using vlko.core.ValidationAtribute;
 using vlko.model.IoC;
-using vlko.web.ViewModel.FileBrowser;
+using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 
-namespace vlko.web.Controllers
+namespace vlko.web.Areas.Admin.Controllers
 {
     [Authorize]
+	[AreaCheck("Admin")]
     public class FileBrowserController : BaseController
     {
         /// <summary>

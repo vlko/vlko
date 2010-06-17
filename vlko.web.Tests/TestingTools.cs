@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Rhino.Mocks;
 
 namespace vlko.web.Tests
@@ -24,10 +25,14 @@ namespace vlko.web.Tests
 			controllerContext.Expect(c => c.HttpContext.Request).Return(request);
 			request.Expect(c => c["X-Requested-With"]).Return("XMLHttpRequest");
 			controller.ControllerContext = controllerContext;
+
+			controllerContext.Expect(c => c.RouteData).Return(new RouteData());
+
 			if (formValues != null)
 			{
 				request.Expect(c => c.Form).Return(formValues);
 			}
+
 			if (queryStringValues != null)
 			{
 				request.Expect(c => c.QueryString).Return(queryStringValues);
@@ -47,10 +52,14 @@ namespace vlko.web.Tests
 			controllerContext.Expect(c => c.HttpContext.Request).Return(request);
 			request.Expect(c => c["X-Requested-With"]).Return("");
 			controller.ControllerContext = controllerContext;
+
+			controllerContext.Expect(c => c.RouteData).Return(new RouteData());
+
 			if (formValues != null)
 			{
 				request.Expect(c => c.Form).Return(formValues);
 			}
+
 			if (queryStringValues != null)
 			{
 				request.Expect(c => c.QueryString).Return(queryStringValues);

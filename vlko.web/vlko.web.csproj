@@ -138,6 +138,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="CodeTemplates\AddView\PagedList.cs">
       <DependentUpon>PagedList.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -174,10 +175,10 @@
       <DependentUpon>List.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CommentController.cs" />
-    <Compile Include="Controllers\FileBrowserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FileBrowserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\StaticPageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StaticPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,9 +188,12 @@
     <Compile Include="ViewModel\Account\RegisterModel.cs" />
     <Compile Include="ViewModel\Account\ConfirmResetPasswordModel.cs" />
     <Compile Include="ViewModel\Account\ResetPasswordModel.cs" />
-    <Compile Include="ViewModel\FileBrowser\FileBrowserViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModel\FileBrowser\FileBrowserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Comment\Delete.aspx" />
+    <Content Include="Areas\Admin\Views\Comment\Details.aspx" />
+    <Content Include="Areas\Admin\Views\Comment\Edit.aspx" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -392,9 +396,9 @@
     <Content Include="Views\Account\NotAuthorized.aspx" />
     <Content Include="Views\Account\NotValidToken.aspx" />
     <Content Include="Views\Account\ResetPassword.aspx" />
-    <Content Include="Views\Comment\Index.aspx" />
-    <Content Include="Views\FileBrowser\Delete.aspx" />
-    <Content Include="Views\FileBrowser\Index.aspx" />
+    <Content Include="Areas\Admin\Views\Comment\Index.aspx" />
+    <Content Include="Areas\Admin\Views\FileBrowser\Delete.aspx" />
+    <Content Include="Areas\Admin\Views\FileBrowser\Index.aspx" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Collection.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Decimal.ascx" />
@@ -415,11 +419,12 @@
     <Content Include="Views\Shared\EditorTemplates\Password.ascx" />
     <Content Include="Views\Shared\EditorTemplates\String.ascx" />
     <Content Include="Views\Shared\Pager.ascx" />
-    <Content Include="Views\StaticPage\Create.aspx" />
-    <Content Include="Views\StaticPage\Delete.aspx" />
-    <Content Include="Views\StaticPage\Details.aspx" />
-    <Content Include="Views\StaticPage\Edit.aspx" />
-    <Content Include="Views\StaticPage\Index.aspx" />
+    <Content Include="Areas\Admin\Views\StaticPage\Create.aspx" />
+    <Content Include="Areas\Admin\Views\StaticPage\Delete.aspx" />
+    <Content Include="Areas\Admin\Views\StaticPage\Details.aspx" />
+    <Content Include="Areas\Admin\Views\StaticPage\Edit.aspx" />
+    <Content Include="Areas\Admin\Views\StaticPage\Index.aspx" />
+    <Content Include="Areas\Admin\Views\StaticPage\View.ascx" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -455,11 +460,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Ajax.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Web.config" />
     <None Include="CodeTemplates\AddView\PagedList.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PagedList.cs</LastGenOutput>
