@@ -79,8 +79,8 @@
 	<% foreach (var item in Model.UserFiles) { %>
 	
 		<tr>
-			<td><%: Html.ActionLink<FileBrowserController>(c => c.Delete(item.Ident), "Delete", new { @class = "grid_delete", title = "Delete" })%> </td>
-			<td><a href="<%: item.Url %>"><%: item.Url %></a></td>
+			<td><%: Html.ActionLink<FileBrowserController>(c => c.Delete(item.Ident), "Delete", new { @class = "grid_delete", title = "Delete"})%> </td>
+			<td><a href="<%: item.Url %>" target="Preview"><%: item.Url %></a></td>
 			<td><%: item.Size %></td>
 		</tr>
 	

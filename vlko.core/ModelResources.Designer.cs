@@ -124,6 +124,24 @@ namespace vlko.core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description empty..
+        /// </summary>
+        public static string DescriptionRequireError {
+            get {
+                return ResourceManager.GetString("DescriptionRequireError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File deletion failed..
         /// </summary>
         public static string FileDeleteFailedError {

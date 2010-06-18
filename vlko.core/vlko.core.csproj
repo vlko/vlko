@@ -174,7 +174,9 @@
     <Compile Include="Models\Action\ViewModel\CommentViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\FileViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\StaticTextViewModel.cs" />
+    <Compile Include="Models\Action\ViewModel\StaticTextWithFullTextViewModel.cs" />
     <Compile Include="Models\ContentType.cs" />
+    <Compile Include="Models\ModelConstants.cs" />
     <Compile Include="Tools\InstanceCreator.cs" />
     <Compile Include="Tools\FriendlyUrlGenerator.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />

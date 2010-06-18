@@ -36,7 +36,8 @@ namespace vlko.core.ValidationAtribute
 		/// <param name="filterContext">The filter context.</param>
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			if (AreaName != filterContext.RouteData.DataTokens["area"].ToString())
+			var areaToken = filterContext.RouteData.DataTokens["area"];
+			if (areaToken == null || AreaName != areaToken.ToString())
 			{
 				throw new HttpException((int)HttpStatusCode.NotFound, "File not found");
 			}

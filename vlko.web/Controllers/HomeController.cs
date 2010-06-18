@@ -9,6 +9,10 @@ namespace vlko.web.Controllers
     [HandleError]
     public class HomeController : Controller
     {
+		/// <summary>
+		/// URL: Home/Index
+		/// </summary>
+		/// <returns>Action result.</returns>
         public ActionResult Index()
         {
             ViewData["Message"] = "Welcome to ASP.NET MVC!";
@@ -16,6 +20,10 @@ namespace vlko.web.Controllers
             return View();
         }
 
+		/// <summary>
+		/// URL: Home/About
+		/// </summary>
+		/// <returns>Action result.</returns>
         public ActionResult About()
         {
             return View();

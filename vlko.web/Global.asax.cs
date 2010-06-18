@@ -39,6 +39,12 @@ namespace vlko.web
 			);
 
 			routes.MapRoute(
+				"PageView", // Route name
+				"Page/{friendlyUrl}", // URL with parameters
+				new { controller = "Page", action = "View" } // Parameter defaults
+			);
+
+			routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters
 				new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
@@ -79,20 +85,22 @@ namespace vlko.web
 							FriendlyUrl = "Home",
 							ChangeDate = DateTime.Now,
 							PublishDate = DateTime.Now,
-							Text = "Welcome to vlko"
+							Text = "Welcome to vlko",
+							Description = "Welcome to vlko"
 						});
 				for (int i = 0; i < 1000; i++)
 				{
 					var text = IoC.Resolve<IStaticTextCrud>().Create(
 						new StaticTextActionModel
 							{
-								AllowComments = false,
+								AllowComments = true,
 								Creator = admin,
 								Title = "StaticPage" + i,
 								FriendlyUrl = "StaticPage" + i,
 								ChangeDate = DateTime.Now.AddDays(-i),
 								PublishDate = DateTime.Now.AddDays(-i),
-								Text = "Static page" + i
+								Text = "Static page" + i,
+								Description = "Static page" + i
 							});
 					IoC.Resolve<ICommentCrud>().Create(
 						new CommentActionModel()

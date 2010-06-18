@@ -242,7 +242,7 @@ namespace vlko.web.Tests.Controllers.Admin
                                 Title = "CreateTest",
                                 FriendlyUrl = "StaticPage",
                                 PublishDate = DateTime.Now,
-                                Text = "Create test"
+                                Text = "<p>Create test</p>"
                             };
             // Act
             ActionResult result = controller.Create(dataModel);
@@ -256,6 +256,7 @@ namespace vlko.web.Tests.Controllers.Admin
             Assert.IsNotNull(newItemByUniqueFriendlyUrl);
             Assert.AreEqual("vlko", newItemByUniqueFriendlyUrl.Creator.Name);
             Assert.AreEqual(DateTime.Now.Date, newItemByUniqueFriendlyUrl.ChangeDate.Date);
+			Assert.AreEqual("Create test", newItemByUniqueFriendlyUrl.Description);
         }
 
 
@@ -311,7 +312,7 @@ namespace vlko.web.Tests.Controllers.Admin
             var dataModel = IoC.Resolve<IStaticTextCrud>().FindByPk(id);
             dataModel.FriendlyUrl = "changed-friendly-url";
             dataModel.Title = "changed title";
-            dataModel.Text = "changed text";
+            dataModel.Text = "<p>changed text</p>";
             // Act
             ActionResult result = controller.Edit(dataModel);
 
@@ -324,7 +325,7 @@ namespace vlko.web.Tests.Controllers.Admin
             Assert.IsNotNull(changedItemByUniqueFriendlyUrl);
             Assert.AreEqual(dataModel.Id, changedItemByUniqueFriendlyUrl.Id);
             Assert.AreEqual("changed title", changedItemByUniqueFriendlyUrl.Title);
-            Assert.AreEqual("changed text", changedItemByUniqueFriendlyUrl.Text);
+            Assert.AreEqual("changed text", changedItemByUniqueFriendlyUrl.Description);
             Assert.AreEqual(DateTime.Now.Date, changedItemByUniqueFriendlyUrl.ChangeDate.Date);
         }
 
