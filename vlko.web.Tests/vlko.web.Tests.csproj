@@ -149,6 +149,7 @@
     <Compile Include="Controllers\Admin\CommentControllerTest.cs" />
     <Compile Include="Controllers\Admin\FileBrowserControllerTest.cs" />
     <Compile Include="Controllers\Admin\StaticPageControllerTest.cs" />
+    <Compile Include="Controllers\PageControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\AccountControllerTest.cs" />
