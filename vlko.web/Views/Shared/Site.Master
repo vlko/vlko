@@ -26,8 +26,9 @@
 			<div id="menucontainer">
 			
 				<ul id="menu">              
-					<li><%= Html.ActionLink("Home", "Index", "Home")%></li>
-					<li><%= Html.ActionLink("About", "About", "Home")%></li>
+					<li><%= Html.ActionLink("Home", "Index", "Home", routeValues: new { area = string.Empty })%></li>
+					<li><%= Html.ActionLink("About", "About", "Home", routeValues: new { area = string.Empty })%></li>
+					<li><%= Html.ActionLink("Pages", "Index", "Page", routeValues: new { area = string.Empty })%></li>
 					<li><%= Html.ActionLink("Static text", "Index", "StaticPage", routeValues: new { area = "Admin" })%></li>
 					<li><%= Html.ActionLink("Comments", "Index", "Comment", routeValues: new { area = "Admin" })%></li>
 				</ul>
