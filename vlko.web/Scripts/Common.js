@@ -35,14 +35,14 @@ function ajaxException(xhr, ajaxOptions, thrownError) {
 }
 
 // create content dialog
-function createContentDialog(title, data, buttons, dialogName) {
-	if (!buttons) {
-		buttons = { "Ok": function () { $(this).dialog("close") } };
+function createContentDialog(settings) {
+	var config = {
+		buttons: { "Ok": function () { $(this).dialog("close") } },
+		dialogName: "content_dialog"
 	}
-	if (!dialogName) {
-		dialogName = "content_dialog";
-	}
-	var contentDialog = $('<div class="' + dialogName + '"></div>')
+	$.extend(config, settings);
+
+	var contentDialog = $('<div class="' + config.dialogName + '"></div>')
 
 						.dialog({
 							autoOpen: false,
@@ -50,11 +50,16 @@ function createContentDialog(title, data, buttons, dialogName) {
 							width: $("#content").width(),
 							draggable: true,
 							resizable: true,
-							title: title,
-							close: function () { $("." + dialogName).empty(); },
-							buttons: buttons
+							title: config.title,
+							close: function () {
+								$("." + config.dialogName).empty(); 
+								if (config.prevUrl !== null){
+									addToHistory(config.prevUrl);
+								}
+							},
+							buttons: config.buttons
 						});
-	fillContentWithData(contentDialog, data);
+	fillContentWithData(contentDialog, config.data);
 	return contentDialog;
 }
 
@@ -67,3 +72,25 @@ function fillContentWithData(form, data) {
 function updateEffect(content) {
 	content.effect("pulsate", { times: 1 }, 500);
 }
+
+// ajax history function
+function addToHistory(url) {
+	$.history.load(url);
+}
+// get current ajax url
+function getCurrentHistoryUrl() {
+	return $.history.appState;
+}
+
+// initialize ajax history plugin
+$.history.init(function (url, phase) {
+	if (phase == "check") {
+		if (!url) {
+			window.location = window.location.href;
+		}
+		else {
+			//var newUrl = window.location.protocol + "//" + window.location.host + url
+			window.location = url;
+		}
+	}
+});

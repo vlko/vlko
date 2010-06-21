@@ -37,13 +37,19 @@
 			$("#content h3 a")
 				.click(function () {
 					createLoading();
+					var nextUrl = $(this).attr("href");
 					$.ajax({
-						url: this.href + "?ajaxTime=" + new Date().getTime(),
+						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 						success: function (data) {
-							var edit = createContentDialog('Article', data);
+							var edit = createContentDialog({
+								title: 'Article',
+								data: data,
+								prevUrl: getCurrentHistoryUrl()
+								});
 							closeLoading();
 							edit.dialog("option", "title", $("h2", edit).html());
 							edit.dialog("open");
+							addToHistory(nextUrl);
 						},
 						error: ajaxException
 					});

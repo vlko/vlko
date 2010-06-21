@@ -12,8 +12,9 @@
 				success: function (data) {
 					if (data.actionName) {
 						$(dialog).dialog("close");
+						var nextUrl = (data.area ? "/" + data.area : "") + "/" + data.controllerName + "/" + data.actionName;
 						$.ajax({
-							url: (data.area ? "/" + data.area : "") + "/" + data.controllerName + "/" + data.actionName + "?ajaxTime=" + new Date().getTime(),
+							url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 							success: function (data) {
 								var content = $(config.content);
 								content.html(data);
@@ -39,11 +40,14 @@
 			$(".grid_edit")
 				.click(function () {
 					createLoading();
+					var nextUrl = $(this).attr("href");
 					$.ajax({
-						url: this.href + "?ajaxTime=" + new Date().getTime(),
+						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 						success: function (data) {
-							var edit = createContentDialog('Edit', data,
-								{
+							var edit = createContentDialog({
+								title: 'Edit', 
+								data: data,
+								buttons: {
 									"Save": function () {
 										var form = $("form", this);
 										if (form.valid()) {
@@ -51,9 +55,12 @@
 										}
 									},
 									"Cancel": function () { $(this).dialog("close") }
+								},
+								prevUrl: getCurrentHistoryUrl()
 								});
 							closeLoading();
 							edit.dialog("open");
+							addToHistory(nextUrl);
 						},
 						error: ajaxException
 					});
@@ -70,12 +77,18 @@
 			$(".grid_details")
 				.click(function () {
 					createLoading();
+					var nextUrl = $(this).attr("href");
 					$.ajax({
-						url: this.href + "?ajaxTime=" + new Date().getTime(),
+						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 						success: function (data) {
-							var edit = createContentDialog('Detail', data);
+							var edit = createContentDialog({
+								title: 'Detail', 
+								data: data,
+								prevUrl: getCurrentHistoryUrl()
+								});
 							closeLoading();
 							edit.dialog("open");
+							addToHistory(nextUrl);
 						},
 						error: ajaxException
 					});
@@ -92,19 +105,26 @@
 			$(".grid_delete")
 				.click(function () {
 					createLoading();
+					var nextUrl = $(this).attr("href");
 					$.ajax({
-						url: this.href + "?ajaxTime=" + new Date().getTime(),
+						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 						success: function (data) {
-							var edit = createContentDialog('Delete', data,
+							var edit = createContentDialog({
+								title: 'Delete',
+								data: data,
+								buttons:
 								{
 									"Delete": function () {
 										var form = $("form", this);
 										showForm(edit, form);
 									},
 									"Cancel": function () { $(this).dialog("close") }
+								},
+								prevUrl: getCurrentHistoryUrl()
 								});
 							closeLoading();
 							edit.dialog("open");
+							addToHistory(nextUrl);
 						},
 						error: ajaxException
 					});
@@ -116,14 +136,18 @@
 					},
 					text: false
 				});
-		// create buttons
-		$(".grid_create")
+			// create buttons
+			$(".grid_create")
 			.click(function () {
 				createLoading();
+				var nextUrl = $(this).attr("href");
 				$.ajax({
-					url: this.href + "?ajaxTime=" + new Date().getTime(),
+					url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 					success: function (data) {
-						var edit = createContentDialog('Create', data,
+						var edit = createContentDialog({
+							title: 'Create',
+							data: data,
+							buttons:
 							{
 								"Save": function () {
 									var form = $("form", this);
@@ -132,9 +156,12 @@
 									}
 								},
 								"Cancel": function () { $(this).dialog("close") }
+							},
+							prevUrl: getCurrentHistoryUrl()
 							});
 						closeLoading();
 						edit.dialog("open");
+						addToHistory(nextUrl);
 					},
 					error: ajaxException
 				});

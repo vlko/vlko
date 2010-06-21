@@ -9,6 +9,7 @@
 		Html.CssInclude("~/Content/jquery-ui-1.8.1.custom.css");
 		Html.ScriptInclude("~/Scripts/jquery-1.4.2.js", "~/Scripts/jquery-1.4.2.min.js");
 		Html.ScriptInclude("~/Scripts/jquery-ui-1.8.1.custom.min.js");
+		Html.ScriptInclude("~/Scripts/jquery.history.js");
 		Html.ScriptInclude("~/Scripts/Common.js"); 
 	%>
 	<%= Html.RenderCss() %>

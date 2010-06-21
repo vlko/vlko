@@ -5,12 +5,14 @@ function AttachPagerAjax() {
 	$(".pager a:not(.loading)")
 		.click(function () {
 			createLoading();
+			var nextUrl = $(this).attr("href");
 			$.ajax({
-			    url: this.href +"&ajaxTime=" + new Date().getTime(),
+				url: nextUrl + "&ajaxTime=" + new Date().getTime(),
 				success: function (data) {
 					var content = $("#content");
 					content.html(data);
 					closeLoading();
+					addToHistory(nextUrl);
 					updateEffect(content);
 				},
 				error: ajaxException

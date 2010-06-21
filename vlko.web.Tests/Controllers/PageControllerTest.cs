@@ -20,77 +20,77 @@ namespace vlko.web.Tests.Controllers
 {
 	[TestClass]
 	public class PageControllerTest : InMemoryTest
-    {
-        public static int NumberOfGeneratedItems = 100;
-        private IUnitOfWork session;
-        [TestInitialize]
-        public void Init()
-        {
-            IoC.InitializeWith(new WindsorContainer());
-            ApplicationInit.InitializeRepositories();
-            base.SetUp();
-            using (var tran = RepositoryFactory.StartTransaction())
-            {
+	{
+		public static int NumberOfGeneratedItems = 100;
+		private IUnitOfWork session;
+		[TestInitialize]
+		public void Init()
+		{
+			IoC.InitializeWith(new WindsorContainer());
+			ApplicationInit.InitializeRepositories();
+			base.SetUp();
+			using (var tran = RepositoryFactory.StartTransaction())
+			{
 
-                IoC.Resolve<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
-                var admin = IoC.Resolve<IUserAction>().GetByName("vlko");
-                for (int i = 0; i < NumberOfGeneratedItems; i++)
-                {
-                    IoC.Resolve<IStaticTextCrud>().Create(
-                        new StaticTextActionModel
-                            {
-                                AllowComments = false,
-                                Creator = admin,
-                                Title = "StaticPage" + i,
-                                FriendlyUrl = "staticpage" + (i == NumberOfGeneratedItems - 1 ? string.Empty : i.ToString()),
-                                ChangeDate = DateTime.Now,
-                                PublishDate = DateTime.Now.AddDays(-i),
-                                Text = "Static page" + i
-                            });
-                }
-                tran.Commit();
-            }
-            session = RepositoryFactory.StartUnitOfWork();
-        }
+				IoC.Resolve<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				var admin = IoC.Resolve<IUserAction>().GetByName("vlko");
+				for (int i = 0; i < NumberOfGeneratedItems; i++)
+				{
+					IoC.Resolve<IStaticTextCrud>().Create(
+						new StaticTextActionModel
+							{
+								AllowComments = false,
+								Creator = admin,
+								Title = "StaticPage" + i,
+								FriendlyUrl = "staticpage" + (i == NumberOfGeneratedItems - 1 ? string.Empty : i.ToString()),
+								ChangeDate = DateTime.Now,
+								PublishDate = DateTime.Now.AddDays(-i),
+								Text = "Static page" + i
+							});
+				}
+				tran.Commit();
+			}
+			session = RepositoryFactory.StartUnitOfWork();
+		}
 
-        [TestCleanup]
-        public void Cleanup()
-        {
-            session.Dispose();
-            TearDown();
-        }
+		[TestCleanup]
+		public void Cleanup()
+		{
+			session.Dispose();
+			TearDown();
+		}
 
-        public override Type[] GetTypes()
-        {
-            return ApplicationInit.ListOfModelTypes();
-        }
+		public override Type[] GetTypes()
+		{
+			return ApplicationInit.ListOfModelTypes();
+		}
 
-        [TestMethod]
-        public void Index()
-        {
-            // Arrange
+		[TestMethod]
+		public void Index()
+		{
+			// Arrange
 			PageController controller = new PageController();
-            controller.MockRequest();
-            // Act
-            ViewResult result = controller.Index(new PagedModel<StaticTextViewModel>()) as ViewResult;
+			controller.MockRequest();
+			// Act
+			ViewResult result = controller.Index(new PagedModel<StaticTextViewModel>()) as ViewResult;
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+			// Assert
+			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
-            ViewResult viewResult = (ViewResult)result;
-            var model = (PagedModel<StaticTextViewModel>)viewResult.ViewData.Model;
+			ViewResult viewResult = (ViewResult)result;
+			var model = (PagedModel<StaticTextViewModel>)viewResult.ViewData.Model;
 
-            Assert.AreEqual(NumberOfGeneratedItems, model.Count);
+			Assert.AreEqual(NumberOfGeneratedItems, model.Count);
 
-            int i = 0;
-            foreach (var staticText in model)
-            {
-                Assert.AreEqual("StaticPage" + i, staticText.Title);
-                Assert.AreEqual("staticpage" + i, staticText.FriendlyUrl);
-                ++i;
-            }
-            Assert.AreEqual(PagedModel<StaticTextViewModel>.DefaultPageItems, i);
-        }
+			int i = 0;
+			foreach (var staticText in model)
+			{
+				Assert.AreEqual("StaticPage" + i, staticText.Title);
+				Assert.AreEqual("staticpage" + i, staticText.FriendlyUrl);
+				++i;
+			}
+			Assert.AreEqual(PagedModel<StaticTextViewModel>.DefaultPageItems, i);
+		}
 
 		[TestMethod]
 		public void View()

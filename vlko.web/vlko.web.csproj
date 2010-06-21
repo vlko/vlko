@@ -389,6 +389,7 @@
     <Content Include="Scripts\jquery-1.4.2.min-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.1.custom.min.js" />
+    <Content Include="Scripts\jquery.history.js" />
     <Content Include="Scripts\jquery.ui.datepicker-sk.js" />
     <Content Include="Scripts\MicrosoftMvcJQueryValidation.js" />
     <Content Include="Scripts\MicrosoftMvcRemoteValidation.js" />

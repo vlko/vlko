@@ -21,6 +21,10 @@ namespace vlko.web
 
 	public class MvcApplication : System.Web.HttpApplication
 	{
+		/// <summary>
+		/// Registers the routes.
+		/// </summary>
+		/// <param name="routes">The routes.</param>
 		public static void RegisterRoutes(RouteCollection routes)
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -52,6 +56,9 @@ namespace vlko.web
 
 		}
 
+		/// <summary>
+		/// Application_s the start.
+		/// </summary>
 		protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
@@ -118,7 +125,31 @@ namespace vlko.web
 			}
 		}
 
-		protected virtual void Application_Error(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the BeginRequest event of the Application control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected virtual void Application_BeginRequest(object sender, EventArgs e)
+		{
+			string fullOriginalpath = Request.Url.ToString();
+
+			if (fullOriginalpath.Contains("#"))
+			{
+				Context.RewritePath("/Products.aspx?Category=Books");
+			}
+			//else if (fullOrigionalpath.Contains("/Products/DVDs.aspx"))
+			//{
+			//    Context.RewritePath("/Products.aspx?Category=DVDs");
+			//}
+		}
+
+		/// <summary>
+		/// Handles the Error event of the Application control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void Application_Error(object sender, EventArgs e)
 		{
 			string user = "unknown";
 			string url = "unknown";
