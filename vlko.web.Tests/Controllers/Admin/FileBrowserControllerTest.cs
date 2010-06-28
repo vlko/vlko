@@ -9,10 +9,10 @@ using GenericRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core.Authentication;
 using vlko.core.Base;
+using vlko.core.IoC;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ViewModel;
 using vlko.core.Services;
-using vlko.model.IoC;
 using vlko.web.Areas.Admin.Controllers;
 using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 
@@ -273,7 +273,7 @@ namespace vlko.web.Tests.Controllers.Admin
         }
         private void MockUser(BaseController controller, string userName)
         {
-            IWindsorContainer container = model.IoC.IoC.Container;
+            IWindsorContainer container = IoC.Container;
             container.Register(
                 Component.For<IUserAuthenticationService>().ImplementedBy<StaticPageControllerTest.UserAuthenticationServiceMock>()
                 );

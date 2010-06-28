@@ -3,6 +3,8 @@
 	$.fn.ajaxGrid = function (settings) {
 		var config = { content: this };
 
+		if (settings) $.extend(config, settings);
+
 		var showForm = function (dialog, form) {
 			createLoading();
 			$.ajax({
@@ -32,8 +34,6 @@
 				error: ajaxException
 			});
 		}
-
-		if (settings) $.extend(config, settings);
 
 		this.each(function () {
 			// edit buttons

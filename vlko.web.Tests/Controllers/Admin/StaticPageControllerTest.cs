@@ -8,10 +8,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Components;
+using vlko.core.IoC;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
-using vlko.model.IoC;
 using vlko.web.Areas.Admin.Controllers;
 
 namespace vlko.web.Tests.Controllers.Admin
@@ -373,7 +373,7 @@ namespace vlko.web.Tests.Controllers.Admin
 
         private void MockUser(StaticPageController controller, string userName)
         {
-            IWindsorContainer container = model.IoC.IoC.Container;
+            IWindsorContainer container = IoC.Container;
             container.Register(
                 Component.For<IUserAuthenticationService>().ImplementedBy<UserAuthenticationServiceMock>()
                 );

@@ -14,7 +14,7 @@
 		Html.EnableClientValidation(); 
 	%>
 	
-	<% using (Html.BeginForm()) {%>
+	<% using (Html.BeginForm(cssClass:"ajax_container")) {%>
 	<div class="ajax_content">
 		<%: Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") %>
 		

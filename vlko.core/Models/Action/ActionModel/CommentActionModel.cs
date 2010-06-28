@@ -59,6 +59,7 @@ namespace vlko.core.Models.Action.ActionModel
 		/// Gets or sets the name.
 		/// </summary>
 		/// <value>The name.</value>
+		[Required(ErrorMessageResourceType = typeof(ModelResources), ErrorMessageResourceName = "CommentNameRequireError")]
 		public string Name { get; set; }
 
 		/// <summary>
@@ -67,6 +68,7 @@ namespace vlko.core.Models.Action.ActionModel
 		/// <value>The text.</value>
 		[DataType(DataType.Html)]
 		[AntiXssHtmlText]
+		[Required(ErrorMessageResourceType = typeof(ModelResources), ErrorMessageResourceName = "CommentTextRequireError")]
 		public string Text { get; set; }
 
 		/// <summary>

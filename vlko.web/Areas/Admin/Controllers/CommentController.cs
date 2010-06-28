@@ -5,10 +5,10 @@ using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.Components;
+using vlko.core.IoC;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
 using vlko.core.ValidationAtribute;
-using vlko.model.IoC;
 using vlko.core.Models.Action;
 
 namespace vlko.web.Areas.Admin.Controllers

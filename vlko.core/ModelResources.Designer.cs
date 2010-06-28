@@ -70,6 +70,15 @@ namespace vlko.core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name required..
+        /// </summary>
+        public static string AnonymousRequireError {
+            get {
+                return ResourceManager.GetString("AnonymousRequireError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changed.
         /// </summary>
         public static string Changed {
@@ -102,6 +111,24 @@ namespace vlko.core {
         public static string CommentCounts {
             get {
                 return ResourceManager.GetString("CommentCounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment title empty..
+        /// </summary>
+        public static string CommentNameRequireError {
+            get {
+                return ResourceManager.GetString("CommentNameRequireError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment text empty..
+        /// </summary>
+        public static string CommentTextRequireError {
+            get {
+                return ResourceManager.GetString("CommentTextRequireError", resourceCulture);
             }
         }
         

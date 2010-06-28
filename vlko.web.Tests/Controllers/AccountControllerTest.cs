@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
+using vlko.core.IoC;
 using vlko.core.Models.Action;
 using vlko.core.Services;
 using vlko.core.Services.Implementation;
@@ -36,7 +37,7 @@ namespace vlko.web.Tests.Controllers
 		[TestInitialize]
 		public void Init()
 		{
-			model.IoC.IoC.InitializeWith(new WindsorContainer());
+			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			IWindsorContainer container = new WindsorContainer();
 			container.Register(
@@ -45,7 +46,7 @@ namespace vlko.web.Tests.Controllers
 				Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>(),
 				Component.For<IUserAuthenticationService>().ImplementedBy<UserAuthenticationService>()
 				);
-			model.IoC.IoC.InitializeWith(container);
+			IoC.InitializeWith(container);
 			base.SetUp();
 		}
 

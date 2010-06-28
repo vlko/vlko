@@ -151,6 +151,7 @@
     <Compile Include="Authentication\IFormsAuthenticationService.cs" />
     <Compile Include="Authentication\IUserAuthenticationService.cs" />
     <Compile Include="Authentication\UserInfo.cs" />
+    <Compile Include="Base\ShortGuid.cs" />
     <Compile Include="Components\IPagedModel.cs" />
     <Compile Include="Components\PagerModel.cs" />
     <Compile Include="Components\PagedModel.cs" />

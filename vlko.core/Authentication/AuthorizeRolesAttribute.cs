@@ -35,7 +35,7 @@ namespace vlko.core.Authentication
             var result = base.AuthorizeCore(httpContext);
             if (result)
             {
-                var userAuthenticationService = vlko.model.IoC.IoC.Resolve<IUserAuthenticationService>();
+                var userAuthenticationService = IoC.IoC.Resolve<IUserAuthenticationService>();
                 foreach (var role in _roles)
                 {
                     var isInRole = userAuthenticationService.IsUserInRole(httpContext.User.Identity.Name, role);

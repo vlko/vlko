@@ -2,10 +2,10 @@
 using System.Web;
 using System.Web.Mvc;
 using vlko.core.Base;
+using vlko.core.IoC;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ViewModel;
 using vlko.core.ValidationAtribute;
-using vlko.model.IoC;
 using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 
 namespace vlko.web.Areas.Admin.Controllers

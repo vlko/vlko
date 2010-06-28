@@ -10,9 +10,9 @@ using GenericRepository;
 using Microsoft.Web.Mvc.AspNet4;
 using NLog;
 using vlko.core;
+using vlko.core.IoC;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
-using vlko.model.IoC;
 
 namespace vlko.web
 {
@@ -42,10 +42,16 @@ namespace vlko.web
 				new { controller = "Account", action = "ConfirmResetPassword" } // Parameter defaults
 			);
 
+			// page specific routes
+			routes.MapRoute(
+				"PageComment", // Route name
+				"Page/{friendlyUrl}/NewComment", // URL with parameters
+				new { controller = "Page", action = "NewComment" } // Parameter defaults
+			);
 			routes.MapRoute(
 				"PageView", // Route name
 				"Page/{friendlyUrl}", // URL with parameters
-				new { controller = "Page", action = "View" } // Parameter defaults
+				new { controller = "Page", action = "ViewPage" } // Parameter defaults
 			);
 
 			routes.MapRoute(
@@ -83,7 +89,7 @@ namespace vlko.web
 
 				IoC.Resolve<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
 				var admin = IoC.Resolve<IUserAction>().GetByName("vlko"); 
-				IoC.Resolve<IStaticTextCrud>().Create(
+				var home = IoC.Resolve<IStaticTextCrud>().Create(
 					new StaticTextActionModel
 						{
 							AllowComments = false,
@@ -95,6 +101,20 @@ namespace vlko.web
 							Text = "Welcome to vlko",
 							Description = "Welcome to vlko"
 						});
+				for (int i = 0; i < 30; i++)
+				{
+					IoC.Resolve<ICommentCrud>().Create(
+						new CommentActionModel()
+						{
+							AnonymousName = "User",
+							ChangeDate = DateTime.Now.AddDays(-i),
+							ClientIp = "127.0.0.1",
+							ContentId = home.Id,
+							Name = "Comment" + i,
+							Text = "Home commment" + i,
+							UserAgent = "Mozzilla"
+						});
+				}
 				for (int i = 0; i < 1000; i++)
 				{
 					var text = IoC.Resolve<IStaticTextCrud>().Create(
@@ -123,25 +143,6 @@ namespace vlko.web
 				}
 				tran.Commit();
 			}
-		}
-
-		/// <summary>
-		/// Handles the BeginRequest event of the Application control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected virtual void Application_BeginRequest(object sender, EventArgs e)
-		{
-			string fullOriginalpath = Request.Url.ToString();
-
-			if (fullOriginalpath.Contains("#"))
-			{
-				Context.RewritePath("/Products.aspx?Category=Books");
-			}
-			//else if (fullOrigionalpath.Contains("/Products/DVDs.aspx"))
-			//{
-			//    Context.RewritePath("/Products.aspx?Category=DVDs");
-			//}
 		}
 
 		/// <summary>

@@ -36,7 +36,7 @@ namespace vlko.core.ValidationAtribute
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-            foreach (KeyValuePair<string, object> actionParameter in filterContext.ActionParameters)
+            foreach (KeyValuePair<string, object> actionParameter in filterContext.ActionParameters.ToArray())
             {
                 var value = actionParameter.Value;
                 if (value is string)

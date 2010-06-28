@@ -7,13 +7,13 @@ using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.Components;
+using vlko.core.IoC;
 using vlko.core.Models;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
 using vlko.core.Tools;
 using vlko.core.ValidationAtribute;
-using vlko.model.IoC;
 
 namespace vlko.web.Areas.Admin.Controllers
 {

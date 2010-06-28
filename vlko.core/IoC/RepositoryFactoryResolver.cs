@@ -11,7 +11,7 @@ namespace vlko.core.IoC
         /// <returns>Resolved action or query.</returns>
         public T ResolveAction<T>() where T : class
         {
-            return model.IoC.IoC.Resolve<T>();
+            return IoC.Resolve<T>();
         }
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace vlko.core.IoC
         /// <returns></returns>
         public IUnitOfWork GetUnitOfWork()
         {
-            return model.IoC.IoC.Resolve<IUnitOfWork>();
+            return IoC.Resolve<IUnitOfWork>();
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace vlko.core.IoC
         /// <returns></returns>
         public ITransaction GetTransaction()
         {
-            return model.IoC.IoC.Resolve<ITransaction>();
+            return IoC.Resolve<ITransaction>();
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace vlko.core.IoC
         /// <returns>Registered BaseRepository for type.</returns>
         public BaseRepository<T> GetRepository<T>() where T : class
         {
-            return model.IoC.IoC.Resolve<BaseRepository<T>>();
+            return IoC.Resolve<BaseRepository<T>>();
         }
 
     }

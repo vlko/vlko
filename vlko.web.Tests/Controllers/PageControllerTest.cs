@@ -9,10 +9,10 @@ using GenericRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.Components;
+using vlko.core.IoC;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
-using vlko.model.IoC;
 using vlko.web.Areas.Admin.Controllers;
 using vlko.web.Controllers;
 
@@ -93,13 +93,13 @@ namespace vlko.web.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void View()
+		public void ViewPage()
 		{
 			// Arrange
 			PageController controller = new PageController();
 			controller.MockRequest();
 			// Act
-			ViewResult result = controller.View("staticpage2") as ViewResult;
+			ViewResult result = controller.ViewPage("staticpage2", new PagedModel<CommentViewModel>()) as ViewResult;
 
 			// Assert
 			Assert.IsInstanceOfType(result, typeof(ViewResult));

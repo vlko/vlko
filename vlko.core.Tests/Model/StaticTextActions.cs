@@ -29,7 +29,7 @@ namespace vlko.core.Tests.Model
 			doc.Load("log4net.config");
 			log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
 
-			model.IoC.IoC.InitializeWith(new WindsorContainer());
+			IoC.IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
 			using (var tran = new TransactionScope())

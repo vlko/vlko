@@ -4,7 +4,7 @@ using GeneralRepositoryTest.IOCResolved.Model;
 using GeneralRepositoryTest.IOCResolved.Queries;
 using GenericRepository.RepositoryAction;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.model.IoC;
+using vlko.core.IoC;
 
 namespace GeneralRepositoryTest.IOCResolved
 {

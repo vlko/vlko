@@ -61,3 +61,19 @@
  }%>
 <span class="pager_info"><%= string.Format("{0} - {1} of {2}", Model.StartItemNumber, Model.EndItemNumber, Model.TotalCount) %></span>
 </div>
+
+<%
+ var contentId = ViewData["content"] as string;
+ if (string.IsNullOrEmpty(contentId))
+ {
+	contentId = "content";
+ }
+%>
+
+<% Html.ScriptInlineInclude(() => {%>
+<script type="text/javascript">
+	$(function () {
+		$("#<%= contentId %>").ajaxPager();
+	});
+</script> 
+<% }); %>

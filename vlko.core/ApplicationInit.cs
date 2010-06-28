@@ -44,7 +44,7 @@ namespace vlko.core
         /// </summary>
         public static void InitializeRepositories()
         {
-            IWindsorContainer container = model.IoC.IoC.Container;
+            IWindsorContainer container = IoC.IoC.Container;
             container.Register(
                 Component.For<IUnitOfWork>().ImplementedBy<UnitOfWork>().LifeStyle.Transient,
                 Component.For<ITransaction>().ImplementedBy<Transaction>().LifeStyle.Transient,
@@ -70,7 +70,7 @@ namespace vlko.core
         /// </summary>
         public static void InitializeServices()
         {
-            IWindsorContainer container = model.IoC.IoC.Container;
+            IWindsorContainer container = IoC.IoC.Container;
             container.Register(
                 Component.For<IAppInfoService>().ImplementedBy<AppInfoService>(),
                 Component.For<IEmailService>().ImplementedBy<EmailService>(),

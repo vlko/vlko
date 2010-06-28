@@ -213,4 +213,13 @@
   <data name="DescriptionRequireError" xml:space="preserve">
     <value>Description empty.</value>
   </data>
+  <data name="AnonymousRequireError" xml:space="preserve">
+    <value>Name required.</value>
+  </data>
+  <data name="CommentNameRequireError" xml:space="preserve">
+    <value>Comment title empty.</value>
+  </data>
+  <data name="CommentTextRequireError" xml:space="preserve">
+    <value>Comment text empty.</value>
+  </data>
 </root>

@@ -63,10 +63,10 @@ function createContentDialog(settings) {
 	return contentDialog;
 }
 
-function fillContentWithData(form, data) {
-	form.html(data);
-	form.children(":not(form, .ajax_content)").hide();
-	form.children("form").children(":not(.ajax_content)").hide();
+function fillContentWithData(content, data) {
+	content.html(data);
+	content.children(":not(.ajax_container, .ajax_content)").hide();
+	content.children(".ajax_container").children(":not(.ajax_content)").hide();
 }
 
 function updateEffect(content) {
@@ -90,6 +90,11 @@ $.history.init(function (url, phase) {
 		}
 		else {
 			//var newUrl = window.location.protocol + "//" + window.location.host + url
+			window.location = url;
+		}
+	}
+	if (phase == "init") {
+		if (url) {
 			window.location = url;
 		}
 	}

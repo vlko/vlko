@@ -191,6 +191,7 @@
     <Compile Include="ViewModel\Account\ConfirmResetPasswordModel.cs" />
     <Compile Include="ViewModel\Account\ResetPasswordModel.cs" />
     <Compile Include="Areas\Admin\ViewModel\FileBrowser\FileBrowserViewModel.cs" />
+    <Compile Include="ViewModel\Page\PageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Comment\Delete.aspx" />
@@ -403,8 +404,10 @@
     <Content Include="Areas\Admin\Views\Comment\Index.aspx" />
     <Content Include="Areas\Admin\Views\FileBrowser\Delete.aspx" />
     <Content Include="Areas\Admin\Views\FileBrowser\Index.aspx" />
+    <Content Include="Views\Page\CommentsFlat.ascx" />
     <Content Include="Views\Page\Index.aspx" />
-    <Content Include="Views\Page\View.aspx" />
+    <Content Include="Views\Page\NewComment.ascx" />
+    <Content Include="Views\Page\ViewPage.aspx" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Collection.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Decimal.ascx" />
@@ -431,7 +434,9 @@
     <Content Include="Areas\Admin\Views\StaticPage\Edit.aspx" />
     <Content Include="Areas\Admin\Views\StaticPage\Index.aspx" />
     <Content Include="Areas\Admin\Views\StaticPage\View.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -452,7 +457,9 @@
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
     <Content Include="Views\Shared\Site.Master" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GenericRepository\GenericRepository.csproj">
@@ -472,7 +479,9 @@
     <Content Include="Views\Shared\Ajax.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="CodeTemplates\AddView\PagedList.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PagedList.cs</LastGenOutput>
@@ -522,8 +531,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55043</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/vlko.web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
