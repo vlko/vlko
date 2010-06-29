@@ -18,8 +18,7 @@
 		<div>
 			<%= Model.StaticText.Text%>
 		</div><% 
-				  if (Model.StaticText.AllowComments) 
-		{%>
+		if (Model.StaticText.AllowComments) {%>
 		<div class="article_comment"><span>Comments </span><%: Model.StaticText.CommentCounts%></div>
 		<% } %>
 	</div>
@@ -27,12 +26,30 @@
 		<%: Html.ActionLink("Back to List", "Index") %>
 	</div>
 	<div class="ajax_content">
+	<%:Html.RouteLink("flat", "PageView", cssClass: "comment_sort flat",
+									 routeValues: new {
+														friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+														sort = "flat"
+													})%>
+	<%:Html.RouteLink("flat desc", "PageView", cssClass: "comment_sort desc",
+									 routeValues: new {
+														friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+														sort = "desc"
+													})%>
+	<%:Html.RouteLink("tree", "PageView", cssClass: "comment_sort tree",
+									 routeValues: new {
+														friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+														sort = "tree"
+													})%>
 	<% if (Model.CommentViewType == CommentViewTypeEnum.FlatDesc) {%>
 		<% Html.RenderPartial("NewComment", Model.NewComment); %>
 	<% } %>
 
 	<% if (Model.CommentViewType != CommentViewTypeEnum.Tree) {%>
 		<% Html.RenderPartial("CommentsFlat", Model.FlatComments); %>
+	<% } %>
+	<% else { %>
+		<% Html.RenderPartial("CommentsTree", Model.TreeComments); %>
 	<% } %>
 
 	<% if (Model.CommentViewType != CommentViewTypeEnum.FlatDesc) {%>
@@ -43,6 +60,32 @@
 <% Html.ScriptInlineInclude(() => {%>
 <script type="text/javascript">
 	$(function () {
+		$("#page_view_content .comment_sort")
+				.click(function () {
+					var nextUrl = $(this).attr("href");
+					$.ajax({
+						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
+						success: function (data) {
+							var content = $("#page_view_content");
+							content.html(data);
+							closeLoading();
+							updateEffect(content);
+							addToHistory(nextUrl);
+						},
+						error: ajaxException
+					});
+
+					return false;
+				});
+		$("#page_view_content .reply_link")
+				.click(function (){
+					var form = $("#page_view_content form");
+
+					$("#ParentId").val($(this).attr("rel"));
+					$("#Name").val("Re: " + $(this).closest(".comment").find(".comment_title").text());
+
+					return false;
+				});
 		$("#page_view_content form")
 				.submit(function () {
 					createLoading();

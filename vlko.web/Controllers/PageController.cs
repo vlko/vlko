@@ -30,21 +30,28 @@ namespace vlko.web.Controllers
 		}
 
 		/// <summary>
-		/// URL: Page/View
+		/// URL: Page/{friendlyUrl}
 		/// </summary>
 		/// <param name="friendlyUrl">The friendly URL.</param>
 		/// <param name="commentsModel">The comments model.</param>
+		/// <param name="sort">The sort.</param>
 		/// <returns>Action result.</returns>
-		public ActionResult ViewPage(string friendlyUrl, PagedModel<CommentViewModel> commentsModel)
+		public ActionResult ViewPage(string friendlyUrl, PagedModel<CommentViewModel> commentsModel, string sort)
 		{
 			var staticText = IoC.Resolve<IStaticTextData>().Get(friendlyUrl, DateTime.Now);
-			var comments = IoC.Resolve<ICommentData>().GetAllByDate(staticText.Id);
+
+			CommentViewTypeEnum sortType = ParseCommentViewType(sort);
+
+			IEnumerable<CommentTreeViewModel> comments;
+			LoadComments(sortType, out comments, commentsModel, staticText.Id);
+
 			return ViewWithAjax(
 				new PageViewModel
 					{
 						StaticText	= staticText,
-						CommentViewType = CommentViewTypeEnum.Flat,
-						FlatComments = commentsModel.LoadData(comments),
+						CommentViewType = sortType,
+						FlatComments = commentsModel,
+						TreeComments = comments,
 						NewComment = new CommentActionModel
 						             	{
 											Name = staticText.Title,
@@ -54,15 +61,52 @@ namespace vlko.web.Controllers
 					});
 		}
 
+
 		/// <summary>
-		/// URL: Page/NewComment
+		/// URL: Page/{friendlyUrl}/Reply/{parentId}
+		/// </summary>
+		/// <param name="friendlyUrl">The friendly URL.</param>
+		/// <param name="parentId">The parent id.</param>
+		/// <param name="commentsModel">The comments model.</param>
+		/// <param name="sort">The sort.</param>
+		/// <returns>Action result.</returns>
+		public ActionResult Reply(string friendlyUrl, Guid parentId, PagedModel<CommentViewModel> commentsModel, string sort)
+		{
+			var staticText = IoC.Resolve<IStaticTextData>().Get(friendlyUrl, DateTime.Now);
+
+			CommentViewTypeEnum sortType = ParseCommentViewType(sort);
+
+			IEnumerable<CommentTreeViewModel> comments;
+			LoadComments(sortType, out comments, commentsModel, staticText.Id);
+
+			var parentComment = IoC.Resolve<ICommentCrud>().FindByPk(parentId);
+
+			return ViewWithAjax("ViewPage",
+				new PageViewModel
+				{
+					StaticText = staticText,
+					CommentViewType = sortType,
+					FlatComments = commentsModel,
+					TreeComments = comments,
+					NewComment = new CommentActionModel
+					{
+						Name = "Re: " + parentComment.Name,
+						ParentId = parentId,
+						ContentId = staticText.Id,
+						ChangeUser = UserInfo.User
+					}
+				});	
+		}
+
+		/// <summary>
+		/// URL: Page/{friendlyUrl}/NewComment
 		/// </summary>
 		/// <param name="commentsModel">The comments model.</param>
 		/// <param name="model">The model.</param>
 		/// <returns>Action result.</returns>
 		[HttpPost]
 		[AntiXss]
-		public ActionResult NewComment(PagedModel<CommentViewModel> commentsModel, CommentActionModel model)
+		public ActionResult NewComment(PagedModel<CommentViewModel> commentsModel, CommentActionModel model, string sort)
 		{
 			var staticText = IoC.Resolve<IStaticTextData>().Get(model.ContentId, DateTime.Now);
 			model.ChangeUser = UserInfo.User;
@@ -88,17 +132,66 @@ namespace vlko.web.Controllers
 					IoC.Resolve<ICommentCrud>().Create(model);
 					tran.Commit();
 				}
-				return RedirectToActionWithAjax(staticText.FriendlyUrl);
+				return RedirectToActionWithAjax(staticText.FriendlyUrl, additionalActionLink:sort);
 			}
-			var comments = IoC.Resolve<ICommentData>().GetAllByDate(staticText.Id);
+
+			CommentViewTypeEnum sortType = ParseCommentViewType(sort);
+
+			IEnumerable<CommentTreeViewModel> comments;
+			LoadComments(sortType, out comments, commentsModel, staticText.Id);
+
 			return ViewWithAjax("ViewPage",
 				new PageViewModel
 				{
 					StaticText = staticText,
-					CommentViewType = CommentViewTypeEnum.Flat,
-					FlatComments = commentsModel.LoadData(comments),
+					CommentViewType = sortType,
+					FlatComments = commentsModel,
+					TreeComments = comments,
 					NewComment = model
 				});
+		}
+
+		/// <summary>
+		/// Parses the type of the comment view.
+		/// </summary>
+		/// <param name="sort">The sort.</param>
+		/// <returns></returns>
+		private static CommentViewTypeEnum ParseCommentViewType(string sort)
+		{
+			switch (sort)
+			{
+				case "tree":
+					return CommentViewTypeEnum.Tree;
+				case "desc":
+					return CommentViewTypeEnum.FlatDesc;
+				default:
+					return CommentViewTypeEnum.Flat;
+			}
+		}
+
+
+		/// <summary>
+		/// Loads the comments.
+		/// </summary>
+		/// <param name="sort">The sort.</param>
+		/// <param name="comments">The comments.</param>
+		/// <param name="commentsModel">The comments model.</param>
+		/// <param name="staticTextId">The static text id.</param>
+		private static void LoadComments(CommentViewTypeEnum sort, out IEnumerable<CommentTreeViewModel> comments, PagedModel<CommentViewModel> commentsModel, Guid staticTextId)
+		{
+			comments = null;
+			switch (sort)
+			{
+				case CommentViewTypeEnum.Flat:
+					commentsModel.LoadData(IoC.Resolve<ICommentData>().GetAllByDate(staticTextId));
+					break;
+				case CommentViewTypeEnum.FlatDesc:
+					commentsModel.LoadData(IoC.Resolve<ICommentData>().GetAllByDateDesc(staticTextId));
+					break;
+				case CommentViewTypeEnum.Tree:
+					comments = IoC.Resolve<ICommentData>().GetCommentTree(staticTextId);
+					break;
+			}
 		}
 	}
 }

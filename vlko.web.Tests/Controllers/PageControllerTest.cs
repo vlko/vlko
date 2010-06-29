@@ -15,6 +15,7 @@ using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
 using vlko.web.Areas.Admin.Controllers;
 using vlko.web.Controllers;
+using vlko.web.ViewModel.Page;
 
 namespace vlko.web.Tests.Controllers
 {
@@ -99,7 +100,7 @@ namespace vlko.web.Tests.Controllers
 			PageController controller = new PageController();
 			controller.MockRequest();
 			// Act
-			ViewResult result = controller.ViewPage("staticpage2", new PagedModel<CommentViewModel>()) as ViewResult;
+			ViewResult result = controller.ViewPage("staticpage2", new PagedModel<CommentViewModel>(), string.Empty) as ViewResult;
 
 			// Assert
 			Assert.IsInstanceOfType(result, typeof(ViewResult));

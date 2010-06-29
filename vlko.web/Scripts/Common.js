@@ -89,12 +89,13 @@ $.history.init(function (url, phase) {
 			window.location = window.location.href;
 		}
 		else {
-			//var newUrl = window.location.protocol + "//" + window.location.host + url
-			window.location = url;
+			if (url.charAt(0) == "%") {
+				window.location = url;
+			}
 		}
 	}
 	if (phase == "init") {
-		if (url) {
+		if (url && (url.charAt(0) == "%")) {
 			window.location = url;
 		}
 	}

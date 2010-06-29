@@ -13,6 +13,7 @@ using vlko.core;
 using vlko.core.IoC;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
+using vlko.web.ViewModel.Page;
 
 namespace vlko.web
 {
@@ -45,13 +46,18 @@ namespace vlko.web
 			// page specific routes
 			routes.MapRoute(
 				"PageComment", // Route name
-				"Page/{friendlyUrl}/NewComment", // URL with parameters
-				new { controller = "Page", action = "NewComment" } // Parameter defaults
+				"Page/{friendlyUrl}/NewComment/{sort}", // URL with parameters
+				new { controller = "Page", action = "NewComment", sort = "tree" /* flat/desc/tree */ } // Parameter defaults
+			);
+			routes.MapRoute(
+				"PageCommentReply", // Route name
+				"Page/{friendlyUrl}/Reply/{parentId}/{sort}", // URL with parameters
+				new { controller = "Page", action = "Reply", sort = "tree" /* flat/desc/tree */ } // Parameter defaults
 			);
 			routes.MapRoute(
 				"PageView", // Route name
-				"Page/{friendlyUrl}", // URL with parameters
-				new { controller = "Page", action = "ViewPage" } // Parameter defaults
+				"Page/{friendlyUrl}/{sort}", // URL with parameters
+				new { controller = "Page", action = "ViewPage", sort = "tree" /* flat/desc/tree */ } // Parameter defaults
 			);
 
 			routes.MapRoute(

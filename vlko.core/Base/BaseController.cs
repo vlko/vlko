@@ -64,8 +64,9 @@ namespace vlko.core.Base
 		/// </summary>
 		/// <param name="actionName">Name of the action.</param>
 		/// <param name="controllerName">Name of the controller.</param>
+		/// <param name="additionalActionLink">The additional action link.</param>
 		/// <returns>Action result.</returns>
-		protected ActionResult RedirectToActionWithAjax(string actionName, string controllerName = null)
+		protected ActionResult RedirectToActionWithAjax(string actionName, string controllerName = null, string additionalActionLink = null)
 		{
 			if (controllerName == null)
 			{
@@ -78,6 +79,10 @@ namespace vlko.core.Base
 			}
 			if (Request.IsAjaxRequest())
 			{
+				if (!string.IsNullOrEmpty(additionalActionLink))
+				{
+					actionName += "/" + additionalActionLink;
+				}
 				return Json(new { actionName, controllerName, area}, "json");
 			}
 			return RedirectToAction(actionName);

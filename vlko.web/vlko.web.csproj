@@ -405,6 +405,7 @@
     <Content Include="Areas\Admin\Views\FileBrowser\Delete.aspx" />
     <Content Include="Areas\Admin\Views\FileBrowser\Index.aspx" />
     <Content Include="Views\Page\CommentsFlat.ascx" />
+    <Content Include="Views\Page\CommentsTree.ascx" />
     <Content Include="Views\Page\Index.aspx" />
     <Content Include="Views\Page\NewComment.ascx" />
     <Content Include="Views\Page\ViewPage.aspx" />
@@ -439,9 +440,7 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.min-vsdoc.js" />
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />

@@ -1,12 +1,12 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<vlko.core.Components.PagedModel<vlko.core.Models.Action.ViewModel.CommentViewModel>>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<vlko.core.Models.Action.ViewModel.CommentTreeViewModel>>" %>
 <%@ Import Namespace="vlko.web.Controllers" %>
 <%@ Import Namespace="vlko.core.Components" %>
+<%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="vlko.web.ViewModel.Page" %>
 <% Html.ScriptInclude("~/Scripts/Grid.js"); %>
-<div class="flat_comments">
 <% foreach (var item in Model)
    {%>
-	<div class="comment">
+	<div class="comment" style="margin-left:<%= (10 * Math.Log(2.8 + item.Level) - 10).ToString(CultureInfo.InvariantCulture) %>ex;">
 		<div class="comment_user">
 			<span class="creator"><%:(item.Owner == null) ? "anonymous-" + item.AnonymousName : item.Owner.Name%></span>
 			<span><%:String.Format("{0:g}", item.CreatedDate)%><%:item.Changed ? " ver. " + item.Version : string.Empty%></span>
@@ -21,12 +21,7 @@
 		<div class="comment_title"><%=item.Name%></div>
 		<div class="comment_text"><%=item.Text%></div>
 	</div>
+	<% Html.RenderPartial("CommentsTree", item.ChildNodes); %>
 <%
    }%>
-</div>
-<p><% Html.RenderPartial("~/Views/Shared/Pager.ascx", 
-		new PagerModel(
-			Model,
-			Html.ViewContext.RouteData.GetRequiredString("friendlyUrl") + "/" + Html.ViewContext.RouteData.GetRequiredString("sort")), 
-			new ViewDataDictionary(new { content = "page_view_content" })); %></p>
 

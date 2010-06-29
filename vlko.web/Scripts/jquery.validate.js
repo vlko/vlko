@@ -907,7 +907,7 @@
 						if (this.checkable(element))
 							return this.getLength(value, element) > 0;
 					case 'textarea':
-							if (CKEDITOR && CKEDITOR.instances[element.id]) {
+						if (typeof (CKEDITOR) != 'undefined' && CKEDITOR.instances[element.id]) {
 								return $.trim(CKEDITOR.instances[element.id].getData()).length > 0;
 							}
 					default:
