@@ -9,7 +9,7 @@ using GenericRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.Components;
-using vlko.core.IoC;
+using vlko.core.InversionOfControl;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;

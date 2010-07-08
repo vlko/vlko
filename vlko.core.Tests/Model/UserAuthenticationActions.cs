@@ -24,7 +24,7 @@ namespace vlko.core.Tests.Model
         [TestInitialize]
         public void Init()
         {
-            IoC.IoC.InitializeWith(new WindsorContainer());
+            InversionOfControl.IoC.InitializeWith(new WindsorContainer());
             ApplicationInit.InitializeRepositories();
             base.SetUp();
         }

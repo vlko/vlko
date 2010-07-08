@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using vlko.core.Base;
-using vlko.core.IoC;
+using vlko.core.InversionOfControl;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ViewModel;
 using vlko.core.ValidationAtribute;

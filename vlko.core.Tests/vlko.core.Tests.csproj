@@ -136,6 +136,7 @@
   <ItemGroup>
     <Compile Include="Model\CommentActions.cs" />
     <Compile Include="Model\DBInitializationTest.cs" />
+    <Compile Include="Model\SearchActionsTest.cs" />
     <Compile Include="Model\StaticTextActions.cs" />
     <Compile Include="Model\UserAuthenticationActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

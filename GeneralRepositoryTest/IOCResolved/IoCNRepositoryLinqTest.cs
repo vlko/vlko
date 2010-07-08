@@ -9,7 +9,7 @@ using GenericRepository;
 using GeneralRepositoryTest.IOCResolved.Queries;
 using vlko.core.ActiveRecord;
 using vlko.core.ActiveRecord.RepositoryAction;
-using vlko.core.IoC;
+using vlko.core.InversionOfControl;
 
 namespace GeneralRepositoryTest.IOCResolved
 {

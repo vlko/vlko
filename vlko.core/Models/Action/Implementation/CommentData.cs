@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Castle.ActiveRecord.Queries;
 using GenericRepository;
 using NHibernate.Criterion;
@@ -264,6 +265,68 @@ namespace vlko.core.Models.Action.Implementation
 					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.Content, () => Content)
 					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.Owner, () => Owner, JoinType.LeftOuterJoin)
 					.Add<CommentVersion>(commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version),
+
+				// map projection
+				Projections.ProjectionList()
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.Id)
+							.As(() => result.Id))
+					.Add(LambdaProjection.Property<Comment>(
+						comment => comment.Content.Id)
+							.As(() => result.ContentId))
+					.Add(LambdaProjection.Property<Comment>(
+						comment => comment.Content.ContentType)
+							.As(() => result.ContentType))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.Name)
+							.As(() => result.Name))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.CreatedDate)
+							.As(() => result.CreatedDate))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Text)
+							.As(() => result.Text))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Version)
+							.As(() => result.Version))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.Owner)
+							.As(() => result.Owner))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.AnonymousName)
+							.As(() => result.AnonymousName))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.ClientIp)
+							.As(() => result.ClientIp))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.Level)
+							.As(() => result.Level)));
+		}
+
+		/// <summary>
+		/// Gets the by ids.
+		/// </summary>
+		/// <param name="ids"></param>
+		/// <returns>All comments matching specified ids.</returns>
+		public IQueryResult<CommentForAdminViewModel> GetByIds(IEnumerable<Guid> ids)
+		{
+			// lambda helpers
+			CommentForAdminViewModel result = null;
+			Comment Comment = null;
+			Content Content = null;
+			ContentType ContentType = 0;
+			User Owner = null;
+
+			// projection query
+			return new ProjectionQueryResult<CommentVersion, CommentForAdminViewModel>(
+
+				// add alias and filter
+				DetachedCriteria.For<CommentVersion>()
+					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment, () => Comment)
+					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.Content, () => Content)
+					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.Owner, () => Owner, JoinType.LeftOuterJoin)
+					.Add<CommentVersion>(commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version)
+					.Add(SqlExpression.In<CommentVersion>(commentVersion => commentVersion.Comment.Id, ids.ToArray())),
 
 				// map projection
 				Projections.ProjectionList()

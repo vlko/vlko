@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,9 +11,10 @@ using GenericRepository;
 using Microsoft.Web.Mvc.AspNet4;
 using NLog;
 using vlko.core;
-using vlko.core.IoC;
+using vlko.core.InversionOfControl;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
+using vlko.core.Search;
 using vlko.web.ViewModel.Page;
 
 namespace vlko.web
@@ -90,8 +92,23 @@ namespace vlko.web
 			ActiveRecordStarter.RegisterTypes(ApplicationInit.ListOfModelTypes());
 			ActiveRecordStarter.CreateSchema();
 
-			using (var tran = RepositoryFactory.StartTransaction())
+			// set search folder
+			var indexDirectory = HttpContext.Current.Server.MapPath("~/App_Data/Index");
+
+			// delete previous search index
+			if (Directory.Exists(indexDirectory))
 			{
+				Directory.Delete(indexDirectory, true);
+			}
+
+			// create if not exists
+			Directory.CreateDirectory(indexDirectory);
+			IoC.Resolve<ISearchProvider>().Initialize(indexDirectory);
+
+			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
+			{
+				var searchAction = IoC.Resolve<ISearchAction>();
+
 
 				IoC.Resolve<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
 				var admin = IoC.Resolve<IUserAction>().GetByName("vlko"); 
@@ -107,8 +124,10 @@ namespace vlko.web
 							Text = "Welcome to vlko",
 							Description = "Welcome to vlko"
 						});
+				searchAction.IndexStaticText(tran, home);
 				for (int i = 0; i < 30; i++)
 				{
+					searchAction.IndexComment(tran,
 					IoC.Resolve<ICommentCrud>().Create(
 						new CommentActionModel()
 						{
@@ -119,7 +138,7 @@ namespace vlko.web
 							Name = "Comment" + i,
 							Text = "Home commment" + i,
 							UserAgent = "Mozzilla"
-						});
+						}));
 				}
 				for (int i = 0; i < 1000; i++)
 				{
@@ -135,6 +154,8 @@ namespace vlko.web
 								Text = "Static page" + i,
 								Description = "Static page" + i
 							});
+					searchAction.IndexStaticText(tran, text);
+					searchAction.IndexComment(tran,
 					IoC.Resolve<ICommentCrud>().Create(
 						new CommentActionModel()
 							{
@@ -145,7 +166,7 @@ namespace vlko.web
 								Name = "Comment" + i,
 								Text = "Static page" + i,
 								UserAgent = "Mozzilla"
-							});
+							}));
 				}
 				tran.Commit();
 			}

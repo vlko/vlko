@@ -73,8 +73,10 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Exceptions\RepositoryFactoryNotInitializeException.cs" />
+    <Compile Include="ITransactionContext.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="ITransaction.cs" />
+    <Compile Include="IUnitOfWorkContext.cs" />
     <Compile Include="RepositoryAction\ICreateAction.cs" />
     <Compile Include="RepositoryAction\IDeleteAction.cs" />
     <Compile Include="RepositoryAction\IFindByPkAction.cs" />

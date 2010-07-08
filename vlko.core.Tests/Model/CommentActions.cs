@@ -23,7 +23,7 @@ namespace vlko.core.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
-			IoC.IoC.InitializeWith(new WindsorContainer());
+			InversionOfControl.IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
 			using (var tran = new TransactionScope())
@@ -358,6 +358,30 @@ namespace vlko.core.Tests.Model
 
 				Assert.AreEqual(initialCommentCount, ActiveRecordMediator<Comment>.Count());
 				Assert.AreEqual(initialCommentVersionCount, ActiveRecordMediator<CommentVersion>.Count());
+			}
+		}
+
+
+		[TestMethod]
+		public void Get_by_ids()
+		{
+			using (RepositoryFactory.StartUnitOfWork())
+			{
+				const int numberOfItems = 3;
+				CreateCommentTree();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var testData = dataActions.GetAllForAdmin()
+					.OrderBy(comment => comment.Level)
+					.ToPage(0, numberOfItems);
+				var data = dataActions.GetByIds(testData.Select(item => item.Id))
+					.OrderBy(comment => comment.Level)
+					.ToArray();
+				Assert.AreEqual(numberOfItems, data.Length);
+				for (int i = 0; i < numberOfItems; i++)
+				{
+					Assert.AreEqual(testData[i].Id, data[i].Id);
+					Assert.AreEqual(testData[i].Text, data[i].Text);
+				}
 			}
 		}
 

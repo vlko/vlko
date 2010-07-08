@@ -119,6 +119,23 @@ namespace vlko.core.Models.Action.Implementation
 		}
 
 		/// <summary>
+		/// Gets the by ids.
+		/// </summary>
+		/// <param name="ids"></param>
+		/// <returns>All static text matching specified ids.</returns>
+		public IQueryResult<StaticTextViewModel> GetByIds(IEnumerable<Guid> ids)
+		{
+			var projection = GetProjection(
+				criteria =>
+				{
+					return criteria
+						.Add<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText.Deleted == false)
+						.Add(SqlExpression.In<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText.Id, ids.ToArray()));
+				});
+			return projection;
+		}
+
+		/// <summary>
 		/// Gets the projection query.
 		/// </summary>
 		/// <param name="additionalFilter">The additional filter.</param>

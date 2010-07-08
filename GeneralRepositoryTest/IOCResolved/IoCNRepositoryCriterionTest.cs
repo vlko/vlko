@@ -11,7 +11,7 @@ using GeneralRepositoryTest.IOCResolved.Queries;
 using System.Xml;
 using vlko.core.ActiveRecord;
 using vlko.core.ActiveRecord.RepositoryAction;
-using vlko.core.IoC;
+using vlko.core.InversionOfControl;
 
 namespace GeneralRepositoryTest.IOCResolved
 {

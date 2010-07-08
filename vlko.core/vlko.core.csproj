@@ -81,6 +81,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\_dependencies\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\_dependencies\MvcFutures\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
@@ -168,8 +171,10 @@
     <Compile Include="Models\Action\ICommentData.cs" />
     <Compile Include="Models\Action\Implementation\FileBrowserAction.cs" />
     <Compile Include="Models\Action\IFileBrowserAction.cs" />
+    <Compile Include="Models\Action\ISearchAction.cs" />
     <Compile Include="Models\Action\IStaticTextData.cs" />
     <Compile Include="Models\Action\Implementation\StaticTextData.cs" />
+    <Compile Include="Models\Action\Implementation\SearchAction.cs" />
     <Compile Include="Models\Action\ViewModel\CommentForAdminViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\CommentTreeViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\CommentViewModel.cs" />
@@ -178,6 +183,12 @@
     <Compile Include="Models\Action\ViewModel\StaticTextWithFullTextViewModel.cs" />
     <Compile Include="Models\ContentType.cs" />
     <Compile Include="Models\ModelConstants.cs" />
+    <Compile Include="Models\Search.cs" />
+    <Compile Include="Search\ISearchProvider.cs" />
+    <Compile Include="Search\SearchContext.cs" />
+    <Compile Include="Search\SearchProvider.cs" />
+    <Compile Include="Search\SearchResult.cs" />
+    <Compile Include="Search\SearchUpdateContext.cs" />
     <Compile Include="Tools\InstanceCreator.cs" />
     <Compile Include="Tools\FriendlyUrlGenerator.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
@@ -187,8 +198,8 @@
     <Compile Include="ValidationAtribute\PropertiesMustMatchAttribute.cs" />
     <Compile Include="ApplicationInit.cs" />
     <Compile Include="Base\BaseController.cs" />
-    <Compile Include="IoC\IoC.cs" />
-    <Compile Include="IoC\RepositoryFactoryResolver.cs" />
+    <Compile Include="InversionOfControl\IoC.cs" />
+    <Compile Include="InversionOfControl\RepositoryFactoryResolver.cs" />
     <Compile Include="Models\Action\AuthenicationStatuses.cs" />
     <Compile Include="Models\Action\Implementation\UserAction.cs" />
     <Compile Include="Models\Action\IUserAction.cs" />
@@ -248,6 +259,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

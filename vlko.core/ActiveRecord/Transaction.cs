@@ -1,25 +1,62 @@
-﻿using Castle.ActiveRecord;
+﻿using System;
+using Castle.ActiveRecord;
 using GenericRepository;
 
 namespace vlko.core.ActiveRecord
 {
-    /// <summary>
-    /// Active record transaction implementation.
-    /// </summary>
-    public class Transaction : TransactionScope, ITransaction
-    {
+	/// <summary>
+	/// Active record transaction implementation.
+	/// </summary>
+	public class Transaction : TransactionScope, ITransaction
+	{
+		public ITransactionContext TransactionContext  { get; private set; }
 
-        public void Commit()
-        {
-            VoteCommit();
-        }
+		/// <summary>
+		/// Inits the transaction context.
+		/// </summary>
+		/// <param name="transactionContext">The transaction context.</param>
+		public void InitTransactionContext(ITransactionContext transactionContext)
+		{
+			TransactionContext = transactionContext;
+		}
 
-        public void Rollback()
-        {
-            VoteRollBack();
-        }
+		/// <summary>
+		/// Commits this instance.
+		/// </summary>
+		public void Commit()
+		{
+			VoteCommit();
+			if (TransactionContext != null)
+			{
+				TransactionContext.Commit();
+			}
+		}
 
-    }
+		/// <summary>
+		/// Rollbacks this instance.
+		/// </summary>
+		public void Rollback()
+		{
+			VoteRollBack();
+			if (TransactionContext != null)
+			{
+				TransactionContext.Rollback();
+			}
+		}
+
+		/// <summary>
+		/// Performs the disposal.
+		/// </summary>
+		/// <param name="sessions">The sessions.</param>
+		protected override void PerformDisposal(System.Collections.Generic.ICollection<NHibernate.ISession> sessions)
+		{
+			 base.PerformDisposal(sessions);
+			 if (TransactionContext != null)
+			 {
+				 TransactionContext.Dispose();
+			 }
+		}		
+	}
 }
 
 

@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
-using vlko.core.IoC;
+using vlko.core.InversionOfControl;
 using vlko.core.Models.Action;
 using vlko.core.Services;
 using vlko.core.Services.Implementation;

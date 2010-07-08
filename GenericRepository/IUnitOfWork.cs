@@ -1,11 +1,11 @@
-﻿using System;
-
-namespace GenericRepository
+﻿namespace GenericRepository
 {
-    /// <summary>
-    /// ISession represents active connection to db/webservice/whatever.
-    /// </summary>
-    public interface IUnitOfWork : IDisposable
-    {
-    }
+	/// <summary>
+	/// ISession represents active connection to db/webservice/whatever.
+	/// </summary>
+	public interface IUnitOfWork : IUnitOfWorkContext
+	{
+		IUnitOfWorkContext UnitOfWorkContext { get; }
+		void InitUnitOfWorkContext(IUnitOfWorkContext unitOfWorkContext);
+	}
 }

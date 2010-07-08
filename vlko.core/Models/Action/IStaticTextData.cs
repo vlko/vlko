@@ -37,5 +37,12 @@ namespace vlko.core.Models.Action
 		/// <param name="pivotDate">The pivot date (only data younger, that this date).</param>
 		/// <returns>Data model for</returns>
 		StaticTextWithFullTextViewModel Get(string friendlyUrl, DateTime? pivotDate = null);
+
+		/// <summary>
+		/// Gets the by ids.
+		/// </summary>
+		/// <param name="ids"></param>
+		/// <returns>All static text matching specified ids.</returns>
+		IQueryResult<StaticTextViewModel> GetByIds(IEnumerable<Guid> ids);
 	}
 }

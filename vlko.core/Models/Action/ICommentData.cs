@@ -35,5 +35,12 @@ namespace vlko.core.Models.Action
 		/// </summary>
 		/// <returns>Get all comments in flat format for all contents.</returns>
 		IQueryResult<CommentForAdminViewModel> GetAllForAdmin();
+
+		/// <summary>
+		/// Gets the by ids.
+		/// </summary>
+		/// <param name="ids"></param>
+		/// <returns>All comments matching specified ids.</returns>
+		IQueryResult<CommentForAdminViewModel> GetByIds(IEnumerable<Guid> ids);
 	}
 }

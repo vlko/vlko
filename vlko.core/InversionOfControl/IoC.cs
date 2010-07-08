@@ -3,7 +3,7 @@ using System.Collections;
 using Castle.Windsor;
 using GenericRepository;
 
-namespace vlko.core.IoC
+namespace vlko.core.InversionOfControl
 {
     /// <summary>
     /// The Inversion of Control factory.

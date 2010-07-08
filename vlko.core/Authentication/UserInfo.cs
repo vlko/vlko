@@ -19,7 +19,7 @@ namespace vlko.core.Authentication
 		public UserInfo(string name)
 		{
 			Name = name;
-			_authenticationService = IoC.IoC.Resolve<IUserAuthenticationService>();
+			_authenticationService = InversionOfControl.IoC.Resolve<IUserAuthenticationService>();
 		}
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace vlko.core.Authentication
 			{
 				if (_user == null || !string.IsNullOrEmpty(Name))
 				{
-					_user = IoC.IoC.Resolve<IUserAction>().GetByName(Name);
+					_user = InversionOfControl.IoC.Resolve<IUserAction>().GetByName(Name);
 				}
 				return _user;
 			}

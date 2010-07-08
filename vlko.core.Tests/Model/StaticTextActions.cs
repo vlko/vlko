@@ -29,7 +29,7 @@ namespace vlko.core.Tests.Model
 			doc.Load("log4net.config");
 			log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
 
-			IoC.IoC.InitializeWith(new WindsorContainer());
+			InversionOfControl.IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
 			using (var tran = new TransactionScope())
@@ -497,6 +497,26 @@ namespace vlko.core.Tests.Model
 					Assert.AreEqual(originalItem.Comments == null ? 0 : originalItem.Comments.Count, dataItem.CommentCounts);
 				}
 		   }
+		}
+
+		[TestMethod]
+		public void Data_get_by_ids()
+		{
+			using (RepositoryFactory.StartUnitOfWork())
+			{
+				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+
+				var testData = dataActions.GetAll().OrderBy(item => item.FriendlyUrl).ToArray();
+				var data = dataActions.GetByIds(testData.Select(item => item.Id)).OrderBy(item => item.FriendlyUrl).ToArray();
+
+				Assert.AreEqual(testData.Length, data.Length);
+
+				for (int i = 0; i < data.Length; i++)
+				{
+					Assert.AreEqual(testData[i].Id, data[i].Id);
+					Assert.AreEqual(testData[i].Description, data[i].Description);
+				}
+			}
 		}
 
 		[TestMethod]

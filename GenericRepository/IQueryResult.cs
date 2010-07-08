@@ -34,7 +34,7 @@ namespace GenericRepository
         /// <summary>
         /// Return the paged result.
         /// </summary>
-        /// <param name="startIndex">The start index.</param>
+        /// <param name="startIndex">The start index (zero based).</param>
         /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>All items in the specified page.</returns>
         T[] ToPage(int startIndex, int itemsPerPage);
