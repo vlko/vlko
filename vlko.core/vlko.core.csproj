@@ -189,6 +189,7 @@
     <Compile Include="Search\SearchProvider.cs" />
     <Compile Include="Search\SearchResult.cs" />
     <Compile Include="Search\SearchUpdateContext.cs" />
+    <Compile Include="Tools\HtmlManipulation.cs" />
     <Compile Include="Tools\InstanceCreator.cs" />
     <Compile Include="Tools\FriendlyUrlGenerator.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />

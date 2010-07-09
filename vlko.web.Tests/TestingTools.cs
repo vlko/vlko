@@ -7,7 +7,13 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using Rhino.Mocks;
+using vlko.core.Authentication;
+using vlko.core.Base;
+using vlko.core.InversionOfControl;
+using vlko.web.Tests.Controllers.Admin;
 
 namespace vlko.web.Tests
 {
@@ -99,6 +105,20 @@ namespace vlko.web.Tests
 			};
 
 			return (TModel)binder.BindModel(controller.ControllerContext, bindingContext);
+		}
+
+		/// <summary>
+		/// Mocks the user.
+		/// </summary>
+		/// <param name="controller">The controller.</param>
+		/// <param name="userName">Name of the user.</param>
+		public static void MockUser(this BaseController controller, string userName)
+		{
+			IWindsorContainer container = IoC.Container;
+			container.Register(
+				Component.For<IUserAuthenticationService>().ImplementedBy<StaticPageControllerTest.UserAuthenticationServiceMock>()
+				);
+			controller.UserInfo = new UserInfo(userName);
 		}
 
 	}

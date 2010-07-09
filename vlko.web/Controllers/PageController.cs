@@ -13,6 +13,8 @@ using vlko.core.InversionOfControl;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
+using vlko.core.Search;
+using vlko.core.Tools;
 using vlko.core.ValidationAtribute;
 using vlko.web.ViewModel.Page;
 
@@ -125,12 +127,13 @@ namespace vlko.web.Controllers
 				// for anonymous user encode text
 				if (model.ChangeUser == null)
 				{
-					model.Text = Regex.Replace(model.Text, @"<(.|\n)*?>", string.Empty);
+					model.Text = HtmlManipulation.RemoveTags(model.Text);
 				}
-				using (var tran = RepositoryFactory.StartTransaction())
+				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 				{
 					IoC.Resolve<ICommentCrud>().Create(model);
 					tran.Commit();
+					IoC.Resolve<ISearchAction>().IndexComment(tran, model);
 				}
 				return RedirectToActionWithAjax(staticText.FriendlyUrl, additionalActionLink:sort);
 			}

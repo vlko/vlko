@@ -8,6 +8,7 @@ using vlko.core.Components;
 using vlko.core.InversionOfControl;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
+using vlko.core.Search;
 using vlko.core.ValidationAtribute;
 using vlko.core.Models.Action;
 
@@ -61,10 +62,11 @@ namespace vlko.web.Areas.Admin.Controllers
 		public ActionResult Delete(CommentActionModel model)
 		{
 			var item = IoC.Resolve<ICommentCrud>().FindByPk(model.Id);
-			using (var tran = RepositoryFactory.StartTransaction())
+			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
 				IoC.Resolve<ICommentCrud>().Delete(item);
 				tran.Commit();
+				IoC.Resolve<ISearchAction>().DeleteFromIndex(tran, item.Id);
 			}
 			return RedirectToActionWithAjax("Index");
 		}
@@ -95,10 +97,12 @@ namespace vlko.web.Areas.Admin.Controllers
 					originalItem.Name = model.Name;
 					originalItem.Text = model.Text;
 
-					using (var tran = RepositoryFactory.StartTransaction())
+					using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 					{
 						crudOperations.Update(originalItem);
 						tran.Commit();
+						IoC.Resolve<ISearchAction>().DeleteFromIndex(tran, originalItem.Id);
+						IoC.Resolve<ISearchAction>().IndexComment(tran, originalItem);
 					}
 					return RedirectToActionWithAjax("Index");
 

@@ -58,6 +58,7 @@ namespace vlko.core.Search
 				--_currentWriters;
 				if (_currentWriters == 0)
 				{
+					writer.Commit();
 					writer.Close();
 				}
 			}

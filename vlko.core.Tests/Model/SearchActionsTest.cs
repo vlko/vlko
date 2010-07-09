@@ -174,6 +174,96 @@ namespace vlko.core.Tests.Model
 		}
 
 		[TestMethod]
+		public void Test_delete()
+		{
+			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
+			Guid idToDelete;
+			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
+			{
+				var startDate = DateTime.Now;
+				var home = IoC.Resolve<IStaticTextCrud>().Create(
+					new StaticTextActionModel
+						{
+							AllowComments = false,
+							Creator = _user,
+							Title = "To Delete",
+							FriendlyUrl = "Home",
+							ChangeDate = startDate.AddDays(-2),
+							PublishDate = startDate,
+							Text = "delete me",
+							Description = "delete me"
+						});
+				idToDelete = home.Id;
+				IoC.Resolve<ISearchAction>().IndexStaticText(tran, home);
+				tran.Commit();
+			}
+			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
+			{
+				// test search for user name
+				var searchResult = IoC.Resolve<ISearchAction>().Search(session, "delete");
+				Assert.AreEqual(1, searchResult.Count());
+			}
+			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
+			{
+				IoC.Resolve<ISearchAction>().DeleteFromIndex(tran, idToDelete);
+				tran.Commit();
+			}
+			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
+			{
+				// test search for user name
+				var searchResult = IoC.Resolve<ISearchAction>().Search(session, "delete");
+				Assert.AreEqual(0, searchResult.Count());
+			}
+		}
+
+		[TestMethod]
+		public void Test_Update()
+		{
+			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
+			Guid idToUpdate;
+			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
+			{
+				var startDate = DateTime.Now;
+				var home = IoC.Resolve<IStaticTextCrud>().Create(
+					new StaticTextActionModel
+					{
+						AllowComments = false,
+						Creator = _user,
+						Title = "To Delete",
+						FriendlyUrl = "Home",
+						ChangeDate = startDate.AddDays(-2),
+						PublishDate = startDate,
+						Text = "delete me",
+						Description = "delete me"
+					});
+				idToUpdate = home.Id;
+				IoC.Resolve<ISearchAction>().IndexStaticText(tran, home);
+				tran.Commit();
+			}
+			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
+			{
+				// test search for user name
+				var searchResult = IoC.Resolve<ISearchAction>().Search(session, "delete");
+				Assert.AreEqual(1, searchResult.Count());
+			}
+			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
+			{
+				IoC.Resolve<ISearchAction>().DeleteFromIndex(tran, idToUpdate);
+				var home = IoC.Resolve<IStaticTextCrud>().FindByPk(idToUpdate);
+				home.Text = "nodelete me";
+				IoC.Resolve<IStaticTextCrud>().Update(home);
+				IoC.Resolve<ISearchAction>().IndexStaticText(tran, home);
+				tran.Commit();
+			}
+			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
+			{
+				// test search for user name
+				var searchResult = IoC.Resolve<ISearchAction>().Search(session, "nodelete");
+				Assert.AreEqual(1, searchResult.Count());
+			}
+		}
+
+		[TestMethod]
 		public void Test_search()
 		{
 			CreateTestData("search");

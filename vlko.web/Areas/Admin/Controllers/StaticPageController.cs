@@ -12,6 +12,7 @@ using vlko.core.Models;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
+using vlko.core.Search;
 using vlko.core.Tools;
 using vlko.core.ValidationAtribute;
 
@@ -79,10 +80,11 @@ namespace vlko.web.Areas.Admin.Controllers
 			if (item.Creator.Name == UserInfo.Name
 				|| UserInfo.IsAdmin())
 			{
-				using (var tran = RepositoryFactory.StartTransaction())
+				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 				{
 					IoC.Resolve<IStaticTextCrud>().Delete(model);
 					tran.Commit();
+					IoC.Resolve<ISearchAction>().DeleteFromIndex(tran, model.Id);
 				}
 				return RedirectToActionWithAjax("Index");
 			}
@@ -133,10 +135,12 @@ namespace vlko.web.Areas.Admin.Controllers
 						model.Creator = IoC.Resolve<IUserAction>().GetByName(UserInfo.Name);
 						model.Description = GenerateDescription(model.Text);
 
-						using (var tran = RepositoryFactory.StartTransaction())
+						using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 						{
 							IoC.Resolve<IStaticTextCrud>().Update(model);
 							tran.Commit();
+							IoC.Resolve<ISearchAction>().DeleteFromIndex(tran, model.Id);
+							IoC.Resolve<ISearchAction>().IndexStaticText(tran, model);
 						}
 						return RedirectToActionWithAjax("Index");
 					}
@@ -188,10 +192,11 @@ namespace vlko.web.Areas.Admin.Controllers
 				model.Creator = IoC.Resolve<IUserAction>().GetByName(UserInfo.Name);
 				model.Description = GenerateDescription(model.Text);
 
-				using (var tran = RepositoryFactory.StartTransaction())
+				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 				{
 					IoC.Resolve<IStaticTextCrud>().Create(model);
 					tran.Commit();
+					IoC.Resolve<ISearchAction>().IndexStaticText(tran, model);
 				}
 				return RedirectToActionWithAjax("Index");
 
@@ -233,8 +238,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Description text.</returns>
 		private static string GenerateDescription(string text)
 		{
-			string result = AntiXss.HtmlEncode(text);
-			result = Regex.Replace(text, @"<(.|\n)*?>", string.Empty);
+			var result = HtmlManipulation.RemoveTags(text);
 			if (result.Length > ModelConstants.DescriptionMaxLenghtConst)
 			{
 				result = result.Substring(0, ModelConstants.DescriptionMaxLenghtConst);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -13,6 +14,7 @@ using vlko.core.InversionOfControl;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
+using vlko.core.Search;
 using vlko.web.Areas.Admin.Controllers;
 using vlko.web.Controllers;
 using vlko.web.ViewModel.Page;
@@ -29,6 +31,8 @@ namespace vlko.web.Tests.Controllers
 		{
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
+			ApplicationInit.InitializeServices();
+			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			base.SetUp();
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
@@ -99,18 +103,19 @@ namespace vlko.web.Tests.Controllers
 			// Arrange
 			PageController controller = new PageController();
 			controller.MockRequest();
+			controller.MockUser("vlko");
 			// Act
-			ViewResult result = controller.ViewPage("staticpage2", new PagedModel<CommentViewModel>(), string.Empty) as ViewResult;
+			ViewResult result = controller.ViewPage("staticpage2", new PagedModel<CommentViewModel>(), "flat") as ViewResult;
 
 			// Assert
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextWithFullTextViewModel)viewResult.ViewData.Model;
+			var model = (PageViewModel)viewResult.ViewData.Model;
 
-			Assert.AreEqual("StaticPage2", model.Title);
-			Assert.AreEqual("staticpage2", model.FriendlyUrl);
-			Assert.AreEqual("Static page2", model.Text);
+			Assert.AreEqual("StaticPage2", model.StaticText.Title);
+			Assert.AreEqual("staticpage2", model.StaticText.FriendlyUrl);
+			Assert.AreEqual("Static page2", model.StaticText.Text);
 		}
 	}
 }

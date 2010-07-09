@@ -6,6 +6,7 @@ using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Search;
+using vlko.core.Tools;
 
 namespace vlko.core.Models.Action.Implementation
 {
@@ -41,14 +42,14 @@ namespace vlko.core.Models.Action.Implementation
 			}
 
 			Document doc = new Document();
-			doc.Add(new Field(SearchResult.IdField, comment.Id.ToString(), Field.Store.YES, Field.Index.NO));
-			doc.Add(new Field(SearchResult.TypeField, SearchResult.CommentType, Field.Store.YES, Field.Index.UN_TOKENIZED));
-			doc.Add(new Field("Title", comment.Name, Field.Store.YES, Field.Index.TOKENIZED));
-			doc.Add(new Field("Text", comment.Text, Field.Store.NO, Field.Index.TOKENIZED));
-			doc.Add(new Field("Published", DateField.DateToString(comment.ChangeDate), Field.Store.NO, Field.Index.UN_TOKENIZED));
-			doc.Add(new Field("Date", DateField.DateToString(comment.ChangeDate), Field.Store.NO, Field.Index.UN_TOKENIZED));
+			doc.Add(new Field(SearchResult.IdField, comment.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field(SearchResult.TypeField, SearchResult.CommentType, Field.Store.YES, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field("Title", comment.Name, Field.Store.YES, Field.Index.ANALYZED));
+			doc.Add(new Field("Text", HtmlManipulation.RemoveTags(comment.Text), Field.Store.NO, Field.Index.ANALYZED));
+			doc.Add(new Field("Published", DateField.DateToString(comment.ChangeDate), Field.Store.NO, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field("Date", DateField.DateToString(comment.ChangeDate), Field.Store.NO, Field.Index.NOT_ANALYZED));
 			var user = comment.ChangeUser != null ? comment.ChangeUser.Name : comment.AnonymousName;
-			doc.Add(new Field("User", user, Field.Store.NO, Field.Index.TOKENIZED));
+			doc.Add(new Field("User", user, Field.Store.NO, Field.Index.ANALYZED));
 			
 			tranContext.IndexWriter.AddDocument(doc);
 		}
@@ -67,13 +68,13 @@ namespace vlko.core.Models.Action.Implementation
 			}
 
 			Document doc = new Document();
-			doc.Add(new Field(SearchResult.IdField, staticText.Id.ToString(), Field.Store.YES, Field.Index.NO));
-			doc.Add(new Field(SearchResult.TypeField, SearchResult.StaticTextType, Field.Store.YES, Field.Index.UN_TOKENIZED));
-			doc.Add(new Field("Title", staticText.Title, Field.Store.YES, Field.Index.TOKENIZED));
-			doc.Add(new Field("Text", staticText.Text, Field.Store.NO, Field.Index.TOKENIZED));
-			doc.Add(new Field("Published", DateField.DateToString(staticText.PublishDate), Field.Store.NO, Field.Index.UN_TOKENIZED));
-			doc.Add(new Field("Date", DateField.DateToString(staticText.ChangeDate), Field.Store.NO, Field.Index.UN_TOKENIZED));
-			doc.Add(new Field("User", staticText.Creator.Name, Field.Store.NO, Field.Index.TOKENIZED));
+			doc.Add(new Field(SearchResult.IdField, staticText.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field(SearchResult.TypeField, SearchResult.StaticTextType, Field.Store.YES, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field("Title", staticText.Title, Field.Store.YES, Field.Index.ANALYZED));
+			doc.Add(new Field("Text", HtmlManipulation.RemoveTags(staticText.Text), Field.Store.NO, Field.Index.TOKENIZED));
+			doc.Add(new Field("Published", DateField.DateToString(staticText.PublishDate), Field.Store.NO, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field("Date", DateField.DateToString(staticText.ChangeDate), Field.Store.NO, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field("User", staticText.Creator.Name, Field.Store.NO, Field.Index.ANALYZED));
 
 			doc.SetBoost(5F);
 
@@ -92,7 +93,7 @@ namespace vlko.core.Models.Action.Implementation
 			{
 				throw new Exception("SearchUpdateContext not part of ITransaction!");
 			}
-			tranContext.IndexWriter.DeleteDocuments(new Term(SearchResult.IdField, id.ToString()));
+			tranContext.IndexWriter.DeleteDocuments(new TermQuery(new Term(SearchResult.IdField, id.ToString())));
 		}
 
 

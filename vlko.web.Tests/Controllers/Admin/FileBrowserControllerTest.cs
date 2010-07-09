@@ -39,7 +39,7 @@ namespace vlko.web.Tests.Controllers.Admin
             // Arrange
             var controller = new FileBrowserController();
             controller.MockRequest();
-            MockUser(controller, "empty");
+			controller.MockUser("empty");
             // Act
             ActionResult result = controller.Index();
 
@@ -61,7 +61,7 @@ namespace vlko.web.Tests.Controllers.Admin
             var form = new FormCollection();
             form.Add("Ident", "some_name");
             controller.MockRequest(form);
-            MockUser(controller, "upload_ok");
+			controller.MockUser("upload_ok");
             // Act
 
             ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
@@ -90,7 +90,7 @@ namespace vlko.web.Tests.Controllers.Admin
             var form = new FormCollection();
             form.Add("Ident", "..\\some_name");
             controller.MockRequest(form);
-            MockUser(controller, "..\\upload_ok");
+			controller.MockUser("..\\upload_ok");
             // Act
 
             ActionResult result = controller.Upload(new HttpPostedFileMock("..\\test.\\jpg", 40));
@@ -119,7 +119,7 @@ namespace vlko.web.Tests.Controllers.Admin
             var form = new FormCollection();
             form.Add("Ident", "some_name");
             controller.MockRequest(form);
-            MockUser(controller, "Upload_file_too_big");
+			controller.MockUser("Upload_file_too_big");
             // Act
 
             ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", FileBrowserViewModel.MaxFileSize + 1));
@@ -144,7 +144,7 @@ namespace vlko.web.Tests.Controllers.Admin
             var form = new FormCollection();
             form.Add("Ident", string.Empty);
             controller.MockRequest(form);
-            MockUser(controller, "Upload_file_empty_ident");
+			controller.MockUser("Upload_file_empty_ident");
             // Act
 
             ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
@@ -169,7 +169,7 @@ namespace vlko.web.Tests.Controllers.Admin
             var form = new FormCollection();
             form.Add("Ident", "some_name");
             controller.MockRequest(form);
-            MockUser(controller, "Upload_ident_exists");
+			controller.MockUser("Upload_ident_exists");
             // Act
 
             ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
@@ -196,7 +196,7 @@ namespace vlko.web.Tests.Controllers.Admin
             form.Add("Ident", "some_name");
             controller.MockRequest(form);
             controller.MockValueProvider("FileBrowser");
-            MockUser(controller, "delete");
+			controller.MockUser("delete");
 
             // Act
             ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
@@ -225,7 +225,7 @@ namespace vlko.web.Tests.Controllers.Admin
             form.Add("Ident", "some_name");
             controller.MockRequest(form);
             controller.MockValueProvider("FileBrowser");
-            MockUser(controller, "delete_ok");
+			controller.MockUser("delete_ok");
 
             // Act
             ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
@@ -255,7 +255,7 @@ namespace vlko.web.Tests.Controllers.Admin
             form.Add("Ident", "some_name");
             controller.MockRequest(form);
             controller.MockValueProvider("FileBrowser");
-            MockUser(controller, "delete_ok");
+			controller.MockUser("delete_ok");
 
             // Act
             ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
@@ -271,14 +271,7 @@ namespace vlko.web.Tests.Controllers.Admin
 
             Assert.IsFalse(controller.ModelState.IsValid);
         }
-        private void MockUser(BaseController controller, string userName)
-        {
-            IWindsorContainer container = IoC.Container;
-            container.Register(
-                Component.For<IUserAuthenticationService>().ImplementedBy<StaticPageControllerTest.UserAuthenticationServiceMock>()
-                );
-            controller.UserInfo = new UserInfo(userName);
-        }
+ 
 
         public class AppInfoServiceMock : IAppInfoService
         {

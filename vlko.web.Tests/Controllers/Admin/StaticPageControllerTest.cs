@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Web.Mvc;
 using Castle.ActiveRecord.Testing;
 using Castle.MicroKernel.Registration;
@@ -12,6 +13,7 @@ using vlko.core.InversionOfControl;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
+using vlko.core.Search;
 using vlko.web.Areas.Admin.Controllers;
 
 namespace vlko.web.Tests.Controllers.Admin
@@ -26,6 +28,8 @@ namespace vlko.web.Tests.Controllers.Admin
         {
             IoC.InitializeWith(new WindsorContainer());
             ApplicationInit.InitializeRepositories();
+			ApplicationInit.InitializeServices();
+			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
             base.SetUp();
             using (var tran = RepositoryFactory.StartTransaction())
             {
@@ -138,7 +142,7 @@ namespace vlko.web.Tests.Controllers.Admin
             controller.MockRequest();
             controller.MockValueProvider("StaticPage");
 
-            MockUser(controller, "vlko");
+            controller.MockUser("vlko");
 
             var id = IoC.Resolve<IStaticTextData>().Get("staticpage0").Id;
             var dataModel = IoC.Resolve<IStaticTextCrud>().FindByPk(id);
@@ -164,7 +168,7 @@ namespace vlko.web.Tests.Controllers.Admin
             controller.MockRequest();
             controller.MockValueProvider("StaticPage");
 
-            MockUser(controller, "vlko");
+			controller.MockUser("vlko");
 
             var id = IoC.Resolve<IStaticTextData>().Get("staticpage0").Id;
             var dataModel = IoC.Resolve<IStaticTextCrud>().FindByPk(id);
@@ -190,7 +194,7 @@ namespace vlko.web.Tests.Controllers.Admin
             controller.MockRequest();
             controller.MockValueProvider("StaticPage");
 
-            MockUser(controller, "other");
+			controller.MockUser("other");
 
             var id = IoC.Resolve<IStaticTextData>().Get("staticpage0").Id;
             var dataModel = IoC.Resolve<IStaticTextCrud>().FindByPk(id);
@@ -234,7 +238,7 @@ namespace vlko.web.Tests.Controllers.Admin
             controller.MockRequest();
             controller.MockValueProvider("StaticPage");
 
-            MockUser(controller, "vlko");
+			controller.MockUser("vlko");
 
             var dataModel = new StaticTextActionModel
                             {
@@ -305,7 +309,7 @@ namespace vlko.web.Tests.Controllers.Admin
             // Arrange
             StaticPageController controller = new StaticPageController();
             controller.MockRequest();
-            MockUser(controller, "vlko");
+			controller.MockUser("vlko");
             controller.MockValueProvider("StaticPage");
 
             var id = IoC.Resolve<IStaticTextData>().Get("staticpage0").Id;
@@ -335,7 +339,7 @@ namespace vlko.web.Tests.Controllers.Admin
             // Arrange
             StaticPageController controller = new StaticPageController();
             controller.MockRequest();
-            MockUser(controller, "other");
+			controller.MockUser("other");
             controller.MockValueProvider("StaticPage");
 
             var id = IoC.Resolve<IStaticTextData>().Get("staticpage0").Id;
@@ -371,14 +375,7 @@ namespace vlko.web.Tests.Controllers.Admin
         }
 
 
-        private void MockUser(StaticPageController controller, string userName)
-        {
-            IWindsorContainer container = IoC.Container;
-            container.Register(
-                Component.For<IUserAuthenticationService>().ImplementedBy<UserAuthenticationServiceMock>()
-                );
-            controller.UserInfo = new UserInfo(userName);
-        }
+        
 
         public class UserAuthenticationServiceMock : IUserAuthenticationService
         {

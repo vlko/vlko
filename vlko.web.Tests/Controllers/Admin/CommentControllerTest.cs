@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -13,6 +14,7 @@ using vlko.core.InversionOfControl;
 using vlko.core.Models.Action;
 using vlko.core.Models.Action.ActionModel;
 using vlko.core.Models.Action.ViewModel;
+using vlko.core.Search;
 using vlko.web.Areas.Admin.Controllers;
 
 namespace vlko.web.Tests.Controllers.Admin
@@ -27,6 +29,8 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
+			ApplicationInit.InitializeServices();
+			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			base.SetUp();
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
