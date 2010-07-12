@@ -176,6 +176,7 @@
     <Compile Include="Models\Action\Implementation\StaticTextData.cs" />
     <Compile Include="Models\Action\Implementation\SearchAction.cs" />
     <Compile Include="Models\Action\ViewModel\CommentForAdminViewModel.cs" />
+    <Compile Include="Models\Action\ViewModel\CommentSearchViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\CommentTreeViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\CommentViewModel.cs" />
     <Compile Include="Models\Action\ViewModel\FileViewModel.cs" />

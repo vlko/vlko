@@ -308,17 +308,17 @@ namespace vlko.core.Models.Action.Implementation
 		/// </summary>
 		/// <param name="ids"></param>
 		/// <returns>All comments matching specified ids.</returns>
-		public IQueryResult<CommentForAdminViewModel> GetByIds(IEnumerable<Guid> ids)
+		public IQueryResult<CommentSearchViewModel> GetByIds(IEnumerable<Guid> ids)
 		{
 			// lambda helpers
-			CommentForAdminViewModel result = null;
+			CommentSearchViewModel result = null;
 			Comment Comment = null;
 			Content Content = null;
 			ContentType ContentType = 0;
 			User Owner = null;
 
 			// projection query
-			return new ProjectionQueryResult<CommentVersion, CommentForAdminViewModel>(
+			return new ProjectionQueryResult<CommentVersion, CommentSearchViewModel>(
 
 				// add alias and filter
 				DetachedCriteria.For<CommentVersion>()
@@ -333,12 +333,6 @@ namespace vlko.core.Models.Action.Implementation
 					.Add(LambdaProjection.Property<CommentVersion>(
 						commentVersion => commentVersion.Comment.Id)
 							.As(() => result.Id))
-					.Add(LambdaProjection.Property<Comment>(
-						comment => comment.Content.Id)
-							.As(() => result.ContentId))
-					.Add(LambdaProjection.Property<Comment>(
-						comment => comment.Content.ContentType)
-							.As(() => result.ContentType))
 					.Add(LambdaProjection.Property<CommentVersion>(
 						commentVersion => commentVersion.Comment.Name)
 							.As(() => result.Name))
@@ -362,7 +356,10 @@ namespace vlko.core.Models.Action.Implementation
 							.As(() => result.ClientIp))
 					.Add(LambdaProjection.Property<CommentVersion>(
 						commentVersion => commentVersion.Comment.Level)
-							.As(() => result.Level)));
+							.As(() => result.Level))
+					.Add(LambdaProjection.Property<CommentVersion>(
+						commentVersion => commentVersion.Comment.Content)
+							.As(() => result.Content)));
 		}
 	}
 }

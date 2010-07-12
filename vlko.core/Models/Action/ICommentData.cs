@@ -41,6 +41,6 @@ namespace vlko.core.Models.Action
 		/// </summary>
 		/// <param name="ids"></param>
 		/// <returns>All comments matching specified ids.</returns>
-		IQueryResult<CommentForAdminViewModel> GetByIds(IEnumerable<Guid> ids);
+		IQueryResult<CommentSearchViewModel> GetByIds(IEnumerable<Guid> ids);
 	}
 }

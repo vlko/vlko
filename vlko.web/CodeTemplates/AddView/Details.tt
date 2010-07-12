@@ -72,12 +72,12 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 #>
 	<div class="ajax_content">
     	<fieldset>
-        	<legend>Fields</legend>
+        	<legend>Fields</legend>http://bourgnon.blogspot.com/2010/04/der-kunstler.html
         
 <#
 	foreach(KeyValuePair<string, string> property in properties) {
 #>
-			<%<#= nugget #> Html.DisplayFor(model => model.<#= property.Key #>) %>        
+			<%<#= nugget #> Html.DisplayFor(model => model.<#= property.Key #>) %>
 <#
 	}
 #>

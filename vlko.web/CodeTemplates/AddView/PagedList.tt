@@ -91,7 +91,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
             <td>
                 <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.<#= primaryKeys[0] #>), "Edit", new { @class = "grid_edit", title = "Edit" })%>&nbsp;
                 <%<#= nugget #> Html.ActionLink<change_me>(c => c.Details(item.<#= primaryKeys[0] #>), "Details", new { @class = "grid_details", title = "Details" })%>&nbsp;
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.<#= primaryKeys[0] #>), "Delete", new { @class = "grid_delete", title = "Delete" })%> 
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.<#= primaryKeys[0] #>), "Delete", new { @class = "grid_delete", title = "Delete" })%>
             </td>
 <#
 	} else {
@@ -99,7 +99,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
             <td>
                 <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.PrimaryKey), "Edit", new { @class = "grid_edit", title = "Edit" })%>&nbsp;
                 <%<#= nugget #> Html.ActionLink<change_me>(c => c.Details(item.PrimaryKey), "Details", new { @class = "grid_details", title = "Details" })%>&nbsp;
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.PrimaryKey), "Delete", new { @class = "grid_delete", title = "Delete" })%>             </td>
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.PrimaryKey), "Delete", new { @class = "grid_delete", title = "Delete" })%></td>
 <#
 	}
 	
@@ -115,7 +115,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
     </table>
 	<p><% Html.RenderPartial("~/Views/Shared/Pager.ascx", new PagerModel(Model, "Index")); %></p>
     <p>
-        <%<#= nugget #> Html.ActionLink<change_me>(c => c.Create(), "Create new", new { @class = "grid_create", title = "Create new" })%> 
+        <%<#= nugget #> Html.ActionLink<change_me>(c => c.Create(), "Create new", new { @class = "grid_create", title = "Create new" })%>
     </p>
 	<% Html.ScriptInlineInclude(() => {%>
 	<script type="text/javascript">

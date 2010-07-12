@@ -67,14 +67,15 @@ namespace vlko.core.Components
 			PagesNumber = Count / PageItems + (Count % PageItems > 0 ? 1 : 0);
 
 			// check hi and lo ranges
-			if (CurrentPage < 1)
-			{
-				CurrentPage = 1;
-			}
 			if (CurrentPage > PagesNumber)
 			{
 				CurrentPage = PagesNumber;
 			}
+			if (CurrentPage < 1)
+			{
+				CurrentPage = 1;
+			}
+
 
 			_currentData = queryResult.ToPage(CurrentPage - 1, PageItems);
 

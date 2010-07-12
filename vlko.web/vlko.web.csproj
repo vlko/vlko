@@ -181,6 +181,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\StaticPageController.cs" />
     <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,6 +193,7 @@
     <Compile Include="ViewModel\Account\ResetPasswordModel.cs" />
     <Compile Include="Areas\Admin\ViewModel\FileBrowser\FileBrowserViewModel.cs" />
     <Compile Include="ViewModel\Page\PageViewModel.cs" />
+    <Compile Include="ViewModel\Search\SearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Comment\Delete.aspx" />
@@ -409,6 +411,9 @@
     <Content Include="Views\Page\Index.aspx" />
     <Content Include="Views\Page\NewComment.ascx" />
     <Content Include="Views\Page\ViewPage.aspx" />
+    <Content Include="Views\Search\Comment.ascx" />
+    <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\Search\StaticText.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Collection.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Decimal.ascx" />

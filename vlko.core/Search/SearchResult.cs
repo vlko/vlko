@@ -83,7 +83,7 @@ namespace vlko.core.Search
 
 			// check ranges
 			startIndex = Math.Min(startIndex, _hits.Length());
-			int numberOfResult = Math.Min(startIndex + itemsPerPage, startIndex + MaximumRawResults);
+			int numberOfResult = Math.Min(Math.Min(startIndex + itemsPerPage, startIndex + MaximumRawResults), _hits.Length());
 
 			// get ids from search results
 			for (int i = startIndex; i < numberOfResult; i++)

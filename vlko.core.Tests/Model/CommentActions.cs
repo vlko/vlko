@@ -381,6 +381,8 @@ namespace vlko.core.Tests.Model
 				{
 					Assert.AreEqual(testData[i].Id, data[i].Id);
 					Assert.AreEqual(testData[i].Text, data[i].Text);
+					Assert.IsInstanceOfType(data[i].Content, typeof(Content));
+					Assert.IsNotNull(data[i].Content);
 				}
 			}
 		}

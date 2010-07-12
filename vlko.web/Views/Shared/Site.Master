@@ -34,6 +34,13 @@
 					<li><%= Html.ActionLink("Comments", "Index", "Comment", routeValues: new { area = "Admin" })%></li>
 				</ul>
 			
+				<div id="search">
+				<% using (Html.BeginForm("Index", "Search", method: FormMethod.Get)) {%>
+					<%: Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"]) %>
+					<%: Html.TextBox("Query", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Query"])%>
+					<input type="submit" value="Search" />
+				<% } %>
+				</div>
 			</div>
 		</div>
 		<div id="main">

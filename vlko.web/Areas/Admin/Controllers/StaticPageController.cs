@@ -238,12 +238,9 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Description text.</returns>
 		private static string GenerateDescription(string text)
 		{
-			var result = HtmlManipulation.RemoveTags(text);
-			if (result.Length > ModelConstants.DescriptionMaxLenghtConst)
-			{
-				result = result.Substring(0, ModelConstants.DescriptionMaxLenghtConst);
-			}
-			return result;
+			return text
+				.RemoveTags()
+				.Shorten(ModelConstants.DescriptionMaxLenghtConst);
 		}
 	}
 }

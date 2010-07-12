@@ -111,7 +111,7 @@ namespace vlko.web
 
 
 				IoC.Resolve<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
-				var admin = IoC.Resolve<IUserAction>().GetByName("vlko"); 
+				var admin = IoC.Resolve<IUserAction>().GetByName("vlko");
 				var home = IoC.Resolve<IStaticTextCrud>().Create(
 					new StaticTextActionModel
 						{
@@ -128,17 +128,17 @@ namespace vlko.web
 				for (int i = 0; i < 30; i++)
 				{
 					searchAction.IndexComment(tran,
-					IoC.Resolve<ICommentCrud>().Create(
-						new CommentActionModel()
-						{
-							AnonymousName = "User",
-							ChangeDate = DateTime.Now.AddDays(-i),
-							ClientIp = "127.0.0.1",
-							ContentId = home.Id,
-							Name = "Comment" + i,
-							Text = "Home commment" + i,
-							UserAgent = "Mozzilla"
-						}));
+					                          IoC.Resolve<ICommentCrud>().Create(
+					                          	new CommentActionModel()
+					                          		{
+					                          			AnonymousName = "User",
+					                          			ChangeDate = DateTime.Now.AddDays(-i),
+					                          			ClientIp = "127.0.0.1",
+					                          			ContentId = home.Id,
+					                          			Name = "Comment" + i,
+					                          			Text = "Home commment" + i,
+					                          			UserAgent = "Mozzilla"
+					                          		}));
 				}
 				for (int i = 0; i < 1000; i++)
 				{
@@ -156,17 +156,17 @@ namespace vlko.web
 							});
 					searchAction.IndexStaticText(tran, text);
 					searchAction.IndexComment(tran,
-					IoC.Resolve<ICommentCrud>().Create(
-						new CommentActionModel()
-							{
-								AnonymousName = "User",
-								ChangeDate = DateTime.Now.AddDays(-i),
-								ClientIp = "127.0.0.1",
-								ContentId = text.Id,
-								Name = "Comment" + i,
-								Text = "Static page" + i,
-								UserAgent = "Mozzilla"
-							}));
+					                          IoC.Resolve<ICommentCrud>().Create(
+					                          	new CommentActionModel()
+					                          		{
+					                          			AnonymousName = "User",
+					                          			ChangeDate = DateTime.Now.AddDays(-i),
+					                          			ClientIp = "127.0.0.1",
+					                          			ContentId = text.Id,
+					                          			Name = "Comment" + i,
+					                          			Text = "Static page" + i,
+					                          			UserAgent = "Mozzilla"
+					                          		}));
 				}
 				tran.Commit();
 			}
