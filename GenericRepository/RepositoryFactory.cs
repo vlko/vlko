@@ -112,7 +112,11 @@ namespace GenericRepository
 		public static T Action<T>() where T : class, IAction
 		{
 			var action = FactoryResolver.ResolveAction<T>();
-			action.Initialize();
+			// initialize if not yet done
+			if (!action.Initialized)
+			{
+				action.Initialize();
+			}
 			return action;
 		}
 	}
