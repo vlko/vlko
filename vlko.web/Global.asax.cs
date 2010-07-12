@@ -93,7 +93,7 @@ namespace vlko.web
 			ActiveRecordStarter.CreateSchema();
 
 			// set search folder
-			var indexDirectory = HttpContext.Current.Server.MapPath("~/App_Data/Index");
+			var indexDirectory = HttpContext.Current.Server.MapPath("~/App_Data/Index.Lucene");
 
 			// delete previous search index
 			if (Directory.Exists(indexDirectory))
