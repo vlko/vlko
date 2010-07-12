@@ -7,23 +7,8 @@ using GenericRepository;
 
 namespace vlko.core.Models.Action.Implementation
 {
-    public class UserAuthentication : IUserAuthentication
+	public class UserAuthentication : BaseAction<User>, IUserAuthentication
     {
-        /// <summary>
-        /// Gets a value indicating whether this <see cref="IAction&lt;T&gt;"/> is initialized.
-        /// </summary>
-        /// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
-        public bool Initialized { get; set; }
-
-        /// <summary>
-        /// Initializes queryAction with the specified repository.
-        /// </summary>
-        /// <param name="initializeContext">The initialize context.</param>
-        public void Initialize(InitializeContext<User> initializeContext)
-        {
-            Initialized = true;
-        }
-
         /// <summary>
         /// Generates the verify token.
         /// </summary>

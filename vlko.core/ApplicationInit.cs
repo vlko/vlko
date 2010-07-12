@@ -77,6 +77,7 @@ namespace vlko.core
 				Component.For<IEmailService>().ImplementedBy<EmailService>(),
 				Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>(),
 				Component.For<IUserAuthenticationService>().ImplementedBy<UserAuthenticationService>(),
+				Component.For<BaseRepository<Models.Search>>().ImplementedBy<Repository<Models.Search>>(),
 				Component.For<ISearchAction>().ImplementedBy<SearchAction>(),
 				Component.For<ISearchProvider>().ImplementedBy<SearchProvider>(),
 				Component.For<SearchContext>().ImplementedBy<SearchContext>().LifeStyle.Transient,

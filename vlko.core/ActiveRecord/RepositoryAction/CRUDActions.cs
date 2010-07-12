@@ -6,22 +6,8 @@ using NotFoundException = GenericRepository.Exceptions.NotFoundException;
 
 namespace vlko.core.ActiveRecord.RepositoryAction
 {
-    public class CRUDActions<T> : IFindByPkAction<T>, ICreateAction<T>, ISaveAction<T>, IDeleteAction<T> where T : class
+    public class CRUDActions<T> : BaseAction<T>, IFindByPkAction<T>, ICreateAction<T>, ISaveAction<T>, IDeleteAction<T> where T : class
     {
-        /// <summary>
-        /// Gets a value indicating whether this <see cref="IAction&lt;T&gt;"/> is initialized.
-        /// </summary>
-        /// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
-        public bool Initialized { get; set; }
-
-        /// <summary>
-        /// Initializes queryAction with the specified repository.
-        /// </summary>
-        /// <param name="initializeContext">The initialize context.</param>
-        public void Initialize(InitializeContext<T> initializeContext)
-        {
-            Initialized = true;
-        }
 
         /// <summary>
         /// Finds the by PK.

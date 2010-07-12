@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseAction.cs" />
     <Compile Include="Exceptions\ActionNotRegisteredException.cs" />
     <Compile Include="IAction.cs" />
     <Compile Include="InitializeContext.cs" />

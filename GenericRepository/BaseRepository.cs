@@ -63,7 +63,7 @@ namespace GenericRepository
         /// Initalizes the queryAction.
         /// </summary>
         /// <param name="action">The action.</param>
-        protected virtual void InitalizeAction(IAction<T> action)
+        public virtual void InitalizeAction(IAction<T> action)
         {
             action.Initialize(new InitializeContext<T>(this));
         }

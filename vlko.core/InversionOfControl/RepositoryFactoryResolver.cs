@@ -9,7 +9,7 @@ namespace vlko.core.InversionOfControl
 		/// </summary>
 		/// <typeparam name="T">Generic type.</typeparam>
 		/// <returns>Resolved action or query.</returns>
-		public T ResolveAction<T>() where T : class
+		public T ResolveAction<T>() where T : class, IAction
 		{
 			return InversionOfControl.IoC.Resolve<T>();
 		}

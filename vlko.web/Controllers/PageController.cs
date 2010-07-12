@@ -25,7 +25,7 @@ namespace vlko.web.Controllers
 		[HttpGet]
 		public ActionResult Index(PagedModel<StaticTextViewModel> pageModel)
 		{
-			pageModel.LoadData(IoC.Resolve<IStaticTextData>()
+			pageModel.LoadData(RepositoryFactory.Action<IStaticTextData>()
 				.GetAll(DateTime.Now)
 				.OrderByDescending(item => item.PublishDate));
 			return ViewWithAjax(pageModel);
@@ -40,7 +40,7 @@ namespace vlko.web.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult ViewPage(string friendlyUrl, PagedModel<CommentViewModel> commentsModel, string sort)
 		{
-			var staticText = IoC.Resolve<IStaticTextData>().Get(friendlyUrl, DateTime.Now);
+			var staticText = RepositoryFactory.Action<IStaticTextData>().Get(friendlyUrl, DateTime.Now);
 
 			CommentViewTypeEnum sortType = ParseCommentViewType(sort);
 
@@ -74,14 +74,14 @@ namespace vlko.web.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Reply(string friendlyUrl, Guid parentId, PagedModel<CommentViewModel> commentsModel, string sort)
 		{
-			var staticText = IoC.Resolve<IStaticTextData>().Get(friendlyUrl, DateTime.Now);
+			var staticText = RepositoryFactory.Action<IStaticTextData>().Get(friendlyUrl, DateTime.Now);
 
 			CommentViewTypeEnum sortType = ParseCommentViewType(sort);
 
 			IEnumerable<CommentTreeViewModel> comments;
 			LoadComments(sortType, out comments, commentsModel, staticText.Id);
 
-			var parentComment = IoC.Resolve<ICommentCrud>().FindByPk(parentId);
+			var parentComment = RepositoryFactory.Action<ICommentCrud>().FindByPk(parentId);
 
 			return ViewWithAjax("ViewPage",
 				new PageViewModel
@@ -110,7 +110,7 @@ namespace vlko.web.Controllers
 		[AntiXss]
 		public ActionResult NewComment(PagedModel<CommentViewModel> commentsModel, CommentActionModel model, string sort)
 		{
-			var staticText = IoC.Resolve<IStaticTextData>().Get(model.ContentId, DateTime.Now);
+			var staticText = RepositoryFactory.Action<IStaticTextData>().Get(model.ContentId, DateTime.Now);
 			model.ChangeUser = UserInfo.User;
 
 			// check for anonymous name required if not logged user
@@ -131,9 +131,9 @@ namespace vlko.web.Controllers
 				}
 				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 				{
-					IoC.Resolve<ICommentCrud>().Create(model);
+					RepositoryFactory.Action<ICommentCrud>().Create(model);
 					tran.Commit();
-					IoC.Resolve<ISearchAction>().IndexComment(tran, model);
+					RepositoryFactory.Action<ISearchAction>().IndexComment(tran, model);
 				}
 				return RedirectToActionWithAjax(staticText.FriendlyUrl, additionalActionLink:sort);
 			}
@@ -186,13 +186,13 @@ namespace vlko.web.Controllers
 			switch (sort)
 			{
 				case CommentViewTypeEnum.Flat:
-					commentsModel.LoadData(IoC.Resolve<ICommentData>().GetAllByDate(staticTextId));
+					commentsModel.LoadData(RepositoryFactory.Action<ICommentData>().GetAllByDate(staticTextId));
 					break;
 				case CommentViewTypeEnum.FlatDesc:
-					commentsModel.LoadData(IoC.Resolve<ICommentData>().GetAllByDateDesc(staticTextId));
+					commentsModel.LoadData(RepositoryFactory.Action<ICommentData>().GetAllByDateDesc(staticTextId));
 					break;
 				case CommentViewTypeEnum.Tree:
-					comments = IoC.Resolve<ICommentData>().GetCommentTree(staticTextId);
+					comments = RepositoryFactory.Action<ICommentData>().GetCommentTree(staticTextId);
 					break;
 			}
 		}

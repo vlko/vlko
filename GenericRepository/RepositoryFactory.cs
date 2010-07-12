@@ -90,5 +90,30 @@ namespace GenericRepository
 		{
 			return FactoryResolver.GetRepository<T>();
 		}
+
+		/// <summary>
+		/// Gets the action.
+		/// </summary>
+		/// <typeparam name="TA">The type of the action.</typeparam>
+		/// <typeparam name="T">Repository type.</typeparam>
+		/// <returns>Action.</returns>
+		public static TA GetAction<T, TA>()
+			where T : class 
+			where TA : class, IAction<T>
+		{
+			return GetRepository<T>().GetAction<TA>();
+		}
+
+		/// <summary>
+		/// Gets the action (initialize on action is called).
+		/// </summary>
+		/// <typeparam name="T">Type of action</typeparam>
+		/// <returns></returns>
+		public static T Action<T>() where T : class, IAction
+		{
+			var action = FactoryResolver.ResolveAction<T>();
+			action.Initialize();
+			return action;
+		}
 	}
 }

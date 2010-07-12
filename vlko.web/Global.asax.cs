@@ -107,12 +107,12 @@ namespace vlko.web
 
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				var searchAction = IoC.Resolve<ISearchAction>();
+				var searchAction = RepositoryFactory.Action<ISearchAction>();
 
 
-				IoC.Resolve<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
-				var admin = IoC.Resolve<IUserAction>().GetByName("vlko");
-				var home = IoC.Resolve<IStaticTextCrud>().Create(
+				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
+				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
 					new StaticTextActionModel
 						{
 							AllowComments = false,
@@ -128,7 +128,7 @@ namespace vlko.web
 				for (int i = 0; i < 30; i++)
 				{
 					searchAction.IndexComment(tran,
-					                          IoC.Resolve<ICommentCrud>().Create(
+					                          RepositoryFactory.Action<ICommentCrud>().Create(
 					                          	new CommentActionModel()
 					                          		{
 					                          			AnonymousName = "User",
@@ -142,7 +142,7 @@ namespace vlko.web
 				}
 				for (int i = 0; i < 1000; i++)
 				{
-					var text = IoC.Resolve<IStaticTextCrud>().Create(
+					var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
 						new StaticTextActionModel
 							{
 								AllowComments = true,
@@ -156,7 +156,7 @@ namespace vlko.web
 							});
 					searchAction.IndexStaticText(tran, text);
 					searchAction.IndexComment(tran,
-					                          IoC.Resolve<ICommentCrud>().Create(
+					                          RepositoryFactory.Action<ICommentCrud>().Create(
 					                          	new CommentActionModel()
 					                          		{
 					                          			AnonymousName = "User",

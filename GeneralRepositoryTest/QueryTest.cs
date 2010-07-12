@@ -162,5 +162,10 @@ namespace GeneralRepositoryTest
         {
             Assert.IsNotNull(intializeContext.BaseRepository);
         }
+
+    	public void Initialize()
+    	{
+    		
+    	}
     }
 }

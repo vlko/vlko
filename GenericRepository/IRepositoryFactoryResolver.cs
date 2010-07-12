@@ -14,7 +14,7 @@
 		/// </summary>
 		/// <typeparam name="T">Generic type.</typeparam>
 		/// <returns>Resolved action or query.</returns>
-		T ResolveAction<T>() where T : class;
+		T ResolveAction<T>() where T : class, IAction;
 
 		/// <summary>
 		/// Gets the unit of work.
@@ -27,6 +27,5 @@
 		/// </summary>
 		/// <returns>New transaction.</returns>
 		ITransaction GetTransaction();
-
 	}
 }

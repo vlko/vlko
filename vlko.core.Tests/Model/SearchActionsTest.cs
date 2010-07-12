@@ -34,12 +34,12 @@ namespace vlko.core.Tests.Model
 			base.SetUp();
 			using (var tran = new TransactionScope())
 			{
-				IoC.Resolve<IUserAction>().CreateAdmin("user", "user@user.sk", "test");
+				RepositoryFactory.Action<IUserAction>().CreateAdmin("user", "user@user.sk", "test");
 				tran.VoteCommit();
 			}
 			using (var session = new SessionScope())
 			{
-				_user = IoC.Resolve<IUserAction>().GetByName("user");
+				_user = RepositoryFactory.Action<IUserAction>().GetByName("user");
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace vlko.core.Tests.Model
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				IoC.Resolve<ISearchAction>().IndexStaticText(tran, new StaticTextActionModel()
+				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, new StaticTextActionModel()
 				{
 					Id = Guid.NewGuid(),
 					PublishDate = DateTime.Now,
@@ -79,7 +79,7 @@ namespace vlko.core.Tests.Model
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				IoC.Resolve<ISearchAction>().IndexComment(tran, new CommentActionModel()
+				RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentActionModel()
 				{
 					Id = Guid.NewGuid(),
 					ChangeDate = DateTime.Now,
@@ -104,7 +104,7 @@ namespace vlko.core.Tests.Model
 			// put one item just to get some result
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				IoC.Resolve<ISearchAction>().IndexComment(tran, new CommentActionModel()
+				RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentActionModel()
 				                                                	{
 				                                                		Id = Guid.NewGuid(),
 				                                                		ChangeDate = DateTime.Now,
@@ -125,7 +125,7 @@ namespace vlko.core.Tests.Model
 				                    	{
 											using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 											{
-												IoC.Resolve<ISearchAction>().IndexComment(tran, new CommentActionModel()
+												RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentActionModel()
 				                             						{
 				                             							Id = Guid.NewGuid(),
 				                             							ChangeDate = DateTime.Now,
@@ -133,7 +133,7 @@ namespace vlko.core.Tests.Model
 				                             							Text = "very long test",
 				                             							ChangeUser = _user
 				                             						});
-												IoC.Resolve<ISearchAction>().IndexStaticText(tran, new StaticTextActionModel()
+												RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, new StaticTextActionModel()
 				                             						{
 				                             							Id = Guid.NewGuid(),
 				                             							PublishDate = DateTime.Now,
@@ -148,7 +148,7 @@ namespace vlko.core.Tests.Model
 											using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 											{
 												// test search for user name
-												var searchResult = IoC.Resolve<ISearchAction>().Search(session, "test");
+												var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "test");
 												Assert.AreNotEqual(0, searchResult.Count());
 											}
 											Interlocked.Decrement(ref threadToFinish);
@@ -181,7 +181,7 @@ namespace vlko.core.Tests.Model
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
 				var startDate = DateTime.Now;
-				var home = IoC.Resolve<IStaticTextCrud>().Create(
+				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
 					new StaticTextActionModel
 						{
 							AllowComments = false,
@@ -194,24 +194,24 @@ namespace vlko.core.Tests.Model
 							Description = "delete me"
 						});
 				idToDelete = home.Id;
-				IoC.Resolve<ISearchAction>().IndexStaticText(tran, home);
+				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, home);
 				tran.Commit();
 			}
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = IoC.Resolve<ISearchAction>().Search(session, "delete");
+				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "delete");
 				Assert.AreEqual(1, searchResult.Count());
 			}
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				IoC.Resolve<ISearchAction>().DeleteFromIndex(tran, idToDelete);
+				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, idToDelete);
 				tran.Commit();
 			}
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = IoC.Resolve<ISearchAction>().Search(session, "delete");
+				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "delete");
 				Assert.AreEqual(0, searchResult.Count());
 			}
 		}
@@ -224,7 +224,7 @@ namespace vlko.core.Tests.Model
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
 				var startDate = DateTime.Now;
-				var home = IoC.Resolve<IStaticTextCrud>().Create(
+				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
 					new StaticTextActionModel
 					{
 						AllowComments = false,
@@ -237,28 +237,28 @@ namespace vlko.core.Tests.Model
 						Description = "delete me"
 					});
 				idToUpdate = home.Id;
-				IoC.Resolve<ISearchAction>().IndexStaticText(tran, home);
+				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, home);
 				tran.Commit();
 			}
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = IoC.Resolve<ISearchAction>().Search(session, "delete");
+				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "delete");
 				Assert.AreEqual(1, searchResult.Count());
 			}
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				IoC.Resolve<ISearchAction>().DeleteFromIndex(tran, idToUpdate);
-				var home = IoC.Resolve<IStaticTextCrud>().FindByPk(idToUpdate);
+				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, idToUpdate);
+				var home = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(idToUpdate);
 				home.Text = "nodelete me";
-				IoC.Resolve<IStaticTextCrud>().Update(home);
-				IoC.Resolve<ISearchAction>().IndexStaticText(tran, home);
+				RepositoryFactory.Action<IStaticTextCrud>().Update(home);
+				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, home);
 				tran.Commit();
 			}
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = IoC.Resolve<ISearchAction>().Search(session, "nodelete");
+				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "nodelete");
 				Assert.AreEqual(1, searchResult.Count());
 			}
 		}
@@ -271,14 +271,14 @@ namespace vlko.core.Tests.Model
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = IoC.Resolve<ISearchAction>().Search(session, "user");
+				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "user");
 				Assert.AreEqual(231 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
 				Assert.AreEqual(SearchResult.MaximumRawResults, searchResult.ToArray().Length);
 
 				// test search for text
-				searchResult = IoC.Resolve<ISearchAction>().Search(session, "home");
+				searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "home");
 				Assert.AreEqual(31 , searchResult.Count());
 
 				data = searchResult.ToPage(0, 2);
@@ -298,14 +298,14 @@ namespace vlko.core.Tests.Model
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = IoC.Resolve<ISearchAction>().SearchByDate(session, "user");
+				var searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, "user");
 				Assert.AreEqual(231 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
 				Assert.AreEqual(SearchResult.MaximumRawResults, searchResult.ToArray().Length);
 
 				// test search for text
-				searchResult = IoC.Resolve<ISearchAction>().SearchByDate(session, "home");
+				searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, "home");
 				Assert.AreEqual(31, searchResult.Count());
 
 				data = searchResult.ToArray();
@@ -326,8 +326,8 @@ namespace vlko.core.Tests.Model
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
 				var startDate = DateTime.Now;
-				var searchAction = IoC.Resolve<ISearchAction>();
-				var home = IoC.Resolve<IStaticTextCrud>().Create(
+				var searchAction = RepositoryFactory.Action<ISearchAction>();
+				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
 					new StaticTextActionModel
 						{
 							AllowComments = false,
@@ -343,7 +343,7 @@ namespace vlko.core.Tests.Model
 				for (int i = 0; i < 30; i++)
 				{
 					searchAction.IndexComment(tran,
-					                          IoC.Resolve<ICommentCrud>().Create(
+					                          RepositoryFactory.Action<ICommentCrud>().Create(
 					                          	new CommentActionModel()
 					                          		{
 					                          			AnonymousName = "User",
@@ -359,7 +359,7 @@ namespace vlko.core.Tests.Model
 				startDate = startDate.AddDays(1);
 				for (int i = 0; i < 100; i++)
 				{
-					var text = IoC.Resolve<IStaticTextCrud>().Create(
+					var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
 						new StaticTextActionModel
 							{
 								AllowComments = true,
@@ -373,7 +373,7 @@ namespace vlko.core.Tests.Model
 							});
 					searchAction.IndexStaticText(tran, text);
 					searchAction.IndexComment(tran,
-					                          IoC.Resolve<ICommentCrud>().Create(
+					                          RepositoryFactory.Action<ICommentCrud>().Create(
 					                          	new CommentActionModel()
 					                          		{
 					                          			ChangeDate = startDate.AddDays(-i),

@@ -108,8 +108,8 @@ namespace vlko.core.Search
 			}
 
 			// get real data from db
-			var comments = IoC.Resolve<ICommentData>().GetByIds(commentIds).ToArray().ToDictionary(comment => comment.Id);
-			var staticTexts = IoC.Resolve<IStaticTextData>().GetByIds(staticTextIds).ToArray().ToDictionary(staticText => staticText.Id);
+			var comments = RepositoryFactory.Action<ICommentData>().GetByIds(commentIds).ToArray().ToDictionary(comment => comment.Id);
+			var staticTexts = RepositoryFactory.Action<IStaticTextData>().GetByIds(staticTextIds).ToArray().ToDictionary(staticText => staticText.Id);
 
 			// compute result
 			var result = new List<object>();

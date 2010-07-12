@@ -37,11 +37,11 @@ namespace vlko.web.Tests.Controllers
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 
-				IoC.Resolve<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
-				var admin = IoC.Resolve<IUserAction>().GetByName("vlko");
+				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
 				for (int i = 0; i < NumberOfGeneratedItems; i++)
 				{
-					IoC.Resolve<IStaticTextCrud>().Create(
+					RepositoryFactory.Action<IStaticTextCrud>().Create(
 						new StaticTextActionModel
 							{
 								AllowComments = false,

@@ -9,7 +9,7 @@ namespace GeneralRepositoryTest.NRepository
     public class NLocalFactoryResolver : IRepositoryFactoryResolver
     {
 
-        public T ResolveAction<T>() where T : class
+        public T ResolveAction<T>() where T : class, IAction
         {
             Type type = typeof (T);
             if (type == typeof(NFilterLinqQueryAction))
