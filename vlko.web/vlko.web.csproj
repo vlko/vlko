@@ -386,6 +386,7 @@
     <Content Include="Scripts\ckeditor\skins\kama\skin.js" />
     <Content Include="Scripts\ckeditor\skins\kama\templates.css" />
     <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\Grid.js" />
     <Content Include="Scripts\jquery-1.4.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.2.js" />
@@ -533,7 +534,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55043</DevelopmentServerPort>
+          <DevelopmentServerPort>17525</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/vlko.web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
