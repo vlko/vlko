@@ -30,6 +30,7 @@ namespace vlko.core.Models.Action.Implementation
 									 Title = item.Title,
 									 FriendlyUrl = item.FriendlyUrl,
 									 CreatedDate = item.ChangeDate,
+									 Modified = item.ChangeDate,
 									 PublishDate = item.PublishDate,
 									 Description = item.Description,
 									 CreatedBy = item.Creator,
@@ -146,6 +147,7 @@ namespace vlko.core.Models.Action.Implementation
 			staticText.FriendlyUrl = item.FriendlyUrl;
 			staticText.PublishDate = item.PublishDate;
 			staticText.CreatedBy = item.Creator;
+			staticText.Modified = item.ChangeDate;
 			staticText.AreCommentAllowed = item.AllowComments;
 			staticText.ActualVersion = staticText.StaticTextVersions.Count;
 

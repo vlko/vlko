@@ -6,7 +6,7 @@ namespace vlko.core.Models
     /// <summary>
     /// 
     /// </summary>
-    [ActiveRecord]
+    [ActiveRecord("Users")]
     public class User
     {
         /// <summary>
