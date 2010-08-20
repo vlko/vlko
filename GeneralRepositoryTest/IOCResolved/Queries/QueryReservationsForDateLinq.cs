@@ -17,8 +17,7 @@ namespace GeneralRepositoryTest.IOCResolved.Queries
         /// </returns>
         public IQueryResult<Reservation> WhereDate(DateTime reservationDate)
         {
-            Queryable = Queryable.Where(reserv => reserv.CompositeKey.ReservationDate == reservationDate);
-            return Result();
+			return Result(Queryable.Where(reserv => reserv.CompositeKey.ReservationDate == reservationDate));
         }
     }
 }

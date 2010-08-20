@@ -193,8 +193,8 @@ ul#menu li.selected a
 
 fieldset 
 {
-	margin: 1em 0;
-	padding: 1em;
+	margin: 0.2em 0;
+	padding: 0.2em 0.5em 0.5em 0.5em;
 	border: 1px solid #CCC;
 }
 
@@ -330,6 +330,9 @@ div#title
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
+.form_content{
+	padding: 1.4em 0px;
+}
 .display-label,
 .editor-label,
 .display-field,
@@ -338,9 +341,39 @@ div#title
 	margin: 0.5em 0;
 }
 
-.text-box
+.display-label, .editor-label {
+	clear: both;
+	float: left;
+	font-weight: bold;
+	text-align: right;
+	width: 256px;
+	padding-right: 5px;
+}
+.display-field,
+.editor-field
 {
-	width: 30em;
+	float: left;
+	width: 576px;
+}
+.editor-submit
+{
+	clear: both;
+	position: relative;
+	padding-left: 261px;
+}
+.editor-submit input
+{
+	width: 128px;
+}
+.editor-submit input.back_submit
+{
+	position: absolute;
+	left: 5px;
+	margin-top: 3px;
+}
+.editor-field input, .editor-field select
+{
+	width: 256px;
 }
 
 .text-box.multi-line

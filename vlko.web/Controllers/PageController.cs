@@ -135,7 +135,7 @@ namespace vlko.web.Controllers
 					tran.Commit();
 					RepositoryFactory.Action<ISearchAction>().IndexComment(tran, model);
 				}
-				return RedirectToActionWithAjax(staticText.FriendlyUrl, additionalActionLink:sort);
+				return RedirectToActionWithAjax(staticText.FriendlyUrl, routeValues: new {sort = sort});
 			}
 
 			CommentViewTypeEnum sortType = ParseCommentViewType(sort);

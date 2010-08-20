@@ -28,7 +28,7 @@
                 </div>
                 
                 <div class="editor-label">
-                    <%= Html.LabelFor(m => m.NewPassword) %>
+                    <%= Html.DropDownListFor() LabelFor(m => m.NewPassword) %>
                 </div>
                 <div class="editor-field">
                     <%= Html.PasswordFor(m => m.NewPassword) %>

@@ -27,7 +27,7 @@ namespace vlko.core.Base
 		/// <exception cref="T:System.ArgumentNullException">The <paramref name="requestContext"/> parameter is null.</exception>
 		protected override void Execute(RequestContext requestContext)
 		{
-			using (RepositoryFactory.StartUnitOfWork())
+			using (var session = RepositoryFactory.StartUnitOfWork())
 			{
 				UserInfo = new UserInfo(requestContext.HttpContext.User.Identity.Name);
 				base.Execute(requestContext);
@@ -65,27 +65,18 @@ namespace vlko.core.Base
 		/// <param name="actionName">Name of the action.</param>
 		/// <param name="controllerName">Name of the controller.</param>
 		/// <param name="additionalActionLink">The additional action link.</param>
+		/// <param name="routeValues">The route values.</param>
 		/// <returns>Action result.</returns>
-		protected ActionResult RedirectToActionWithAjax(string actionName, string controllerName = null, string additionalActionLink = null)
+		protected ActionResult RedirectToActionWithAjax(string actionName, string controllerName = null, object routeValues = null, bool allowJsonGetRequest = false)
 		{
-			if (controllerName == null)
-			{
-				controllerName = this.ValueProvider.GetValue("controller").RawValue.ToString();
-			}
-			string area = null;
-			if (RouteData.DataTokens["area"] != null)
-			{
-				area = RouteData.DataTokens["area"].ToString();
-			}
+			var result = RedirectToAction(actionName, controllerName, routeValues);
 			if (Request.IsAjaxRequest())
 			{
-				if (!string.IsNullOrEmpty(additionalActionLink))
-				{
-					actionName += "/" + additionalActionLink;
-				}
-				return Json(new { actionName, controllerName, area}, "json");
+				actionName = UrlHelper.GenerateUrl(result.RouteName, null /* actionName */, null /* controllerName */, result.RouteValues, RouteTable.Routes, Request.RequestContext, false /* includeImplicitMvcValues */);
+				return Json(new { actionName }, "json", allowJsonGetRequest ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
 			}
-			return RedirectToAction(actionName);
+			return result;
+
 		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 <%@ Import Namespace="System.Globalization" %>
 <div class="editor-label">
-	date <%: Html.LabelFor(model => model)%>
+	<%: Html.LabelFor(model => model)%>
 </div>
 <div class="editor-field">
 	<%= Html.TextBox("", Html.FormatDateValue(ViewData.Model), cssClass: "text-box single-line")%>

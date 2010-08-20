@@ -145,9 +145,9 @@ namespace vlko.core.Models.Action.Implementation
 
 			staticText.Title = item.Title;
 			staticText.FriendlyUrl = item.FriendlyUrl;
+			staticText.Modified = item.ChangeDate;
 			staticText.PublishDate = item.PublishDate;
 			staticText.CreatedBy = item.Creator;
-			staticText.Modified = item.ChangeDate;
 			staticText.AreCommentAllowed = item.AllowComments;
 			staticText.ActualVersion = staticText.StaticTextVersions.Count;
 

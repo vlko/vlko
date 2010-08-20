@@ -96,7 +96,7 @@
 						data: form.serialize(),
 						success: function (data) {
 							if (data.actionName) {
-								var nextUrl = (data.area ? "/" + data.area : "") + "/" + data.controllerName + "/" + data.actionName;
+								var nextUrl = data.actionName;
 								$.ajax({
 									url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 									success: function (data) {

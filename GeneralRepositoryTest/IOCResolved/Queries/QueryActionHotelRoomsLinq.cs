@@ -13,8 +13,7 @@ namespace GeneralRepositoryTest.IOCResolved.Queries
         /// <returns>Room result filtered with hotel name.</returns>
         public GenericRepository.IQueryResult<Room> WhereHotelName(string hotelName)
         {
-            Queryable = Queryable.Where(room => room.Hotel.Name == hotelName);
-            return Result();
+			return Result(Queryable.Where(room => room.Hotel.Name == hotelName));
         }
     }
 }

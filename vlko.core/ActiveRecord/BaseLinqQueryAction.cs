@@ -9,28 +9,26 @@ namespace vlko.core.ActiveRecord
 	public class BaseLinqQueryAction<T> : BaseAction<T>, IQueryAction<T> where T : class
 	{
 		/// <summary>
-		/// Gets or sets the queryable.
+		/// Gets the queryable.
 		/// </summary>
 		/// <value>The queryable.</value>
-		protected IQueryable<T> Queryable { get; set; }
-
-		/// <summary>
-		/// Initializes queryAction with the specified repository.
-		/// </summary>
-		/// <param name="initializeContext">The initialize context.</param>
-		public override void Initialize(InitializeContext<T> initializeContext)
+		protected IQueryable<T> Queryable
 		{
-			Queryable = ActiveRecordLinq.AsQueryable<T>();
-			base.Initialize(initializeContext);
+			get
+			{
+				return ActiveRecordLinq.AsQueryable<T>();
+			}
 		}
+
 
 		/// <summary>
 		/// Get queryAction result.
 		/// </summary>
+		/// <param name="queryable">The queryable.</param>
 		/// <returns>Query result.</returns>
-		public virtual IQueryResult<T> Result()
+		public static IQueryResult<T> Result(IQueryable<T> queryable)
 		{
-			return new QueryLinqResult<T>(Queryable);
+			return new QueryLinqResult<T>(queryable);
 		}
 	}
 }

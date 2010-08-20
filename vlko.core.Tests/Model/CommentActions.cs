@@ -371,10 +371,10 @@ namespace vlko.core.Tests.Model
 				CreateCommentTree();
 				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
 				var testData = dataActions.GetAllForAdmin()
-					.OrderBy(comment => comment.Level)
+					.OrderBy(comment => comment.Level).OrderBy(comment => comment.CreatedDate)
 					.ToPage(0, numberOfItems);
 				var data = dataActions.GetByIds(testData.Select(item => item.Id))
-					.OrderBy(comment => comment.Level)
+					.OrderBy(comment => comment.Level).OrderBy(comment => comment.CreatedDate)
 					.ToArray();
 				Assert.AreEqual(numberOfItems, data.Length);
 				for (int i = 0; i < numberOfItems; i++)

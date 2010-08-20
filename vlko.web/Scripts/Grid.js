@@ -14,7 +14,7 @@
 				success: function (data) {
 					if (data.actionName) {
 						$(dialog).dialog("close");
-						var nextUrl = (data.area ? "/" + data.area : "") + "/" + data.controllerName + "/" + data.actionName;
+						var nextUrl = data.actionName;
 						$.ajax({
 							url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 							success: function (data) {

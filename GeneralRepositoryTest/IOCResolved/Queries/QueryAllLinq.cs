@@ -10,7 +10,7 @@ namespace GeneralRepositoryTest.IOCResolved.Queries
         /// <returns>Query result.</returns>
         public GenericRepository.IQueryResult<T> Execute()
         {
-            return Result();
+        	return Result(Queryable);
         }
     }
 }

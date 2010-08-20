@@ -79,8 +79,10 @@
     <Compile Include="ITransaction.cs" />
     <Compile Include="IUnitOfWorkContext.cs" />
     <Compile Include="RepositoryAction\ICreateAction.cs" />
+    <Compile Include="RepositoryAction\ICRUDActions.cs" />
     <Compile Include="RepositoryAction\IDeleteAction.cs" />
     <Compile Include="RepositoryAction\IFindByPkAction.cs" />
+    <Compile Include="RepositoryAction\ILinqDataAction.cs" />
     <Compile Include="RepositoryAction\ISaveAction.cs" />
     <Compile Include="RepositoryFactory.cs" />
     <Compile Include="IQueryAction.cs" />

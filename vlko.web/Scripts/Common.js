@@ -69,8 +69,8 @@ function fillContentWithData(content, data) {
 	content.children(".ajax_container").children(":not(.ajax_content)").hide();
 }
 
-function updateEffect(content) {
-	content.effect("pulsate", { times: 1 }, 500);
+function updateEffect(content, callback) {
+	content.effect("slide", { direction: "up" }, 300, callback);
 }
 
 // ajax history function

@@ -21,8 +21,7 @@ namespace GeneralRepositoryTest.NRepository
         public void Test_Query_1_count_and_toArray()
         {
             var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
-                .WhereType(TypeEnum.SomeFirstType)
-                .Result();
+                .WhereType(TypeEnum.SomeFirstType);
 
             Assert.AreEqual(1, items.Count());
             Assert.AreEqual(1, items.ToArray()[0].ID);
@@ -32,8 +31,7 @@ namespace GeneralRepositoryTest.NRepository
         public void Test_Query_2_count_and_toArray()
         {
             var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
-                .WhereType(TypeEnum.SomeOtherType)
-                .Result();
+                .WhereType(TypeEnum.SomeOtherType);
 
             Assert.AreEqual(3, items.Count());
 
@@ -47,8 +45,7 @@ namespace GeneralRepositoryTest.NRepository
         public void Test_Query_2_count_and_toArray_ordered()
         {
             var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
-                .WhereType(TypeEnum.SomeOtherType)
-                .Result();
+                .WhereType(TypeEnum.SomeOtherType);
 
             var result = items.OrderByDescending(test => test.ID).ToArray();
             Assert.AreEqual(4, result[0].ID);
@@ -62,25 +59,10 @@ namespace GeneralRepositoryTest.NRepository
         }
 
         [TestMethod]
-        public void Test_Query_3_extended_filter_count_and_toArray()
-        {
-            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
-                .WhereType(TypeEnum.SomeOtherType)
-                .WhereTextStart("test")
-                .Result();
-
-            Assert.AreEqual(2, items.Count());
-            var result = items.ToArray();
-            Assert.AreEqual(2, result[0].ID);
-            Assert.AreEqual(3, result[1].ID);
-        }
-
-        [TestMethod]
         public void Test_Query_3_paged_result()
         {
             var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
-                .WhereType(TypeEnum.SomeOtherType)
-                .Result();
+                .WhereType(TypeEnum.SomeOtherType);
 
             var result = items.ToPage(1, 1);
             Assert.AreEqual(1, result.Length);

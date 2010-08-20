@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -8,7 +9,8 @@ using vlko.core.Tools;
 
 namespace vlko.core.Components
 {
-	public class ExtendedModelBinder : DefaultModelBinder {
+	public class ExtendedModelBinder : DefaultModelBinder
+	{
 
 		/// <summary>
 		/// Binds the model by using the specified controller context and binding context.
@@ -17,13 +19,13 @@ namespace vlko.core.Components
 		/// <param name="bindingContext">The context within which the model is bound. The context includes information such as the model object, model name, model type, property filter, and value provider.</param>
 		/// <returns>The bound object.</returns>
 		/// <exception cref="T:System.ArgumentNullException">The <paramref name="bindingContext "/>parameter is null.</exception>
-		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
-
-			 if (HasGenericTypeBase(bindingContext.ModelType, typeof(PagedModel<>)))
-			 {
-				 return BindPagedModel(controllerContext, bindingContext);
-			 }
-			 return base.BindModel(controllerContext, bindingContext);
+		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		{
+			if (HasGenericTypeBase(bindingContext.ModelType, typeof (PagedModel<>)))
+			{
+				return BindPagedModel(controllerContext, bindingContext);
+			}
+			return base.BindModel(controllerContext, bindingContext);
 		}
 
 		/// <summary>

@@ -74,7 +74,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 	Dictionary<string, string> properties = new Dictionary<string, string>();
 	FilterProperties(mvcHost.ViewDataType, properties);
 #>
-    <% using (Html.BeginForm()) {%>
+    <% using (Html.BeginForm(cssClass:"ajax_container")) {%>
 	<div class="ajax_content">
 	
         <%<#= nugget #> Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") %>

@@ -6,7 +6,7 @@ using NotFoundException = GenericRepository.Exceptions.NotFoundException;
 
 namespace vlko.core.ActiveRecord.RepositoryAction
 {
-    public class CRUDActions<T> : BaseAction<T>, IFindByPkAction<T>, ICreateAction<T>, ISaveAction<T>, IDeleteAction<T> where T : class
+    public class CRUDActions<T> : BaseAction<T>, ICRUDActions<T>, IFindByPkAction<T>, ICreateAction<T>, ISaveAction<T>, IDeleteAction<T> where T : class
     {
 
         /// <summary>
