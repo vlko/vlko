@@ -41,7 +41,7 @@
 														friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
 														sort = "tree"
 													})%>
-	<% if (Model.CommentViewType == CommentViewTypeEnum.FlatDesc) {%>
+	<% if (Model.CommentViewType == CommentViewTypeEnum.FlatDesc && Model.StaticText.AllowComments) {%>
 		<% Html.RenderPartial("NewComment", Model.NewComment); %>
 	<% } %>
 
@@ -52,7 +52,7 @@
 		<% Html.RenderPartial("CommentsTree", Model.TreeComments); %>
 	<% } %>
 
-	<% if (Model.CommentViewType != CommentViewTypeEnum.FlatDesc) {%>
+	<% if (Model.CommentViewType != CommentViewTypeEnum.FlatDesc && Model.StaticText.AllowComments) {%>
 		<% Html.RenderPartial("NewComment", Model.NewComment); %>
 	<% } %>
 	</div>

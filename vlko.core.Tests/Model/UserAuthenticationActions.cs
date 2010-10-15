@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Castle.ActiveRecord;
+using Castle.ActiveRecord.Framework;
 using Castle.ActiveRecord.Linq;
 using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
@@ -112,7 +113,7 @@ namespace vlko.core.Tests.Model
                 Assert.AreEqual(null, tokenUser);
 
                 // test real db data
-                var userInDB = ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Name == userName);
+				var userInDB = ActiveRecordLinqBase<User>.Queryable.FirstOrDefault(user => user.Name == userName);
                 Assert.AreEqual(true, userInDB.Verified);
 
                 // now test confirm registration on already verified user

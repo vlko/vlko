@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Castle.ActiveRecord;
+using Castle.ActiveRecord.Framework;
 using Castle.ActiveRecord.Linq;
 using GenericRepository;
 using vlko.core.Authentication;
@@ -23,7 +24,7 @@ namespace vlko.core.Models.Action.Implementation
             using (RepositoryFactory.StartUnitOfWork())
             {
                 // check for unique username
-                if (ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Name == adminName) != null)
+				if (ActiveRecordLinqBase<User>.Queryable.FirstOrDefault(user => user.Name == adminName) != null)
                 {
                     return false;
                 }

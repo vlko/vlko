@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Castle.ActiveRecord;
+using Castle.ActiveRecord.Framework;
 using Castle.ActiveRecord.Queries;
 using GenericRepository;
 using NHibernate.Criterion;
@@ -89,58 +90,28 @@ namespace vlko.core.Models.Action.Implementation
 		/// </returns>
 		public CommentActionModel FindByPk(Guid id, bool throwOnNotFound)
 		{
-			CommentActionModel result = null;
+			var query = ActiveRecordLinqBase<CommentVersion>.Queryable
+				.Where(commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version
+				                         && commentVersion.Comment.Id == id)
+				.Select(commentVersion => new CommentActionModel
+				                          	{
+				                          		Id = commentVersion.Comment.Id,
+				                          		ContentId = commentVersion.Comment.Content.Id,
+				                          		Name = commentVersion.Comment.Name,
+				                          		Text = commentVersion.Text,
+				                          		ChangeDate = commentVersion.CreatedDate,
+				                          		ParentId = commentVersion.Comment.ParentComment.Id,
+				                          		ChangeUser = commentVersion.CreatedBy,
+				                          		AnonymousName = commentVersion.Comment.AnonymousName,
+				                          		ClientIp = commentVersion.ClientIp,
+				                          		UserAgent = commentVersion.UserAgent
+				                          	});
 
-			Comment Comment = null;
-			Content Content = null;
-			var projection = new ProjectionQuery<CommentVersion, CommentActionModel>(
-
-				// add alias and filter
-				DetachedCriteria.For<CommentVersion>()
-					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment, () => Comment)
-					.CreateAlias<CommentVersion>(commentVersion => commentVersion.Comment.Content, () => Content)
-					.Add<CommentVersion>(
-						commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version)
-					.Add<CommentVersion>(commentVersion => commentVersion.Comment.Id == id),
-
-				// map projection
-				Projections.ProjectionList()
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.Comment.Id)
-							 .As(() => result.Id))
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.Comment.Content.Id)
-							 .As(() => result.ContentId))
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.Comment.Name)
-							 .As(() => result.Name))
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.Text)
-							 .As(() => result.Text))
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.CreatedDate)
-							 .As(() => result.ChangeDate))
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.Comment.ParentComment.Id)
-							 .As(() => result.ParentId))
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.CreatedBy)
-							 .As(() => result.ChangeUser))
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.Comment.AnonymousName)
-							 .As(() => result.AnonymousName))
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.ClientIp)
-							 .As(() => result.ClientIp))
-					.Add(LambdaProjection.Property<CommentVersion>(
-						commentVersion => commentVersion.UserAgent)
-							 .As(() => result.UserAgent)));
-
-			result = projection.Execute().FirstOrDefault();
+			var result = query.FirstOrDefault();
 			if (throwOnNotFound && result == null)
 			{
-				throw new NotFoundException(typeof(Comment), id,
-											"with relation to StaticTextVersion via Version number");
+				throw new NotFoundException(typeof (Comment), id,
+				                            "with relation to StaticTextVersion via Version number");
 			}
 			return result;
 		}

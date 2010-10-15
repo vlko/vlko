@@ -4,30 +4,6 @@ namespace vlko.core.Models.Action.ViewModel
 {
 	public class CommentViewModel
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="CommentViewModel"/> class.
-		/// </summary>
-		/// <param name="id">The id.</param>
-		/// <param name="name">The name.</param>
-		/// <param name="createdDate">The created date.</param>
-		/// <param name="text">The text.</param>
-		/// <param name="version">The version.</param>
-		/// <param name="owner">The owner.</param>
-		/// <param name="anonymousName">Name of the anonymous.</param>
-		/// <param name="clientIp">The client ip.</param>
-		/// <param name="level">The level.</param>
-		public CommentViewModel(Guid id, string name, DateTime createdDate, string text, int version, User owner, string anonymousName, string clientIp, int level)
-		{
-			Id = id;
-			Name = name;
-			CreatedDate = createdDate;
-			Text = text;
-			Version = version;
-			Owner = owner;
-			AnonymousName = anonymousName;
-			ClientIp = clientIp;
-			Level = level;
-		}
 
 		/// <summary>
 		/// Gets or sets the id.

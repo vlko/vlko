@@ -7,31 +7,6 @@ namespace vlko.core.Models.Action.ViewModel
 	{
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="StaticTextViewModel"/> class.
-		/// </summary>
-		/// <param name="id">The id.</param>
-		/// <param name="friendlyUrl">The friendly URL.</param>
-		/// <param name="title">The title.</param>
-		/// <param name="description">The description.</param>
-		/// <param name="creator">The creator.</param>
-		/// <param name="changeDate">The change date.</param>
-		/// <param name="publishDate">The publish date.</param>
-		/// <param name="allowComments">if set to <c>true</c> [allow comments].</param>
-		/// <param name="commentCounts">The comment counts.</param>
-		public StaticTextViewModel(Guid id, string friendlyUrl, string title, string description, User creator, DateTime changeDate, DateTime publishDate, bool allowComments, int commentCounts)
-		{
-			Id = id;
-			FriendlyUrl = friendlyUrl;
-			Title = title;
-			Description = description;
-			Creator = creator;
-			ChangeDate = changeDate;
-			PublishDate = publishDate;
-			AllowComments = allowComments;
-			CommentCounts = commentCounts;
-		}
-
-		/// <summary>
 		/// Gets or sets the id.
 		/// </summary>
 		/// <value>The id.</value>

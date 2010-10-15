@@ -22,6 +22,8 @@ namespace vlko.core.Tests.Model
 
 		private User _user;
 
+		private LogSpy _log;
+
 		[TestInitialize]
 		public void Init()
 		{

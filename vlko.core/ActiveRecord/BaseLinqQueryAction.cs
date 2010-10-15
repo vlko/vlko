@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Castle.ActiveRecord.Framework;
 using Castle.ActiveRecord.Linq;
 using GenericRepository;
 
@@ -16,7 +17,7 @@ namespace vlko.core.ActiveRecord
 		{
 			get
 			{
-				return ActiveRecordLinq.AsQueryable<T>();
+				return ActiveRecordLinqBase<T>.Queryable;
 			}
 		}
 

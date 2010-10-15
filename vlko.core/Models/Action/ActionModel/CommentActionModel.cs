@@ -16,33 +16,6 @@ namespace vlko.core.Models.Action.ActionModel
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CommentActionModel"/> class.
-		/// </summary>
-		/// <param name="id">The id.</param>
-		/// <param name="contentId">The content id.</param>
-		/// <param name="name">The name.</param>
-		/// <param name="text">The text.</param>
-		/// <param name="changeDate">The change date.</param>
-		/// <param name="parentId">The parent id.</param>
-		/// <param name="changeUser">The change user.</param>
-		/// <param name="anonymousName">Name of the anonymous.</param>
-		/// <param name="clientIp">The client ip.</param>
-		/// <param name="userAgent">The user agent.</param>
-		public CommentActionModel(Guid id, Guid contentId, string name, string text, DateTime changeDate, Guid? parentId, User changeUser, string anonymousName, string clientIp, string userAgent)
-		{
-			Id = id;
-			ContentId = contentId;
-			Name = name;
-			Text = text;
-			ChangeDate = changeDate;
-			ParentId = parentId;
-			ChangeUser = changeUser;
-			AnonymousName = anonymousName;
-			ClientIp = clientIp;
-			UserAgent = userAgent;
-		}
-
-		/// <summary>
 		/// Gets or sets the Id.
 		/// </summary>
 		/// <value>The Id.</value>

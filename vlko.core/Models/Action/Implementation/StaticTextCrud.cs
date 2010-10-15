@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Castle.ActiveRecord;
-using Castle.ActiveRecord.Linq;
-using Castle.ActiveRecord.Queries;
+using Castle.ActiveRecord.Framework;
 using GenericRepository;
-using Microsoft.Security.Application;
-using NHibernate.Criterion;
-using NHibernate.LambdaExtensions;
-using vlko.core.ActiveRecord;
 using vlko.core.Models.Action.ActionModel;
-using vlko.core.Tools;
 using NotFoundException = GenericRepository.Exceptions.NotFoundException;
 
 namespace vlko.core.Models.Action.Implementation
@@ -80,47 +73,21 @@ namespace vlko.core.Models.Action.Implementation
 		{
 			StaticTextActionModel result = null;
 
-			StaticText StaticText = null;
-			var projection = new ProjectionQuery<StaticTextVersion, StaticTextActionModel>(
+			var query = ActiveRecordLinqBase<StaticTextVersion>.Queryable
+				.Where(textVersion => textVersion.StaticText.Id == id &&  textVersion.StaticText.ActualVersion == textVersion.Version)
+				.Select(textVersion => new StaticTextActionModel{
+				                       	Id = textVersion.StaticText.Id,
+										FriendlyUrl = textVersion.StaticText.FriendlyUrl,
+										Title = textVersion.StaticText.Title,
+										Text = textVersion.Text,
+										Description = textVersion.StaticText.Description,
+										Creator = textVersion.StaticText.CreatedBy,
+										ChangeDate = textVersion.CreatedDate,
+										PublishDate = textVersion.StaticText.PublishDate,
+										AllowComments = textVersion.StaticText.AreCommentAllowed});
 
-				// add alias and
-				DetachedCriteria.For<StaticTextVersion>()
-					.CreateAlias<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText, () => StaticText)
-					.Add<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.ActualVersion == staticTextVersion.Version)
-					.Add<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText.Id == id),
 
-				// map projection
-				Projections.ProjectionList()
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.Id)
-							 .As(() => result.Id))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.FriendlyUrl)
-							 .As(() => result.FriendlyUrl))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.Title)
-							 .As(() => result.Title))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.Text)
-							 .As(() => result.Text))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.Description)
-							 .As(() => result.Description))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.CreatedBy)
-							 .As(() => result.Creator))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.CreatedDate)
-							 .As(() => result.ChangeDate))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.PublishDate)
-							 .As(() => result.PublishDate))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.AreCommentAllowed)
-							 .As(() => result.AllowComments)));
-
-			result = projection.Execute().FirstOrDefault();
+			result = query.FirstOrDefault();
 			if (throwOnNotFound && result == null)
 			{
 				throw new NotFoundException(typeof (StaticText), id,

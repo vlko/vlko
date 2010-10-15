@@ -73,7 +73,6 @@ namespace GeneralRepositoryTest.IOCResolved
 
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
         public virtual void QueryProjection()
         {
             _Test.QueryProjection();

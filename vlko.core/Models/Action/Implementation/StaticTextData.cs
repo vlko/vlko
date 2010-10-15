@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.ActiveRecord.Queries;
+using Castle.ActiveRecord.Framework;
 using GenericRepository;
-using NHibernate.Criterion;
-using NHibernate.LambdaExtensions;
-using vlko.core.ActiveRecord;
 using vlko.core.Models.Action.ViewModel;
 
 namespace vlko.core.Models.Action.Implementation
@@ -20,20 +17,17 @@ namespace vlko.core.Models.Action.Implementation
 		/// <returns>Query result.</returns>
 		public IQueryResult<StaticTextViewModel> GetAll(DateTime? pivotDate = null)
 		{
-			var projection = GetProjection(
-				criteria =>
+			return new QueryLinqResult<StaticTextViewModel>(GetProjection(
+				query =>
+				{
+					query = query.Where(textVersion => textVersion.StaticText.Deleted == false);
+					if (pivotDate != null)
 					{
-						var result = criteria.Add<StaticTextVersion>(
-							staticTextVersion => staticTextVersion.StaticText.Deleted == false);
-						if (pivotDate != null)
-						{
-							result = criteria.Add<StaticTextVersion>(
-								staticTextVersion => staticTextVersion.StaticText.PublishDate <= pivotDate
-								);
-						}
-						return result;
-					});
-			return projection;
+						query = query.Where(textVersion => textVersion.StaticText.PublishDate <= pivotDate);
+					}
+					return query;
+				}));
+
 		}
 
 		/// <summary>
@@ -42,10 +36,8 @@ namespace vlko.core.Models.Action.Implementation
 		/// <returns>Query result.</returns>
 		public IQueryResult<StaticTextViewModel> GetDeleted()
 		{
-			var projection = GetProjection(criteria =>
-				criteria.Add<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText.Deleted == true));
-
-			return projection;
+			return new QueryLinqResult<StaticTextViewModel>(GetProjection(
+				query => query.Where(textVersion => textVersion.StaticText.Deleted == true)));
 		}
 
 		/// <summary>
@@ -57,23 +49,20 @@ namespace vlko.core.Models.Action.Implementation
 		public StaticTextWithFullTextViewModel Get(Guid id, DateTime? pivotDate = null)
 		{
 			var projection = GetFullTextProjection(
-				criteria =>
+				query =>
 				{
-					var result = criteria
-						.Add<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText.Id == id);
+					query = query.Where(textVersion => textVersion.StaticText.Id == id);
 					if (pivotDate != null)
 					{
-						result = criteria
-							.Add<StaticTextVersion>(
-								staticTextVersion => staticTextVersion.StaticText.Deleted == false)
-							.Add<StaticTextVersion>(
-								staticTextVersion => staticTextVersion.StaticText.PublishDate <= pivotDate
-							);
+						query = query.Where(textVersion =>
+											textVersion.StaticText.Deleted == false
+											&& textVersion.StaticText.PublishDate <= pivotDate);
 					}
-					return result;
-				}); 
+					return query;
+				});
 
-			return projection.ToArray().FirstOrDefault(); ;
+
+			return projection.FirstOrDefault();
 		}
 
 		/// <summary>
@@ -85,23 +74,18 @@ namespace vlko.core.Models.Action.Implementation
 		public StaticTextWithFullTextViewModel Get(string friendlyUrl, DateTime? pivotDate = null)
 		{
 			var projection = GetFullTextProjection(
-				criteria =>
-				{
-					var result = criteria
-						.Add<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText.FriendlyUrl == friendlyUrl);
-					if (pivotDate != null)
+				query =>
 					{
-						result = criteria
-							.Add<StaticTextVersion>(
-								staticTextVersion => staticTextVersion.StaticText.Deleted == false)
-							.Add<StaticTextVersion>(
-								staticTextVersion => staticTextVersion.StaticText.PublishDate <= pivotDate
-							);
-					}
-					return result;
-				});
-
-			return projection.ToArray().FirstOrDefault();
+						query = query.Where(textVersion => textVersion.StaticText.FriendlyUrl == friendlyUrl);
+						if (pivotDate != null)
+						{
+							query = query.Where(textVersion =>
+							                    textVersion.StaticText.Deleted == false
+							                    && textVersion.StaticText.PublishDate <= pivotDate);
+						}
+						return query;
+					});
+			return projection.FirstOrDefault();
 		}
 
 		/// <summary>
@@ -111,14 +95,9 @@ namespace vlko.core.Models.Action.Implementation
 		/// <returns>All static text matching specified ids.</returns>
 		public IQueryResult<StaticTextViewModel> GetByIds(IEnumerable<Guid> ids)
 		{
-			var projection = GetProjection(
-				criteria =>
-				{
-					return criteria
-						.Add<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText.Deleted == false)
-						.Add(SqlExpression.In<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText.Id, ids.ToArray()));
-				});
-			return projection;
+			var idArray = ids.ToArray();
+			return new QueryLinqResult<StaticTextViewModel>(GetProjection(
+				query => query.Where(textVersion => textVersion.StaticText.Deleted == false && idArray.Contains(textVersion.StaticText.Id))));
 		}
 
 		/// <summary>
@@ -126,54 +105,23 @@ namespace vlko.core.Models.Action.Implementation
 		/// </summary>
 		/// <param name="additionalFilter">The additional filter.</param>
 		/// <returns>Projection query.</returns>
-		private static ProjectionQueryResult<StaticTextVersion, StaticTextViewModel> GetProjection(Func<DetachedCriteria, DetachedCriteria> additionalFilter)
+		private static IQueryable<StaticTextViewModel> GetProjection(Func<IQueryable<StaticTextVersion>, IQueryable<StaticTextVersion>> additionalFilter)
 		{
-			StaticTextViewModel result = null;
-
-			StaticText StaticText = null;
-			Content Content = null;
-
-			return new ProjectionQueryResult<StaticTextVersion, StaticTextViewModel>(
-
-				// add alias and
-				additionalFilter(DetachedCriteria.For<StaticTextVersion>()
-					.CreateAlias<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText, () => StaticText)
-					.Add<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.ActualVersion == staticTextVersion.Version)),
-
-				// map projection
-				Projections.ProjectionList()
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.Id)
-							 .As(() => result.Id))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.FriendlyUrl)
-							 .As(() => result.FriendlyUrl))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.Title)
-							 .As(() => result.Title))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.Description)
-							 .As(() => result.Description))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.CreatedBy)
-							 .As(() => result.Creator))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.CreatedDate)
-							 .As(() => result.ChangeDate))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.PublishDate)
-							 .As(() => result.PublishDate))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.AreCommentAllowed)
-							 .As(() => result.AllowComments))
-					.Add(Projections.SubQuery(
-						DetachedCriteria.For<Comment>()
-							.CreateAlias<Comment>(comment => comment.Content, () => Content)
-							.Add<Comment>(
-								comment => comment.Content.Id == StaticText.Id)
-							.SetProjection(LambdaProjection.Count<Comment>(comm => comm.Id))
-							 ), "CommentCounts"));
+			var query = ActiveRecordLinqBase<StaticTextVersion>.Queryable
+				.Where(textVersion => textVersion.StaticText.ActualVersion == textVersion.Version);
+			query = additionalFilter(query);
+			return query.Select(textVersion => new StaticTextViewModel
+			                                   	{
+			                                   		Id = textVersion.StaticText.Id,
+			                                   		FriendlyUrl = textVersion.StaticText.FriendlyUrl,
+			                                   		Title = textVersion.StaticText.Title,
+			                                   		Description = textVersion.StaticText.Description,
+			                                   		Creator = textVersion.StaticText.CreatedBy,
+			                                   		ChangeDate = textVersion.CreatedDate,
+			                                   		PublishDate = textVersion.StaticText.PublishDate,
+													AllowComments = textVersion.StaticText.AreCommentAllowed,
+													CommentCounts = ActiveRecordLinqBase<Comment>.Queryable.Count(comm => comm.Content.Id == textVersion.StaticText.Id)
+			                                   	});
 		}
 
 		/// <summary>
@@ -181,57 +129,24 @@ namespace vlko.core.Models.Action.Implementation
 		/// </summary>
 		/// <param name="additionalFilter">The additional filter.</param>
 		/// <returns>Projection query.</returns>
-		private static ProjectionQueryResult<StaticTextVersion, StaticTextWithFullTextViewModel> GetFullTextProjection(Func<DetachedCriteria, DetachedCriteria> additionalFilter)
+		private static IQueryable<StaticTextWithFullTextViewModel> GetFullTextProjection(Func<IQueryable<StaticTextVersion>, IQueryable<StaticTextVersion>> additionalFilter)
 		{
-			StaticTextWithFullTextViewModel result = null;
-
-			StaticText StaticText = null;
-			Content Content = null;
-
-			return new ProjectionQueryResult<StaticTextVersion, StaticTextWithFullTextViewModel>(
-
-				// add alias and
-				additionalFilter(DetachedCriteria.For<StaticTextVersion>()
-					.CreateAlias<StaticTextVersion>(staticTextVersion => staticTextVersion.StaticText, () => StaticText)
-					.Add<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.ActualVersion == staticTextVersion.Version)),
-
-				// map projection
-				Projections.ProjectionList()
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.Id)
-							 .As(() => result.Id))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.FriendlyUrl)
-							 .As(() => result.FriendlyUrl))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.Title)
-							 .As(() => result.Title))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.Description)
-							 .As(() => result.Description))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.Text)
-							 .As(() => result.Text))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.CreatedBy)
-							 .As(() => result.Creator))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.CreatedDate)
-							 .As(() => result.ChangeDate))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.PublishDate)
-							 .As(() => result.PublishDate))
-					.Add(LambdaProjection.Property<StaticTextVersion>(
-						staticTextVersion => staticTextVersion.StaticText.AreCommentAllowed)
-							 .As(() => result.AllowComments))
-					.Add(Projections.SubQuery(
-						DetachedCriteria.For<Comment>()
-							.CreateAlias<Comment>(comment => comment.Content, () => Content)
-							.Add<Comment>(
-								comment => comment.Content.Id == StaticText.Id)
-							.SetProjection(LambdaProjection.Count<Comment>(comm => comm.Id))
-							 ), "CommentCounts"));
+			var query = ActiveRecordLinqBase<StaticTextVersion>.Queryable
+				.Where(textVersion => textVersion.StaticText.ActualVersion == textVersion.Version);
+			query = additionalFilter(query);
+			return query.Select(textVersion => new StaticTextWithFullTextViewModel
+			                                   	{
+			                                   		Id = textVersion.StaticText.Id,
+			                                   		FriendlyUrl = textVersion.StaticText.FriendlyUrl,
+			                                   		Title = textVersion.StaticText.Title,
+			                                   		Description = textVersion.StaticText.Description,
+													Text = textVersion.Text,
+			                                   		Creator = textVersion.StaticText.CreatedBy,
+			                                   		ChangeDate = textVersion.CreatedDate,
+			                                   		PublishDate = textVersion.StaticText.PublishDate,
+			                                   		AllowComments = textVersion.StaticText.AreCommentAllowed,
+													CommentCounts = ActiveRecordLinqBase<Comment>.Queryable.Count(comm => comm.Content.Id == textVersion.StaticText.Id)
+			                                   	});
 		}
 	}
 }

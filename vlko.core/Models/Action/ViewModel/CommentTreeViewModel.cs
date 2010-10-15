@@ -7,19 +7,13 @@ namespace vlko.core.Models.Action.ViewModel
 {
 	public class CommentTreeViewModel : CommentViewModel
 	{
-
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CommentTreeViewModel"/> class.
 		/// </summary>
-		public CommentTreeViewModel(Guid id, Guid topCommentId, Guid parentCommentId, string name, DateTime createdDate, string text, int version, User owner, string anonymousName, string clientIp, int level)
-			:base(id, name, createdDate, text, version, owner, anonymousName, clientIp, level)
+		public CommentTreeViewModel()
 		{
-			TopCommentId = topCommentId;
-			ParentCommentId = parentCommentId;
 			ChildNodes = new List<CommentTreeViewModel>();
 		}
-
 		/// <summary>
 		/// Gets the child nodes.
 		/// </summary>
