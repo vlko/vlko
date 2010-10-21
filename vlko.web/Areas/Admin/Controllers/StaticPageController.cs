@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Web.Mvc;
-using GenericRepository;
-using Microsoft.Security.Application;
-using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
-using vlko.core.Models;
-using vlko.core.Models.Action;
-using vlko.core.Models.Action.ActionModel;
-using vlko.core.Models.Action.ViewModel;
-using vlko.core.Search;
 using vlko.core.Tools;
-using vlko.core.ValidationAtribute;
+using vlko.model;
+using vlko.model.ValidationAtribute;
+using vlko.model.Action;
+using vlko.model.ActionModel;
+using vlko.model.Repository;
+using vlko.model.Search;
+using vlko.model.ViewModel;
 
 namespace vlko.web.Areas.Admin.Controllers
 {
@@ -40,7 +37,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <param name="pageModel">The page model.</param>
 		/// <returns>Action result.</returns>
 		[HttpGet]
-		[AuthorizeRoles(AccountValidation.AdminRole)]
+		[AuthorizeRoles(vlko.model.User.AdminRole)]
 		public ActionResult Deleted(PagedModel<StaticTextViewModel> pageModel)
 		{
 			pageModel.LoadData(RepositoryFactory.Action<IStaticTextData>().GetDeleted().OrderByDescending(item => item.PublishDate));

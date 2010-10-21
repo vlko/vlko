@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.ActiveRecord;
 using Castle.Windsor;
-using GenericRepository;
 using Microsoft.Web.Mvc.AspNet4;
 using NLog;
 using vlko.core;
 using vlko.core.InversionOfControl;
-using vlko.core.Models.Action;
-using vlko.core.Models.Action.ActionModel;
-using vlko.core.Search;
-using vlko.web.ViewModel.Page;
+using vlko.model.Action;
+using vlko.model.ActionModel;
+using vlko.model.Repository;
+using vlko.model.Search;
 
 namespace vlko.web
 {

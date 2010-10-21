@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
-using GenericRepository;
 using vlko.core.Authentication;
+using vlko.model.Repository;
 
 namespace vlko.core.Base
 {

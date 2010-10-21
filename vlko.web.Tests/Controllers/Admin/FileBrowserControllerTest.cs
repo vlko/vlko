@@ -5,14 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using GenericRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core.Authentication;
-using vlko.core.Base;
 using vlko.core.InversionOfControl;
-using vlko.core.Models.Action;
-using vlko.core.Models.Action.ViewModel;
 using vlko.core.Services;
+using vlko.model.Action;
+using vlko.model.Action.NH;
+using vlko.model.Repository;
+using vlko.model.ViewModel;
 using vlko.web.Areas.Admin.Controllers;
 using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 
@@ -28,7 +27,13 @@ namespace vlko.web.Tests.Controllers.Admin
         {
             IoC.InitializeWith(new WindsorContainer());
             IoC.Container.Register(
-                Component.For<IFileBrowserAction>().ImplementedBy<FileBrowserAction>(),
+				Component.For<IFileBrowserAction>().ImplementedBy<FileBrowserAction>()
+					.DynamicParameters((kernel, parameters) =>
+					{
+						var appInfo = IoC.Resolve<IAppInfoService>();
+						parameters["rootUrl"] = appInfo.RootUrl;
+						parameters["rootPath"] = appInfo.RootPath;
+					}),
                 Component.For<IAppInfoService>().ImplementedBy<AppInfoServiceMock>()
                 );
         }

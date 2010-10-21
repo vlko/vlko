@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>vlko.model</RootNamespace>
+    <AssemblyName>vlko.model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AntiXSSLibrary">
+      <HintPath>..\vlko.web\bin\AntiXSSLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.ActiveRecord">
+      <HintPath>..\vlko.web\bin\Castle.ActiveRecord.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
+    <Reference Include="Lucene.Net">
+      <HintPath>..\_dependencies\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\vlko.web\bin\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\_dependencies\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.LambdaExtensions">
+      <HintPath>..\_dependencies\NHibernate.LambdaExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\_dependencies\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.41.2, Culture=neutral, PublicKeyToken=cab60358ab4081ea, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionModel\CommentActionModel.cs" />
+    <Compile Include="ActionModel\StaticTextActionModel.cs" />
+    <Compile Include="Action.NH\CommentCrud.cs" />
+    <Compile Include="Action.NH\CommentData.cs" />
+    <Compile Include="Action.NH\FileBrowserAction.cs" />
+    <Compile Include="Action.NH\SearchAction.cs" />
+    <Compile Include="Action.NH\StaticTextCrud.cs" />
+    <Compile Include="Action.NH\StaticTextData.cs" />
+    <Compile Include="Action.NH\UserAction.cs" />
+    <Compile Include="Action.NH\UserAuthentication.cs" />
+    <Compile Include="Action\AuthenicationStatuses.cs" />
+    <Compile Include="Action\ICommentCrud.cs" />
+    <Compile Include="Action\ICommentData.cs" />
+    <Compile Include="Action\IFileBrowserAction.cs" />
+    <Compile Include="Action\ISearchAction.cs" />
+    <Compile Include="Action\IStaticTextCrud.cs" />
+    <Compile Include="Action\IStaticTextData.cs" />
+    <Compile Include="Action\IUserAction.cs" />
+    <Compile Include="Action\IUserAuthentication.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="CommentVersion.cs" />
+    <Compile Include="Content.cs" />
+    <Compile Include="ContentType.cs" />
+    <Compile Include="ModelConstants.cs" />
+    <Compile Include="ModelResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.NH\BaseCriterionQueryAction.cs" />
+    <Compile Include="Repository.NH\BaseLinqQueryAction.cs" />
+    <Compile Include="Repository.NH\CriterionQueryResult.cs" />
+    <Compile Include="Repository.NH\ProjectionQueryResult.cs" />
+    <Compile Include="Repository.NH\Repository.cs" />
+    <Compile Include="Repository.NH\RepositoryAction\CRUDActions.cs" />
+    <Compile Include="Repository.NH\RepositoryAction\LinqDataAction.cs" />
+    <Compile Include="Repository.NH\Transaction.cs" />
+    <Compile Include="Repository.NH\UnitOfWork.cs" />
+    <Compile Include="Repository\BaseAction.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\Exceptions\ActionNotRegisteredException.cs" />
+    <Compile Include="Repository\Exceptions\NotFoundException.cs" />
+    <Compile Include="Repository\Exceptions\QueryNotRegisteredException.cs" />
+    <Compile Include="Repository\Exceptions\RepositoryFactoryNotInitializeException.cs" />
+    <Compile Include="Repository\IAction.cs" />
+    <Compile Include="Repository\InitializeContext.cs" />
+    <Compile Include="Repository\IQueryAction.cs" />
+    <Compile Include="Repository\IQueryResult.cs" />
+    <Compile Include="Repository\IRepositoryFactoryResolver.cs" />
+    <Compile Include="Repository\ITransaction.cs" />
+    <Compile Include="Repository\ITransactionContext.cs" />
+    <Compile Include="Repository\IUnitOfWork.cs" />
+    <Compile Include="Repository\IUnitOfWorkContext.cs" />
+    <Compile Include="Repository\QueryLinqResult.cs" />
+    <Compile Include="Repository\RepositoryAction\ICreateAction.cs" />
+    <Compile Include="Repository\RepositoryAction\ICRUDActions.cs" />
+    <Compile Include="Repository\RepositoryAction\IDeleteAction.cs" />
+    <Compile Include="Repository\RepositoryAction\IFindByPkAction.cs" />
+    <Compile Include="Repository\RepositoryAction\ILinqDataAction.cs" />
+    <Compile Include="Repository\RepositoryAction\ISaveAction.cs" />
+    <Compile Include="Repository\RepositoryFactory.cs" />
+    <Compile Include="RssFeed.cs" />
+    <Compile Include="RssItem.cs" />
+    <Compile Include="SearchRoot.cs" />
+    <Compile Include="Search\ISearchProvider.cs" />
+    <Compile Include="Search\SearchContext.cs" />
+    <Compile Include="Search\SearchProvider.cs" />
+    <Compile Include="Search\SearchResult.cs" />
+    <Compile Include="Search\SearchUpdateContext.cs" />
+    <Compile Include="StaticText.cs" />
+    <Compile Include="StaticTextVersion.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
+    <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />
+    <Compile Include="ValidationAtribute\AreaCheckAttribute.cs" />
+    <Compile Include="ValidationAtribute\PropertiesMustMatchAttribute.cs" />
+    <Compile Include="ValidationAtribute\ValidatePasswordLengthAttribute.cs" />
+    <Compile Include="ViewModel\CommentForAdminViewModel.cs" />
+    <Compile Include="ViewModel\CommentSearchViewModel.cs" />
+    <Compile Include="ViewModel\CommentTreeViewModel.cs" />
+    <Compile Include="ViewModel\CommentViewModel.cs" />
+    <Compile Include="ViewModel\FileViewModel.cs" />
+    <Compile Include="ViewModel\StaticTextViewModel.cs" />
+    <Compile Include="ViewModel\StaticTextWithFullTextViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ModelResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ModelResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

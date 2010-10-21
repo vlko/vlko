@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
-using GenericRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
-using vlko.core.Models.Action;
-using vlko.core.Models.Action.ActionModel;
-using vlko.core.Models.Action.ViewModel;
-using vlko.core.Search;
-using vlko.web.Areas.Admin.Controllers;
+using vlko.model.Action;
+using vlko.model.ActionModel;
+using vlko.model.Repository;
+using vlko.model.Search;
+using vlko.model.ViewModel;
 using vlko.web.Controllers;
 using vlko.web.ViewModel.Page;
 

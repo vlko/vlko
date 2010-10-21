@@ -1,4 +1,4 @@
-﻿using GenericRepository;
+﻿using vlko.model.Repository;
 
 namespace vlko.core.InversionOfControl   
 {

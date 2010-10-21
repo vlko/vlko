@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Web.Mvc;
-using GenericRepository;
-using vlko.core;
+using vlko.model;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
-using vlko.core.Models.Action.ActionModel;
-using vlko.core.Models.Action.ViewModel;
-using vlko.core.Search;
-using vlko.core.ValidationAtribute;
-using vlko.core.Models.Action;
+using vlko.model.Action;
+using vlko.model.ActionModel;
+using vlko.model.Repository;
+using vlko.model.Search;
+using vlko.model.ValidationAtribute;
+using vlko.model.ViewModel;
 
 namespace vlko.web.Areas.Admin.Controllers
 {
-	[AuthorizeRoles(AccountValidation.AdminRole)]
+	[AuthorizeRoles(vlko.model.User.AdminRole)]
 	[AreaCheck("Admin")]
 	public class CommentController : BaseController
 	{

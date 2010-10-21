@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using vlko.core.Components;
-using vlko.core.Models.Action.ActionModel;
-using vlko.core.Models.Action.ViewModel;
+using vlko.model.ActionModel;
+using vlko.model.ViewModel;
 
 namespace vlko.web.ViewModel.Page
 {

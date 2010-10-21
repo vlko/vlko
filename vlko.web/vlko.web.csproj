@@ -446,13 +446,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj">
-      <Project>{A8D10733-3E24-4C6E-BA00-F8C07F9171A9}</Project>
-      <Name>GenericRepository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\vlko.core\vlko.core.csproj">
       <Project>{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}</Project>
       <Name>vlko.core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vlko.model\vlko.model.csproj">
+      <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>
+      <Name>vlko.model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

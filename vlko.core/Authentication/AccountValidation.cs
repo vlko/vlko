@@ -1,18 +1,10 @@
-﻿using System.Web.Security;
-using vlko.core.Models.Action;
+﻿using vlko.model.Action;
 
 namespace vlko.core.Authentication
 {
 
     public static class AccountValidation
     {
-        public const string AdminRole = "admin";
-
-        /// <summary>
-        /// Minimum length of password.
-        /// </summary>
-        public static readonly int MinRequiredPasswordLength = 8;
-
         /// <summary>
         /// Create user status error code to string.
         /// </summary>

@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using GenericRepository;
-using vlko.core.ActiveRecord;
 using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
 using vlko.core.Components;
-using vlko.core.Models;
-using vlko.core.Models.Action;
-using vlko.core.Models.Action.Implementation;
-using vlko.core.Search;
+using vlko.core.InversionOfControl;
 using vlko.core.Services;
 using vlko.core.Services.Implementation;
+using vlko.model;
+using vlko.model.Action;
+using vlko.model.Action.NH;
+using vlko.model.Repository;
+using vlko.model.Repository.NH;
+using vlko.model.Search;
 
 namespace vlko.core
 {
@@ -63,6 +61,12 @@ namespace vlko.core
 				Component.For<IUserAction>().ImplementedBy<UserAction>(),
 
 				Component.For<IFileBrowserAction>().ImplementedBy<FileBrowserAction>()
+					.DynamicParameters((kernel, parameters) =>
+					                   	{
+					                   		var appInfo = IoC.Resolve<IAppInfoService>();
+					                   		parameters["rootUrl"] = appInfo.RootUrl;
+											parameters["rootPath"] = appInfo.RootPath;
+					                   	})
 				);
 		}
 
@@ -77,7 +81,7 @@ namespace vlko.core
 				Component.For<IEmailService>().ImplementedBy<EmailService>(),
 				Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>(),
 				Component.For<IUserAuthenticationService>().ImplementedBy<UserAuthenticationService>(),
-				Component.For<BaseRepository<Models.Search>>().ImplementedBy<Repository<Models.Search>>(),
+				Component.For<BaseRepository<SearchRoot>>().ImplementedBy<Repository<SearchRoot>>(),
 				Component.For<ISearchAction>().ImplementedBy<SearchAction>(),
 				Component.For<ISearchProvider>().ImplementedBy<SearchProvider>(),
 				Component.For<SearchContext>().ImplementedBy<SearchContext>().LifeStyle.Transient,

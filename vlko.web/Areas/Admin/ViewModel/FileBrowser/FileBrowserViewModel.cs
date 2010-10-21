@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
-using vlko.core;
-using vlko.core.Models.Action.ViewModel;
+using vlko.model;
+using vlko.model.ViewModel;
 
 namespace vlko.web.Areas.Admin.ViewModel.FileBrowser
 {

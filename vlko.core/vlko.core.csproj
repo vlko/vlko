@@ -53,13 +53,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntiXSSLibrary, Version=3.1.3524.16873, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_dependencies\AntiXSSLibrary.dll</HintPath>
+    <Reference Include="AntiXSSLibrary">
+      <HintPath>..\vlko.web\bin\AntiXSSLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime, Version=3.1.3.42154, Culture=neutral, PublicKeyToken=3a9cab8f8d22bfb7, processorArchitecture=MSIL" />
-    <Reference Include="Castle.ActiveRecord, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Castle.ActiveRecord">
       <HintPath>..\_dependencies\Castle.ActiveRecord.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Components.Validator, Version=2.5.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
@@ -77,31 +74,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL" />
-    <Reference Include="Lucene.Net">
-      <HintPath>..\_dependencies\Lucene.Net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\_dependencies\MvcFutures\Microsoft.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_dependencies\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_dependencies\NHibernate.ByteCode.Castle.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.LambdaExtensions, Version=1.0.8.0, Culture=neutral, PublicKeyToken=706dcfc1e2725d62, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_dependencies\NHibernate.LambdaExtensions.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="Remotion.Data.Linq">
-      <HintPath>..\_dependencies\Remotion.Data.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations">
@@ -131,14 +109,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveRecord\BaseCriterionQueryAction.cs" />
-    <Compile Include="ActiveRecord\BaseLinqQueryAction.cs" />
-    <Compile Include="ActiveRecord\CriterionQueryResult.cs" />
-    <Compile Include="ActiveRecord\Repository.cs" />
-    <Compile Include="ActiveRecord\ProjectionQueryResult.cs" />
-    <Compile Include="ActiveRecord\RepositoryAction\CRUDActions.cs" />
-    <Compile Include="ActiveRecord\Transaction.cs" />
-    <Compile Include="ActiveRecord\UnitOfWork.cs" />
     <Compile Include="Authentication\AuthorizeRolesAttribute.cs" />
     <Compile Include="Authentication\Implementation\UserAuthenticationService.cs" />
     <Compile Include="Authentication\AccountValidation.cs" />
@@ -154,80 +124,19 @@
     <Compile Include="HtmlExtender\CssManager.cs" />
     <Compile Include="HtmlExtender\Localization.cs" />
     <Compile Include="HtmlExtender\ScriptManager.cs" />
-    <Compile Include="ModelResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Action\Implementation\CommentData.cs" />
-    <Compile Include="Models\Action\ICommentData.cs" />
-    <Compile Include="Models\Action\Implementation\FileBrowserAction.cs" />
-    <Compile Include="Models\Action\IFileBrowserAction.cs" />
-    <Compile Include="Models\Action\ISearchAction.cs" />
-    <Compile Include="Models\Action\IStaticTextData.cs" />
-    <Compile Include="Models\Action\Implementation\StaticTextData.cs" />
-    <Compile Include="Models\Action\Implementation\SearchAction.cs" />
-    <Compile Include="Models\Action\ViewModel\CommentForAdminViewModel.cs" />
-    <Compile Include="Models\Action\ViewModel\CommentSearchViewModel.cs" />
-    <Compile Include="Models\Action\ViewModel\CommentTreeViewModel.cs" />
-    <Compile Include="Models\Action\ViewModel\CommentViewModel.cs" />
-    <Compile Include="Models\Action\ViewModel\FileViewModel.cs" />
-    <Compile Include="Models\Action\ViewModel\StaticTextViewModel.cs" />
-    <Compile Include="Models\Action\ViewModel\StaticTextWithFullTextViewModel.cs" />
-    <Compile Include="Models\ContentType.cs" />
-    <Compile Include="Models\ModelConstants.cs" />
-    <Compile Include="Models\Search.cs" />
-    <Compile Include="Search\ISearchProvider.cs" />
-    <Compile Include="Search\SearchContext.cs" />
-    <Compile Include="Search\SearchProvider.cs" />
-    <Compile Include="Search\SearchResult.cs" />
-    <Compile Include="Search\SearchUpdateContext.cs" />
     <Compile Include="Tools\HtmlManipulation.cs" />
     <Compile Include="Tools\InstanceCreator.cs" />
     <Compile Include="Tools\FriendlyUrlGenerator.cs" />
-    <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
-    <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />
-    <Compile Include="ValidationAtribute\AreaCheckAttribute.cs" />
-    <Compile Include="ValidationAtribute\ValidatePasswordLengthAttribute.cs" />
-    <Compile Include="ValidationAtribute\PropertiesMustMatchAttribute.cs" />
     <Compile Include="ApplicationInit.cs" />
     <Compile Include="Base\BaseController.cs" />
     <Compile Include="InversionOfControl\IoC.cs" />
     <Compile Include="InversionOfControl\RepositoryFactoryResolver.cs" />
-    <Compile Include="Models\Action\AuthenicationStatuses.cs" />
-    <Compile Include="Models\Action\Implementation\UserAction.cs" />
-    <Compile Include="Models\Action\IUserAction.cs" />
-    <Compile Include="Models\Action\Implementation\CommentCrud.cs" />
-    <Compile Include="Models\Action\ICommentCrud.cs" />
-    <Compile Include="Models\Action\Implementation\StaticTextCrud.cs" />
-    <Compile Include="Models\Action\IStaticTextCrud.cs" />
-    <Compile Include="Models\Action\ActionModel\CommentActionModel.cs" />
-    <Compile Include="Models\Action\ActionModel\StaticTextActionModel.cs" />
-    <Compile Include="Models\Action\IUserAuthentication.cs" />
-    <Compile Include="Models\Action\Implementation\UserAuthentication.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\CommentVersion.cs" />
-    <Compile Include="Models\Content.cs" />
-    <Compile Include="Models\RssFeed.cs" />
-    <Compile Include="Models\RssItem.cs" />
-    <Compile Include="Models\StaticText.cs" />
-    <Compile Include="Models\StaticTextVersion.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementation\EmailService.cs" />
     <Compile Include="Services\Implementation\AppInfoService.cs" />
     <Compile Include="Services\IAppInfoService.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\MailTemplate.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj">
-      <Project>{A8D10733-3E24-4C6E-BA00-F8C07F9171A9}</Project>
-      <Name>GenericRepository</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Models\Model.cd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -247,13 +156,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ModelResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ModelResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <ProjectReference Include="..\vlko.model\vlko.model.csproj">
+      <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>
+      <Name>vlko.model</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

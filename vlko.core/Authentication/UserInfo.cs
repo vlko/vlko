@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using vlko.core.Models;
-using vlko.core.Models.Action;
+﻿using vlko.model;
+using vlko.model.Action;
 
 namespace vlko.core.Authentication
 {
@@ -48,7 +44,7 @@ namespace vlko.core.Authentication
 		/// </returns>
 		public bool IsAdmin()
 		{
-			return _authenticationService.IsUserInRole(Name, AccountValidation.AdminRole);
+			return _authenticationService.IsUserInRole(Name, User.AdminRole);
 		}
 
 		/// <summary>

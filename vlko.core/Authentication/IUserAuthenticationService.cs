@@ -1,5 +1,4 @@
-﻿using System.Web.Security;
-using vlko.core.Models.Action;
+﻿using vlko.model.Action;
 
 namespace vlko.core.Authentication
 {

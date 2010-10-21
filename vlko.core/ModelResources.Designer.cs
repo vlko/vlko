@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace vlko.core {
+namespace vlko.model {
     using System;
     
     

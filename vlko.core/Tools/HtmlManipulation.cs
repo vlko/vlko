@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Security.Application;
 using System.Text.RegularExpressions;
+using Microsoft.Security.Application;
 
 namespace vlko.core.Tools
 {

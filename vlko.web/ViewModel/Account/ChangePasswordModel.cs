@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using vlko.core.Authentication;
-using vlko.core.ValidationAtribute;
+using vlko.model.ValidationAtribute;
 
 namespace vlko.web.ViewModel.Account
 {
