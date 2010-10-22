@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using Castle.ActiveRecord.Framework;
+using vlko.model.Repository;
 
-namespace vlko.model.Repository.NH
+namespace vlko.model.Implementation.NH.Repository
 {
 
 	public class BaseLinqQueryAction<T> : BaseAction<T>, IQueryAction<T> where T : class

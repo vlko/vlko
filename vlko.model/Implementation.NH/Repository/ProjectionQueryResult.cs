@@ -5,8 +5,9 @@ using Castle.ActiveRecord;
 using Castle.ActiveRecord.Queries;
 using NHibernate;
 using NHibernate.Criterion;
+using vlko.model.Repository;
 
-namespace vlko.model.Repository.NH
+namespace vlko.model.Implementation.NH.Repository
 {
     /// <summary>
     /// Criterion query result.

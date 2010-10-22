@@ -1,8 +1,9 @@
 ﻿using Castle.ActiveRecord;
+using vlko.model.Repository;
 using vlko.model.Repository.RepositoryAction;
 using NotFoundException = vlko.model.Repository.Exceptions.NotFoundException;
 
-namespace vlko.model.Repository.NH.RepositoryAction
+namespace vlko.model.Implementation.NH.Repository.RepositoryAction
 {
     public class CRUDActions<T> : BaseAction<T>, ICRUDActions<T>, IFindByPkAction<T>, ICreateAction<T>, ISaveAction<T>, IDeleteAction<T> where T : class
     {
@@ -14,7 +15,7 @@ namespace vlko.model.Repository.NH.RepositoryAction
         /// <returns>
         /// Item matching id or exception if not exists.
         /// </returns>
-        /// <exception cref="Exceptions.NotFoundException">If matching id was not found.</exception>
+        /// <exception cref="NotFoundException">If matching id was not found.</exception>
         public T FindByPk(object id)
         {
             return FindByPk(id, true);

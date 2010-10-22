@@ -1,7 +1,7 @@
 ﻿using NHibernate.LambdaExtensions;
 using System;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Repository;
-using vlko.model.Repository.NH;
 using vlko.model.Tests.Repository.IOCResolved.Model;
 
 namespace vlko.model.Tests.Repository.IOCResolved.Queries

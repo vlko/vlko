@@ -3,16 +3,17 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using Castle.Windsor;
+using MvcContrib.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Castle.ActiveRecord.Testing;
 using vlko.core;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
 using vlko.model.Action;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
+using vlko.model.Action.ViewModel;
 using vlko.model.Repository;
 using vlko.model.Search;
-using vlko.model.ViewModel;
 using vlko.web.Areas.Admin.Controllers;
 
 namespace vlko.web.Tests.Controllers.Admin
@@ -38,7 +39,7 @@ namespace vlko.web.Tests.Controllers.Admin
 				for (int i = 0; i < NumberOfGeneratedItems; i++)
 				{
 					var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
-						new StaticTextActionModel
+						new StaticTextCRUDModel
 						{
 							AllowComments = false,
 							Creator = admin,
@@ -49,7 +50,7 @@ namespace vlko.web.Tests.Controllers.Admin
 							Text = "Static page" + i
 						});
 					RepositoryFactory.Action<ICommentCrud>().Create(
-						new CommentActionModel()
+						new CommentCRUDModel()
 						{
 							AnonymousName = "User",
 							ChangeDate = DateTime.Now.AddDays(-i),
@@ -121,7 +122,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			var model = (CommentActionModel)viewResult.ViewData.Model;
+			var model = (CommentCRUDModel)viewResult.ViewData.Model;
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -143,7 +144,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			var model = (CommentActionModel)viewResult.ViewData.Model;
+			var model = (CommentCRUDModel)viewResult.ViewData.Model;
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -153,6 +154,7 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			CommentController controller = new CommentController();
+
 			controller.MockRequest();
 			controller.MockValueProvider("Comment");
 
@@ -190,7 +192,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			var model = (CommentActionModel)viewResult.ViewData.Model;
+			var model = (CommentCRUDModel)viewResult.ViewData.Model;
 
 			Assert.AreEqual(id, model.Id);
 		}

@@ -7,11 +7,11 @@ using vlko.core.InversionOfControl;
 using vlko.core.Tools;
 using vlko.model;
 using vlko.model.Action;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
+using vlko.model.Action.ViewModel;
 using vlko.model.Repository;
 using vlko.model.Search;
 using vlko.model.ValidationAtribute;
-using vlko.model.ViewModel;
 using vlko.web.ViewModel.Page;
 
 namespace vlko.web.Controllers
@@ -50,7 +50,7 @@ namespace vlko.web.Controllers
 						CommentViewType = sortType,
 						FlatComments = commentsModel,
 						TreeComments = comments,
-						NewComment = new CommentActionModel
+						NewComment = new CommentCRUDModel
 						             	{
 											Name = staticText.Title,
 											ContentId = staticText.Id,
@@ -86,7 +86,7 @@ namespace vlko.web.Controllers
 					CommentViewType = sortType,
 					FlatComments = commentsModel,
 					TreeComments = comments,
-					NewComment = new CommentActionModel
+					NewComment = new CommentCRUDModel
 					{
 						Name = "Re: " + parentComment.Name,
 						ParentId = parentId,
@@ -104,7 +104,7 @@ namespace vlko.web.Controllers
 		/// <returns>Action result.</returns>
 		[HttpPost]
 		[AntiXss]
-		public ActionResult NewComment(PagedModel<CommentViewModel> commentsModel, CommentActionModel model, string sort)
+		public ActionResult NewComment(PagedModel<CommentViewModel> commentsModel, CommentCRUDModel model, string sort)
 		{
 			var staticText = RepositoryFactory.Action<IStaticTextData>().Get(model.ContentId, DateTime.Now);
 			model.ChangeUser = UserInfo.User;

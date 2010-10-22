@@ -3,9 +3,10 @@ using System.Linq;
 using System.Security.Cryptography;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Framework;
+using vlko.model.Action;
 using vlko.model.Repository;
 
-namespace vlko.model.Action.NH
+namespace vlko.model.Implementation.NH.Action
 {
 	public class UserAuthentication : BaseAction<User>, IUserAuthentication
 	{

@@ -2,15 +2,15 @@
 using System.ComponentModel.DataAnnotations;
 using vlko.model.ValidationAtribute;
 
-namespace vlko.model.ActionModel
+namespace vlko.model.Action.CRUDModel
 {
-	public class CommentActionModel
+	public class CommentCRUDModel
 	{
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CommentActionModel"/> class.
+		/// Initializes a new instance of the <see cref="CommentCRUDModel"/> class.
 		/// </summary>
-		public CommentActionModel()
+		public CommentCRUDModel()
 		{
 
 		}

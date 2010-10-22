@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using NLog;
-using vlko.model.ViewModel;
+using vlko.model.Action;
+using vlko.model.Action.ViewModel;
 
-namespace vlko.model.Action.NH
+namespace vlko.model.Implementation.NH.Action
 {
     public class FileBrowserAction : IFileBrowserAction
     {

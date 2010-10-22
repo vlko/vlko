@@ -6,11 +6,11 @@ using vlko.core.Base;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
 using vlko.model.Action;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
+using vlko.model.Action.ViewModel;
 using vlko.model.Repository;
 using vlko.model.Search;
 using vlko.model.ValidationAtribute;
-using vlko.model.ViewModel;
 
 namespace vlko.web.Areas.Admin.Controllers
 {
@@ -59,7 +59,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <param name="model">The model.</param>
 		/// <returns>Action result.</returns>
 		[HttpPost]
-		public ActionResult Delete(CommentActionModel model)
+		public ActionResult Delete(CommentCRUDModel model)
 		{
 			var item = RepositoryFactory.Action<ICommentCrud>().FindByPk(model.Id);
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
@@ -83,7 +83,7 @@ namespace vlko.web.Areas.Admin.Controllers
 
 		[HttpPost]
 		[AntiXss]
-		public ActionResult Edit(CommentActionModel model)
+		public ActionResult Edit(CommentCRUDModel model)
 		{
 			if (ModelState.IsValid)
 			{

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using vlko.model.ViewModel;
+using vlko.model.Action.ViewModel;
 
 namespace vlko.model.Action
 {

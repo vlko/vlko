@@ -9,10 +9,10 @@ using vlko.core.Authentication;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
 using vlko.model.Action;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
+using vlko.model.Action.ViewModel;
 using vlko.model.Repository;
 using vlko.model.Search;
-using vlko.model.ViewModel;
 using vlko.web.Areas.Admin.Controllers;
 
 namespace vlko.web.Tests.Controllers.Admin
@@ -38,7 +38,7 @@ namespace vlko.web.Tests.Controllers.Admin
 				for (int i = 0; i < NumberOfGeneratedItems; i++)
 				{
 					RepositoryFactory.Action<IStaticTextCrud>().Create(
-						new StaticTextActionModel
+						new StaticTextCRUDModel
 							{
 								AllowComments = false,
 								Creator = admin,
@@ -108,7 +108,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextActionModel)viewResult.ViewData.Model;
+			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -128,7 +128,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextActionModel)viewResult.ViewData.Model;
+			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -205,7 +205,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextActionModel)viewResult.ViewData.Model;
+			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -224,7 +224,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextActionModel)viewResult.ViewData.Model;
+			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
 
 			Assert.AreEqual(DateTime.Now.Date, model.PublishDate.Date);
 		}
@@ -239,7 +239,7 @@ namespace vlko.web.Tests.Controllers.Admin
 
 			controller.MockUser("vlko");
 
-			var dataModel = new StaticTextActionModel
+			var dataModel = new StaticTextCRUDModel
 							{
 								AllowComments = false,
 								Title = "CreateTest",
@@ -271,7 +271,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			controller.MockRequest();
 
 			var form = new FormCollection();
-			var dataModel = controller.BindModel<StaticTextActionModel>(form);
+			var dataModel = controller.BindModel<StaticTextCRUDModel>(form);
 			// Act
 			ActionResult result = controller.Create(dataModel);
 
@@ -279,7 +279,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(StaticTextActionModel));
+			Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(StaticTextCRUDModel));
 		}
 
 		[TestMethod]
@@ -297,7 +297,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextActionModel)viewResult.ViewData.Model;
+			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -351,7 +351,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(StaticTextActionModel));
+			Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(StaticTextCRUDModel));
 		}
 
 		[TestMethod]
@@ -362,7 +362,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			controller.MockRequest();
 
 			var form = new FormCollection();
-			var dataModel = controller.BindModel<StaticTextActionModel>(form);
+			var dataModel = controller.BindModel<StaticTextCRUDModel>(form);
 			// Act
 			ActionResult result = controller.Edit(dataModel);
 
@@ -370,7 +370,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.IsInstanceOfType(result, typeof(ViewResult));
 
 			ViewResult viewResult = (ViewResult)result;
-			Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(StaticTextActionModel));
+			Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(StaticTextCRUDModel));
 		}
 
 

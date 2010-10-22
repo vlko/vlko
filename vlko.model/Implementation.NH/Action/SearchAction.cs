@@ -4,11 +4,12 @@ using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.Search;
 using Microsoft.Security.Application;
-using vlko.model.ActionModel;
+using vlko.model.Action;
+using vlko.model.Action.CRUDModel;
 using vlko.model.Repository;
 using vlko.model.Search;
 
-namespace vlko.model.Action.NH
+namespace vlko.model.Implementation.NH.Action
 {
 	public class SearchAction :  BaseAction<SearchRoot>, ISearchAction
 	{
@@ -18,7 +19,7 @@ namespace vlko.model.Action.NH
 		/// </summary>
 		/// <param name="transaction">The transaction.</param>
 		/// <param name="comment">The comment.</param>
-		public void IndexComment(ITransaction transaction, CommentActionModel comment)
+		public void IndexComment(ITransaction transaction, CommentCRUDModel comment)
 		{
 			SearchUpdateContext tranContext = transaction.TransactionContext as SearchUpdateContext;
 			if (tranContext == null)
@@ -44,7 +45,7 @@ namespace vlko.model.Action.NH
 		/// </summary>
 		/// <param name="transaction">The transaction.</param>
 		/// <param name="staticText">The static text.</param>
-		public void IndexStaticText(ITransaction transaction, StaticTextActionModel staticText)
+		public void IndexStaticText(ITransaction transaction, StaticTextCRUDModel staticText)
 		{
 			SearchUpdateContext tranContext = transaction.TransactionContext as SearchUpdateContext;
 			if (tranContext == null)

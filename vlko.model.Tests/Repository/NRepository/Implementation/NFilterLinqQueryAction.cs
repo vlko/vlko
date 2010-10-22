@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Repository;
-using vlko.model.Repository.NH;
 
 namespace vlko.model.Tests.Repository.NRepository.Implementation
 {

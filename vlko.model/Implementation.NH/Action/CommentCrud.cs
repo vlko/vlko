@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Framework;
-using vlko.model.ActionModel;
+using vlko.model.Action;
+using vlko.model.Action.CRUDModel;
 using vlko.model.Repository;
 using NotFoundException = vlko.model.Repository.Exceptions.NotFoundException;
 
-namespace vlko.model.Action.NH
+namespace vlko.model.Implementation.NH.Action
 {
 	public class CommentCrud : BaseAction<Comment>, ICommentCrud
 	{
@@ -16,7 +17,7 @@ namespace vlko.model.Action.NH
 		/// </summary>
 		/// <param name="item">The item.</param>
 		/// <returns>Created item.</returns>
-		public CommentActionModel Create(CommentActionModel item)
+		public CommentCRUDModel Create(CommentCRUDModel item)
 		{
 			var content = ActiveRecordMediator<Content>.FindByPrimaryKey(item.ContentId);
 			var comment = new Comment()
@@ -71,8 +72,8 @@ namespace vlko.model.Action.NH
 		/// <returns>
 		/// Item matching id or exception if not exists.
 		/// </returns>
-		/// <exception cref="Repository.Exceptions.NotFoundException">If matching id was not found.</exception>
-		public CommentActionModel FindByPk(Guid id)
+		/// <exception cref="NotFoundException">If matching id was not found.</exception>
+		public CommentCRUDModel FindByPk(Guid id)
 		{
 			return FindByPk(id, true);
 		}
@@ -85,12 +86,12 @@ namespace vlko.model.Action.NH
 		/// <returns>
 		/// Item matching id or null/exception if not exists.
 		/// </returns>
-		public CommentActionModel FindByPk(Guid id, bool throwOnNotFound)
+		public CommentCRUDModel FindByPk(Guid id, bool throwOnNotFound)
 		{
 			var query = ActiveRecordLinqBase<CommentVersion>.Queryable
 				.Where(commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version
 				                         && commentVersion.Comment.Id == id)
-				.Select(commentVersion => new CommentActionModel
+				.Select(commentVersion => new CommentCRUDModel
 				                          	{
 				                          		Id = commentVersion.Comment.Id,
 				                          		ContentId = commentVersion.Comment.Content.Id,
@@ -118,7 +119,7 @@ namespace vlko.model.Action.NH
 		/// </summary>
 		/// <param name="item">The item.</param>
 		/// <returns>Updted item.</returns>
-		public CommentActionModel Update(CommentActionModel item)
+		public CommentCRUDModel Update(CommentCRUDModel item)
 		{
 			var comment = ActiveRecordMediator<Comment>.FindByPrimaryKey(item.Id);
 
@@ -146,7 +147,7 @@ namespace vlko.model.Action.NH
 		/// Deletes the specified item.
 		/// </summary>
 		/// <param name="item">The item.</param>
-		public void Delete(CommentActionModel item)
+		public void Delete(CommentCRUDModel item)
 		{
 			var comment = ActiveRecordMediator<Comment>.FindByPrimaryKey(item.Id);
 			ActiveRecordMediator<Comment>.Delete(comment);

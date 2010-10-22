@@ -10,7 +10,7 @@ using NLog;
 using vlko.core;
 using vlko.core.InversionOfControl;
 using vlko.model.Action;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
 using vlko.model.Repository;
 using vlko.model.Search;
 
@@ -110,7 +110,7 @@ namespace vlko.web
 				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
 				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
 				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
-					new StaticTextActionModel
+					new StaticTextCRUDModel
 						{
 							AllowComments = false,
 							Creator = admin,
@@ -126,7 +126,7 @@ namespace vlko.web
 				{
 					searchAction.IndexComment(tran,
 					                          RepositoryFactory.Action<ICommentCrud>().Create(
-					                          	new CommentActionModel()
+					                          	new CommentCRUDModel()
 					                          		{
 					                          			AnonymousName = "User",
 					                          			ChangeDate = DateTime.Now.AddDays(-i),
@@ -140,7 +140,7 @@ namespace vlko.web
 				for (int i = 0; i < 1000; i++)
 				{
 					var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
-						new StaticTextActionModel
+						new StaticTextCRUDModel
 							{
 								AllowComments = true,
 								Creator = admin,
@@ -154,7 +154,7 @@ namespace vlko.web
 					searchAction.IndexStaticText(tran, text);
 					searchAction.IndexComment(tran,
 					                          RepositoryFactory.Action<ICommentCrud>().Create(
-					                          	new CommentActionModel()
+					                          	new CommentCRUDModel()
 					                          		{
 					                          			AnonymousName = "User",
 					                          			ChangeDate = DateTime.Now.AddDays(-i),

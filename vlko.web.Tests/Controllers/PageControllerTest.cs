@@ -8,10 +8,10 @@ using vlko.core;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
 using vlko.model.Action;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
+using vlko.model.Action.ViewModel;
 using vlko.model.Repository;
 using vlko.model.Search;
-using vlko.model.ViewModel;
 using vlko.web.Controllers;
 using vlko.web.ViewModel.Page;
 
@@ -38,7 +38,7 @@ namespace vlko.web.Tests.Controllers
 				for (int i = 0; i < NumberOfGeneratedItems; i++)
 				{
 					RepositoryFactory.Action<IStaticTextCrud>().Create(
-						new StaticTextActionModel
+						new StaticTextCRUDModel
 							{
 								AllowComments = false,
 								Creator = admin,

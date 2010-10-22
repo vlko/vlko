@@ -6,12 +6,12 @@ using vlko.core.Components;
 using vlko.core.InversionOfControl;
 using vlko.core.Tools;
 using vlko.model;
+using vlko.model.Action.CRUDModel;
+using vlko.model.Action.ViewModel;
 using vlko.model.ValidationAtribute;
 using vlko.model.Action;
-using vlko.model.ActionModel;
 using vlko.model.Repository;
 using vlko.model.Search;
-using vlko.model.ViewModel;
 
 namespace vlko.web.Areas.Admin.Controllers
 {
@@ -71,7 +71,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <param name="model">The model.</param>
 		/// <returns>Action result.</returns>
 		[HttpPost]
-		public ActionResult Delete(StaticTextActionModel model)
+		public ActionResult Delete(StaticTextCRUDModel model)
 		{
 			var item = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(model.Id);
 			if (item.Creator.Name == UserInfo.Name
@@ -107,7 +107,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		[HttpPost]
 		[AntiXss]
-		public ActionResult Edit(StaticTextActionModel model)
+		public ActionResult Edit(StaticTextCRUDModel model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -160,7 +160,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Create()
 		{
-			return ViewWithAjax(new StaticTextActionModel
+			return ViewWithAjax(new StaticTextCRUDModel
 							{
 								PublishDate = DateTime.Now
 							});
@@ -173,7 +173,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		[HttpPost]
 		[AntiXss]
-		public ActionResult Create(StaticTextActionModel model)
+		public ActionResult Create(StaticTextCRUDModel model)
 		{
 			if (ModelState.IsValid)
 			{

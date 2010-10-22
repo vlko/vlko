@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using vlko.core.Components;
-using vlko.model.ActionModel;
-using vlko.model.ViewModel;
+using vlko.model.Action.CRUDModel;
+using vlko.model.Action.ViewModel;
 
 namespace vlko.web.ViewModel.Page
 {
@@ -30,7 +30,7 @@ namespace vlko.web.ViewModel.Page
 		/// Gets or sets the new comment.
 		/// </summary>
 		/// <value>The new comment.</value>
-		public CommentActionModel NewComment { get; set; }
+		public CommentCRUDModel NewComment { get; set; }
 
 		/// <summary>
 		/// Gets or sets the flat comments.

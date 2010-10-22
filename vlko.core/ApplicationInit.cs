@@ -10,9 +10,9 @@ using vlko.core.Services;
 using vlko.core.Services.Implementation;
 using vlko.model;
 using vlko.model.Action;
-using vlko.model.Action.NH;
+using vlko.model.Implementation.NH.Action;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Repository;
-using vlko.model.Repository.NH;
 using vlko.model.Search;
 
 namespace vlko.core

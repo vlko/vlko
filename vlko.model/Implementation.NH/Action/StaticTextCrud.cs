@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Framework;
-using vlko.model.ActionModel;
+using vlko.model.Action;
+using vlko.model.Action.CRUDModel;
 using vlko.model.Repository;
 using NotFoundException = vlko.model.Repository.Exceptions.NotFoundException;
 
-namespace vlko.model.Action.NH
+namespace vlko.model.Implementation.NH.Action
 {
 	public class StaticTextCrud : BaseAction<StaticText>, IStaticTextCrud
 	{
@@ -16,7 +17,7 @@ namespace vlko.model.Action.NH
 		/// </summary>
 		/// <param name="item">The item.</param>
 		/// <returns>Created item.</returns>
-		public StaticTextActionModel Create(StaticTextActionModel item)
+		public StaticTextCRUDModel Create(StaticTextCRUDModel item)
 		{
 			var staticText = new StaticText
 								 {
@@ -55,8 +56,8 @@ namespace vlko.model.Action.NH
 		/// <returns>
 		/// Item matching id or exception if not exists.
 		/// </returns>
-		/// <exception cref="Repository.Exceptions.NotFoundException">If matching id was not found.</exception>
-		public StaticTextActionModel FindByPk(Guid id)
+		/// <exception cref="NotFoundException">If matching id was not found.</exception>
+		public StaticTextCRUDModel FindByPk(Guid id)
 		{
 			return FindByPk(id, true);
 		}
@@ -69,13 +70,13 @@ namespace vlko.model.Action.NH
 		/// <returns>
 		/// Item matching id or null/exception if not exists.
 		/// </returns>
-		public StaticTextActionModel FindByPk(Guid id, bool throwOnNotFound)
+		public StaticTextCRUDModel FindByPk(Guid id, bool throwOnNotFound)
 		{
-			StaticTextActionModel result = null;
+			StaticTextCRUDModel result = null;
 
 			var query = ActiveRecordLinqBase<StaticTextVersion>.Queryable
 				.Where(textVersion => textVersion.StaticText.Id == id &&  textVersion.StaticText.ActualVersion == textVersion.Version)
-				.Select(textVersion => new StaticTextActionModel{
+				.Select(textVersion => new StaticTextCRUDModel{
 				                       	Id = textVersion.StaticText.Id,
 										FriendlyUrl = textVersion.StaticText.FriendlyUrl,
 										Title = textVersion.StaticText.Title,
@@ -101,7 +102,7 @@ namespace vlko.model.Action.NH
 		/// </summary>
 		/// <param name="item">The item.</param>
 		/// <returns>Updated item.</returns>
-		public StaticTextActionModel Update(StaticTextActionModel item)
+		public StaticTextCRUDModel Update(StaticTextCRUDModel item)
 		{
 			var staticText = ActiveRecordMediator<StaticText>.FindByPrimaryKey(item.Id);
 
@@ -139,7 +140,7 @@ namespace vlko.model.Action.NH
 		/// Deletes the specified item.
 		/// </summary>
 		/// <param name="item">The item.</param>
-		public void Delete(StaticTextActionModel item)
+		public void Delete(StaticTextCRUDModel item)
 		{
 			var staticText = ActiveRecordMediator<StaticText>.FindByPrimaryKey(item.Id);
 			staticText.Deleted = true;

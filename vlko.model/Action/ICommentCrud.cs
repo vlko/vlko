@@ -1,5 +1,5 @@
 ﻿using System;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
 using vlko.model.Repository;
 using vlko.model.Repository.Exceptions;
 
@@ -12,7 +12,7 @@ namespace vlko.model.Action
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>Created item.</returns>
-        CommentActionModel Create(CommentActionModel item);
+        CommentCRUDModel Create(CommentCRUDModel item);
 
         /// <summary>
         /// Finds the by primary key.
@@ -22,7 +22,7 @@ namespace vlko.model.Action
         /// Item matching id or exception if not exists.
         /// </returns>
         /// <exception cref="NotFoundException">If matching id was not found.</exception>
-        CommentActionModel FindByPk(Guid id);
+        CommentCRUDModel FindByPk(Guid id);
 
         /// <summary>
         /// Finds item by PK.
@@ -30,19 +30,19 @@ namespace vlko.model.Action
         /// <param name="id">The id.</param>
         /// <param name="throwOnNotFound">if set to <c>true</c> [throw exception on not found].</param>
         /// <returns>Item matching id or null/exception if not exists.</returns>
-        CommentActionModel FindByPk(Guid id, bool throwOnNotFound);
+        CommentCRUDModel FindByPk(Guid id, bool throwOnNotFound);
 
         /// <summary>
         /// Updates the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>Updted item.</returns>
-        CommentActionModel Update(CommentActionModel item);
+        CommentCRUDModel Update(CommentCRUDModel item);
 
         /// <summary>
         /// Deletes the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        void Delete(CommentActionModel item);
+        void Delete(CommentCRUDModel item);
     }
 }

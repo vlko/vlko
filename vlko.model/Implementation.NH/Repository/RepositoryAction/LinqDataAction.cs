@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using vlko.model.Repository;
 using vlko.model.Repository.RepositoryAction;
 
-namespace vlko.model.Repository.NH.RepositoryAction
+namespace vlko.model.Implementation.NH.Repository.RepositoryAction
 {
 	public class LinqDataAction<T> : BaseLinqQueryAction<T>, ILinqDataAction<T> where T : class
 	{

@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.InversionOfControl;
 using vlko.model.Action;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
 using vlko.model.Repository;
 
 namespace vlko.model.Tests.Model
@@ -172,7 +172,7 @@ namespace vlko.model.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var item = new CommentActionModel()
+				var item = new CommentCRUDModel()
 							   {
 								   Name = "test",
 								   ParentId = null,
@@ -205,7 +205,7 @@ namespace vlko.model.Tests.Model
 				Assert.AreEqual(item.Text, storedItem.Text);
 				Assert.AreEqual(item.ContentId, storedItem.ContentId);
 
-				var subItem = new CommentActionModel()
+				var subItem = new CommentCRUDModel()
 								  {
 									  Name = "subtest",
 									  ParentId = item.Id,
@@ -248,7 +248,7 @@ namespace vlko.model.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var item = new CommentActionModel()
+				var item = new CommentCRUDModel()
 				{
 					Name = "test_update",
 					ParentId = null,
@@ -313,7 +313,7 @@ namespace vlko.model.Tests.Model
 				var initialCommentCount = ActiveRecordMediator<Comment>.Count();
 				var initialCommentVersionCount = ActiveRecordMediator<CommentVersion>.Count();
 
-				var item = new CommentActionModel()
+				var item = new CommentCRUDModel()
 				{
 					Name = "test_delete",
 					ParentId = null,
@@ -534,7 +534,7 @@ namespace vlko.model.Tests.Model
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				var crudActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentCrud>();
-				var item0 = crudActions.Create(new CommentActionModel()
+				var item0 = crudActions.Create(new CommentCRUDModel()
 												{
 													Name = "item0",
 													ParentId = null,
@@ -546,7 +546,7 @@ namespace vlko.model.Tests.Model
 													ChangeDate = new DateTime(2003, 1, 1),
 													UserAgent = "ie6"
 												});
-				var item00 = crudActions.Create(new CommentActionModel()
+				var item00 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item00",
 					ParentId = item0.Id,
@@ -558,7 +558,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 1),
 					UserAgent = "ie6"
 				});
-				var item000 = crudActions.Create(new CommentActionModel()
+				var item000 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item000",
 					ParentId = item00.Id,
@@ -570,7 +570,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 1),
 					UserAgent = "ie6"
 				});
-				var item001 = crudActions.Create(new CommentActionModel()
+				var item001 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item001",
 					ParentId = item00.Id,
@@ -582,7 +582,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 2),
 					UserAgent = "ie6"
 				});
-				var item01 = crudActions.Create(new CommentActionModel()
+				var item01 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item01",
 					ParentId = item0.Id,
@@ -594,7 +594,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 2),
 					UserAgent = "ie6"
 				});
-				var item02 = crudActions.Create(new CommentActionModel()
+				var item02 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item02",
 					ParentId = item0.Id,
@@ -606,7 +606,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
 				});
-				var item03 = crudActions.Create(new CommentActionModel()
+				var item03 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item03",
 					ParentId = item0.Id,
@@ -618,7 +618,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 4),
 					UserAgent = "ie6"
 				});
-				var item1 = crudActions.Create(new CommentActionModel()
+				var item1 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item1",
 					ParentId = null,
@@ -630,7 +630,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 2),
 					UserAgent = "ie6"
 				});
-				var item2 = crudActions.Create(new CommentActionModel()
+				var item2 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item2",
 					ParentId = null,
@@ -642,7 +642,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
 				});
-				var item20 = crudActions.Create(new CommentActionModel()
+				var item20 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item20",
 					ParentId = item2.Id,
@@ -654,7 +654,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
 				});
-				var item200 = crudActions.Create(new CommentActionModel()
+				var item200 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item200",
 					ParentId = item20.Id,
@@ -666,7 +666,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
 				});
-				var item2000 = crudActions.Create(new CommentActionModel()
+				var item2000 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item2000",
 					ParentId = item200.Id,
@@ -678,7 +678,7 @@ namespace vlko.model.Tests.Model
 					ChangeDate = new DateTime(2003, 1, 3),
 					UserAgent = "ie6"
 				});
-				var item20000 = crudActions.Create(new CommentActionModel()
+				var item20000 = crudActions.Create(new CommentCRUDModel()
 				{
 					Name = "item20000",
 					ParentId = item2000.Id,

@@ -9,10 +9,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.InversionOfControl;
 using vlko.model.Action;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
+using vlko.model.Action.ViewModel;
 using vlko.model.Repository;
 using vlko.model.Search;
-using vlko.model.ViewModel;
 
 namespace vlko.model.Tests.Model
 {
@@ -57,7 +57,7 @@ namespace vlko.model.Tests.Model
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, new StaticTextActionModel()
+				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, new StaticTextCRUDModel()
 				{
 					Id = Guid.NewGuid(),
 					PublishDate = DateTime.Now,
@@ -76,7 +76,7 @@ namespace vlko.model.Tests.Model
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentActionModel()
+				RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentCRUDModel()
 				{
 					Id = Guid.NewGuid(),
 					ChangeDate = DateTime.Now,
@@ -101,7 +101,7 @@ namespace vlko.model.Tests.Model
 			// put one item just to get some result
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentActionModel()
+				RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentCRUDModel()
 				                                                	{
 				                                                		Id = Guid.NewGuid(),
 				                                                		ChangeDate = DateTime.Now,
@@ -122,7 +122,7 @@ namespace vlko.model.Tests.Model
 				                    	{
 											using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 											{
-												RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentActionModel()
+												RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentCRUDModel()
 				                             						{
 				                             							Id = Guid.NewGuid(),
 				                             							ChangeDate = DateTime.Now,
@@ -130,7 +130,7 @@ namespace vlko.model.Tests.Model
 				                             							Text = "very long test",
 				                             							ChangeUser = _user
 				                             						});
-												RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, new StaticTextActionModel()
+												RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, new StaticTextCRUDModel()
 				                             						{
 				                             							Id = Guid.NewGuid(),
 				                             							PublishDate = DateTime.Now,
@@ -179,7 +179,7 @@ namespace vlko.model.Tests.Model
 			{
 				var startDate = DateTime.Now;
 				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
-					new StaticTextActionModel
+					new StaticTextCRUDModel
 						{
 							AllowComments = false,
 							Creator = _user,
@@ -222,7 +222,7 @@ namespace vlko.model.Tests.Model
 			{
 				var startDate = DateTime.Now;
 				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
-					new StaticTextActionModel
+					new StaticTextCRUDModel
 					{
 						AllowComments = false,
 						Creator = _user,
@@ -325,7 +325,7 @@ namespace vlko.model.Tests.Model
 				var startDate = DateTime.Now;
 				var searchAction = RepositoryFactory.Action<ISearchAction>();
 				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
-					new StaticTextActionModel
+					new StaticTextCRUDModel
 						{
 							AllowComments = false,
 							Creator = _user,
@@ -341,7 +341,7 @@ namespace vlko.model.Tests.Model
 				{
 					searchAction.IndexComment(tran,
 					                          RepositoryFactory.Action<ICommentCrud>().Create(
-					                          	new CommentActionModel()
+					                          	new CommentCRUDModel()
 					                          		{
 					                          			AnonymousName = "User",
 					                          			ChangeDate = startDate.AddDays(-i),
@@ -357,7 +357,7 @@ namespace vlko.model.Tests.Model
 				for (int i = 0; i < 100; i++)
 				{
 					var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
-						new StaticTextActionModel
+						new StaticTextCRUDModel
 							{
 								AllowComments = true,
 								Creator = _user,
@@ -371,7 +371,7 @@ namespace vlko.model.Tests.Model
 					searchAction.IndexStaticText(tran, text);
 					searchAction.IndexComment(tran,
 					                          RepositoryFactory.Action<ICommentCrud>().Create(
-					                          	new CommentActionModel()
+					                          	new CommentCRUDModel()
 					                          		{
 					                          			ChangeDate = startDate.AddDays(-i),
 					                          			ChangeUser = _user,

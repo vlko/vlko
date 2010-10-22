@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace vlko.model.ViewModel
+namespace vlko.model.Action.ViewModel
 {
 	public class CommentForAdminViewModel : CommentViewModel
 	{

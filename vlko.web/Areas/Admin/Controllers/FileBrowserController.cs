@@ -4,8 +4,8 @@ using System.Web.Mvc;
 using vlko.core.Base;
 using vlko.core.InversionOfControl;
 using vlko.model.Action;
+using vlko.model.Action.ViewModel;
 using vlko.model.ValidationAtribute;
-using vlko.model.ViewModel;
 using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 
 namespace vlko.web.Areas.Admin.Controllers

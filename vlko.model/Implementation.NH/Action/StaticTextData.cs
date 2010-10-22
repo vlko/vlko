@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Castle.ActiveRecord.Framework;
+using vlko.model.Action;
+using vlko.model.Action.ViewModel;
 using vlko.model.Repository;
-using vlko.model.ViewModel;
 
-namespace vlko.model.Action.NH
+namespace vlko.model.Implementation.NH.Action
 {
 	public class StaticTextData : BaseAction<StaticText>, IStaticTextData
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using vlko.model.Action.ViewModel;
 using vlko.model.Repository;
-using vlko.model.ViewModel;
 
 namespace vlko.model.Action
 {

@@ -1,5 +1,5 @@
 ﻿using NHibernate.Criterion;
-using vlko.model.Repository.NH;
+using vlko.model.Implementation.NH.Repository;
 
 namespace vlko.model.Tests.Repository.NRepository.Implementation
 {

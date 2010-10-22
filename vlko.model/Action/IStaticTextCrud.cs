@@ -1,5 +1,5 @@
 ﻿using System;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
 using vlko.model.Repository;
 using vlko.model.Repository.Exceptions;
 
@@ -13,7 +13,7 @@ namespace vlko.model.Action
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>Created item.</returns>
-        StaticTextActionModel Create(StaticTextActionModel item);
+        StaticTextCRUDModel Create(StaticTextCRUDModel item);
 
         /// <summary>
         /// Finds the by primary key.
@@ -23,7 +23,7 @@ namespace vlko.model.Action
         /// Item matching id or exception if not exists.
         /// </returns>
         /// <exception cref="NotFoundException">If matching id was not found.</exception>
-        StaticTextActionModel FindByPk(Guid id);
+        StaticTextCRUDModel FindByPk(Guid id);
 
         /// <summary>
         /// Finds item by PK.
@@ -31,19 +31,19 @@ namespace vlko.model.Action
         /// <param name="id">The id.</param>
         /// <param name="throwOnNotFound">if set to <c>true</c> [throw exception on not found].</param>
         /// <returns>Item matching id or null/exception if not exists.</returns>
-        StaticTextActionModel FindByPk(Guid id, bool throwOnNotFound);
+        StaticTextCRUDModel FindByPk(Guid id, bool throwOnNotFound);
 
         /// <summary>
         /// Updates the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>Updated item.</returns>
-        StaticTextActionModel Update(StaticTextActionModel item);
+        StaticTextCRUDModel Update(StaticTextCRUDModel item);
 
         /// <summary>
         /// Deletes the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        void Delete(StaticTextActionModel item);
+        void Delete(StaticTextCRUDModel item);
     }
 }

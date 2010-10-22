@@ -1,7 +1,7 @@
 ﻿using System;
+using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.NH.Repository.RepositoryAction;
 using vlko.model.Repository;
-using vlko.model.Repository.NH;
-using vlko.model.Repository.NH.RepositoryAction;
 using vlko.model.Repository.RepositoryAction;
 
 namespace vlko.model.Tests.Repository.NRepository.Implementation

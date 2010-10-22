@@ -1,5 +1,5 @@
 ﻿using System;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
 using vlko.model.Repository;
 using vlko.model.Search;
 
@@ -12,14 +12,14 @@ namespace vlko.model.Action
 		/// </summary>
 		/// <param name="transaction">The transaction.</param>
 		/// <param name="comment">The comment.</param>
-		void IndexComment(ITransaction transaction, CommentActionModel comment);
+		void IndexComment(ITransaction transaction, CommentCRUDModel comment);
 
 		/// <summary>
 		/// Indexes the static text.
 		/// </summary>
 		/// <param name="transaction">The transaction.</param>
 		/// <param name="staticText">The static text.</param>
-		void IndexStaticText(ITransaction transaction, StaticTextActionModel staticText);
+		void IndexStaticText(ITransaction transaction, StaticTextCRUDModel staticText);
 
 		/// <summary>
 		/// Deletes from index.

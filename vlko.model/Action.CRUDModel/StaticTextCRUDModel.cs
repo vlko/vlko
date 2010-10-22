@@ -2,14 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using vlko.model.ValidationAtribute;
 
-namespace vlko.model.ActionModel
+namespace vlko.model.Action.CRUDModel
 {
-	public class StaticTextActionModel
+	public class StaticTextCRUDModel
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="StaticTextActionModel"/> class.
+		/// Initializes a new instance of the <see cref="StaticTextCRUDModel"/> class.
 		/// </summary>
-		public StaticTextActionModel()
+		public StaticTextCRUDModel()
 		{
 		}
 

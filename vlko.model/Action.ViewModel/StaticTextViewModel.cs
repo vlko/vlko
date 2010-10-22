@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace vlko.model.ViewModel
+namespace vlko.model.Action.ViewModel
 {
 	public class StaticTextViewModel
 	{

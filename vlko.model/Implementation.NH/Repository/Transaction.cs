@@ -1,6 +1,7 @@
 ﻿using Castle.ActiveRecord;
+using vlko.model.Repository;
 
-namespace vlko.model.Repository.NH
+namespace vlko.model.Implementation.NH.Repository
 {
 	/// <summary>
 	/// Active record transaction implementation.

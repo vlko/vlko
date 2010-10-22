@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.InversionOfControl;
 using vlko.model.Action;
-using vlko.model.ActionModel;
+using vlko.model.Action.CRUDModel;
 using vlko.model.Repository;
 
 namespace vlko.model.Tests.Model
@@ -243,7 +243,7 @@ namespace vlko.model.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var item = new StaticTextActionModel()
+				var item = new StaticTextCRUDModel()
 							   {
 								   Creator = _user,
 								   ChangeDate = new DateTime(2002, 1, 1),
@@ -284,7 +284,7 @@ namespace vlko.model.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var item = new StaticTextActionModel()
+				var item = new StaticTextCRUDModel()
 				{
 					Creator = _user,
 					ChangeDate = new DateTime(2002, 1, 1),
@@ -382,7 +382,7 @@ namespace vlko.model.Tests.Model
 			{
 				var initialStaticTextCount = ActiveRecordMediator<StaticText>.Count();
 				var initialStaticTextVersionCount = ActiveRecordMediator<StaticTextVersion>.Count();
-				var item = new StaticTextActionModel()
+				var item = new StaticTextCRUDModel()
 							   {
 								   Creator = _user,
 								   ChangeDate = new DateTime(2002, 1, 1),

@@ -1,6 +1,7 @@
 ﻿using NHibernate.Criterion;
+using vlko.model.Repository;
 
-namespace vlko.model.Repository.NH
+namespace vlko.model.Implementation.NH.Repository
 {
 	public class BaseCriterionQueryAction<T> : BaseAction<T>, IQueryAction<T> where T : class
 	{
