@@ -1,6 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<vlko.core.Components.PagedModel<vlko.core.Models.Action.ViewModel.CommentForAdminViewModel>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<vlko.core.Components.PagedModel<vlko.model.Action.ViewModel.CommentForAdminViewModel>>" %>
 <%@ Import Namespace="vlko.web.Areas.Admin.Controllers" %>
-<%@ Import Namespace="vlko.web.Controllers" %>
 <%@ Import Namespace="vlko.core.Components" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Index
@@ -14,14 +13,14 @@
 	<table>
 		<tr>
 			<th rowspan="2"></th>
-			<th><%= vlko.core.ModelResources.Name %></th>
-			<th><%= vlko.core.ModelResources.CreatedDate %></th>
-			<th><%= vlko.core.ModelResources.Changed %></th>
-			<th><%= vlko.core.ModelResources.UserName %></th>
-			<th><%= vlko.core.ModelResources.ClientIp %></th>
+			<th><%= vlko.model.ModelResources.Name %></th>
+			<th><%= vlko.model.ModelResources.CreatedDate%></th>
+			<th><%= vlko.model.ModelResources.Changed%></th>
+			<th><%= vlko.model.ModelResources.UserName%></th>
+			<th><%= vlko.model.ModelResources.ClientIp%></th>
 		</tr>
 		<tr>
-			<th colspan="5"><%= vlko.core.ModelResources.Text %></th>
+			<th colspan="5"><%= vlko.model.ModelResources.Text%></th>
 		</tr>
 	<% foreach (var item in Model) { %>
 		<tr>

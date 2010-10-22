@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<vlko.core.Models.Action.ViewModel.CommentTreeViewModel>>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<vlko.model.Action.ViewModel.CommentTreeViewModel>>" %>
 <%@ Import Namespace="vlko.web.Controllers" %>
 <%@ Import Namespace="vlko.core.Components" %>
 <%@ Import Namespace="System.Globalization" %>

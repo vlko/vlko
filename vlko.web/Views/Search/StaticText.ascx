@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<vlko.core.Models.Action.ViewModel.StaticTextViewModel>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<vlko.model.Action.ViewModel.StaticTextViewModel>" %>
 <%@ Import Namespace="vlko.core.Tools" %>  
 <article class="comment">
 	<div class="comment_user">

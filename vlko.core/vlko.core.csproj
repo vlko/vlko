@@ -123,6 +123,7 @@
     <Compile Include="Components\ExtendedModelBinder.cs" />
     <Compile Include="HtmlExtender\CssManager.cs" />
     <Compile Include="HtmlExtender\Localization.cs" />
+    <Compile Include="HtmlExtender\Metadata.cs" />
     <Compile Include="HtmlExtender\ScriptManager.cs" />
     <Compile Include="Tools\HtmlManipulation.cs" />
     <Compile Include="Tools\InstanceCreator.cs" />
@@ -137,6 +138,8 @@
     <Compile Include="Services\IAppInfoService.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\MailTemplate.cs" />
+    <Compile Include="Tools\ModelMetadataExtensions.cs" />
+    <Compile Include="Tools\StringTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

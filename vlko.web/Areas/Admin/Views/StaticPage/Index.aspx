@@ -1,9 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<vlko.core.Components.PagedModel<vlko.core.Models.Action.ViewModel.StaticTextViewModel>>" %>
-<%@ Import Namespace="vlko.core.Models.Action.ViewModel" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<vlko.core.Components.PagedModel<vlko.model.Action.ViewModel.StaticTextViewModel>>" %>
 <%@ Import Namespace="vlko.web.Areas.Admin.Controllers" %>
-<%@ Import Namespace="vlko.web.Controllers" %>
 <%@ Import Namespace="vlko.core.Components" %>
-<%@ Import Namespace="System.Linq.Expressions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Index
@@ -17,25 +14,25 @@
 		<thead>
 			<th></th>
 			<th>
-				<%= vlko.core.ModelResources.Id  %>
+				<%= vlko.model.ModelResources.Id  %>
 			</th>
 			<th>
-				<%= vlko.core.ModelResources.FriendlyUrl  %>
+				<%= vlko.model.ModelResources.FriendlyUrl%>
 			</th>
 			<th>
-				<%= vlko.core.ModelResources.Title  %>
+				<%= vlko.model.ModelResources.Title%>
 			</th>
 			<th>
-				<%= vlko.core.ModelResources.ChangeDate  %>
+				<%= vlko.model.ModelResources.ChangeDate%>
 			</th>
 			<th>
-				<%= vlko.core.ModelResources.PublishDate  %>
+				<%= vlko.model.ModelResources.PublishDate%>
 			</th>
 			<th>
-				<%= vlko.core.ModelResources.AllowComments  %>
+				<%= vlko.model.ModelResources.AllowComments%>
 			</th>
 			<th>
-				<%= vlko.core.ModelResources.CommentCounts  %>
+				<%= vlko.model.ModelResources.CommentCounts%>
 			</th>
 		</thead>
 

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<vlko.core.Components.PagedModel<vlko.core.Models.Action.ViewModel.CommentViewModel>>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<vlko.core.Components.PagedModel<vlko.model.Action.ViewModel.CommentViewModel>>" %>
 <%@ Import Namespace="vlko.web.Controllers" %>
 <%@ Import Namespace="vlko.core.Components" %>
 <%@ Import Namespace="vlko.web.ViewModel.Page" %>
