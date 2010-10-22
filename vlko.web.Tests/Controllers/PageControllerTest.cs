@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvcContrib.TestHelper;
 using vlko.core;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
@@ -18,18 +19,15 @@ using vlko.web.ViewModel.Page;
 namespace vlko.web.Tests.Controllers
 {
 	[TestClass]
-	public class PageControllerTest : InMemoryTest
+	public class PageControllerTest : BaseControllerTest
 	{
 		public static int NumberOfGeneratedItems = 100;
-		private IUnitOfWork session;
-		[TestInitialize]
-		public void Init()
+
+		/// <summary>
+		/// Fills the db with data.
+		/// </summary>
+		protected override void FillDbWithData()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
-			ApplicationInit.InitializeServices();
-			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
-			base.SetUp();
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 
@@ -39,31 +37,18 @@ namespace vlko.web.Tests.Controllers
 				{
 					RepositoryFactory.Action<IStaticTextCrud>().Create(
 						new StaticTextCRUDModel
-							{
-								AllowComments = false,
-								Creator = admin,
-								Title = "StaticPage" + i,
-								FriendlyUrl = "staticpage" + (i == NumberOfGeneratedItems - 1 ? string.Empty : i.ToString()),
-								ChangeDate = DateTime.Now,
-								PublishDate = DateTime.Now.AddDays(-i),
-								Text = "Static page" + i
-							});
+						{
+							AllowComments = false,
+							Creator = admin,
+							Title = "StaticPage" + i,
+							FriendlyUrl = "staticpage" + (i == NumberOfGeneratedItems - 1 ? string.Empty : i.ToString()),
+							ChangeDate = DateTime.Now,
+							PublishDate = DateTime.Now.AddDays(-i),
+							Text = "Static page" + i
+						});
 				}
 				tran.Commit();
 			}
-			session = RepositoryFactory.StartUnitOfWork();
-		}
-
-		[TestCleanup]
-		public void Cleanup()
-		{
-			session.Dispose();
-			TearDown();
-		}
-
-		public override Type[] GetTypes()
-		{
-			return ApplicationInit.ListOfModelTypes();
 		}
 
 		[TestMethod]
@@ -71,15 +56,15 @@ namespace vlko.web.Tests.Controllers
 		{
 			// Arrange
 			PageController controller = new PageController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
 			// Act
-			ViewResult result = controller.Index(new PagedModel<StaticTextViewModel>()) as ViewResult;
+			ActionResult result = controller.Index(new PagedModel<StaticTextViewModel>());
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (PagedModel<StaticTextViewModel>)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<PagedModel<StaticTextViewModel>>();
 
 			Assert.AreEqual(NumberOfGeneratedItems, model.Count);
 
@@ -98,16 +83,16 @@ namespace vlko.web.Tests.Controllers
 		{
 			// Arrange
 			PageController controller = new PageController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 			controller.MockUser("vlko");
+
 			// Act
-			ViewResult result = controller.ViewPage("staticpage2", new PagedModel<CommentViewModel>(), "flat") as ViewResult;
+			ActionResult result = controller.ViewPage("staticpage2", new PagedModel<CommentViewModel>(), "flat");
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (PageViewModel)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<PageViewModel>();
 
 			Assert.AreEqual("StaticPage2", model.StaticText.Title);
 			Assert.AreEqual("staticpage2", model.StaticText.FriendlyUrl);

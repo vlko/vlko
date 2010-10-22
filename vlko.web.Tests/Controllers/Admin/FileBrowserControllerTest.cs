@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvcContrib.TestHelper;
 using vlko.core.InversionOfControl;
 using vlko.core.Services;
 using vlko.model.Action;
@@ -17,16 +18,16 @@ using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 
 namespace vlko.web.Tests.Controllers.Admin
 {
-    [TestClass]
-    public class FileBrowserControllerTest
-    {
-        public static int NumberOfGeneratedItems = 100;
-        private IUnitOfWork session;
-        [TestInitialize]
-        public void Init()
-        {
-            IoC.InitializeWith(new WindsorContainer());
-            IoC.Container.Register(
+	[TestClass]
+	public class FileBrowserControllerTest
+	{
+		public static int NumberOfGeneratedItems = 100;
+		private IUnitOfWork session;
+		[TestInitialize]
+		public void Init()
+		{
+			IoC.InitializeWith(new WindsorContainer());
+			IoC.Container.Register(
 				Component.For<IFileBrowserAction>().ImplementedBy<FileBrowserAction>()
 					.DynamicParameters((kernel, parameters) =>
 					{
@@ -34,319 +35,306 @@ namespace vlko.web.Tests.Controllers.Admin
 						parameters["rootUrl"] = appInfo.RootUrl;
 						parameters["rootPath"] = appInfo.RootPath;
 					}),
-                Component.For<IAppInfoService>().ImplementedBy<AppInfoServiceMock>()
-                );
-        }
+				Component.For<IAppInfoService>().ImplementedBy<AppInfoServiceMock>()
+				);
+		}
 
-        [TestMethod]
-        public void Index_empty()
-        {
-            // Arrange
-            var controller = new FileBrowserController();
-            controller.MockRequest();
+		[TestMethod]
+		public void Index_empty()
+		{
+			// Arrange
+			var controller = new FileBrowserController();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 			controller.MockUser("empty");
-            // Act
-            ActionResult result = controller.Index();
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+			// Act
+			ActionResult result = controller.Index();
 
-            var viewResult = (ViewResult)result;
-            var model = (FileBrowserViewModel)viewResult.ViewData.Model;
+			// Assert
+			var model = result.AssertViewRendered().WithViewData<FileBrowserViewModel>();
 
-            Assert.IsNotNull(model.UserFiles);
-            Assert.AreEqual(0, model.UserFiles.Count());
-        }
+			Assert.IsNotNull(model.UserFiles);
+			Assert.AreEqual(0, model.UserFiles.Count());
+		}
 
-        [TestMethod]
-        public void Upload_ok()
-        {
-            // Arrange
-            var controller = new FileBrowserController();
-            var form = new FormCollection();
-            form.Add("Ident", "some_name");
-            controller.MockRequest(form);
+		[TestMethod]
+		public void Upload_ok()
+		{
+			// Arrange
+			var controller = new FileBrowserController();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+			builder.Form["Ident"] = "some_name";
 			controller.MockUser("upload_ok");
-            // Act
 
-            ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
+			// Act
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+			ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
 
-            Assert.IsTrue(controller.ModelState.IsValid);
+			// Assert
+			var model = result.AssertViewRendered().WithViewData<FileBrowserViewModel>();
 
-            var viewResult = (ViewResult)result;
-            var model = (FileBrowserViewModel)viewResult.ViewData.Model;
+			Assert.IsTrue(controller.ModelState.IsValid);
 
-            Assert.IsNotNull(model.UserFiles);
-            Assert.AreEqual(1, model.UserFiles.Count());
+			Assert.IsNotNull(model.UserFiles);
+			Assert.AreEqual(1, model.UserFiles.Count());
 
-            FileViewModel savedFile = model.UserFiles.First();
-            Assert.AreEqual("some_name.jpg", savedFile.Ident);
-            Assert.AreEqual(40, savedFile.Size);
-        }
+			FileViewModel savedFile = model.UserFiles.First();
+			Assert.AreEqual("some_name.jpg", savedFile.Ident);
+			Assert.AreEqual(40, savedFile.Size);
+		}
 
-        [TestMethod]
-        public void Upload_with_dangerous_inputs()
-        {
-            // Arrange
-            var controller = new FileBrowserController();
-            var form = new FormCollection();
-            form.Add("Ident", "..\\some_name");
-            controller.MockRequest(form);
+		[TestMethod]
+		public void Upload_with_dangerous_inputs()
+		{
+			// Arrange
+			var controller = new FileBrowserController();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+			builder.Form["Ident"] = "..\\some_name";
 			controller.MockUser("..\\upload_ok");
-            // Act
 
-            ActionResult result = controller.Upload(new HttpPostedFileMock("..\\test.\\jpg", 40));
+			// Act
+			ActionResult result = controller.Upload(new HttpPostedFileMock("..\\test.\\jpg", 40));
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+			// Assert
+			var model = result.AssertViewRendered().WithViewData<FileBrowserViewModel>();
 
-            Assert.IsTrue(controller.ModelState.IsValid);
+			Assert.IsTrue(controller.ModelState.IsValid);
 
-            var viewResult = (ViewResult)result;
-            var model = (FileBrowserViewModel)viewResult.ViewData.Model;
+			Assert.IsNotNull(model.UserFiles);
+			Assert.AreEqual(1, model.UserFiles.Count());
 
-            Assert.IsNotNull(model.UserFiles);
-            Assert.AreEqual(1, model.UserFiles.Count());
+			FileViewModel savedFile = model.UserFiles.First();
+			Assert.AreEqual("..-some_name", savedFile.Ident);
+			Assert.AreEqual(40, savedFile.Size);          
+		}
 
-            FileViewModel savedFile = model.UserFiles.First();
-            Assert.AreEqual("..-some_name", savedFile.Ident);
-            Assert.AreEqual(40, savedFile.Size);          
-        }
+		[TestMethod]
+		public void Upload_file_too_big()
+		{
+			// Arrange
+			var controller = new FileBrowserController();
 
-        [TestMethod]
-        public void Upload_file_too_big()
-        {
-            // Arrange
-            var controller = new FileBrowserController();
-            var form = new FormCollection();
-            form.Add("Ident", "some_name");
-            controller.MockRequest(form);
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+			builder.Form["Ident"] = "some_name";
 			controller.MockUser("Upload_file_too_big");
-            // Act
 
-            ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", FileBrowserViewModel.MaxFileSize + 1));
+			// Act
+			ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", FileBrowserViewModel.MaxFileSize + 1));
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+			// Assert
+			var model = result.AssertViewRendered().WithViewData<FileBrowserViewModel>();
 
-            Assert.IsFalse(controller.ModelState.IsValid);
+			Assert.IsFalse(controller.ModelState.IsValid);
 
-            var viewResult = (ViewResult)result;
-            var model = (FileBrowserViewModel)viewResult.ViewData.Model;
+			Assert.IsNotNull(model.UserFiles);
+			Assert.AreEqual(0, model.UserFiles.Count());
+		}
 
-            Assert.IsNotNull(model.UserFiles);
-            Assert.AreEqual(0, model.UserFiles.Count());
-        }
+		[TestMethod]
+		public void Upload_file_empty_ident()
+		{
+			// Arrange
+			var controller = new FileBrowserController();
 
-        [TestMethod]
-        public void Upload_file_empty_ident()
-        {
-            // Arrange
-            var controller = new FileBrowserController();
-            var form = new FormCollection();
-            form.Add("Ident", string.Empty);
-            controller.MockRequest(form);
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+			builder.Form["Ident"] = string.Empty;
 			controller.MockUser("Upload_file_empty_ident");
-            // Act
 
-            ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
+			// Act
+			ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+			// Assert
+			var model = result.AssertViewRendered().WithViewData<FileBrowserViewModel>();
 
-            Assert.IsFalse(controller.ModelState.IsValid);
+			Assert.IsFalse(controller.ModelState.IsValid);
 
-            var viewResult = (ViewResult)result;
-            var model = (FileBrowserViewModel)viewResult.ViewData.Model;
+			Assert.IsNotNull(model.UserFiles);
+			Assert.AreEqual(0, model.UserFiles.Count());
+		}
 
-            Assert.IsNotNull(model.UserFiles);
-            Assert.AreEqual(0, model.UserFiles.Count());
-        }
+		[TestMethod]
+		public void Upload_ident_exists()
+		{
+			// Arrange
+			var controller = new FileBrowserController();
 
-        [TestMethod]
-        public void Upload_ident_exists()
-        {
-            // Arrange
-            var controller = new FileBrowserController();
-            var form = new FormCollection();
-            form.Add("Ident", "some_name");
-            controller.MockRequest(form);
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+			builder.Form["Ident"] = "some_name";
 			controller.MockUser("Upload_ident_exists");
-            // Act
 
-            ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
-            result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
+			// Act
+			ActionResult previousResult = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
+			// upload second time the same
+			ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+			// Assert
+			var model = result.AssertViewRendered().WithViewData<FileBrowserViewModel>();
 
-            Assert.IsFalse(controller.ModelState.IsValid);
+			Assert.IsFalse(controller.ModelState.IsValid);
 
-            var viewResult = (ViewResult)result;
-            var model = (FileBrowserViewModel)viewResult.ViewData.Model;
+			Assert.IsNotNull(model.UserFiles);
+			Assert.AreEqual(1, model.UserFiles.Count());
+		}
 
-            Assert.IsNotNull(model.UserFiles);
-            Assert.AreEqual(1, model.UserFiles.Count());
-        }
+		[TestMethod]
+		public void Delete()
+		{
+			// Arrange
+			var controller = new FileBrowserController();
 
-        [TestMethod]
-        public void Delete()
-        {
-            // Arrange
-            var controller = new FileBrowserController();
-            var form = new FormCollection();
-            form.Add("Ident", "some_name");
-            controller.MockRequest(form);
-            controller.MockValueProvider("FileBrowser");
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+			builder.Form["Ident"] = "some_name";
 			controller.MockUser("delete");
 
-            // Act
-            ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
-            // get first
-            var viewResult = (ViewResult)result;
-            var model = (FileBrowserViewModel)viewResult.ViewData.Model;
-            result = controller.Delete(model.UserFiles.First().Ident);
+			// Act
+			ActionResult createResult = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
+			// get first
+			var createModel = createResult.AssertViewRendered().WithViewData<FileBrowserViewModel>();
+			// delete first
+			ActionResult result = controller.Delete(createModel.UserFiles.First().Ident);
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+			// Assert
+			var deleteModel = result.AssertViewRendered().WithViewData<FileViewModel>();
 
-            viewResult = (ViewResult)result;
-            var deleteModel = (FileViewModel)viewResult.ViewData.Model;
+			Assert.IsNotNull(deleteModel);
+			Assert.AreEqual("some_name.jpg", deleteModel.Ident);
+			Assert.AreEqual(40, deleteModel.Size);
+		}
 
-            Assert.IsNotNull(deleteModel);
-            Assert.AreEqual("some_name.jpg", deleteModel.Ident);
-            Assert.AreEqual(40, deleteModel.Size);
-        }
+		[TestMethod]
+		public void Delete_post_ok()
+		{
+			// Arrange
+			var controller = new FileBrowserController();
 
-        [TestMethod]
-        public void Delete_post_ok()
-        {
-            // Arrange
-            var controller = new FileBrowserController();
-            var form = new FormCollection();
-            form.Add("Ident", "some_name");
-            controller.MockRequest(form);
-            controller.MockValueProvider("FileBrowser");
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+			builder.Form["Ident"] = "some_name";
 			controller.MockUser("delete_ok");
 
-            // Act
-            ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
-            // get first
-            var viewResult = (ViewResult)result;
-            var model = (FileBrowserViewModel)viewResult.ViewData.Model;
-            result = controller.Delete(model.UserFiles.First());
+			// Act
+			ActionResult createResult = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
+			// get first
+			var createModel = createResult.AssertViewRendered().WithViewData<FileBrowserViewModel>();
+			// delete first
+			ActionResult result = controller.Delete(createModel.UserFiles.First());
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-            RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-            Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			// Assert
+			result.AssertActionRedirect().ToAction("Index");
 
-            // test if user directory is empty
-            result = controller.Index();
-            viewResult = (ViewResult)result;
-            model = (FileBrowserViewModel)viewResult.ViewData.Model;
-            Assert.AreEqual(0, model.UserFiles.Count());
-        }
+			// test if user directory is empty
+			ActionResult listResult = controller.Index();
+			var model = listResult.AssertViewRendered().WithViewData<FileBrowserViewModel>();
+			Assert.AreEqual(0, model.UserFiles.Count());
+		}
 
-        [TestMethod]
-        public void Delete_post_failed()
-        {
-            // Arrange
-            var controller = new FileBrowserController();
-            var form = new FormCollection();
-            form.Add("Ident", "some_name");
-            controller.MockRequest(form);
-            controller.MockValueProvider("FileBrowser");
+		[TestMethod]
+		public void Delete_post_failed()
+		{
+			// Arrange
+			var controller = new FileBrowserController();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+			builder.Form["Ident"] = "some_name";
 			controller.MockUser("delete_ok");
 
-            // Act
-            ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
-            // get first
-            var viewResult = (ViewResult)result;
-            var model = (FileBrowserViewModel)viewResult.ViewData.Model;
-            var item = model.UserFiles.First();
-            item.Ident += "_not_exists";
-            result = controller.Delete(item);
+			// Act
+			// Act
+			ActionResult createResult = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
+			// get first
+			var createModel = createResult.AssertViewRendered().WithViewData<FileBrowserViewModel>();
+			var item = createModel.UserFiles.First();
+			item.Ident += "_not_exists";
+			// delete first
+			ActionResult result = controller.Delete(item);
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+			// Assert
+			result.AssertViewRendered();
 
-            Assert.IsFalse(controller.ModelState.IsValid);
-        }
+			Assert.IsFalse(controller.ModelState.IsValid);
+		}
  
 
-        public class AppInfoServiceMock : IAppInfoService
-        {
-            #region Mock implementation
+		public class AppInfoServiceMock : IAppInfoService
+		{
+			#region Mock implementation
 
-            public string Name
-            {
-                get { throw new NotImplementedException(); }
-            }
+			public string Name
+			{
+				get { throw new NotImplementedException(); }
+			}
 
-            public string RootUrl
-            {
-                get { return string.Empty; }
-            }
+			public string RootUrl
+			{
+				get { return string.Empty; }
+			}
 
-            public string RootPath
-            {
-                get { return System.Environment.CurrentDirectory; }
-            }
+			public string RootPath
+			{
+				get { return System.Environment.CurrentDirectory; }
+			}
 
-            public MailTemplate GetRegistrationMailTemplate()
-            {
-                throw new NotImplementedException();
-            }
+			public MailTemplate GetRegistrationMailTemplate()
+			{
+				throw new NotImplementedException();
+			}
 
-            public MailTemplate GetResetPasswordMailTemplate()
-            {
-                throw new NotImplementedException();
-            }
-            #endregion
-        }
+			public MailTemplate GetResetPasswordMailTemplate()
+			{
+				throw new NotImplementedException();
+			}
+			#endregion
+		}
 
-        public class HttpPostedFileMock : HttpPostedFileBase
-        {
-            #region Mock implementation
+		public class HttpPostedFileMock : HttpPostedFileBase
+		{
+			#region Mock implementation
 
-            private readonly string _fileName;
-            private readonly int _lenght;
+			private readonly string _fileName;
+			private readonly int _lenght;
 
-            public HttpPostedFileMock(string fileName, int lenght)
-            {
-                _fileName = fileName;
-                _lenght = lenght;
-            }
+			public HttpPostedFileMock(string fileName, int lenght)
+			{
+				_fileName = fileName;
+				_lenght = lenght;
+			}
 
-            public override int ContentLength
-            {
-                get
-                {
-                    return _lenght;
-                }
-            }
+			public override int ContentLength
+			{
+				get
+				{
+					return _lenght;
+				}
+			}
 
-            public override string FileName
-            {
-                get
-                {
-                    return _fileName;
-                }
-            }
+			public override string FileName
+			{
+				get
+				{
+					return _fileName;
+				}
+			}
 
-            public override System.IO.Stream InputStream
-            {
-                get
-                {
-                    byte[] byteArray = Encoding.ASCII.GetBytes( string.Empty.PadLeft(_lenght) );
-                    return new System.IO.MemoryStream( byteArray ); 
-                }
-            }
-            #endregion
-        }
-    }
+			public override System.IO.Stream InputStream
+			{
+				get
+				{
+					byte[] byteArray = Encoding.ASCII.GetBytes( string.Empty.PadLeft(_lenght) );
+					return new System.IO.MemoryStream( byteArray ); 
+				}
+			}
+			#endregion
+		}
+	}
 }

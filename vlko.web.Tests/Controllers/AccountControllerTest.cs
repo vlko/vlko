@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using Castle.ActiveRecord.Testing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvcContrib.TestHelper;
 using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
@@ -60,7 +62,7 @@ namespace vlko.web.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void ChangePassword_Get_ReturnsView()
+		public void Change_password_get_returns_view()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -74,7 +76,7 @@ namespace vlko.web.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void ChangePassword_Post_ReturnsRedirectOnSuccess()
+		public void Change_password_post_returns_redirect_on_success()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -95,7 +97,7 @@ namespace vlko.web.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void ChangePassword_Post_ReturnsViewIfChangePasswordFails()
+		public void Change_password_post_returns_view_if_change_password_fails()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -118,7 +120,7 @@ namespace vlko.web.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void ChangePassword_Post_ReturnsViewIfModelStateIsInvalid()
+		public void Change_password_post_returns_view_if_model_state_is_invalid()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -141,7 +143,7 @@ namespace vlko.web.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void ChangePasswordSuccess_ReturnsView()
+		public void Change_password_success_returns_view()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -154,7 +156,7 @@ namespace vlko.web.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void LogOff_LogsOutAndRedirects()
+		public void Log_off_logs_out_and_redirects()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -171,25 +173,27 @@ namespace vlko.web.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void LogOn_Get_ReturnsView()
+		public void Log_on_get_returns_view()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
-			var queryString = new NameValueCollection();
-			controller.MockRequest(queryStringValues: queryString);
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 
 			// Act
 			ActionResult result = controller.LogOn();
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
+			result.AssertViewRendered();
 		}
 
 		[TestMethod]
-		public void LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl()
+		public void Log_on_post_returns_redirect_on_success_without_return_url()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			LogOnModel model = new LogOnModel()
 			{
 				UserName = "someUser",
@@ -201,18 +205,19 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.LogOn(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-			Assert.AreEqual("Home", redirectResult.RouteValues["controller"]);
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			result.AssertActionRedirect()
+				.ToController("Home")
+				.ToAction("Index");
+
 			Assert.IsTrue(((MockFormsAuthenticationService)controller.FormsService).SignIn_WasCalled);
 		}
 
 		[TestMethod]
-		public void LogOn_Post_ReturnsRedirectOnSuccess_WithReturnUrl()
+		public void Log_on_post_returns_redirect_on_success_with_return_url()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			LogOnModel model = new LogOnModel()
 			{
 				UserName = "someUser",
@@ -225,17 +230,17 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.LogOn(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectResult));
-			RedirectResult redirectResult = (RedirectResult)result;
-			Assert.AreEqual("/someUrl", redirectResult.Url);
+			result.AssertHttpRedirect().ToUrl("/someUrl");
+
 			Assert.IsTrue(((MockFormsAuthenticationService)controller.FormsService).SignIn_WasCalled);
 		}
 
 		[TestMethod]
-		public void LogOn_Post_ReturnsViewIfModelStateIsInvalid()
+		public void Log_on_post_returns_view_if_model_state_is_invalid()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			LogOnModel model = new LogOnModel()
 			{
 				UserName = "someUser",
@@ -248,13 +253,12 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.LogOn(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			ViewResult viewResult = (ViewResult)result;
-			Assert.AreEqual(model, viewResult.ViewData.Model);
+			var logonModel = result.AssertViewRendered().WithViewData<LogOnModel>();
+			Assert.AreEqual(model, logonModel);
 		}
 
 		[TestMethod]
-		public void LogOn_Post_ReturnsViewIfValidateUserFails()
+		public void Log_on_post_returns_view_if_validate_user_fails()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -269,14 +273,14 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.LogOn(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			ViewResult viewResult = (ViewResult)result;
-			Assert.AreEqual(model, viewResult.ViewData.Model);
+			var logonModel = result.AssertViewRendered().WithViewData<LogOnModel>();
+			Assert.AreEqual(model, logonModel);
+
 			Assert.AreNotEqual(string.Empty, controller.ModelState[""].Errors[0].ErrorMessage);
 		}
 
 		[TestMethod]
-		public void Register_Get_ReturnsView()
+		public void Register_get_returns_view()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -285,15 +289,16 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.Register();
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			Assert.AreEqual(10, ((ViewResult)result).ViewData["PasswordLength"]);
+			var viewData = result.AssertViewRendered().ViewData;
+			Assert.AreEqual(10, viewData["PasswordLength"]);
 		}
 
 		[TestMethod]
-		public void Register_Post_ReturnsRedirectOnSuccess()
+		public void Register_post_returns_redirect_on_success()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			RegisterModel model = new RegisterModel()
 			{
 				UserName = "someUser",
@@ -306,17 +311,17 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.Register(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-			Assert.AreEqual("Home", redirectResult.RouteValues["controller"]);
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			result.AssertActionRedirect()
+				.ToController("Home")
+				.ToAction("Index");
 		}
 
 		[TestMethod]
-		public void Register_Post_ReturnsViewIfRegistrationFails()
+		public void Register_post_returns_view_if_registration_fails()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			RegisterModel model = new RegisterModel()
 			{
 				UserName = "duplicateUser",
@@ -329,18 +334,19 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.Register(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			ViewResult viewResult = (ViewResult)result;
-			Assert.AreEqual(model, viewResult.ViewData.Model);
+			var registerModel = result.AssertViewRendered().WithViewData<RegisterModel>();
+
+			Assert.AreEqual(model, registerModel);
 			Assert.AreEqual("Username already exists. Please enter a different user name.", controller.ModelState[""].Errors[0].ErrorMessage);
-			Assert.AreEqual(10, viewResult.ViewData["PasswordLength"]);
+			Assert.AreEqual(10, result.AssertViewRendered().ViewData["PasswordLength"]);
 		}
 
 		[TestMethod]
-		public void Register_Post_ReturnsViewIfModelStateIsInvalid()
+		public void Register_post_returns_view_if_model_state_is_invalid()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			RegisterModel model = new RegisterModel()
 			{
 				UserName = "someUser",
@@ -354,10 +360,10 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.Register(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			ViewResult viewResult = (ViewResult)result;
-			Assert.AreEqual(model, viewResult.ViewData.Model);
-			Assert.AreEqual(10, viewResult.ViewData["PasswordLength"]);
+			var registerModel = result.AssertViewRendered().WithViewData<RegisterModel>();
+
+			Assert.AreEqual(model, registerModel);
+			Assert.AreEqual(10, result.AssertViewRendered().ViewData["PasswordLength"]);
 		}
 
 		[TestMethod]
@@ -370,9 +376,8 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.ConfirmRegistration("validToken");
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof (ViewResult));
-			ViewResult viewResult = (ViewResult) result;
-			Assert.AreEqual("someUser", viewResult.ViewData["user"]);
+			var viewData = result.AssertViewRendered().ViewData;
+			Assert.AreEqual("someUser", viewData["user"]);
 		}
 
 		[TestMethod]
@@ -385,15 +390,16 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.ConfirmRegistration("not_valid_token");
 
 			// Assert
-			ViewResult viewResult = (ViewResult)result;
-			Assert.AreEqual("NotValidToken", viewResult.ViewName);
+			string viewName = result.AssertViewRendered().ViewName;
+			Assert.AreEqual("NotValidToken", viewName);
 		}
 
 		[TestMethod]
-		public void Reset_Password_Post_ReturnsRedirectOnSuccess()
+		public void Reset_password_post_returns_redirect_on_success()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			ResetPasswordModel model = new ResetPasswordModel()
 			{
 				Email = "goodEmail",
@@ -403,17 +409,17 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.ResetPassword(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-			Assert.AreEqual("Home", redirectResult.RouteValues["controller"]);
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			result.AssertActionRedirect()
+				.ToController("Home")
+				.ToAction("Index");
 		}
 
 		[TestMethod]
-		public void Reset_Password_Post_ReturnsViewIfFails()
+		public void Reset_password_post_returns_view_if_fails()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			ResetPasswordModel model = new ResetPasswordModel()
 			{
 				Email = "wrongEmail",
@@ -423,17 +429,17 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.ResetPassword(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			ViewResult viewResult = (ViewResult)result;
-			Assert.AreEqual(model, viewResult.ViewData.Model);
+			var resetModel = result.AssertViewRendered().WithViewData<ResetPasswordModel>();
+			Assert.AreEqual(model, resetModel);
 			Assert.AreEqual("Invalid email address. Please enter a different e-mail address.", controller.ModelState[""].Errors[0].ErrorMessage);
 		}
 
 		[TestMethod]
-		public void Reset_Password_Post_ReturnsViewIfModelStateIsInvalid()
+		public void Reset_password_post_returns_view_if_model_state_is_invalid()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			ResetPasswordModel model = new ResetPasswordModel()
 			{
 				Email = "goodEmail",
@@ -444,13 +450,12 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.ResetPassword(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			ViewResult viewResult = (ViewResult)result;
-			Assert.AreEqual(model, viewResult.ViewData.Model);
+			var resetModel = result.AssertViewRendered().WithViewData<ResetPasswordModel>();
+			Assert.AreEqual(model, resetModel);
 		}
 
 		[TestMethod]
-		public void Confirm_Reset_Password_ReturnsView()
+		public void Confirm_reset_password_returns_view()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -459,18 +464,18 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.ConfirmResetPassword("validToken");
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			ConfirmResetPasswordModel viewModel = (ConfirmResetPasswordModel)((ViewResult)result).ViewData.Model;
+			var viewModel = result.AssertViewRendered().WithViewData<ConfirmResetPasswordModel>();
 
 			Assert.AreEqual("someUser", viewModel.Username);
 			Assert.AreEqual("validToken", viewModel.VerifyToken);
 		}
 
 		[TestMethod]
-		public void Confirm_Reset_Password_Post_ReturnsRedirectOnSuccess()
+		public void Confirm_reset_password_post_returns_redirect_on_success()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			ConfirmResetPasswordModel model = new ConfirmResetPasswordModel()
 												  {
 													  Username = "someUser",
@@ -482,17 +487,17 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.ConfirmResetPassword(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof (RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult) result;
-			Assert.AreEqual("Home", redirectResult.RouteValues["controller"]);
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			result.AssertActionRedirect()
+				.ToController("Home")
+				.ToAction("Index");
 		}
 
 		[TestMethod]
-		public void Confirm_Reset_Password_Post_ReturnsViewIfFails()
+		public void Confirm_reset_password_post_returns_view_if_fails()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
+
 			ConfirmResetPasswordModel model = new ConfirmResetPasswordModel()
 			{
 				Username = "invalidUser",
@@ -504,14 +509,14 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.ConfirmResetPassword(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			ViewResult viewResult = (ViewResult)result;
-			Assert.AreEqual(model, viewResult.ViewData.Model);
+			var viewModel = result.AssertViewRendered().WithViewData<ConfirmResetPasswordModel>();
+
+			Assert.AreEqual(model, viewModel);
 			Assert.AreEqual("Unable to reset password. Please contact administrator.", controller.ModelState[""].Errors[0].ErrorMessage);
 		}
 
 		[TestMethod]
-		public void Confirm_Reset_Password_Post_ReturnsViewIfModelStateIsInvalid()
+		public void Confirm_reset_password_post_returns_view_if_model_state_is_invalid()
 		{
 			// Arrange
 			AccountController controller = GetAccountController();
@@ -527,9 +532,9 @@ namespace vlko.web.Tests.Controllers
 			ActionResult result = controller.ConfirmResetPassword(model);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-			ViewResult viewResult = (ViewResult)result;
-			Assert.AreEqual(model, viewResult.ViewData.Model);
+			var viewModel = result.AssertViewRendered().WithViewData<ConfirmResetPasswordModel>();
+
+			Assert.AreEqual(model, viewModel);
 		}
 
 		private static AccountController GetAccountController()

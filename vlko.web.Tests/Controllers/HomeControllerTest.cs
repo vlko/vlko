@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using MvcContrib.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.web;
 using vlko.web.Controllers;
@@ -19,10 +20,10 @@ namespace vlko.web.Tests.Controllers
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ActionResult result = controller.Index() as ViewResult;
 
             // Assert
-            ViewDataDictionary viewData = result.ViewData;
+        	var viewData = result.AssertViewRendered().ViewData;
             Assert.AreEqual("Welcome to ASP.NET MVC!", viewData["Message"]);
         }
 
@@ -33,10 +34,10 @@ namespace vlko.web.Tests.Controllers
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.About() as ViewResult;
+            ActionResult result = controller.About();
 
             // Assert
-            Assert.IsNotNull(result);
+			result.AssertViewRendered();
         }
     }
 }

@@ -1,9 +1,11 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Web.Mvc;
 using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvcContrib.TestHelper;
 using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Components;
@@ -18,18 +20,15 @@ using vlko.web.Areas.Admin.Controllers;
 namespace vlko.web.Tests.Controllers.Admin
 {
 	[TestClass]
-	public class StaticPageControllerTest : InMemoryTest
+	public class StaticPageControllerTest : BaseControllerTest
 	{
 		public static int NumberOfGeneratedItems = 100;
-		private IUnitOfWork session;
-		[TestInitialize]
-		public void Init()
+
+		/// <summary>
+		/// Fills the db with data.
+		/// </summary>
+		protected override void FillDbWithData()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
-			ApplicationInit.InitializeServices();
-			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
-			base.SetUp();
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 
@@ -51,19 +50,6 @@ namespace vlko.web.Tests.Controllers.Admin
 				}
 				tran.Commit();
 			}
-			session = RepositoryFactory.StartUnitOfWork();
-		}
-
-		[TestCleanup]
-		public void Cleanup()
-		{
-			session.Dispose();
-			TearDown();
-		}
-
-		public override Type[] GetTypes()
-		{
-			return ApplicationInit.ListOfModelTypes();
 		}
 
 		[TestMethod]
@@ -71,15 +57,15 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
 			// Act
-			ViewResult result = controller.Index(new PagedModel<StaticTextViewModel>()) as ViewResult;
+			ActionResult result = controller.Index(new PagedModel<StaticTextViewModel>());
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (PagedModel<StaticTextViewModel>)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<PagedModel<StaticTextViewModel>>();
 
 			Assert.AreEqual(NumberOfGeneratedItems, model.Count);
 
@@ -98,17 +84,17 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
 			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
 
 			// Act
 			ActionResult result = controller.Details(id);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<StaticTextCRUDModel>();
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -118,17 +104,17 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
 			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
 
 			// Act
 			ActionResult result = controller.Delete(id);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<StaticTextCRUDModel>();
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -138,9 +124,9 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
-			controller.MockValueProvider("StaticPage");
 
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 			controller.MockUser("vlko");
 
 			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
@@ -150,35 +136,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			ActionResult result = controller.Delete(dataModel);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
-
-			var deletedItems = RepositoryFactory.Action<IStaticTextData>().GetDeleted();
-			Assert.AreEqual(1, deletedItems.Count());
-			Assert.AreEqual(id, deletedItems.ToArray()[0].Id);
-		}
-
-		[TestMethod]
-		public void Delete_post_failed()
-		{
-			// Arrange
-			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
-			controller.MockValueProvider("StaticPage");
-
-			controller.MockUser("vlko");
-
-			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
-			var dataModel = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id);
-
-			// Act
-			ActionResult result = controller.Delete(dataModel);
-
-			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			result.AssertActionRedirect().ToAction("Index");
 
 			var deletedItems = RepositoryFactory.Action<IStaticTextData>().GetDeleted();
 			Assert.AreEqual(1, deletedItems.Count());
@@ -190,10 +148,10 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
-			controller.MockValueProvider("StaticPage");
 
-			controller.MockUser("other");
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+			controller.MockUser("test");
 
 			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
 			var dataModel = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id);
@@ -202,12 +160,12 @@ namespace vlko.web.Tests.Controllers.Admin
 			ActionResult result = controller.Delete(dataModel);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
-
+			var model = result.AssertViewRendered().WithViewData<StaticTextCRUDModel>();
 			Assert.AreEqual(id, model.Id);
+			Assert.IsFalse(controller.ModelState.IsValid);
+
+			var deletedItems = RepositoryFactory.Action<IStaticTextData>().GetDeleted();
+			Assert.AreEqual(0, deletedItems.Count());
 		}
 
 		[TestMethod]
@@ -215,16 +173,15 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 
 			// Act
 			ActionResult result = controller.Create();
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<StaticTextCRUDModel>();
 
 			Assert.AreEqual(DateTime.Now.Date, model.PublishDate.Date);
 		}
@@ -234,9 +191,9 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
-			controller.MockValueProvider("StaticPage");
 
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 			controller.MockUser("vlko");
 
 			var dataModel = new StaticTextCRUDModel
@@ -251,9 +208,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			ActionResult result = controller.Create(dataModel);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			result.AssertActionRedirect().ToAction("Index");
 
 			var newItemByUniqueFriendlyUrl = RepositoryFactory.Action<IStaticTextData>().Get("staticpage99");
 			Assert.IsNotNull(newItemByUniqueFriendlyUrl);
@@ -268,18 +223,17 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
 
-			var form = new FormCollection();
-			var dataModel = controller.BindModel<StaticTextCRUDModel>(form);
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
+			var emptyDataModel = controller.BindModel<StaticTextCRUDModel>(new FormCollection());
+
 			// Act
-			ActionResult result = controller.Create(dataModel);
+			ActionResult result = controller.Create(emptyDataModel);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(StaticTextCRUDModel));
+			var model = result.AssertViewRendered().WithViewData<StaticTextCRUDModel>();
 		}
 
 		[TestMethod]
@@ -287,17 +241,17 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
 			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
 
 			// Act
 			ActionResult result = controller.Edit(id);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (StaticTextCRUDModel)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<StaticTextCRUDModel>();
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -307,22 +261,22 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 			controller.MockUser("vlko");
-			controller.MockValueProvider("StaticPage");
 
 			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
 			var dataModel = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id);
 			dataModel.FriendlyUrl = "changed-friendly-url";
 			dataModel.Title = "changed title";
 			dataModel.Text = "<p>changed text</p>";
+
 			// Act
 			ActionResult result = controller.Edit(dataModel);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			result.AssertActionRedirect().ToAction("Index");
 
 			var changedItemByUniqueFriendlyUrl = RepositoryFactory.Action<IStaticTextData>().Get("changed-friendly-url");
 			Assert.IsNotNull(changedItemByUniqueFriendlyUrl);
@@ -337,21 +291,23 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 			controller.MockUser("other");
-			controller.MockValueProvider("StaticPage");
 
 			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
 			var dataModel = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id);
 			dataModel.FriendlyUrl = "changed-friendly-url";
+
 			// Act
 			ActionResult result = controller.Edit(dataModel);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
+			var model = result.AssertViewRendered().WithViewData<StaticTextCRUDModel>();
 
-			ViewResult viewResult = (ViewResult)result;
-			Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(StaticTextCRUDModel));
+			Assert.IsFalse(controller.ModelState.IsValid);
+			Assert.AreEqual(id, model.Id);
 		}
 
 		[TestMethod]
@@ -359,18 +315,20 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			StaticPageController controller = new StaticPageController();
-			controller.MockRequest();
 
-			var form = new FormCollection();
-			var dataModel = controller.BindModel<StaticTextCRUDModel>(form);
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
+			var emptyDataModel = controller.BindModel<StaticTextCRUDModel>(new FormCollection());
 			// Act
-			ActionResult result = controller.Edit(dataModel);
+			ActionResult result = controller.Edit(emptyDataModel);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
+			// Assert
+			var model = result.AssertViewRendered().WithViewData<StaticTextCRUDModel>();
 
-			ViewResult viewResult = (ViewResult)result;
-			Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(StaticTextCRUDModel));
+			Assert.IsFalse(controller.ModelState.IsValid);
+			Assert.AreEqual(Guid.Empty, model.Id);
 		}
 
 

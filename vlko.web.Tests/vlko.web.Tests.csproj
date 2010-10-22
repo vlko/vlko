@@ -129,6 +129,7 @@
     <Reference Include="System.Web.Routing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseControllerTest.cs" />
     <Compile Include="Controllers\Admin\CommentControllerTest.cs" />
     <Compile Include="Controllers\Admin\FileBrowserControllerTest.cs" />
     <Compile Include="Controllers\Admin\StaticPageControllerTest.cs" />

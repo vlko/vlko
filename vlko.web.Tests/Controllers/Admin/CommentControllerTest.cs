@@ -19,18 +19,16 @@ using vlko.web.Areas.Admin.Controllers;
 namespace vlko.web.Tests.Controllers.Admin
 {
 	[TestClass]
-	public class CommentControllerTest : InMemoryTest
+	public class CommentControllerTest : BaseControllerTest
 	{
 		public static int NumberOfGeneratedItems = 100;
-		private IUnitOfWork session;
-		[TestInitialize]
-		public void Init()
+
+		/// <summary>
+		/// Fills the db with data.
+		/// </summary>
+		protected override void FillDbWithData()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
-			ApplicationInit.InitializeServices();
-			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
-			base.SetUp();
+			// fill db with data
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 
@@ -63,19 +61,6 @@ namespace vlko.web.Tests.Controllers.Admin
 				}
 				tran.Commit();
 			}
-			session = RepositoryFactory.StartUnitOfWork();
-		}
-
-		[TestCleanup]
-		public void Cleanup()
-		{
-			session.Dispose();
-			TearDown();
-		}
-
-		public override Type[] GetTypes()
-		{
-			return ApplicationInit.ListOfModelTypes();
 		}
 
 		[TestMethod]
@@ -83,15 +68,16 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			CommentController controller = new CommentController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
 			// Act
-			ViewResult result = controller.Index(new PagedModel<CommentForAdminViewModel>()) as ViewResult;
+			ActionResult result = controller.Index(new PagedModel<CommentForAdminViewModel>());
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (PagedModel<CommentForAdminViewModel>)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered()
+				.WithViewData<PagedModel<CommentForAdminViewModel>>();
 
 			Assert.AreEqual(NumberOfGeneratedItems, model.Count);
 
@@ -110,7 +96,10 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			CommentController controller = new CommentController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
 			var id = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name)
 				.ToPage(1, 1).First().Id;
@@ -119,10 +108,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			ActionResult result = controller.Details(id);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (CommentCRUDModel)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<CommentCRUDModel>();
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -132,7 +118,10 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			CommentController controller = new CommentController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
 			var id = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name)
 				.ToPage(1, 1).First().Id;
@@ -141,10 +130,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			ActionResult result = controller.Delete(id);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (CommentCRUDModel)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<CommentCRUDModel>();
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -155,8 +141,8 @@ namespace vlko.web.Tests.Controllers.Admin
 			// Arrange
 			CommentController controller = new CommentController();
 
-			controller.MockRequest();
-			controller.MockValueProvider("Comment");
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 
 			var data = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name);
@@ -168,9 +154,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			ActionResult result = controller.Delete(dataModel);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			result.AssertActionRedirect().ToAction("Index");
 
 			Assert.AreEqual(count - 1, data.Count());
 		}
@@ -180,7 +164,10 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			CommentController controller = new CommentController();
-			controller.MockRequest();
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
+
 			var id = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name)
 				.ToPage(1, 1).First().Id;
@@ -189,10 +176,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			ActionResult result = controller.Edit(id);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-			ViewResult viewResult = (ViewResult)result;
-			var model = (CommentCRUDModel)viewResult.ViewData.Model;
+			var model = result.AssertViewRendered().WithViewData<CommentCRUDModel>();
 
 			Assert.AreEqual(id, model.Id);
 		}
@@ -202,8 +186,9 @@ namespace vlko.web.Tests.Controllers.Admin
 		{
 			// Arrange
 			CommentController controller = new CommentController();
-			controller.MockRequest();
-			controller.MockValueProvider("Comment");
+
+			TestControllerBuilder builder = new TestControllerBuilder();
+			builder.InitializeController(controller);
 
 			var id = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name)
@@ -217,9 +202,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			ActionResult result = controller.Edit(dataModel);
 
 			// Assert
-			Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
-			RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-			Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
+			result.AssertActionRedirect().ToAction("Index");
 
 			var changedItem = RepositoryFactory.Action<ICommentCrud>().FindByPk(id);
 			Assert.IsNotNull(changedItem);
