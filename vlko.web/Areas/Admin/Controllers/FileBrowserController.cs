@@ -73,14 +73,15 @@ namespace vlko.web.Areas.Admin.Controllers
 			// test content length
 			if (file.ContentLength > FileBrowserViewModel.MaxFileSize)
 			{
-				ModelState.AddModelError("Ident", string.Format(vlko.model.ModelResources.FileTooBigError, FileBrowserViewModel.MaxFileSize));
+				ModelState.AddModelError<FileBrowserViewModel>(item => item.Ident,
+				                                               string.Format(vlko.model.ModelResources.FileTooBigError, FileBrowserViewModel.MaxFileSize));
 			}
 			else
 			{
 				// test if ident specified
 				if (string.IsNullOrWhiteSpace(model.Ident))
 				{
-					ModelState.AddModelError("Ident", vlko.model.ModelResources.FileIdentRequireError);
+					ModelState.AddModelError<FileBrowserViewModel>(item => item.Ident, vlko.model.ModelResources.FileIdentRequireError);
 				}
 				else
 				{
@@ -91,14 +92,14 @@ namespace vlko.web.Areas.Admin.Controllers
 					var existingItem = fileBrowserActions.GetFileInfo(UserInfo.Name, fileIdent);
 					if (existingItem != null)
 					{
-						ModelState.AddModelError("Ident", string.Format(vlko.model.ModelResources.FileIdentExistsError, fileIdent));
+						ModelState.AddModelError<FileBrowserViewModel>(item => item.Ident, string.Format(vlko.model.ModelResources.FileIdentExistsError, fileIdent));
 					}
 					else
 					{
 						// Save file
 						if (!fileBrowserActions.SaveFile(UserInfo.Name, fileIdent, file.InputStream))
 						{
-							ModelState.AddModelError("", vlko.model.ModelResources.FileUploadFailedError);
+							ModelState.AddModelError(string.Empty, vlko.model.ModelResources.FileUploadFailedError);
 						}
 						else
 						{

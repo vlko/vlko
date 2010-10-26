@@ -85,6 +85,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -110,12 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\AuthorizeRolesAttribute.cs" />
+    <Compile Include="Authentication\ConditionalAuthorizeAttribute.cs" />
     <Compile Include="Authentication\Implementation\UserAuthenticationService.cs" />
     <Compile Include="Authentication\AccountValidation.cs" />
     <Compile Include="Authentication\Implementation\FormsAuthenticationService.cs" />
     <Compile Include="Authentication\IFormsAuthenticationService.cs" />
     <Compile Include="Authentication\IUserAuthenticationService.cs" />
     <Compile Include="Authentication\UserInfo.cs" />
+    <Compile Include="Base\BaseExtensions.cs" />
     <Compile Include="Base\ShortGuid.cs" />
     <Compile Include="Components\IPagedModel.cs" />
     <Compile Include="Components\PagerModel.cs" />

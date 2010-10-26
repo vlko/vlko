@@ -18,6 +18,7 @@ namespace vlko.web.Controllers
 	[HandleError]
 	public class AccountController : BaseController
 	{
+		public const string AllowAnonymousToRegisterUsersConst = "AllowAnonymousToRegisterUsers";
 
 		public IFormsAuthenticationService FormsService { get; set; }
 		public IUserAuthenticationService UserAuthenticationService { get; set; }
@@ -77,7 +78,7 @@ namespace vlko.web.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("", AccountValidation.ValidateUserErrorCodeToString(verifyStatus));
+					ModelState.AddModelError(string.Empty, AccountValidation.ValidateUserErrorCodeToString(verifyStatus));
 				}
 			}
 
@@ -100,6 +101,7 @@ namespace vlko.web.Controllers
 		/// URL: /Account/Register
 		/// </summary>
 		/// <returns>Action result.</returns>
+		[ConditionalAuthorize(AllowAnonymousToRegisterUsersConst)]
 		public ActionResult Register()
 		{
 			ViewData["PasswordLength"] = UserAuthenticationService.MinPasswordLength;
@@ -112,6 +114,7 @@ namespace vlko.web.Controllers
 		/// <param name="model">The model</param>
 		/// <returns>Action result.</returns>
 		[HttpPost]
+		[ConditionalAuthorize(AllowAnonymousToRegisterUsersConst)]
 		public ActionResult Register(RegisterModel model)
 		{
 			if (ModelState.IsValid)
@@ -125,7 +128,7 @@ namespace vlko.web.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("", AccountValidation.CreateUserErrorCodeToString(createStatus));
+					ModelState.AddModelError(string.Empty, AccountValidation.CreateUserErrorCodeToString(createStatus));
 				}
 			}
 
@@ -139,6 +142,7 @@ namespace vlko.web.Controllers
 		/// </summary>
 		/// <param name="verifyToken">The verify token</param>
 		/// <returns>Action result.</returns>
+		[ConditionalAuthorize(AllowAnonymousToRegisterUsersConst)]
 		public ActionResult ConfirmRegistration(string verifyToken)
 		{
 			if (!string.IsNullOrEmpty(verifyToken))
@@ -182,7 +186,7 @@ namespace vlko.web.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+					ModelState.AddModelError(string.Empty, "The current password is incorrect or the new password is invalid.");
 				}
 			}
 
@@ -229,7 +233,7 @@ namespace vlko.web.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("", AccountValidation.ResetPasswordErrorCodeToString(resetStatus));
+					ModelState.AddModelError(string.Empty, AccountValidation.ResetPasswordErrorCodeToString(resetStatus));
 				}
 			}
 			return View(model);
@@ -276,7 +280,7 @@ namespace vlko.web.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("", "Unable to reset password. Please contact administrator.");
+					ModelState.AddModelError(string.Empty, "Unable to reset password. Please contact administrator.");
 				}
 			}
 			return View(model);

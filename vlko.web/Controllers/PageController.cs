@@ -112,7 +112,7 @@ namespace vlko.web.Controllers
 			// check for anonymous name required if not logged user
 			if (model.ChangeUser == null && string.IsNullOrEmpty(model.AnonymousName))
 			{
-				ModelState.AddModelError("AnonymousName", ModelResources.AnonymousRequireError);
+				ModelState.AddModelError<CommentCRUDModel>(item => item.AnonymousName, ModelResources.AnonymousRequireError);
 			}
 			else if (ModelState.IsValid)
 			{
