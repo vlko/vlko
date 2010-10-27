@@ -1,4 +1,16 @@
-﻿var $loadingDialog;
+﻿// script cache handling
+(function (scriptCache, $, undefined) {
+	var loadedScripts = [];
+	scriptCache.load = function (scriptUrl) {
+		// if script is not yet loaded
+		if (!loadedScripts[scriptUrl]) {
+			$("body").append('<script src="' + scriptUrl + '" type="text/javascript"></script>');
+			loadedScripts[scriptUrl] = true;
+		}
+	}
+} (window.scriptCache = window.scriptCache || {}, jQuery)); 
+
+var $loadingDialog;
 
 // create loading dialog
 function createLoading() {
@@ -37,36 +49,76 @@ function ajaxException(xhr, ajaxOptions, thrownError) {
 // create content dialog
 function createContentDialog(settings) {
 	var config = {
-		buttons: { "Ok": function () { $(this).dialog("close") } },
-		dialogName: "content_dialog"
+		buttons: { "Back": function () { this.close(); } },
+		dialogName: "content_dialog",
+		contentId: "content"
 	}
 	$.extend(config, settings);
 
-	var contentDialog = $('<div class="' + config.dialogName + '"></div>')
+	var dialog = (function (dialog, config, $, undefined) {
 
-						.dialog({
-							autoOpen: false,
-							modal: true,
-							width: $("#content").width(),
-							draggable: true,
-							resizable: true,
-							title: config.title,
-							close: function () {
-								$("." + config.dialogName).empty(); 
-								if (config.prevUrl !== null){
-									addToHistory(config.prevUrl);
-								}
-							},
-							buttons: config.buttons
-						});
-	fillContentWithData(contentDialog, config.data);
-	return contentDialog;
+		var content = $("#" + config.contentId);
+
+		// create buttons
+		var createButtons = function (buttons) {
+			var buttonPanel = $('<div class="buttons"></div>');
+
+			$.each(buttons, function (name, props) {
+				var self = dialog;
+
+				props = $.isFunction(props) ? { click: props, text: name} : props;
+				var button = $('<button type="button"></button>')
+					.attr(props, true)
+					.unbind('click')
+					.click(function () {
+						props.click.apply(self, arguments);
+					})
+					.appendTo(buttonPanel);
+				if ($.fn.button) {
+					button.button();
+				}
+			});
+
+			return buttonPanel;
+		}
+
+		// load all current visible items and hide them
+		var visibleItems = $(">:visible", content).hide().toArray();
+
+		// inner content
+		dialog.inner = $('<div class="inner"></div>').hide();
+
+		// create dialog wrapper
+		var contentDialog = $('<div class="' + config.dialogName + '"></div>');
+		content.append(contentDialog);
+		contentDialog.append(createButtons(config.buttons));
+		contentDialog.append(dialog.inner);
+		contentDialog.append(createButtons(config.buttons));
+
+
+		// fill content
+		fillContentWithData(dialog.inner, config.data);
+
+		dialog.inner.show("slide", { "direction": "right" })
+
+		// close dialog
+		dialog.close = function (action) {
+			$(contentDialog).remove();
+			$(visibleItems).show("slide");
+			if (config.prevUrl !== null) {
+				addToHistory(config.prevUrl);
+			}
+		};
+
+		return dialog;
+	} ({}, config, $));
+
+	return dialog;
 }
 
 function fillContentWithData(content, data) {
 	content.html(data);
-	content.children(":not(.ajax_container, .ajax_content)").hide();
-	content.children(".ajax_container").children(":not(.ajax_content)").hide();
+	$(".ajax_ignore", content).hide();
 }
 
 function updateEffect(content, callback) {
@@ -83,20 +135,22 @@ function getCurrentHistoryUrl() {
 }
 
 // initialize ajax history plugin
-$.history.init(function (url, phase) {
-	if (phase == "check") {
-		if (!url) {
-			window.location = window.location.href;
+$(function () {
+	$.history.init(function (url, phase) {
+		if (phase == "check") {
+			if (!url) {
+				window.location = window.location.href;
+			}
+			else {
+				if (url.charAt(0) == "%") {
+					window.location = url;
+				}
+			}
 		}
-		else {
-			if (url.charAt(0) == "%") {
+		if (phase == "init") {
+			if (url && (url.charAt(0) == "%")) {
 				window.location = url;
 			}
 		}
-	}
-	if (phase == "init") {
-		if (url && (url.charAt(0) == "%")) {
-			window.location = url;
-		}
-	}
+	})
 });

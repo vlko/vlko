@@ -8,7 +8,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <div id="page_view_content" class="ajax_container">
 	<h2><%: Model.StaticText.Title %></h2>
-	<div class="article ajax_content">
+	<div class="article">
 		
 		<div class="article_info">
 			<span class="creator"><%: Model.StaticText.Creator.Name%></span>
@@ -22,10 +22,10 @@
 		<div class="article_comment"><span>Comments </span><%: Model.StaticText.CommentCounts%></div>
 		<% } %>
 	</div>
-	<div>
+	<div  class="ajax_ignore">
 		<%: Html.ActionLink("Back to List", "Index") %>
 	</div>
-	<div class="ajax_content">
+	<div>
 	<%:Html.RouteLink("flat", "PageView", cssClass: "comment_sort flat",
 									 routeValues: new {
 														friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),

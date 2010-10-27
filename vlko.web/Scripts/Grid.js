@@ -13,7 +13,7 @@
 				data: form.serialize(),
 				success: function (data) {
 					if (data.actionName) {
-						$(dialog).dialog("close");
+						dialog.close();
 						var nextUrl = data.actionName;
 						$.ajax({
 							url: nextUrl + "?ajaxTime=" + new Date().getTime(),
@@ -27,7 +27,7 @@
 						});
 					}
 					else {
-						fillContentWithData(dialog, data);
+						fillContentWithData(dialog.inner, data);
 					}
 					closeLoading();
 				},
@@ -45,21 +45,23 @@
 						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 						success: function (data) {
 							var edit = createContentDialog({
-								title: 'Edit', 
 								data: data,
 								buttons: {
-									"Save": function () {
-										var form = $("form", this);
-										if (form.valid()) {
-											showForm(edit, form);
+									"Save": {
+										text: "Save",
+										"class": "f_right",
+										click: function () {
+											var form = $("form", this.inner);
+											if (form.valid()) {
+												showForm(edit, form);
+											}
 										}
 									},
-									"Cancel": function () { $(this).dialog("close") }
+									"Back": function () { this.close(); }
 								},
 								prevUrl: getCurrentHistoryUrl()
-								});
+							});
 							closeLoading();
-							edit.dialog("open");
 							addToHistory(nextUrl);
 						},
 						error: ajaxException
@@ -82,12 +84,10 @@
 						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 						success: function (data) {
 							var edit = createContentDialog({
-								title: 'Detail', 
 								data: data,
 								prevUrl: getCurrentHistoryUrl()
-								});
+							});
 							closeLoading();
-							edit.dialog("open");
 							addToHistory(nextUrl);
 						},
 						error: ajaxException
@@ -110,20 +110,22 @@
 						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 						success: function (data) {
 							var edit = createContentDialog({
-								title: 'Delete',
 								data: data,
 								buttons:
 								{
-									"Delete": function () {
-										var form = $("form", this);
-										showForm(edit, form);
+									"Delete": {
+										text: "Delete",
+										"class": "f_right",
+										click: function () {
+											var form = $("form", this.inner);
+											showForm(edit, form);
+										}
 									},
-									"Cancel": function () { $(this).dialog("close") }
+									"Back": function () { this.close(); }
 								},
 								prevUrl: getCurrentHistoryUrl()
-								});
+							});
 							closeLoading();
-							edit.dialog("open");
 							addToHistory(nextUrl);
 						},
 						error: ajaxException
@@ -145,22 +147,24 @@
 					url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 					success: function (data) {
 						var edit = createContentDialog({
-							title: 'Create',
 							data: data,
 							buttons:
 							{
-								"Save": function () {
-									var form = $("form", this);
-									if (form.valid()) {
-										showForm(edit, form);
+								"Create": {
+									text: "Create",
+									"class": "f_right",
+									click: function () {
+										var form = $("form", this.inner);
+										if (form.valid()) {
+											showForm(edit, form);
+										}
 									}
 								},
-								"Cancel": function () { $(this).dialog("close") }
+								"Back": function () { this.close(); }
 							},
 							prevUrl: getCurrentHistoryUrl()
-							});
+						});
 						closeLoading();
-						edit.dialog("open");
 						addToHistory(nextUrl);
 					},
 					error: ajaxException

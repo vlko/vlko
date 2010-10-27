@@ -9,7 +9,7 @@
 
 	<h2>Details</h2>
 
-	<div class="ajax_content">
+	<div>
 		<fieldset>
 			<legend>Fields</legend>
 		
@@ -25,7 +25,7 @@
 
 		</fieldset>
 	</div>
-	<p>
+	<p class="ajax_ignore">
 		<%: Html.ActionLink<CommentController>(c => c.Edit(Model.Id), "Edit")%> |
 		<%: Html.ActionLink("Back to List", "Index") %>
 	</p>

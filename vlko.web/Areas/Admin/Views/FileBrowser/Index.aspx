@@ -72,8 +72,8 @@
 	<table>
 		<tr>
 			<th></th>
-			<th><%= vlko.core.ModelResources.Url  %></th>
-			<th><%= vlko.core.ModelResources.Size  %></th>
+			<th><%= vlko.model.ModelResources.Url  %></th>
+			<th><%= vlko.model.ModelResources.Size%></th>
 		</tr>
 
 	<% foreach (var item in Model.UserFiles) { %>

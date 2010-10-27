@@ -30,16 +30,20 @@
 <% Html.ScriptInlineInclude(() => {%>
 <script type="text/javascript">
 	$(function () {
+
 		$("#<%= ViewData.ModelMetadata.PropertyName%>").ckeditor();
+
 		$("#<%= fileBrowserLink %>")
 				.click(function () {
 					createLoading();
 					$.ajax({
 						url: this.href + "?ajaxTime=" + new Date().getTime(),
 						success: function (data) {
-							var fileBrowser = createContentDialog('File browser', data, null, 'file_browser_dialog');
+							var fileBrowser = createContentDialog({
+								data: data,
+								prevUrl: getCurrentHistoryUrl()
+							});
 							closeLoading();
-							fileBrowser.dialog("open");
 						},
 						error: ajaxException
 					});

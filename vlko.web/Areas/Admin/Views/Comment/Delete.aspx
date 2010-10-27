@@ -8,7 +8,7 @@
 
 	<h2>Delete</h2>
 
-	<div class="ajax_content">
+	<div>
 		<%: Html.ValidationSummary(excludePropertyErrors: true, cssClass: "ui-state-error ui-corner-all")%>
 
 		<h3>Are you sure you want to delete this?</h3>
@@ -28,7 +28,7 @@
 	</fieldset>
 	</div>
 	<% using (Html.BeginForm()) { %>
-		<p>
+		<p class="ajax_ignore">
 			<%: Html.HiddenFor(model => Model.Id)%> |
 		
 			<input type="submit" value="Delete" /> |

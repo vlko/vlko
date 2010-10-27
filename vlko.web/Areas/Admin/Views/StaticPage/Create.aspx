@@ -12,7 +12,7 @@
 	
 	<h2>Create</h2>
 	<% using (Html.BeginForm(cssClass:"ajax_container")) {%>
-	<div class="ajax_content">
+	<div>
 		<%: Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") %>
 
 		<fieldset>
@@ -26,12 +26,12 @@
 
 		</fieldset>
 	</div>
-	<div>
+	<div class="ajax_ignore">
 		<input type="submit" value="Create" />
 	</div>
 	<% } %>
 
-	<div>
+	<div class="ajax_ignore">
 		<%: Html.ActionLink("Back to List", "Index") %>
 	</div>
 

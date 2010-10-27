@@ -42,13 +42,10 @@
 						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
 						success: function (data) {
 							var edit = createContentDialog({
-								title: 'Article',
 								data: data,
 								prevUrl: getCurrentHistoryUrl()
 								});
 							closeLoading();
-							edit.dialog("option", "title", $("h2", edit).html());
-							edit.dialog("open");
 							addToHistory(nextUrl);
 						},
 						error: ajaxException
