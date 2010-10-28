@@ -32,17 +32,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AntiXSSLibrary">
-      <HintPath>..\vlko.web\bin\AntiXSSLibrary.dll</HintPath>
+      <HintPath>..\_dependencies\AntiXSSLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Castle.ActiveRecord">
-      <HintPath>..\vlko.web\bin\Castle.ActiveRecord.dll</HintPath>
+      <HintPath>..\_dependencies\Castle.ActiveRecord.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
     <Reference Include="Lucene.Net">
       <HintPath>..\_dependencies\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\vlko.web\bin\NHibernate.dll</HintPath>
+      <HintPath>..\_dependencies\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.ByteCode.Castle">
       <HintPath>..\_dependencies\NHibernate.ByteCode.Castle.dll</HintPath>

@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AntiXSSLibrary">
-      <HintPath>..\vlko.web\bin\AntiXSSLibrary.dll</HintPath>
+      <HintPath>..\_dependencies\AntiXSSLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Castle.ActiveRecord">
       <HintPath>..\_dependencies\Castle.ActiveRecord.dll</HintPath>

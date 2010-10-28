@@ -100,7 +100,7 @@
       <HintPath>..\_dependencies\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>D:\Vlastne programy\preweb\vlko\_dependencies\Lucene.Net.dll</HintPath>
+      <HintPath>..\_dependencies\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
