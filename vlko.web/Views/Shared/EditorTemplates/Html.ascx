@@ -30,8 +30,11 @@
 <% Html.ScriptInlineInclude(() => {%>
 <script type="text/javascript">
 	$(function () {
-
-		$("#<%= ViewData.ModelMetadata.PropertyName%>").ckeditor();
+		var editorId = "<%= ViewData.ModelMetadata.PropertyName%>";
+		if (CKEDITOR.instances[editorId]) {
+			CKEDITOR.remove(CKEDITOR.instances[editorId]);
+		}
+		$("#" + editorId).ckeditor();
 
 		$("#<%= fileBrowserLink %>")
 				.click(function () {

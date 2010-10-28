@@ -37,7 +37,7 @@
 
 		this.each(function () {
 			// edit buttons
-			$(".grid_edit")
+			$(".grid_edit:visible")
 				.click(function () {
 					createLoading();
 					var nextUrl = $(this).attr("href");
@@ -76,7 +76,7 @@
 				});
 
 			// detail buttons
-			$(".grid_details")
+			$(".grid_details:visible")
 				.click(function () {
 					createLoading();
 					var nextUrl = $(this).attr("href");
@@ -102,7 +102,7 @@
 				});
 
 			// delete buttons
-			$(".grid_delete")
+			$(".grid_delete:visible")
 				.click(function () {
 					createLoading();
 					var nextUrl = $(this).attr("href");
@@ -139,7 +139,7 @@
 					text: false
 				});
 			// create buttons
-			$(".grid_create")
+			$(".grid_create:visible")
 			.click(function () {
 				createLoading();
 				var nextUrl = $(this).attr("href");

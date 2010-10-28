@@ -115,7 +115,7 @@ namespace vlko.core.HtmlExtender
 				src = file;
 			}
 
-			var script = string.Format("<script type=\"text/javascript\">$(function() {{ scriptCache.load(\"{0}\"); }});</script>", 
+			var script = string.Format("scriptCache.load(\"{0}\");", 
 				UrlHelper.GenerateContentUrl(src, htmlHelper.ViewContext.HttpContext));
 
 			var getRegisteredScriptIncludes = GetRegisteredScriptIncludes();
@@ -158,9 +158,14 @@ namespace vlko.core.HtmlExtender
 			}
 
 			// load script with cache support
-			foreach (string script in registeredScriptIncludes.Values)
+			if (registeredScriptIncludes.Count > 0)
 			{
-				scripts.AppendLine(script);
+				scripts.AppendLine("<script type=\"text/javascript\">$(function() {");
+				foreach (string script in registeredScriptIncludes.Values)
+				{
+					scripts.AppendLine(script);
+				}
+				scripts.AppendLine("});</script>");
 			}
 
 			return scripts.ToString();
