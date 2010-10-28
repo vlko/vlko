@@ -22,10 +22,10 @@
 		
 		</fieldset>
 	</div>
-	<p class="ajax_ignore">
+	<div class="ajax_ignore">
 		<%: Html.ActionLink<StaticPageController>(c => c.Edit(Model.Id), "Edit")%> |
 		<%: Html.ActionLink("Back to List", "Index") %>
-	</p>
+	</div>
 
 </asp:Content>
 

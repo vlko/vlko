@@ -74,7 +74,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 	Dictionary<string, string> properties = new Dictionary<string, string>();
 	FilterProperties(mvcHost.ViewDataType, properties);
 #>
-    <% using (Html.BeginForm(cssClass:"ajax_container")) {%>
+    <% using (Html.BeginForm()) {%>
 	<div class="ajax_content">
 	
         <%<#= nugget #> Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") %>
@@ -93,9 +93,9 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
         </fieldset>
 	</div>
 	
-    <p>
+    <div class="ajax_ignore">
         <input type="submit" value="Create" />
-    </p>
+    </div>
     <% } %>
 
     <div>

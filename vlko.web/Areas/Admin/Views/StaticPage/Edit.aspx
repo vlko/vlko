@@ -11,7 +11,7 @@
 	%>
 
 	<h2>Edit</h2>
-	<% using (Html.BeginForm(cssClass:"ajax_container")) {%>
+	<% using (Html.BeginForm()) {%>
 	<div>
 		<%: Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all")%>
 		

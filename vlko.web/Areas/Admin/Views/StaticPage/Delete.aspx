@@ -25,11 +25,11 @@
 		</fieldset>
 	</div>
 	<% using (Html.BeginForm()) { %>
-		<p class="ajax_ignore">
+		<div class="ajax_ignore">
 			<%: Html.HiddenFor(model => Model.Id)%>	
 			<input type="submit" value="Delete" /> |
 			<%: Html.ActionLink("Back to List", "Index") %>
-		</p>
+		</div>
 	<% } %>
 
 </asp:Content>
