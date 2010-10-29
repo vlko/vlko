@@ -24,13 +24,14 @@ namespace vlko.model.Tests
         [TestMethod]
         public void Test_get_query()
         {
-            var query = _mocker.StrictMock<IQueryAction<object>>();
+			var query = _mocker.StrictMock<IAction<object>>();
             var repository = _mocker.PartialMock<BaseRepository<object>>();
 
             using (_mocker.Record())
             {
-                Expect.Call(_factoryResolver.ResolveAction<IQueryAction<object>>())
-                    .Do((Func<IQueryAction<object>>)delegate{
+				Expect.Call(_factoryResolver.ResolveAction<IAction<object>>())
+					.Do((Func<IAction<object>>)delegate
+				{
                         return query;
                     });
                 Expect.Call(query.Initialized).Return(false);
@@ -40,7 +41,7 @@ namespace vlko.model.Tests
 
             using (_mocker.Playback())
             {
-                var resultQuery = repository.GetQuery<IQueryAction<object>>();
+				var resultQuery = repository.GetAction<IAction<object>>();
                 Assert.AreEqual(query, resultQuery);
             }
         }
@@ -65,7 +66,7 @@ namespace vlko.model.Tests
 
             using (_mocker.Playback())
             {
-                var resultQuery = repository.GetQuery<ITestQueryAction>();
+				var resultQuery = repository.GetAction<ITestQueryAction>();
                 Assert.AreEqual(query, resultQuery);
             }
         }
@@ -86,16 +87,16 @@ namespace vlko.model.Tests
 
             using (_mocker.Playback())
             {
-                var resultQuery = repository.GetQuery<ITestQueryAction>();
+				var resultQuery = repository.GetAction<ITestQueryAction>();
                 Assert.AreEqual(query, resultQuery);
             }
         }
 
         [TestMethod]
-        [ExpectedException(typeof(QueryNotRegisteredException))]
+        [ExpectedException(typeof(ActionNotRegisteredException))]
         public void Test_get_query_with_not_registered_exception()
         {
-            var query = _mocker.StrictMock<IQueryAction<object>>();
+			var query = _mocker.StrictMock<IAction<object>>();
             var repository = _mocker.PartialMock<BaseRepository<object>>();
             
             using (_mocker.Record())
@@ -108,17 +109,17 @@ namespace vlko.model.Tests
 
             using (_mocker.Playback())
             {
-                var resultQuery = repository.GetQuery<ITestQueryAction>();
+				var resultQuery = repository.GetAction<ITestQueryAction>();
             }
         }
 
 
         [TestMethod]
-        [ExpectedException(typeof(RepositoryFactoryNotInitializeException))]
+        [ExpectedException(typeof(ActionNotRegisteredException))]
         public void Test_get_query_with_RepositoryIoC_not_initialized_exception()
         {
             RepositoryFactory.IntitializeWith(null);
-            var query = _mocker.StrictMock<IQueryAction<object>>();
+			var query = _mocker.StrictMock<IAction<object>>();
             var repository = _mocker.StrictMock<BaseRepository<object>>();
 
             using (_mocker.Record())
@@ -132,14 +133,14 @@ namespace vlko.model.Tests
 
             using (_mocker.Playback())
             {
-                var resultQuery = repository.GetQuery<ITestQueryAction>();
+				var resultQuery = repository.GetAction<ITestQueryAction>();
             }
 
         }
 
     }
 
-    public interface ITestQueryAction : IQueryAction<object>
+	public interface ITestQueryAction : IAction<object>
     {
     }
 

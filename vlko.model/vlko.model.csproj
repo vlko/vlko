@@ -69,6 +69,11 @@
   <ItemGroup>
     <Compile Include="Action.CRUDModel\CommentCRUDModel.cs" />
     <Compile Include="Action.CRUDModel\StaticTextCRUDModel.cs" />
+    <Compile Include="Implementation.NH\Action\AppSettingAction.cs" />
+    <Compile Include="Action\IAppSettingAction.cs" />
+    <Compile Include="Action\ISystemMessageAction.cs" />
+    <Compile Include="Implementation.NH\Action\SystemMessageAction.cs" />
+    <Compile Include="AppSetting.cs" />
     <Compile Include="Implementation.NH\Action\CommentCrud.cs" />
     <Compile Include="Implementation.NH\Action\CommentData.cs" />
     <Compile Include="Implementation.NH\Action\FileBrowserAction.cs" />
@@ -110,11 +115,10 @@
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\Exceptions\ActionNotRegisteredException.cs" />
     <Compile Include="Repository\Exceptions\NotFoundException.cs" />
-    <Compile Include="Repository\Exceptions\QueryNotRegisteredException.cs" />
     <Compile Include="Repository\Exceptions\RepositoryFactoryNotInitializeException.cs" />
+    <Compile Include="Repository\Exceptions\RepositoryNotRegisteredException.cs" />
     <Compile Include="Repository\IAction.cs" />
     <Compile Include="Repository\InitializeContext.cs" />
-    <Compile Include="Repository\IQueryAction.cs" />
     <Compile Include="Repository\IQueryResult.cs" />
     <Compile Include="Repository\IRepositoryFactoryResolver.cs" />
     <Compile Include="Repository\ITransaction.cs" />
@@ -139,6 +143,7 @@
     <Compile Include="Search\SearchUpdateContext.cs" />
     <Compile Include="StaticText.cs" />
     <Compile Include="StaticTextVersion.cs" />
+    <Compile Include="SystemMessage.cs" />
     <Compile Include="User.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
     <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />

@@ -3,7 +3,7 @@ using vlko.model.Tests.Repository.IOCResolved.Model;
 
 namespace vlko.model.Tests.Repository.IOCResolved.Queries
 {
-    public interface IQueryActionProjection : IQueryAction<Room>
+	public interface IQueryActionProjection : IAction<Room>
     {
 
         /// <summary>

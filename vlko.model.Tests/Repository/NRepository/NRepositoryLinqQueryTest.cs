@@ -21,7 +21,7 @@ namespace vlko.model.Tests.Repository.NRepository
         [TestMethod]
         public void Test_Query_1_count_and_toArray()
         {
-            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
+			var items = BaseRepository.GetAction<NFilterLinqQueryAction>()
                 .WhereType(TypeEnum.SomeFirstType);
 
             Assert.AreEqual(1, items.Count());
@@ -31,7 +31,7 @@ namespace vlko.model.Tests.Repository.NRepository
         [TestMethod]
         public void Test_Query_2_count_and_toArray()
         {
-            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
+			var items = BaseRepository.GetAction<NFilterLinqQueryAction>()
                 .WhereType(TypeEnum.SomeOtherType);
 
             Assert.AreEqual(3, items.Count());
@@ -45,7 +45,7 @@ namespace vlko.model.Tests.Repository.NRepository
         [TestMethod]
         public void Test_Query_2_count_and_toArray_ordered()
         {
-            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
+			var items = BaseRepository.GetAction<NFilterLinqQueryAction>()
                 .WhereType(TypeEnum.SomeOtherType);
 
             var result = items.OrderByDescending(test => test.ID).ToArray();
@@ -62,7 +62,7 @@ namespace vlko.model.Tests.Repository.NRepository
         [TestMethod]
         public void Test_Query_3_paged_result()
         {
-            var items = BaseRepository.GetQuery<NFilterLinqQueryAction>()
+			var items = BaseRepository.GetAction<NFilterLinqQueryAction>()
                 .WhereType(TypeEnum.SomeOtherType);
 
             var result = items.ToPage(1, 1);

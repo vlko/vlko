@@ -27,6 +27,8 @@ namespace vlko.core
 		{
 			return new[]
 					   {
+						   typeof(AppSetting),
+						   typeof(SystemMessage),
 						   typeof(Content),
 						   typeof(User),
 						   typeof(Comment),
@@ -47,6 +49,12 @@ namespace vlko.core
 			container.Register(
 				Component.For<IUnitOfWork>().ImplementedBy<UnitOfWork>().LifeStyle.Transient,
 				Component.For<ITransaction>().ImplementedBy<Transaction>().LifeStyle.Transient,
+
+				Component.For<BaseRepository<AppSetting>>().ImplementedBy<Repository<AppSetting>>(),
+				Component.For<IAppSettingAction>().ImplementedBy<AppSettingAction>(),
+
+				Component.For<BaseRepository<SystemMessage>>().ImplementedBy<Repository<SystemMessage>>(),
+				Component.For<ISystemMessageAction>().ImplementedBy<SystemMessageAction>(),
 
 				Component.For<BaseRepository<StaticText>>().ImplementedBy<Repository<StaticText>>(),
 				Component.For<IStaticTextCrud>().ImplementedBy<StaticTextCrud>(),

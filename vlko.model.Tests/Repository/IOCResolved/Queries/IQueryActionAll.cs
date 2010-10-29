@@ -2,7 +2,7 @@
 
 namespace vlko.model.Tests.Repository.IOCResolved.Queries
 {
-    public interface IQueryActionAll<T> : IQueryAction<T> where T : class
+    public interface IQueryActionAll<T> : IAction<T> where T : class
     {
         /// <summary>
         /// Executes queryAction.

@@ -3,7 +3,7 @@ using vlko.model.Tests.Repository.IOCResolved.Model;
 
 namespace vlko.model.Tests.Repository.IOCResolved.Queries
 {
-    public interface IQueryActionHotelRooms : IQueryAction<Room>
+	public interface IQueryActionHotelRooms : IAction<Room>
     {
         /// <summary>
         /// Wheres the name of the hotel.

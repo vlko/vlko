@@ -119,6 +119,7 @@
     <Compile Include="Authentication\IUserAuthenticationService.cs" />
     <Compile Include="Authentication\UserInfo.cs" />
     <Compile Include="Base\BaseExtensions.cs" />
+    <Compile Include="Base\Setting\ConfigSettingProvider.cs" />
     <Compile Include="Base\ShortGuid.cs" />
     <Compile Include="Components\IPagedModel.cs" />
     <Compile Include="Components\PagerModel.cs" />
@@ -142,6 +143,11 @@
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\MailTemplate.cs" />
     <Compile Include="Tools\ModelMetadataExtensions.cs" />
+    <Compile Include="Base\Setting\DatabaseSettingProvider.cs" />
+    <Compile Include="Base\Setting\ISettingProvider.cs" />
+    <Compile Include="Base\Setting\SettingValue.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Base\Setting\SettingValueConverter.cs" />
     <Compile Include="Tools\StringTool.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +173,7 @@
       <Name>vlko.model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
