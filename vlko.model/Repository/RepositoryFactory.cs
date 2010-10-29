@@ -88,20 +88,33 @@ namespace vlko.model.Repository
 		/// <returns>Registered BaseRepository.</returns>
 		public static BaseRepository<T> GetRepository<T>() where T : class
 		{
-			return FactoryResolver.GetRepository<T>();
+			try
+			{
+				var repository = FactoryResolver.GetRepository<T>();
+				if (repository == null)
+				{
+					throw new RepositoryNotRegisteredException(typeof (T), null);
+				}
+				return repository;
+			}
+			catch (Exception innerException)
+			{
+				throw new RepositoryNotRegisteredException(typeof (T), innerException);
+			}
 		}
 
 		/// <summary>
 		/// Gets the action.
 		/// </summary>
-		/// <typeparam name="TA">The type of the action.</typeparam>
-		/// <typeparam name="T">Repository type.</typeparam>
+		/// <typeparam name="TRepository">The type of the repository.</typeparam>
+		/// <typeparam name="TAction">The type of the action.</typeparam>
 		/// <returns>Action.</returns>
-		public static TA GetAction<T, TA>()
-			where T : class 
-			where TA : class, IAction<T>
+		[Obsolete("Should use Action to get action without repository type specify.")]
+		public static TAction GetAction<TRepository, TAction>()
+			where TRepository : class
+			where TAction : class, IAction<TRepository>
 		{
-			return GetRepository<T>().GetAction<TA>();
+			return GetRepository<TRepository>().GetAction<TAction>();
 		}
 
 		/// <summary>

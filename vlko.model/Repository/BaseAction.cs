@@ -8,7 +8,7 @@
 		/// </summary>
 		public void Initialize()
 		{
-			RepositoryFactory.GetRepository<T>().InitalizeAction(this);
+			
 		}
 
 		/// <summary>

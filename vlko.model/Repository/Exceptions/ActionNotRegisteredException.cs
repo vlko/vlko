@@ -7,15 +7,16 @@ namespace vlko.model.Repository.Exceptions
     /// </summary>
     public class ActionNotRegisteredException : Exception
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActionNotRegisteredException"/> class.
-        /// </summary>
-        /// <param name="actionType">Type of the action.</param>
-        /// <param name="repositoryType">Type of the repository.</param>
-        /// <param name="repositoryGenericsType">Type of the repository generics.</param>
-        public ActionNotRegisteredException(Type actionType, Type repositoryType, Type repositoryGenericsType)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ActionNotRegisteredException"/> class.
+		/// </summary>
+		/// <param name="actionType">Type of the action.</param>
+		/// <param name="repositoryType">Type of the repository.</param>
+		/// <param name="repositoryGenericsType">Type of the repository generics.</param>
+		/// <param name="innerException">The inner exception.</param>
+        public ActionNotRegisteredException(Type actionType, Type repositoryType, Type repositoryGenericsType, Exception innerException)
             : base(string.Format("Unable to find action type '{0}' for repository type '{1}' handling generic type '{2}'",
-                                 actionType, repositoryType, repositoryGenericsType))
+                                 actionType, repositoryType, repositoryGenericsType), innerException)
         {
         }
     }

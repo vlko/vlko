@@ -5,7 +5,7 @@ using vlko.model.Repository;
 namespace vlko.model.Implementation.NH.Repository
 {
 
-	public class BaseLinqQueryAction<T> : BaseAction<T>, IQueryAction<T> where T : class
+	public class BaseLinqQueryAction<T> : BaseAction<T>, IAction<T> where T : class
 	{
 		/// <summary>
 		/// Gets the queryable.
