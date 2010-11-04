@@ -4,6 +4,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
+using vlko.core.Base.Scheduler;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
 using vlko.core.Services;
@@ -12,6 +13,7 @@ using vlko.model;
 using vlko.model.Action;
 using vlko.model.Implementation.NH.Action;
 using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.OtherTech.Action;
 using vlko.model.Repository;
 using vlko.model.Search;
 
@@ -19,6 +21,19 @@ namespace vlko.core
 {
 	public static class ApplicationInit
 	{
+
+		/// <summary>
+		/// Do init part in one step and right order.
+		/// </summary>
+		public static void FullInit()
+		{
+			IoC.InitializeWith(new WindsorContainer());
+			InitializeRepositories();
+			InitializeServices();
+			RegisterBinders();
+			InitializeScheduler();
+		}
+
 		/// <summary>
 		/// Lists the of model types.
 		/// </summary>
@@ -36,7 +51,8 @@ namespace vlko.core
 						   typeof(StaticText),
 						   typeof(StaticTextVersion),
 						   typeof(RssFeed),
-						   typeof(RssItem)
+						   typeof(RssItem),
+						   typeof(TwitterStatus)
 					   };
 		}
 
@@ -73,8 +89,12 @@ namespace vlko.core
 					                   	{
 					                   		var appInfo = IoC.Resolve<IAppInfoService>();
 					                   		parameters["rootUrl"] = appInfo.RootUrl;
-											parameters["rootPath"] = appInfo.RootPath;
-					                   	})
+					                   		parameters["rootPath"] = appInfo.RootPath;
+					                   	}),
+
+				Component.For<BaseRepository<TwitterStatus>>().ImplementedBy<Repository<TwitterStatus>>(),
+				Component.For<ITwitterConnection>().ImplementedBy<TwitterConnection>(),
+				Component.For<ITwitterStatusAction>().ImplementedBy<TwitterStatusAction>() 
 				);
 		}
 
@@ -103,6 +123,18 @@ namespace vlko.core
 		public static void RegisterBinders()
 		{
 			ModelBinders.Binders.DefaultBinder = new ExtendedModelBinder();
+		}
+
+		/// <summary>
+		/// Initializes the scheduler.
+		/// </summary>
+		public static void InitializeScheduler()
+		{
+			var scheduler = new Scheduler(new[]
+			                              	{
+			                              		new KeepAliveTask(5, true)
+			                              	});
+			scheduler.Start();
 		}
 	}
 }

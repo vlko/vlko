@@ -119,6 +119,10 @@
     <Compile Include="Authentication\IUserAuthenticationService.cs" />
     <Compile Include="Authentication\UserInfo.cs" />
     <Compile Include="Base\BaseExtensions.cs" />
+    <Compile Include="Base\Scheduler\Scheduler.cs" />
+    <Compile Include="Base\Scheduler\SchedulerTask.cs" />
+    <Compile Include="Base\Scheduler\KeepAliveTask.cs" />
+    <Compile Include="Base\Scheduler\UpdateTwitterTask.cs" />
     <Compile Include="Base\Setting\ConfigSettingProvider.cs" />
     <Compile Include="Base\ShortGuid.cs" />
     <Compile Include="Components\IPagedModel.cs" />
@@ -173,7 +177,9 @@
       <Name>vlko.model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Log\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
