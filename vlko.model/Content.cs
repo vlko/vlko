@@ -52,9 +52,9 @@ namespace vlko.model
 		/// <summary>
 		/// Gets or sets a value indicating whether this <see cref="Content"/> is deleted.
 		/// </summary>
-		/// <value><c>true</c> if deleted; otherwise, <c>false</c>.</value>
+		/// <value><c>true</c> if hidden; otherwise, <c>false</c>.</value>
 		[Property]
-		public virtual bool Deleted { get; set; }
+		public virtual bool Hidden { get; set; }
 
 		/// <summary>
 		/// Gets or sets the description.

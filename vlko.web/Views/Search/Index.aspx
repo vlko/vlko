@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<vlko.web.ViewModel.Search.SearchViewModel>" %>
-<%@ Import Namespace="vlko.core.Models" %>
-<%@ Import Namespace="vlko.core.Models.Action.ViewModel" %>
-<%@ Import Namespace="vlko.web.Controllers" %>
+<%@ Import Namespace="vlko.model" %>
+<%@ Import Namespace="vlko.model.Action.ViewModel" %>
 <%@ Import Namespace="vlko.core.Components" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Search
@@ -29,6 +28,10 @@
 			if (searchResult is StaticTextViewModel)
 			{
 				Html.RenderPartial("~/Views/Search/StaticText.ascx", searchResult as StaticTextViewModel);
+			}
+			if (searchResult is TwitterStatus)
+			{
+				Html.RenderPartial("~/Views/Search/TwitterStatus.ascx", searchResult as TwitterStatus);
 			}
 		}%>
 

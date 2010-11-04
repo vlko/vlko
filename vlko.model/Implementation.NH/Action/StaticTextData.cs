@@ -21,7 +21,7 @@ namespace vlko.model.Implementation.NH.Action
 			return new QueryLinqResult<StaticTextViewModel>(GetProjection(
 				query =>
 				{
-					query = query.Where(textVersion => textVersion.StaticText.Deleted == false);
+					query = query.Where(textVersion => textVersion.StaticText.Hidden == false);
 					if (pivotDate != null)
 					{
 						query = query.Where(textVersion => textVersion.StaticText.PublishDate <= pivotDate);
@@ -38,7 +38,7 @@ namespace vlko.model.Implementation.NH.Action
 		public IQueryResult<StaticTextViewModel> GetDeleted()
 		{
 			return new QueryLinqResult<StaticTextViewModel>(GetProjection(
-				query => query.Where(textVersion => textVersion.StaticText.Deleted == true)));
+				query => query.Where(textVersion => textVersion.StaticText.Hidden == true)));
 		}
 
 		/// <summary>
@@ -56,7 +56,7 @@ namespace vlko.model.Implementation.NH.Action
 					if (pivotDate != null)
 					{
 						query = query.Where(textVersion =>
-											textVersion.StaticText.Deleted == false
+											textVersion.StaticText.Hidden == false
 											&& textVersion.StaticText.PublishDate <= pivotDate);
 					}
 					return query;
@@ -81,7 +81,7 @@ namespace vlko.model.Implementation.NH.Action
 						if (pivotDate != null)
 						{
 							query = query.Where(textVersion =>
-							                    textVersion.StaticText.Deleted == false
+							                    textVersion.StaticText.Hidden == false
 							                    && textVersion.StaticText.PublishDate <= pivotDate);
 						}
 						return query;
@@ -97,8 +97,14 @@ namespace vlko.model.Implementation.NH.Action
 		public IQueryResult<StaticTextViewModel> GetByIds(IEnumerable<Guid> ids)
 		{
 			var idArray = ids.ToArray();
+
+			if (idArray.Length == 0)
+			{
+				return new EmptyQueryResult<StaticTextViewModel>();
+			}
+
 			return new QueryLinqResult<StaticTextViewModel>(GetProjection(
-				query => query.Where(textVersion => textVersion.StaticText.Deleted == false && idArray.Contains(textVersion.StaticText.Id))));
+				query => query.Where(textVersion => textVersion.StaticText.Hidden == false && idArray.Contains(textVersion.StaticText.Id))));
 		}
 
 		/// <summary>

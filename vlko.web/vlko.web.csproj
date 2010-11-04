@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\TwitterController.cs" />
     <Compile Include="CodeTemplates\AddView\PagedList.cs">
       <DependentUpon>PagedList.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -178,6 +179,7 @@
     <Content Include="Areas\Admin\Views\Comment\Delete.aspx" />
     <Content Include="Areas\Admin\Views\Comment\Details.aspx" />
     <Content Include="Areas\Admin\Views\Comment\Edit.aspx" />
+    <Content Include="Areas\Admin\Views\Twitter\AuthorizeResult.aspx" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -394,6 +396,7 @@
     <Content Include="Views\Search\Comment.ascx" />
     <Content Include="Views\Search\Index.aspx" />
     <Content Include="Views\Search\StaticText.ascx" />
+    <Content Include="Views\Search\TwitterStatus.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Collection.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Decimal.ascx" />
@@ -512,7 +515,7 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>17525</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/vlko.web</IISUrl>

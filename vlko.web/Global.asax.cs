@@ -80,28 +80,43 @@ namespace vlko.web
 			ModelMetadataProviders.Current = new DataAnnotations4ModelMetadataProvider();
 			DataAnnotations4ModelValidatorProvider.RegisterProvider();
 
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
-			ApplicationInit.InitializeServices();
-			ApplicationInit.RegisterBinders();
+			ApplicationInit.FullInit();
 
 			ActiveRecordStarter.Initialize();
 			ActiveRecordStarter.RegisterTypes(ApplicationInit.ListOfModelTypes());
-			ActiveRecordStarter.CreateSchema();
+			
+
+			var dataExists = File.Exists(HttpContext.Current.Server.MapPath("~/App_Data/ActiveRecord.dat"));
 
 			// set search folder
 			var indexDirectory = HttpContext.Current.Server.MapPath("~/App_Data/Index.Lucene");
 
-			// delete previous search index
-			if (Directory.Exists(indexDirectory))
+			if (!dataExists)
 			{
-				Directory.Delete(indexDirectory, true);
+				// delete previous search index
+				if (Directory.Exists(indexDirectory))
+				{
+					Directory.Delete(indexDirectory, true);
+				}
+
+				// create if not exists
+				Directory.CreateDirectory(indexDirectory);
 			}
 
-			// create if not exists
-			Directory.CreateDirectory(indexDirectory);
 			IoC.Resolve<ISearchProvider>().Initialize(indexDirectory);
 
+			if (!dataExists)
+			{
+				CreateSomeData();
+			}
+		}
+
+		/// <summary>
+		/// Creates some data.
+		/// </summary>
+		private void CreateSomeData()
+		{
+			ActiveRecordStarter.CreateSchema();
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
 				var searchAction = RepositoryFactory.Action<ISearchAction>();
@@ -176,6 +191,11 @@ namespace vlko.web
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void Application_Error(object sender, EventArgs e)
 		{
+			var exception = Server.GetLastError();
+			if (exception is HttpException)
+			{
+				
+			}
 			string user = "unknown";
 			string url = "unknown";
 			if ((User != null) && (User.Identity != null))
@@ -191,8 +211,8 @@ namespace vlko.web
 
 			}
 			LogManager.GetLogger("Error").ErrorException(string.Format("For user {0} on url {1} exception {2}",
-				user, url, Server.GetLastError().Message),
-				Server.GetLastError());
+				user, url, exception.Message),
+				exception);
 		}
 	}
 }

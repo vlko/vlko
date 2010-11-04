@@ -143,7 +143,7 @@ namespace vlko.model.Implementation.NH.Action
 		public void Delete(StaticTextCRUDModel item)
 		{
 			var staticText = ActiveRecordMediator<StaticText>.FindByPrimaryKey(item.Id);
-			staticText.Deleted = true;
+			staticText.Hidden = true;
 			ActiveRecordMediator<StaticText>.Save(staticText);
 		}
 

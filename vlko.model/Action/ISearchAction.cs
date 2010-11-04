@@ -15,6 +15,13 @@ namespace vlko.model.Action
 		void IndexComment(ITransaction transaction, CommentCRUDModel comment);
 
 		/// <summary>
+		/// Indexes the twitter status.
+		/// </summary>
+		/// <param name="transaction">The transaction.</param>
+		/// <param name="status">The status.</param>
+		void IndexTwitterStatus(ITransaction transaction, TwitterStatus status);
+
+		/// <summary>
 		/// Indexes the static text.
 		/// </summary>
 		/// <param name="transaction">The transaction.</param>

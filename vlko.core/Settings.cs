@@ -25,6 +25,12 @@ namespace vlko.core
 				= new SettingValue<string>("ConsumerSecret", null, new ConfigSettingProvider());
 
 			/// <summary>
+			/// Main twitter account.
+			/// </summary>
+			public static readonly SettingValue<string> TwitterAccount
+				= new SettingValue<string>("TwitterAccount", null, new ConfigSettingProvider());
+
+			/// <summary>
 			/// Twitter authorization token.
 			/// </summary>
 			public static readonly SettingValue<string> Token

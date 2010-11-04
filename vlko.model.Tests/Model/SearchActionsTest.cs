@@ -89,6 +89,23 @@ namespace vlko.model.Tests.Model
 		}
 
 		[TestMethod]
+		public void Test_index_twitter_status()
+		{
+			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
+			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
+			{
+				RepositoryFactory.Action<ISearchAction>().IndexTwitterStatus(tran, new TwitterStatus()
+				{
+					Id = Guid.NewGuid(),
+					CreatedDate = DateTime.Now,
+					Text = "very long test",
+					User = _user.Name
+				});
+				tran.Commit();
+			}
+		}
+
+		[TestMethod]
 		public void Multithreading_test()
 		{
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
@@ -269,21 +286,22 @@ namespace vlko.model.Tests.Model
 			{
 				// test search for user name
 				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "user");
-				Assert.AreEqual(231 - 2 /* two items are out of date range */, searchResult.Count());
+				Assert.AreEqual(331 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
 				Assert.AreEqual(SearchResult.MaximumRawResults, searchResult.ToArray().Length);
 
 				// test search for text
 				searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "home");
-				Assert.AreEqual(31 , searchResult.Count());
+				Assert.AreEqual(32 , searchResult.Count());
 
-				data = searchResult.ToPage(0, 2);
-				Assert.AreEqual(2, data.Length);
+				data = searchResult.ToPage(0, 3);
+				Assert.AreEqual(3, data.Length);
 
 				// test if static text was prioritized
 				Assert.IsInstanceOfType(data[0], typeof(StaticTextViewModel));
-				Assert.IsInstanceOfType(data[1], typeof(CommentViewModel));
+				Assert.IsInstanceOfType(data[1], typeof(TwitterStatus));
+				Assert.IsInstanceOfType(data[2], typeof(CommentViewModel));
 			}
 		}
 
@@ -296,22 +314,23 @@ namespace vlko.model.Tests.Model
 			{
 				// test search for user name
 				var searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, "user");
-				Assert.AreEqual(231 - 2 /* two items are out of date range */, searchResult.Count());
+				Assert.AreEqual(331 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
 				Assert.AreEqual(SearchResult.MaximumRawResults, searchResult.ToArray().Length);
 
 				// test search for text
 				searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, "home");
-				Assert.AreEqual(31, searchResult.Count());
+				Assert.AreEqual(32, searchResult.Count());
 
 				data = searchResult.ToArray();
-				Assert.AreEqual(31, data.Length);
+				Assert.AreEqual(32, data.Length);
 
 				// test if static text was prioritized
 				Assert.IsInstanceOfType(data[0], typeof(CommentViewModel));
 				Assert.IsInstanceOfType(data[1], typeof(CommentViewModel));
 				Assert.IsInstanceOfType(data[2], typeof(StaticTextViewModel));
+				Assert.IsInstanceOfType(data[4], typeof(TwitterStatus));
 			}
 		}
 
@@ -324,6 +343,8 @@ namespace vlko.model.Tests.Model
 			{
 				var startDate = DateTime.Now;
 				var searchAction = RepositoryFactory.Action<ISearchAction>();
+
+				// add to index some static text
 				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
 					new StaticTextCRUDModel
 						{
@@ -352,6 +373,17 @@ namespace vlko.model.Tests.Model
 					                          			UserAgent = "Mozzilla"
 					                          		}));
 				}
+				searchAction.IndexTwitterStatus(tran,
+													RepositoryFactory.Action<ITwitterStatusAction>().CreateStatus(
+														new TwitterStatus()
+														{
+															TwitterId = 0,
+															CreatedDate = startDate.AddDays(-2),
+															Text = "twitter status",
+															User = _user.Name,
+															AreCommentAllowed = false,
+															RetweetUser = "Home"
+														}));
 
 				startDate = startDate.AddDays(1);
 				for (int i = 0; i < 100; i++)
@@ -369,6 +401,7 @@ namespace vlko.model.Tests.Model
 								Description = "Static page" + i
 							});
 					searchAction.IndexStaticText(tran, text);
+					// add some comments
 					searchAction.IndexComment(tran,
 					                          RepositoryFactory.Action<ICommentCrud>().Create(
 					                          	new CommentCRUDModel()
@@ -381,7 +414,23 @@ namespace vlko.model.Tests.Model
 					                          			Text = "Static page" + i,
 					                          			UserAgent = "Mozzilla"
 					                          		}));
+
+					// add some twitter status
+					searchAction.IndexTwitterStatus(tran,
+													RepositoryFactory.Action<ITwitterStatusAction>().CreateStatus(
+														new TwitterStatus()
+														{
+															TwitterId = i + 1,
+															CreatedDate = startDate.AddDays(-i),
+															Text = "twitter status",
+															User = _user.Name,
+															AreCommentAllowed = false,
+															Hidden = false,
+															Modified = startDate.AddDays(-i),
+															Reply = false
+														}));
 				}
+
 				tran.Commit();
 			}
 		}

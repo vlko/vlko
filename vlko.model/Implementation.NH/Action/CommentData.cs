@@ -192,6 +192,12 @@ namespace vlko.model.Implementation.NH.Action
 		public IQueryResult<CommentSearchViewModel> GetByIds(IEnumerable<Guid> ids)
 		{
 			var idArray = ids.ToArray();
+
+			if (idArray.Length == 0)
+			{
+				return new EmptyQueryResult<CommentSearchViewModel>();
+			}
+
 			return new QueryLinqResult<CommentSearchViewModel>(
 				ActiveRecordLinqBase<CommentVersion>.Queryable
 					.Where(commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version

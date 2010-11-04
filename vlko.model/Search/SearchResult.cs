@@ -14,18 +14,21 @@ namespace vlko.model.Search
 		public const string IdField = "Id";
 		public const string CommentType = "Comment";
 		public const string StaticTextType = "StaticText";
+		public const string TwitterStatusType = "TwitterStatus";
 		public const int MaximumRawResults = 200;
 
-		private readonly Hits _hits;
+		private readonly TopDocs _topDocs;
+		private readonly Searcher _searcher;
 
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SearchResult"/> class.
 		/// </summary>
-		/// <param name="hits">The hits.</param>
-		public SearchResult(Hits hits)
+		/// <param name="topDocs">The topDocs.</param>
+		public SearchResult(TopDocs topDocs, Searcher searcher)
 		{
-			_hits = hits;
+			_topDocs = topDocs;
+			_searcher = searcher;
 		}
 
 		/// <summary>
@@ -54,7 +57,7 @@ namespace vlko.model.Search
 		/// <returns>Counts of items in query.</returns>
 		public int Count()
 		{
-			return _hits.Length();
+			return _topDocs.totalHits;
 		}
 
 		/// <summary>
@@ -63,7 +66,7 @@ namespace vlko.model.Search
 		/// <returns>All items from query.</returns>
 		public object[] ToArray()
 		{
-			return ToPage(0, _hits.Length());
+			return ToPage(0, _topDocs.totalHits);
 		}
 
 		/// <summary>
@@ -78,15 +81,17 @@ namespace vlko.model.Search
 			var orderedIds = new List<KeyValuePair<Guid, string>>();
 			var commentIds = new List<Guid>();
 			var staticTextIds = new List<Guid>();
+			var twitterStatusIds = new List<Guid>();
 
 			// check ranges
-			startIndex = Math.Min(startIndex, _hits.Length());
-			int numberOfResult = Math.Min(Math.Min(startIndex + itemsPerPage, startIndex + MaximumRawResults), _hits.Length());
+			startIndex = Math.Min(startIndex, _topDocs.totalHits);
+			int numberOfResult = Math.Min(Math.Min(startIndex + itemsPerPage, startIndex + MaximumRawResults), _topDocs.totalHits);
 
 			// get ids from search results
 			for (int i = startIndex; i < numberOfResult; i++)
 			{
-				var doc = _hits.Doc(i);
+				var docId = _topDocs.scoreDocs[i].doc;
+				var doc = _searcher.Doc(docId);
 				var id = doc.Get(IdField);
 				var type = doc.Get(TypeField);
 				if (!string.IsNullOrEmpty(id))
@@ -101,6 +106,9 @@ namespace vlko.model.Search
 						case StaticTextType:
 							staticTextIds.Add(guidId);
 							break;
+						case TwitterStatusType:
+							twitterStatusIds.Add(guidId);
+							break;
 					}
 				}
 			}
@@ -108,6 +116,7 @@ namespace vlko.model.Search
 			// get real data from db
 			var comments = RepositoryFactory.Action<ICommentData>().GetByIds(commentIds).ToArray().ToDictionary(comment => comment.Id);
 			var staticTexts = RepositoryFactory.Action<IStaticTextData>().GetByIds(staticTextIds).ToArray().ToDictionary(staticText => staticText.Id);
+			var twitterStatuses = RepositoryFactory.Action<ITwitterStatusAction>().GetByIds(twitterStatusIds).ToArray().ToDictionary(twitterStatus => twitterStatus.Id);
 
 			// compute result
 			var result = new List<object>();
@@ -125,6 +134,12 @@ namespace vlko.model.Search
 						if (staticTexts.ContainsKey(orderedId.Key))
 						{
 							result.Add(staticTexts[orderedId.Key]);
+						}
+						break;
+					case TwitterStatusType:
+						if (twitterStatuses.ContainsKey(orderedId.Key))
+						{
+							result.Add(twitterStatuses[orderedId.Key]);
 						}
 						break;
 				}

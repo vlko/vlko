@@ -130,10 +130,11 @@ namespace vlko.core
 		/// </summary>
 		public static void InitializeScheduler()
 		{
-			var scheduler = new Scheduler(new[]
+			var scheduler = new Scheduler(new SchedulerTask[]
 			                              	{
-			                              		new KeepAliveTask(5, true)
-			                              	});
+			                              		new KeepAliveTask(5, true),
+												new UpdateTwitterTask(1, true)
+			                              	}, 20);
 			scheduler.Start();
 		}
 	}

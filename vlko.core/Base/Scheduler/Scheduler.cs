@@ -21,8 +21,8 @@ namespace vlko.core.Base.Scheduler
 		/// Initializes a new instance of the <see cref="Scheduler"/> class.
 		/// </summary>
 		/// <param name="tasks">The tasks.</param>
-		/// <param name="internalCheckInterval">The internal check interval in minutes.</param>
-		public Scheduler(SchedulerTask[] tasks, int internalCheckInterval = 2)
+		/// <param name="internalCheckInterval">The internal check interval in minutes (in seconds.</param>
+		public Scheduler(SchedulerTask[] tasks, int internalCheckInterval = 120)
 		{
 			_tasks = tasks;
 			_internalCheckInterval = internalCheckInterval;
@@ -36,7 +36,6 @@ namespace vlko.core.Base.Scheduler
 		/// </summary>
 		public void Start()
 		{
-			InvokeTasks();
 			Schedule();
 		}
 
@@ -48,7 +47,7 @@ namespace vlko.core.Base.Scheduler
 			if (_cache[CacheIdent] == null)
 			{
 				_cache.Add(CacheIdent, this, null,
-					 DateTime.Now.AddMinutes(_internalCheckInterval), Cache.NoSlidingExpiration,
+					 DateTime.Now.AddSeconds(_internalCheckInterval), Cache.NoSlidingExpiration,
 					 CacheItemPriority.NotRemovable, OnCacheCallback);
 			}
 		}

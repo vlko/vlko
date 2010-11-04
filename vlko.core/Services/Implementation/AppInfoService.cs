@@ -22,7 +22,7 @@ namespace vlko.core.Services.Implementation
 			get
 			{
 				System.Web.HttpContext context = System.Web.HttpContext.Current;
-				if (context == null)
+				if (context != null)
 				{
 					string baseUrl = context.Request.Url.Scheme + "://" + context.Request.Url.Authority + context.Request.ApplicationPath.TrimEnd('/');
 					return baseUrl;
