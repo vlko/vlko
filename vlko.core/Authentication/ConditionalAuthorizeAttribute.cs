@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web.Mvc;
+using vlko.core.Base;
 
 namespace vlko.core.Authentication
 {
@@ -49,30 +50,32 @@ namespace vlko.core.Authentication
 		/// </summary>
 		/// <param name="configKeyIgnoreIdent">The config key ident.</param>
 		/// <returns>Config value.</returns>
-		private bool GetConfigValueFromCache(string configKeyIgnoreIdent)
+		private static bool GetConfigValueFromCache(string configKeyIgnoreIdent)
 		{
 			bool? ignoreAuthorization = null;
 
-			CacheLock.EnterReadLock();
-			if (Cache.ContainsKey(configKeyIgnoreIdent))
+			using (CacheLock.ReadLock())
 			{
-				ignoreAuthorization = Cache[configKeyIgnoreIdent];
-			}
-			CacheLock.ExitReadLock();
-
-			if (ignoreAuthorization == null)
-			{
-				CacheLock.EnterWriteLock();
-				if (!Cache.ContainsKey(configKeyIgnoreIdent))
-				{
-					ignoreAuthorization = LoadConfigValueFromSettings(configKeyIgnoreIdent);
-					Cache.Add(configKeyIgnoreIdent, ignoreAuthorization.Value);
-				}
-				else
+				if (Cache.ContainsKey(configKeyIgnoreIdent))
 				{
 					ignoreAuthorization = Cache[configKeyIgnoreIdent];
 				}
-				CacheLock.ExitWriteLock();
+			}
+
+			if (ignoreAuthorization == null)
+			{
+				using (CacheLock.WriteLock())
+				{
+					if (!Cache.ContainsKey(configKeyIgnoreIdent))
+					{
+						ignoreAuthorization = LoadConfigValueFromSettings(configKeyIgnoreIdent);
+						Cache.Add(configKeyIgnoreIdent, ignoreAuthorization.Value);
+					}
+					else
+					{
+						ignoreAuthorization = Cache[configKeyIgnoreIdent];
+					}
+				}
 			}
 
 			return ignoreAuthorization.Value;

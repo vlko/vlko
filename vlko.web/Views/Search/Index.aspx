@@ -33,6 +33,10 @@
 			{
 				Html.RenderPartial("~/Views/Search/TwitterStatus.ascx", searchResult as TwitterStatus);
 			}
+			if (searchResult is RssItemViewModel)
+			{
+				Html.RenderPartial("~/Views/Search/RssItem.ascx", searchResult as RssItemViewModel);
+			}
 		}%>
 
 	<div><% Html.RenderPartial("~/Views/Shared/Pager.ascx", new PagerModel(Model.SearchResults, ViewContext.RouteData.GetRequiredString("action"), routeValues: new { Model.Query })); %></div>

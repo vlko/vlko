@@ -92,6 +92,8 @@
   <ItemGroup>
     <Compile Include="Model\AppSettingActionTest.cs" />
     <Compile Include="Model\CommentActions.cs" />
+    <Compile Include="Model\RssItemActionTest.cs" />
+    <Compile Include="Model\RssFeedActionTest.cs" />
     <Compile Include="Model\DBInitializationTest.cs" />
     <Compile Include="Model\SearchActionsTest.cs" />
     <Compile Include="Model\StaticTextActions.cs" />

@@ -32,10 +32,11 @@
 					<li><%= Html.ActionLink("Pages", "Index", "Page", routeValues: new { area = string.Empty })%></li>
 					<li><%= Html.ActionLink("Static text", "Index", "StaticPage", routeValues: new { area = "Admin" })%></li>
 					<li><%= Html.ActionLink("Comments", "Index", "Comment", routeValues: new { area = "Admin" })%></li>
+					<li><%= Html.ActionLink("Rss", "Index", "RssFeed", routeValues: new { area = "Admin" })%></li>
 				</ul>
 			
 				<div id="search">
-				<% using (Html.BeginForm("Index", "Search", method: FormMethod.Get)) {%>
+				<% using (Html.BeginForm("Index", "Search", method: FormMethod.Get, routeValues: new { area = string.Empty })) {%>
 					<%: Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"]) %>
 					<%: Html.TextBox("Query", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Query"])%>
 					<input type="submit" value="Search" />

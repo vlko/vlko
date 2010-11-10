@@ -75,7 +75,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 <#
 	foreach(KeyValuePair<string, string> property in properties) {
 #>
-            <th><%= vlko.core.ModelResources.<#= property.Key #> %></th>
+            <th><%= vlko.model.ModelResources.<#= property.Key #> %></th>
 <#
     }
 #>
@@ -111,9 +111,9 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
     <% } %>
 
     </table>
-    <p>
+    <div>
         <%<#= nugget #> Html.ActionLink<change_me>(c => c.Create(), "Create new", new { @class = "grid_create", title = "Create new" })%> 
-    </p>
+    </div>
 	<% Html.ScriptInlineInclude(() => {%>
 	<script type="text/javascript">
 		$(function () {

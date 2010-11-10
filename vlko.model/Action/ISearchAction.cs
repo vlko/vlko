@@ -29,11 +29,18 @@ namespace vlko.model.Action
 		void IndexStaticText(ITransaction transaction, StaticTextCRUDModel staticText);
 
 		/// <summary>
+		/// Indexes the rss item.
+		/// </summary>
+		/// <param name="transaction">The transaction.</param>
+		/// <param name="rssItem">The RSS item.</param>
+		void IndexRssItem(ITransaction transaction, RssItemCRUDModel rssItem);
+
+		/// <summary>
 		/// Deletes from index.
 		/// </summary>
 		/// <param name="transaction">The transaction.</param>
 		/// <param name="id">The id.</param>
-		void DeleteFromIndex(ITransaction transaction, Guid id);
+		void DeleteFromIndex(ITransaction transaction, string id);
 
 		/// <summary>
 		/// Searches for data.

@@ -106,6 +106,24 @@ namespace vlko.model.Tests.Model
 		}
 
 		[TestMethod]
+		public void Test_index_rss_item()
+		{
+			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
+			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
+			{
+				RepositoryFactory.Action<ISearchAction>().IndexRssItem(tran, new RssItemCRUDModel()
+				{
+					FeedItemId = "feed_id",
+					Title = "title",
+					Author = "author",
+					Text = "text",
+					Published = DateTime.Now
+				});
+				tran.Commit();
+			}
+		}
+
+		[TestMethod]
 		public void Multithreading_test()
 		{
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
@@ -219,7 +237,7 @@ namespace vlko.model.Tests.Model
 			}
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, idToDelete);
+				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, idToDelete.ToString());
 				tran.Commit();
 			}
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
@@ -262,7 +280,7 @@ namespace vlko.model.Tests.Model
 			}
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, idToUpdate);
+				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, idToUpdate.ToString());
 				var home = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(idToUpdate);
 				home.Text = "nodelete me";
 				RepositoryFactory.Action<IStaticTextCrud>().Update(home);
@@ -286,22 +304,23 @@ namespace vlko.model.Tests.Model
 			{
 				// test search for user name
 				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "user");
-				Assert.AreEqual(331 - 2 /* two items are out of date range */, searchResult.Count());
+				Assert.AreEqual(332 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
 				Assert.AreEqual(SearchResult.MaximumRawResults, searchResult.ToArray().Length);
 
 				// test search for text
 				searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "home");
-				Assert.AreEqual(32 , searchResult.Count());
+				Assert.AreEqual(33 , searchResult.Count());
 
-				data = searchResult.ToPage(0, 3);
-				Assert.AreEqual(3, data.Length);
+				data = searchResult.ToPage(0, 4);
+				Assert.AreEqual(4, data.Length);
 
 				// test if static text was prioritized
 				Assert.IsInstanceOfType(data[0], typeof(StaticTextViewModel));
-				Assert.IsInstanceOfType(data[1], typeof(TwitterStatus));
-				Assert.IsInstanceOfType(data[2], typeof(CommentViewModel));
+				Assert.IsInstanceOfType(data[1], typeof(RssItemViewModel));
+				Assert.IsInstanceOfType(data[2], typeof(TwitterStatus));
+				Assert.IsInstanceOfType(data[3], typeof(CommentViewModel));
 			}
 		}
 
@@ -314,23 +333,24 @@ namespace vlko.model.Tests.Model
 			{
 				// test search for user name
 				var searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, "user");
-				Assert.AreEqual(331 - 2 /* two items are out of date range */, searchResult.Count());
+				Assert.AreEqual(332 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
 				Assert.AreEqual(SearchResult.MaximumRawResults, searchResult.ToArray().Length);
 
 				// test search for text
 				searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, "home");
-				Assert.AreEqual(32, searchResult.Count());
+				Assert.AreEqual(33, searchResult.Count());
 
 				data = searchResult.ToArray();
-				Assert.AreEqual(32, data.Length);
+				Assert.AreEqual(33, data.Length);
 
 				// test if static text was prioritized
 				Assert.IsInstanceOfType(data[0], typeof(CommentViewModel));
 				Assert.IsInstanceOfType(data[1], typeof(CommentViewModel));
-				Assert.IsInstanceOfType(data[2], typeof(StaticTextViewModel));
-				Assert.IsInstanceOfType(data[4], typeof(TwitterStatus));
+				Assert.IsInstanceOfType(data[2], typeof(RssItemViewModel));
+				Assert.IsInstanceOfType(data[3], typeof(StaticTextViewModel));
+				Assert.IsInstanceOfType(data[5], typeof(TwitterStatus));
 			}
 		}
 
@@ -343,6 +363,26 @@ namespace vlko.model.Tests.Model
 			{
 				var startDate = DateTime.Now;
 				var searchAction = RepositoryFactory.Action<ISearchAction>();
+
+				// add feed item
+				var feed = RepositoryFactory.Action<IRssFeedAction>().Create(new RssFeedCRUDModel()
+				                                                             	{
+				                                                             		Name = "feed",
+				                                                             		Url = "url"
+				                                                             	});
+				var feedItem = RepositoryFactory.Action<IRssItemAction>().Save(new RssItemCRUDModel()
+				           	{
+				           		FeedItemId = "new",
+				           		Title = "home",
+				           		Text = "text",
+				           		Description = "description",
+				           		Author = "user",
+				           		Url = "url",
+								Published = startDate.AddDays(-2),
+				           		FeedId = feed.Id
+				           	});
+				searchAction.IndexRssItem(tran, feedItem);
+
 
 				// add to index some static text
 				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(

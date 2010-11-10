@@ -60,6 +60,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Routing" />
@@ -73,12 +74,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.ComplexHelpers\Rss\RssItemRawData.cs" />
     <Compile Include="Action.ComplexHelpers\Twitter\ConsumerAppIdent.cs" />
     <Compile Include="Action.CRUDModel\CommentCRUDModel.cs" />
+    <Compile Include="Action.CRUDModel\RssItemCRUDModel.cs" />
     <Compile Include="Action.CRUDModel\StaticTextCRUDModel.cs" />
     <Compile Include="Action.ComplexHelpers\Twitter\OAuthToken.cs" />
+    <Compile Include="Action.ViewModel\RssFeedViewModel.cs" />
+    <Compile Include="Action.ViewModel\RssItemViewModel.cs" />
+    <Compile Include="Action\IRssFeedAction.cs" />
+    <Compile Include="Action\IRssFeedConnection.cs" />
+    <Compile Include="Action\IRssItemAction.cs" />
     <Compile Include="Action\ITwitterConnection.cs" />
     <Compile Include="Action\ITwitterStatusAction.cs" />
+    <Compile Include="Action.CRUDModel\RssFeedCRUDModel.cs" />
+    <Compile Include="Implementation.NH\Action\RssItemAction.cs" />
+    <Compile Include="Implementation.OtherTech\Action\RssFeedConnection.cs" />
+    <Compile Include="Implementation.NH\Action\RssFeedAction.cs" />
     <Compile Include="Implementation.NH\Action\TwitterStatusAction.cs" />
     <Compile Include="Implementation.OtherTech\Action\TwitterConnection.cs" />
     <Compile Include="Implementation.NH\Action\AppSettingAction.cs" />
@@ -161,6 +173,7 @@
     <Compile Include="User.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
     <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />
+    <Compile Include="ValidationAtribute\AntiXssSpecialTextAttribute.cs" />
     <Compile Include="ValidationAtribute\AreaCheckAttribute.cs" />
     <Compile Include="ValidationAtribute\PropertiesMustMatchAttribute.cs" />
     <Compile Include="ValidationAtribute\ValidatePasswordLengthAttribute.cs" />

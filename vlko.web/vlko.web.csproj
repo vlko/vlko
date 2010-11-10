@@ -119,7 +119,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\RssFeedController.cs" />
     <Compile Include="Areas\Admin\Controllers\TwitterController.cs" />
+    <Compile Include="Areas\Admin\ViewModel\RssFeed\RssFeedTestResult.cs" />
     <Compile Include="CodeTemplates\AddView\PagedList.cs">
       <DependentUpon>PagedList.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -179,6 +181,12 @@
     <Content Include="Areas\Admin\Views\Comment\Delete.aspx" />
     <Content Include="Areas\Admin\Views\Comment\Details.aspx" />
     <Content Include="Areas\Admin\Views\Comment\Edit.aspx" />
+    <Content Include="Areas\Admin\Views\RssFeed\Create.aspx" />
+    <Content Include="Areas\Admin\Views\RssFeed\Delete.aspx" />
+    <Content Include="Areas\Admin\Views\RssFeed\Details.aspx" />
+    <Content Include="Areas\Admin\Views\RssFeed\Edit.aspx" />
+    <Content Include="Areas\Admin\Views\RssFeed\Index.aspx" />
+    <Content Include="Areas\Admin\Views\RssFeed\TestFeed.aspx" />
     <Content Include="Areas\Admin\Views\Twitter\AuthorizeResult.aspx" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -395,6 +403,7 @@
     <Content Include="Views\Page\ViewPage.aspx" />
     <Content Include="Views\Search\Comment.ascx" />
     <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\Search\RssItem.ascx" />
     <Content Include="Views\Search\StaticText.ascx" />
     <Content Include="Views\Search\TwitterStatus.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.ascx" />

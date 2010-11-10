@@ -222,4 +222,25 @@
   <data name="CommentTextRequireError" xml:space="preserve">
     <value>Comment text empty.</value>
   </data>
+  <data name="AuthorRegex" xml:space="preserve">
+    <value>Author regex</value>
+  </data>
+  <data name="ContentParseRegex" xml:space="preserve">
+    <value>Content parse regex</value>
+  </data>
+  <data name="DisplayFullContent" xml:space="preserve">
+    <value>Display full content instead of description</value>
+  </data>
+  <data name="FeedUrl" xml:space="preserve">
+    <value>Feed url</value>
+  </data>
+  <data name="GetDirectContent" xml:space="preserve">
+    <value>Try to get content from url</value>
+  </data>
+  <data name="LengthError" xml:space="preserve">
+    <value>Exceed number of allowed characters.</value>
+  </data>
+  <data name="RequireError" xml:space="preserve">
+    <value>Cannot be empty.</value>
+  </data>
 </root>

@@ -72,7 +72,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 #>
 	<div>
     	<fieldset>
-        	<legend>Fields</legend>http://bourgnon.blogspot.com/2010/04/der-kunstler.html
+        	<legend>Fields</legend>
         
 <#
 	foreach(KeyValuePair<string, string> property in properties) {

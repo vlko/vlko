@@ -15,6 +15,7 @@ namespace vlko.model.Search
 		public const string CommentType = "Comment";
 		public const string StaticTextType = "StaticText";
 		public const string TwitterStatusType = "TwitterStatus";
+		public const string RssItemType = "RssItem";
 		public const int MaximumRawResults = 200;
 
 		private readonly TopDocs _topDocs;
@@ -78,10 +79,11 @@ namespace vlko.model.Search
 		public object[] ToPage(int startIndex, int itemsPerPage)
 		{
 			// store local variables for ids
-			var orderedIds = new List<KeyValuePair<Guid, string>>();
+			var orderedIds = new List<KeyValuePair<string, string>>();
 			var commentIds = new List<Guid>();
 			var staticTextIds = new List<Guid>();
 			var twitterStatusIds = new List<Guid>();
+			var rssItemIdents = new List<string>();
 
 			// check ranges
 			startIndex = Math.Min(startIndex, _topDocs.totalHits);
@@ -96,18 +98,20 @@ namespace vlko.model.Search
 				var type = doc.Get(TypeField);
 				if (!string.IsNullOrEmpty(id))
 				{
-					var guidId = new Guid(id);
-					orderedIds.Add(new KeyValuePair<Guid, string>(guidId, type));
+					orderedIds.Add(new KeyValuePair<string, string>(id, type));
 					switch (type)
 					{
 						case CommentType:
-							commentIds.Add(guidId);
+							commentIds.Add(new Guid(id));
 							break;
 						case StaticTextType:
-							staticTextIds.Add(guidId);
+							staticTextIds.Add(new Guid(id));
 							break;
 						case TwitterStatusType:
-							twitterStatusIds.Add(guidId);
+							twitterStatusIds.Add(new Guid(id));
+							break;
+						case RssItemType:
+							rssItemIdents.Add(id);
 							break;
 					}
 				}
@@ -117,6 +121,7 @@ namespace vlko.model.Search
 			var comments = RepositoryFactory.Action<ICommentData>().GetByIds(commentIds).ToArray().ToDictionary(comment => comment.Id);
 			var staticTexts = RepositoryFactory.Action<IStaticTextData>().GetByIds(staticTextIds).ToArray().ToDictionary(staticText => staticText.Id);
 			var twitterStatuses = RepositoryFactory.Action<ITwitterStatusAction>().GetByIds(twitterStatusIds).ToArray().ToDictionary(twitterStatus => twitterStatus.Id);
+			var rssItems = RepositoryFactory.Action<IRssItemAction>().GetByIds(rssItemIdents).ToArray().ToDictionary(rssItem => rssItem.FeedItemId);
 
 			// compute result
 			var result = new List<object>();
@@ -125,21 +130,27 @@ namespace vlko.model.Search
 				switch (orderedId.Value)
 				{
 					case CommentType:
-						if (comments.ContainsKey(orderedId.Key))
+						if (comments.ContainsKey(new Guid(orderedId.Key)))
 						{
-							result.Add(comments[orderedId.Key]);
+							result.Add(comments[new Guid(orderedId.Key)]);
 						}
 						break;
 					case StaticTextType:
-						if (staticTexts.ContainsKey(orderedId.Key))
+						if (staticTexts.ContainsKey(new Guid(orderedId.Key)))
 						{
-							result.Add(staticTexts[orderedId.Key]);
+							result.Add(staticTexts[new Guid(orderedId.Key)]);
 						}
 						break;
 					case TwitterStatusType:
-						if (twitterStatuses.ContainsKey(orderedId.Key))
+						if (twitterStatuses.ContainsKey(new Guid(orderedId.Key)))
 						{
-							result.Add(twitterStatuses[orderedId.Key]);
+							result.Add(twitterStatuses[new Guid(orderedId.Key)]);
+						}
+						break;
+					case RssItemType:
+						if (rssItems.ContainsKey(orderedId.Key))
+						{
+							result.Add(rssItems[orderedId.Key]);
 						}
 						break;
 				}

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Microsoft.Security.Application;
 using vlko.core.Base;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
@@ -18,10 +19,11 @@ namespace vlko.web.Controllers
 		{
 			if (!string.IsNullOrEmpty(query))
 			{
+				var searchQuery = HttpContext.Request.QueryString["query"];
 				using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 				{
 					// test search for user name
-					var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, query);
+					var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, searchQuery);
 					pageModel.LoadData(searchResult);
 				}
 			}

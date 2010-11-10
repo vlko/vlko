@@ -21,7 +21,11 @@ namespace vlko.model.ValidationAtribute
             {
                 property.SetValue(value, AntiXss.GetSafeHtmlFragment((string) property.GetValue(value)));
             }
-            else
+			else if (property.Attributes.Contains(new AntiXssIgnoreAttribute()))
+            {
+				// do nothing this contains special text
+            }
+			else
             {
                 property.SetValue(value, AntiXss.HtmlEncode((string)property.GetValue(value)));
             }

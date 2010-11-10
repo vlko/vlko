@@ -58,34 +58,36 @@ namespace vlko.core.Base.Setting
 			T value = _defaultValue;
 			bool loadedFromCache = false;
 
-			CacheLock.EnterReadLock();
-			if (Cache.ContainsKey(Name))
+			using (CacheLock.ReadLock())
 			{
-				value = Cache[Name];
-				loadedFromCache = true;
+				if (Cache.ContainsKey(Name))
+				{
+					value = Cache[Name];
+					loadedFromCache = true;
+				}
 			}
-			CacheLock.ExitReadLock();
 
 			if (!loadedFromCache)
 			{
-				CacheLock.EnterWriteLock();
-				if (!Cache.ContainsKey(Name))
+				using (CacheLock.WriteLock())
 				{
-					string rawValue = null;
-					if (_settingProvider.GetValue(Name, ref rawValue))
+					if (!Cache.ContainsKey(Name))
 					{
-						value = SettingValueConverter.ConvertToValue<T>(rawValue);
+						string rawValue = null;
+						if (_settingProvider.GetValue(Name, ref rawValue))
+						{
+							value = SettingValueConverter.ConvertToValue<T>(rawValue);
+						}
+						else
+						{
+							Cache[Name] = _defaultValue;
+						}
 					}
 					else
 					{
-						Cache[Name] = _defaultValue;
+						value = Cache[Name];
 					}
 				}
-				else
-				{
-					value = Cache[Name];
-				}
-				CacheLock.ExitWriteLock();
 			}
 
 			return value;
@@ -97,13 +99,12 @@ namespace vlko.core.Base.Setting
 		/// <param name="value">The value.</param>
 		public void SaveValue(T value)
 		{
-			CacheLock.EnterWriteLock();
-
-			Cache[Name] = value;
-			string rawValue = SettingValueConverter.ConvertToString(value);
-			_settingProvider.SaveValue(Name, rawValue);
-
-			CacheLock.ExitWriteLock();
+			using (CacheLock.WriteLock())
+			{
+				Cache[Name] = value;
+				string rawValue = SettingValueConverter.ConvertToString(value);
+				_settingProvider.SaveValue(Name, rawValue);
+			}
 		}
 	}
 }

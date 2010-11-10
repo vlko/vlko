@@ -92,6 +92,13 @@ namespace vlko.core
 					                   		parameters["rootPath"] = appInfo.RootPath;
 					                   	}),
 
+				Component.For<BaseRepository<RssFeed>>().ImplementedBy<Repository<RssFeed>>(),
+				Component.For<IRssFeedAction>().ImplementedBy<RssFeedAction>(),
+				Component.For<IRssFeedConnection>().ImplementedBy<RssFeedConnection>(),
+
+				Component.For<BaseRepository<RssItem>>().ImplementedBy<Repository<RssItem>>(),
+				Component.For<IRssItemAction>().ImplementedBy<RssItemAction>(),
+
 				Component.For<BaseRepository<TwitterStatus>>().ImplementedBy<Repository<TwitterStatus>>(),
 				Component.For<ITwitterConnection>().ImplementedBy<TwitterConnection>(),
 				Component.For<ITwitterStatusAction>().ImplementedBy<TwitterStatusAction>() 
@@ -133,7 +140,8 @@ namespace vlko.core
 			var scheduler = new Scheduler(new SchedulerTask[]
 			                              	{
 			                              		new KeepAliveTask(5, true),
-												new UpdateTwitterTask(1, true)
+												new UpdateTwitterTask(10, true),
+												new UpdateRssFeedsTask(10, true),
 			                              	}, 20);
 			scheduler.Start();
 		}

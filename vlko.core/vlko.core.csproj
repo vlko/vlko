@@ -119,11 +119,13 @@
     <Compile Include="Authentication\IUserAuthenticationService.cs" />
     <Compile Include="Authentication\UserInfo.cs" />
     <Compile Include="Base\BaseExtensions.cs" />
+    <Compile Include="Base\LockExtensions.cs" />
     <Compile Include="Base\Scheduler\Scheduler.cs" />
     <Compile Include="Base\Scheduler\SchedulerTask.cs" />
     <Compile Include="Base\Scheduler\KeepAliveTask.cs" />
+    <Compile Include="Base\Scheduler\UpdateRssFeedsTask.cs" />
     <Compile Include="Base\Scheduler\UpdateTwitterTask.cs" />
-    <Compile Include="Base\Setting\ConfigSettingProvider.cs" />
+    <Compile Include="Base\Scheduler\Setting\ConfigSettingProvider.cs" />
     <Compile Include="Base\ShortGuid.cs" />
     <Compile Include="Components\IPagedModel.cs" />
     <Compile Include="Components\PagerModel.cs" />
@@ -147,11 +149,11 @@
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\MailTemplate.cs" />
     <Compile Include="Tools\ModelMetadataExtensions.cs" />
-    <Compile Include="Base\Setting\DatabaseSettingProvider.cs" />
-    <Compile Include="Base\Setting\ISettingProvider.cs" />
-    <Compile Include="Base\Setting\SettingValue.cs" />
+    <Compile Include="Base\Scheduler\Setting\DatabaseSettingProvider.cs" />
+    <Compile Include="Base\Scheduler\Setting\ISettingProvider.cs" />
+    <Compile Include="Base\Scheduler\Setting\SettingValue.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Base\Setting\SettingValueConverter.cs" />
+    <Compile Include="Base\Scheduler\Setting\SettingValueConverter.cs" />
     <Compile Include="Tools\StringTool.cs" />
   </ItemGroup>
   <ItemGroup>

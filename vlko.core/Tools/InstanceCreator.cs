@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
+using vlko.core.Base;
 
 namespace vlko.core.Tools
 {
@@ -33,23 +34,25 @@ namespace vlko.core.Tools
         {
             Func<object> lambdaConstructor = null;
 
-            CacheLock.EnterReadLock();
-            if (ConstructorCache.ContainsKey(type))
+			using (CacheLock.ReadLock())
+			{
+				if (ConstructorCache.ContainsKey(type))
+				{
+					lambdaConstructor = ConstructorCache[type];
+				}
+			}
+
+        	if (lambdaConstructor == null)
             {
-                lambdaConstructor = ConstructorCache[type];
-            }
-            CacheLock.ExitReadLock();
-            
-            if (lambdaConstructor == null)
-            {
-                CacheLock.EnterWriteLock();
-                if (!ConstructorCache.ContainsKey(type))
-                {
-                    ConstructorCache[type] = Expression.Lambda<Func<object>>(
-                        Expression.New(type), null).Compile();
-                }
-                lambdaConstructor = ConstructorCache[type];
-                CacheLock.ExitWriteLock();
+				using (CacheLock.WriteLock())
+				{
+					if (!ConstructorCache.ContainsKey(type))
+					{
+						ConstructorCache[type] = Expression.Lambda<Func<object>>(
+							Expression.New(type), null).Compile();
+					}
+					lambdaConstructor = ConstructorCache[type];
+				}
             }
 
             return lambdaConstructor();

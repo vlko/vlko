@@ -62,6 +62,8 @@ namespace vlko.model.Implementation.OtherTech.Action
 			doc.Add(new Field("Date", DateTools.DateToString(status.CreatedDate, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.NOT_ANALYZED));
 			doc.Add(new Field("User", status.User +  " " + status.RetweetUser, Field.Store.NO, Field.Index.ANALYZED));
 
+			doc.SetBoost(3F);
+
 			tranContext.IndexWriter.AddDocument(doc);
 		}
 
@@ -93,18 +95,45 @@ namespace vlko.model.Implementation.OtherTech.Action
 		}
 
 		/// <summary>
-		/// Deletes from index.
+		/// Indexes the rss item.
 		/// </summary>
 		/// <param name="transaction">The transaction.</param>
-		/// <param name="id">The id.</param>
-		public void DeleteFromIndex(ITransaction transaction, Guid id)
+		/// <param name="rssItem">The RSS item.</param>
+		public void IndexRssItem(ITransaction transaction, RssItemCRUDModel rssItem)
 		{
 			SearchUpdateContext tranContext = transaction.TransactionContext as SearchUpdateContext;
 			if (tranContext == null)
 			{
 				throw new Exception("SearchUpdateContext not part of ITransaction!");
 			}
-			tranContext.IndexWriter.DeleteDocuments(new TermQuery(new Term(SearchResult.IdField, id.ToString())));
+
+			Document doc = new Document();
+			doc.Add(new Field(SearchResult.IdField, rssItem.FeedItemId, Field.Store.YES, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field(SearchResult.TypeField, SearchResult.RssItemType, Field.Store.YES, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field("Title", rssItem.Title, Field.Store.YES, Field.Index.ANALYZED));
+			doc.Add(new Field("Text", rssItem.Text, Field.Store.NO, Field.Index.ANALYZED));
+			doc.Add(new Field("Published", DateTools.DateToString(rssItem.Published, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field("Date", DateTools.DateToString(rssItem.Published, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.NOT_ANALYZED));
+			doc.Add(new Field("User", rssItem.Author, Field.Store.NO, Field.Index.ANALYZED));
+
+			doc.SetBoost(3F);
+
+			tranContext.IndexWriter.AddDocument(doc);
+		}
+
+		/// <summary>
+		/// Deletes from index.
+		/// </summary>
+		/// <param name="transaction">The transaction.</param>
+		/// <param name="id">The id.</param>
+		public void DeleteFromIndex(ITransaction transaction, string id)
+		{
+			SearchUpdateContext tranContext = transaction.TransactionContext as SearchUpdateContext;
+			if (tranContext == null)
+			{
+				throw new Exception("SearchUpdateContext not part of ITransaction!");
+			}
+			tranContext.IndexWriter.DeleteDocuments(new TermQuery(new Term(SearchResult.IdField, id)));
 		}
 
 

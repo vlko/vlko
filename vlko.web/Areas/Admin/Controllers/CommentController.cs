@@ -66,7 +66,7 @@ namespace vlko.web.Areas.Admin.Controllers
 			{
 				RepositoryFactory.Action<ICommentCrud>().Delete(item);
 				tran.Commit();
-				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, item.Id);
+				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, item.Id.ToString());
 			}
 			return RedirectToActionWithAjax("Index");
 		}
@@ -101,7 +101,7 @@ namespace vlko.web.Areas.Admin.Controllers
 					{
 						crudOperations.Update(originalItem);
 						tran.Commit();
-						RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, originalItem.Id);
+						RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, originalItem.Id.ToString());
 						RepositoryFactory.Action<ISearchAction>().IndexComment(tran, originalItem);
 					}
 					return RedirectToActionWithAjax("Index");

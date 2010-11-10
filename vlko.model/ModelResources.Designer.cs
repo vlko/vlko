@@ -79,6 +79,15 @@ namespace vlko.model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author regex.
+        /// </summary>
+        public static string AuthorRegex {
+            get {
+                return ResourceManager.GetString("AuthorRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changed.
         /// </summary>
         public static string Changed {
@@ -133,6 +142,15 @@ namespace vlko.model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content parse regex.
+        /// </summary>
+        public static string ContentParseRegex {
+            get {
+                return ResourceManager.GetString("ContentParseRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date of creation.
         /// </summary>
         public static string CreatedDate {
@@ -165,6 +183,24 @@ namespace vlko.model {
         public static string DescriptionRequireError {
             get {
                 return ResourceManager.GetString("DescriptionRequireError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display full content instead of description.
+        /// </summary>
+        public static string DisplayFullContent {
+            get {
+                return ResourceManager.GetString("DisplayFullContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feed url.
+        /// </summary>
+        public static string FeedUrl {
+            get {
+                return ResourceManager.GetString("FeedUrl", resourceCulture);
             }
         }
         
@@ -241,6 +277,15 @@ namespace vlko.model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Try to get content from url.
+        /// </summary>
+        public static string GetDirectContent {
+            get {
+                return ResourceManager.GetString("GetDirectContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ident.
         /// </summary>
         public static string Id {
@@ -255,6 +300,15 @@ namespace vlko.model {
         public static string ItemNotExistsError {
             get {
                 return ResourceManager.GetString("ItemNotExistsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exceed number of allowed characters..
+        /// </summary>
+        public static string LengthError {
+            get {
+                return ResourceManager.GetString("LengthError", resourceCulture);
             }
         }
         
@@ -300,6 +354,15 @@ namespace vlko.model {
         public static string PublishDateRequireError {
             get {
                 return ResourceManager.GetString("PublishDateRequireError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot be empty..
+        /// </summary>
+        public static string RequireError {
+            get {
+                return ResourceManager.GetString("RequireError", resourceCulture);
             }
         }
         

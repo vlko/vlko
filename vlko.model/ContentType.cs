@@ -2,7 +2,7 @@
 {
 	public enum ContentType
 	{
-		RssFeed,
+		RssItem,
 		StaticText,
 		TwitterStatus
 	}
