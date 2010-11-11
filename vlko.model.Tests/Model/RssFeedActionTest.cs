@@ -8,9 +8,10 @@ using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
-using vlko.model.Repository;
+using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
 {

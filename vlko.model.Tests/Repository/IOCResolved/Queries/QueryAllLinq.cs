@@ -1,5 +1,5 @@
-﻿using vlko.model.Implementation.NH.Repository;
-using vlko.model.Repository;
+﻿using vlko.core.Repository;
+using vlko.model.Implementation.NH.Repository;
 
 namespace vlko.model.Tests.Repository.IOCResolved.Queries
 {

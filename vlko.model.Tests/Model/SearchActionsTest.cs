@@ -7,11 +7,14 @@ using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
+using vlko.core.Action;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
+using vlko.core.Roots;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Action.ViewModel;
-using vlko.model.Repository;
+using vlko.model.Roots;
 using vlko.model.Search;
 
 namespace vlko.model.Tests.Model
@@ -20,7 +23,7 @@ namespace vlko.model.Tests.Model
 	public class SearchActionsTest : InMemoryTest
 	{
 
-		private User _user;
+		private IUser _user;
 
 		[TestInitialize]
 		public void Init()

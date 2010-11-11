@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<vlko.model.TwitterStatus>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<vlko.model.Roots.TwitterStatus>" %>
 <article class="twitter_status">
 	<div class="twitter_info">
 		<% if (string.IsNullOrEmpty(Model.RetweetUser)) {%>

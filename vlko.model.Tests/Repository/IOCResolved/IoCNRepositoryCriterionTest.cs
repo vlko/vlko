@@ -5,10 +5,10 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
+using vlko.core.Repository.RepositoryAction;
 using vlko.model.Implementation.NH.Repository;
 using vlko.model.Implementation.NH.Repository.RepositoryAction;
-using vlko.model.Repository;
-using vlko.model.Repository.RepositoryAction;
 using vlko.model.Tests.Repository.IOCResolved.Model;
 using vlko.model.Tests.Repository.IOCResolved.Queries;
 

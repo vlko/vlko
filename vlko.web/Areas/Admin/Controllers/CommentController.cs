@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
+using vlko.core.Repository;
+using vlko.core.ValidationAtribute;
 using vlko.model;
 using vlko.core.Authentication;
 using vlko.core.Base;
@@ -8,13 +10,11 @@ using vlko.core.InversionOfControl;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Action.ViewModel;
-using vlko.model.Repository;
 using vlko.model.Search;
-using vlko.model.ValidationAtribute;
 
 namespace vlko.web.Areas.Admin.Controllers
 {
-	[AuthorizeRoles(vlko.model.User.AdminRole)]
+	[AuthorizeRoles(Settings.AdminRole)]
 	[AreaCheck("Admin")]
 	public class CommentController : BaseController
 	{

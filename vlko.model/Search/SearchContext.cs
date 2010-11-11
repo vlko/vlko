@@ -1,7 +1,7 @@
 ﻿using System;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
-using vlko.model.Repository;
+using vlko.core.Repository;
 
 namespace vlko.model.Search
 {

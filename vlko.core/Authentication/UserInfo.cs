@@ -1,12 +1,12 @@
-﻿using vlko.model;
-using vlko.model.Action;
+﻿using vlko.core.Action;
+using vlko.core.Roots;
 
 namespace vlko.core.Authentication
 {
 	public class UserInfo
 	{
 		private readonly IUserAuthenticationService _authenticationService;
-		private User _user;
+		private IUser _user;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UserInfo"/> class.
@@ -44,14 +44,14 @@ namespace vlko.core.Authentication
 		/// </returns>
 		public bool IsAdmin()
 		{
-			return _authenticationService.IsUserInRole(Name, User.AdminRole);
+			return _authenticationService.IsUserInRole(Name, Settings.AdminRole);
 		}
 
 		/// <summary>
 		/// Gets the user.
 		/// </summary>
 		/// <value>The user.</value>
-		public User User
+		public IUser User
 		{ 
 			get
 			{

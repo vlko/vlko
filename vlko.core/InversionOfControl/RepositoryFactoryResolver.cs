@@ -1,4 +1,4 @@
-﻿using vlko.model.Repository;
+﻿using vlko.core.Repository;
 
 namespace vlko.core.InversionOfControl   
 {
@@ -38,9 +38,9 @@ namespace vlko.core.InversionOfControl
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns>Registered BaseRepository for type.</returns>
-		public BaseRepository<T> GetRepository<T>() where T : class
+		public IRepository<T> GetRepository<T>() where T : class
 		{
-			return InversionOfControl.IoC.Resolve<BaseRepository<T>>();
+			return InversionOfControl.IoC.Resolve<IRepository<T>>();
 		}
 
 	}

@@ -1,4 +1,4 @@
-﻿using vlko.model.Repository;
+﻿using vlko.core.Repository;
 
 namespace vlko.model.Tests.Repository.IOCResolved.Queries
 {

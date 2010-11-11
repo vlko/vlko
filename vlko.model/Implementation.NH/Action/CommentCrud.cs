@@ -5,8 +5,9 @@ using Castle.ActiveRecord;
 using Castle.ActiveRecord.Framework;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
-using vlko.model.Repository;
-using NotFoundException = vlko.model.Repository.Exceptions.NotFoundException;
+using vlko.core.Repository;
+using vlko.model.Roots;
+using NotFoundException = vlko.core.Repository.Exceptions.NotFoundException;
 
 namespace vlko.model.Implementation.NH.Action
 {
@@ -24,7 +25,7 @@ namespace vlko.model.Implementation.NH.Action
 							  {
 								  Name = item.Name,
 								  Content = content,
-								  Owner = item.ChangeUser,
+								  Owner = (User)item.ChangeUser,
 								  AnonymousName = item.AnonymousName,
 								  CreatedDate = item.ChangeDate,
 								  ActualVersion = 0,
@@ -33,7 +34,7 @@ namespace vlko.model.Implementation.NH.Action
 															new CommentVersion
 																{
 																	CreatedDate = item.ChangeDate,
-																	CreatedBy = item.ChangeUser,
+																	CreatedBy = (User)item.ChangeUser,
 																	ClientIp = item.ClientIp,
 																	UserAgent = item.UserAgent,
 																	Text = item.Text,
@@ -130,7 +131,7 @@ namespace vlko.model.Implementation.NH.Action
 				new CommentVersion()
 				{
 					CreatedDate = item.ChangeDate,
-					CreatedBy = item.ChangeUser,
+					CreatedBy = (User)item.ChangeUser,
 					ClientIp = item.ClientIp,
 					UserAgent = item.UserAgent,
 					Text = item.Text,

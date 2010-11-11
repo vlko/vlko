@@ -1,4 +1,6 @@
-﻿namespace vlko.model.Action.ViewModel
+﻿using vlko.model.Roots;
+
+namespace vlko.model.Action.ViewModel
 {
 	public class CommentSearchViewModel : CommentViewModel
 	{

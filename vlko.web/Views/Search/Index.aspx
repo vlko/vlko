@@ -2,6 +2,7 @@
 <%@ Import Namespace="vlko.model" %>
 <%@ Import Namespace="vlko.model.Action.ViewModel" %>
 <%@ Import Namespace="vlko.core.Components" %>
+<%@ Import Namespace="vlko.model.Roots" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Search
 </asp:Content>

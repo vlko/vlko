@@ -6,7 +6,8 @@ using System.ServiceModel.Syndication;
 using System.Xml;
 using vlko.model.Action;
 using vlko.model.Action.ComplexHelpers.Rss;
-using vlko.model.Repository;
+using vlko.core.Repository;
+using vlko.model.Roots;
 
 namespace vlko.model.Implementation.OtherTech.Action
 {

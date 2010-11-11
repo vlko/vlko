@@ -2,8 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using Rhino.Mocks.Constraints;
-using vlko.model.Repository;
-using vlko.model.Repository.Exceptions;
+using vlko.core.Repository;
+using vlko.core.Repository.Exceptions;
 
 namespace vlko.model.Tests
 {
@@ -156,9 +156,9 @@ namespace vlko.model.Tests
             get { return false; }
         }
 
-        public void Initialize(InitializeContext<object> intializeContext)
+        public void Initialize(IInitializeContext<object> intializeContext)
         {
-            Assert.IsNotNull(intializeContext.BaseRepository);
+            Assert.IsNotNull(intializeContext.Repository);
         }
 
     	public void Initialize()

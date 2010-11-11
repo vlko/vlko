@@ -3,12 +3,14 @@ using System.Linq;
 using System.Security.Cryptography;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Framework;
-using vlko.model.Action;
-using vlko.model.Repository;
+using vlko.core.Action;
+using vlko.core.Repository;
+using vlko.core.Roots;
+using vlko.model.Roots;
 
 namespace vlko.model.Implementation.NH.Action
 {
-	public class UserAuthentication : BaseAction<User>, IUserAuthentication
+	public class UserAuthentication : BaseAction<IUser>, IUserAuthentication
 	{
 		/// <summary>
 		/// Generates the verify token.

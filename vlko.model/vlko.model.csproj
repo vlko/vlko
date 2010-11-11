@@ -37,6 +37,18 @@
     <Reference Include="Castle.ActiveRecord">
       <HintPath>..\_dependencies\Castle.ActiveRecord.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\_dependencies\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\_dependencies\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.NLogIntegration">
+      <HintPath>..\_dependencies\Castle.Services.Logging.NLogIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\_dependencies\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
     <Reference Include="Lucene.Net">
       <HintPath>..\_dependencies\Lucene.Net.dll</HintPath>
@@ -88,16 +100,17 @@
     <Compile Include="Action\ITwitterConnection.cs" />
     <Compile Include="Action\ITwitterStatusAction.cs" />
     <Compile Include="Action.CRUDModel\RssFeedCRUDModel.cs" />
+    <Compile Include="ApplicationInit.cs" />
+    <Compile Include="Base\Scheduler\UpdateRssFeedsTask.cs" />
+    <Compile Include="Base\Scheduler\UpdateTwitterTask.cs" />
     <Compile Include="Implementation.NH\Action\RssItemAction.cs" />
     <Compile Include="Implementation.OtherTech\Action\RssFeedConnection.cs" />
     <Compile Include="Implementation.NH\Action\RssFeedAction.cs" />
     <Compile Include="Implementation.NH\Action\TwitterStatusAction.cs" />
     <Compile Include="Implementation.OtherTech\Action\TwitterConnection.cs" />
     <Compile Include="Implementation.NH\Action\AppSettingAction.cs" />
-    <Compile Include="Action\IAppSettingAction.cs" />
     <Compile Include="Action\ISystemMessageAction.cs" />
     <Compile Include="Implementation.NH\Action\SystemMessageAction.cs" />
-    <Compile Include="AppSetting.cs" />
     <Compile Include="Implementation.NH\Action\CommentCrud.cs" />
     <Compile Include="Implementation.NH\Action\CommentData.cs" />
     <Compile Include="Implementation.NH\Action\FileBrowserAction.cs" />
@@ -106,19 +119,12 @@
     <Compile Include="Implementation.NH\Action\StaticTextData.cs" />
     <Compile Include="Implementation.NH\Action\UserAction.cs" />
     <Compile Include="Implementation.NH\Action\UserAuthentication.cs" />
-    <Compile Include="Action\AuthenicationStatuses.cs" />
     <Compile Include="Action\ICommentCrud.cs" />
     <Compile Include="Action\ICommentData.cs" />
     <Compile Include="Action\IFileBrowserAction.cs" />
     <Compile Include="Action\ISearchAction.cs" />
     <Compile Include="Action\IStaticTextCrud.cs" />
     <Compile Include="Action\IStaticTextData.cs" />
-    <Compile Include="Action\IUserAction.cs" />
-    <Compile Include="Action\IUserAuthentication.cs" />
-    <Compile Include="Comment.cs" />
-    <Compile Include="CommentVersion.cs" />
-    <Compile Include="Content.cs" />
-    <Compile Include="ContentType.cs" />
     <Compile Include="ModelConstants.cs" />
     <Compile Include="ModelResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -135,48 +141,25 @@
     <Compile Include="Implementation.NH\Repository\RepositoryAction\LinqDataAction.cs" />
     <Compile Include="Implementation.NH\Repository\Transaction.cs" />
     <Compile Include="Implementation.NH\Repository\UnitOfWork.cs" />
-    <Compile Include="Repository\BaseAction.cs" />
-    <Compile Include="Repository\BaseRepository.cs" />
-    <Compile Include="Repository\EmptyQueryResult.cs" />
-    <Compile Include="Repository\Exceptions\ActionNotRegisteredException.cs" />
-    <Compile Include="Repository\Exceptions\NotFoundException.cs" />
-    <Compile Include="Repository\Exceptions\RepositoryFactoryNotInitializeException.cs" />
-    <Compile Include="Repository\Exceptions\RepositoryNotRegisteredException.cs" />
-    <Compile Include="Repository\IAction.cs" />
-    <Compile Include="Repository\InitializeContext.cs" />
-    <Compile Include="Repository\IQueryResult.cs" />
-    <Compile Include="Repository\IRepositoryFactoryResolver.cs" />
-    <Compile Include="Repository\ITransaction.cs" />
-    <Compile Include="Repository\ITransactionContext.cs" />
-    <Compile Include="Repository\IUnitOfWork.cs" />
-    <Compile Include="Repository\IUnitOfWorkContext.cs" />
-    <Compile Include="Repository\QueryLinqResult.cs" />
-    <Compile Include="Repository\RepositoryAction\ICreateAction.cs" />
-    <Compile Include="Repository\RepositoryAction\ICRUDActions.cs" />
-    <Compile Include="Repository\RepositoryAction\IDeleteAction.cs" />
-    <Compile Include="Repository\RepositoryAction\IFindByPkAction.cs" />
-    <Compile Include="Repository\RepositoryAction\ILinqDataAction.cs" />
-    <Compile Include="Repository\RepositoryAction\ISaveAction.cs" />
-    <Compile Include="Repository\RepositoryFactory.cs" />
-    <Compile Include="RssFeed.cs" />
-    <Compile Include="RssItem.cs" />
+    <Compile Include="Roots\AppSetting.cs" />
+    <Compile Include="Roots\Comment.cs" />
+    <Compile Include="Roots\CommentVersion.cs" />
+    <Compile Include="Roots\Content.cs" />
+    <Compile Include="Roots\ContentType.cs" />
+    <Compile Include="Roots\RssFeed.cs" />
+    <Compile Include="Roots\RssItem.cs" />
+    <Compile Include="Roots\StaticText.cs" />
+    <Compile Include="Roots\StaticTextVersion.cs" />
+    <Compile Include="Roots\SystemMessage.cs" />
+    <Compile Include="Roots\TwitterStatus.cs" />
+    <Compile Include="Roots\User.cs" />
     <Compile Include="SearchRoot.cs" />
     <Compile Include="Search\ISearchProvider.cs" />
     <Compile Include="Search\SearchContext.cs" />
     <Compile Include="Search\SearchProvider.cs" />
     <Compile Include="Search\SearchResult.cs" />
     <Compile Include="Search\SearchUpdateContext.cs" />
-    <Compile Include="StaticText.cs" />
-    <Compile Include="StaticTextVersion.cs" />
-    <Compile Include="SystemMessage.cs" />
-    <Compile Include="TwitterStatus.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
-    <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />
-    <Compile Include="ValidationAtribute\AntiXssSpecialTextAttribute.cs" />
-    <Compile Include="ValidationAtribute\AreaCheckAttribute.cs" />
-    <Compile Include="ValidationAtribute\PropertiesMustMatchAttribute.cs" />
-    <Compile Include="ValidationAtribute\ValidatePasswordLengthAttribute.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Action.ViewModel\CommentForAdminViewModel.cs" />
     <Compile Include="Action.ViewModel\CommentSearchViewModel.cs" />
     <Compile Include="Action.ViewModel\CommentTreeViewModel.cs" />
@@ -186,7 +169,7 @@
     <Compile Include="Action.ViewModel\StaticTextWithFullTextViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Model.cd" />
+    <None Include="Roots\Model.cd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ModelResources.resx">
@@ -194,7 +177,12 @@
       <LastGenOutput>ModelResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\vlko.core\vlko.core.csproj">
+      <Project>{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}</Project>
+      <Name>vlko.core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

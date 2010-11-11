@@ -1,5 +1,5 @@
 ﻿using Castle.ActiveRecord;
-using vlko.model.Repository;
+using vlko.core.Repository;
 
 namespace vlko.model.Implementation.NH.Repository
 {

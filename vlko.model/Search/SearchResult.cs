@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Lucene.Net.Search;
+using vlko.core.Repository;
 using vlko.model.Action;
-using vlko.model.Repository;
 
 namespace vlko.model.Search
 {

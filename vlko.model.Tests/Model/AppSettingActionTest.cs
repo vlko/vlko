@@ -7,9 +7,12 @@ using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
+using vlko.core.Action;
+using vlko.core.Action.Model;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 using vlko.model.Action;
-using vlko.model.Repository;
+using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
 {
@@ -108,7 +111,7 @@ namespace vlko.model.Tests.Model
 				Assert.AreEqual(item.Name, dbItem.Name);
 				Assert.AreEqual(item.Value, dbItem.Value);
 
-				var newItem = new AppSetting
+				var newItem = new AppSettingModel
 				              	{
 				              		Name = "new_Value",
 				              		Value = "changed_value"

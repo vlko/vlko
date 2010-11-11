@@ -8,11 +8,11 @@ using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 using vlko.core.Services;
 using vlko.model.Action;
 using vlko.model.Action.ViewModel;
 using vlko.model.Implementation.NH.Action;
-using vlko.model.Repository;
 using vlko.web.Areas.Admin.Controllers;
 using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 

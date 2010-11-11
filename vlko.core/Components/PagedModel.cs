@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using vlko.model.Repository;
+using vlko.core.Repository;
 
 namespace vlko.core.Components
 {

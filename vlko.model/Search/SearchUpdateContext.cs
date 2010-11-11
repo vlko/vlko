@@ -1,6 +1,6 @@
 ﻿using System;
 using Lucene.Net.Index;
-using vlko.model.Repository;
+using vlko.core.Repository;
 
 namespace vlko.model.Search
 {

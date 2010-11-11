@@ -6,7 +6,8 @@ using Microsoft.Security.Application;
 using Twitterizer;
 using vlko.model.Action;
 using vlko.model.Action.ComplexHelpers.Twitter;
-using vlko.model.Repository;
+using vlko.core.Repository;
+using TwitterStatus = vlko.model.Roots.TwitterStatus;
 
 namespace vlko.model.Implementation.OtherTech.Action
 {

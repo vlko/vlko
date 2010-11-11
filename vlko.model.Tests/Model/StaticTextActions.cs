@@ -8,9 +8,10 @@ using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
-using vlko.model.Repository;
+using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
 {
@@ -269,7 +270,7 @@ namespace vlko.model.Tests.Model
 
 				Assert.AreEqual(item.Id, storedItem.Id);
 				Assert.AreEqual(item.FriendlyUrl, storedItem.FriendlyUrl);
-				Assert.AreEqual(item.Creator.Id, storedItem.Creator.Id);
+				Assert.AreEqual(((User)item.Creator).Id, ((User)storedItem.Creator).Id);
 				Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
 				Assert.AreEqual(item.PublishDate, storedItem.PublishDate);
 				Assert.AreEqual(item.AllowComments, storedItem.AllowComments);
@@ -309,7 +310,7 @@ namespace vlko.model.Tests.Model
 
 				Assert.AreEqual(item.Id, storedItem.Id);
 				Assert.AreEqual(item.FriendlyUrl, storedItem.FriendlyUrl);
-				Assert.AreEqual(item.Creator.Id, storedItem.Creator.Id);
+				Assert.AreEqual(((User)item.Creator).Id, ((User)storedItem.Creator).Id);
 				Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
 				Assert.AreEqual(item.PublishDate, storedItem.PublishDate);
 				Assert.AreEqual(item.AllowComments, storedItem.AllowComments);
@@ -333,7 +334,7 @@ namespace vlko.model.Tests.Model
 
 				Assert.AreEqual(item.Id, storedItem.Id);
 				Assert.AreEqual(item.FriendlyUrl, storedItem.FriendlyUrl);
-				Assert.AreEqual(item.Creator.Id, storedItem.Creator.Id);
+				Assert.AreEqual(((User)item.Creator).Id, ((User)storedItem.Creator).Id);
 				Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
 				Assert.AreEqual(item.PublishDate, storedItem.PublishDate);
 				Assert.AreEqual(item.AllowComments, storedItem.AllowComments);
@@ -355,7 +356,7 @@ namespace vlko.model.Tests.Model
 				storedItem = crudActions.FindByPk(item.Id);
 
 				Assert.AreEqual(item.Id, storedItem.Id);
-				Assert.AreEqual(item.Creator.Id, storedItem.Creator.Id);
+				Assert.AreEqual(((User)item.Creator).Id, ((User)storedItem.Creator).Id);
 				Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
 				Assert.AreEqual(item.PublishDate, storedItem.PublishDate);
 				Assert.AreEqual(item.AllowComments, storedItem.AllowComments);
@@ -404,7 +405,7 @@ namespace vlko.model.Tests.Model
 				var storedItem = crudActions.FindByPk(item.Id);
 
 				Assert.AreEqual(item.Id, storedItem.Id);
-				Assert.AreEqual(item.Creator.Id, storedItem.Creator.Id);
+				Assert.AreEqual(((User)item.Creator).Id, ((User)storedItem.Creator).Id);
 				Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
 				Assert.AreEqual(item.PublishDate, storedItem.PublishDate);
 				Assert.AreEqual(item.AllowComments, storedItem.AllowComments);

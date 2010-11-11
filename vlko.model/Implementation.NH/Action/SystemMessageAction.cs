@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using Castle.ActiveRecord;
+﻿using Castle.ActiveRecord;
 using Castle.ActiveRecord.Framework;
-using vlko.model.Repository;
+using vlko.core.Repository;
+using vlko.model.Action;
+using vlko.model.Roots;
 
-namespace vlko.model.Action
+namespace vlko.model.Implementation.NH.Action
 {
 	public class SystemMessageAction : BaseAction<SystemMessage>, ISystemMessageAction
 	{

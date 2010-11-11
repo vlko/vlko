@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using vlko.model.ValidationAtribute;
+using vlko.core.ValidationAtribute;
 
 namespace vlko.model.Action.CRUDModel
 {
@@ -22,7 +22,7 @@ namespace vlko.model.Action.CRUDModel
 		[Display(ResourceType = typeof(ModelResources), Name = "FeedUrl")]
 		[Required(ErrorMessageResourceType = typeof(ModelResources), ErrorMessageResourceName = "RequireError")]
 		[StringLength(255, ErrorMessageResourceType = typeof(ModelResources), ErrorMessageResourceName = "LengthError")]
-		[AntiXssIgnoreAttribute]
+		[AntiXssIgnore]
 		public string Url { get; set; }
 
 		[Display(ResourceType = typeof(ModelResources), Name = "AuthorRegex")]

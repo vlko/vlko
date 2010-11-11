@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Castle.ActiveRecord.Framework;
-using vlko.model.Repository;
+using vlko.core.Repository;
 
 namespace vlko.model.Implementation.NH.Repository
 {

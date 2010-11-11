@@ -7,9 +7,10 @@ using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
-using vlko.model.Repository;
+using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
 {
@@ -153,7 +154,7 @@ namespace vlko.model.Tests.Model
 				Assert.AreEqual((object) _testText.Comments[0].Name, first.Name);
 				Assert.AreEqual((object) _testText.Comments[0].CommentVersions[0].CreatedDate, first.ChangeDate);
 				Assert.AreEqual((object) _testText.Comments[0].CommentVersions[0].Text, first.Text);
-				Assert.AreEqual((object) _testText.Comments[0].CommentVersions[0].CreatedBy.Id, first.ChangeUser.Id);
+				Assert.AreEqual((object) _testText.Comments[0].CommentVersions[0].CreatedBy.Id, ((User)first.ChangeUser).Id);
 				Assert.AreEqual((object) _testText.Id, first.ContentId);
 
 				// get second
@@ -162,7 +163,7 @@ namespace vlko.model.Tests.Model
 				Assert.AreEqual((object) _testText.Comments[1].Name, second.Name);
 				Assert.AreEqual((object) _testText.Comments[1].CommentVersions[1].CreatedDate, second.ChangeDate);
 				Assert.AreEqual((object) _testText.Comments[1].CommentVersions[1].Text, second.Text);
-				Assert.AreEqual((object) _testText.Comments[1].CommentVersions[1].CreatedBy.Id, second.ChangeUser.Id);
+				Assert.AreEqual((object) _testText.Comments[1].CommentVersions[1].CreatedBy.Id, ((User)second.ChangeUser).Id);
 				Assert.AreEqual((object) _testText.Id, second.ContentId);
 			}
 		}
@@ -196,7 +197,7 @@ namespace vlko.model.Tests.Model
 				var storedItem = crudActions.FindByPk(item.Id);
 
 				Assert.AreEqual(item.Id, storedItem.Id);
-				Assert.AreEqual(item.ChangeUser.Id, storedItem.ChangeUser.Id);
+				Assert.AreEqual(((User)item.ChangeUser).Id, ((User)storedItem.ChangeUser).Id);
 				Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
 				Assert.AreEqual(item.AnonymousName, storedItem.AnonymousName);
 				Assert.AreEqual(item.UserAgent, storedItem.UserAgent);
@@ -226,7 +227,7 @@ namespace vlko.model.Tests.Model
 
 				storedItem = crudActions.FindByPk(subItem.Id);
 				Assert.AreEqual(subItem.Id, storedItem.Id);
-				Assert.AreEqual(subItem.ChangeUser.Id, storedItem.ChangeUser.Id);
+				Assert.AreEqual(((User)item.ChangeUser).Id, ((User)storedItem.ChangeUser).Id);
 				Assert.AreEqual(subItem.ChangeDate, storedItem.ChangeDate);
 				Assert.AreEqual(subItem.AnonymousName, storedItem.AnonymousName);
 				Assert.AreEqual(subItem.UserAgent, storedItem.UserAgent);
@@ -272,7 +273,7 @@ namespace vlko.model.Tests.Model
 				var storedItem = crudActions.FindByPk(item.Id);
 
 				Assert.AreEqual(item.Id, storedItem.Id);
-				Assert.AreEqual(item.ChangeUser.Id, storedItem.ChangeUser.Id);
+				Assert.AreEqual(((User)item.ChangeUser).Id, ((User)storedItem.ChangeUser).Id);
 				Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
 				Assert.AreEqual(item.AnonymousName, storedItem.AnonymousName);
 				Assert.AreEqual(item.UserAgent, storedItem.UserAgent);
@@ -338,7 +339,7 @@ namespace vlko.model.Tests.Model
 				var storedItem = crudActions.FindByPk(item.Id);
 
 				Assert.AreEqual(item.Id, storedItem.Id);
-				Assert.AreEqual(item.ChangeUser.Id, storedItem.ChangeUser.Id);
+				Assert.AreEqual(((User)item.ChangeUser).Id, ((User)storedItem.ChangeUser).Id);
 				Assert.AreEqual(item.ChangeDate, storedItem.ChangeDate);
 				Assert.AreEqual(item.AnonymousName, storedItem.AnonymousName);
 				Assert.AreEqual(item.UserAgent, storedItem.UserAgent);

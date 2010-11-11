@@ -1,5 +1,5 @@
 ﻿using NHibernate.Criterion;
-using vlko.model.Repository;
+using vlko.core.Repository;
 
 namespace vlko.model.Implementation.NH.Repository
 {
@@ -16,7 +16,7 @@ namespace vlko.model.Implementation.NH.Repository
 		/// Initializes queryAction with the specified repository.
 		/// </summary>
 		/// <param name="initializeContext">The initialize context.</param>
-		public override void Initialize(InitializeContext<T> initializeContext)
+		public override void Initialize(IInitializeContext<T> initializeContext)
 		{
 			Criteria = DetachedCriteria.For<T>();
 			base.Initialize(initializeContext);

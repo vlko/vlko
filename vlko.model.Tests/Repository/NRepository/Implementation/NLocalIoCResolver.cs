@@ -1,8 +1,8 @@
 ﻿using System;
+using vlko.core.Repository;
+using vlko.core.Repository.RepositoryAction;
 using vlko.model.Implementation.NH.Repository;
 using vlko.model.Implementation.NH.Repository.RepositoryAction;
-using vlko.model.Repository;
-using vlko.model.Repository.RepositoryAction;
 
 namespace vlko.model.Tests.Repository.NRepository.Implementation
 {
@@ -40,7 +40,7 @@ namespace vlko.model.Tests.Repository.NRepository.Implementation
             return new Transaction();
         }
 
-        public BaseRepository<T> GetRepository<T>() where T : class
+        public IRepository<T> GetRepository<T>() where T : class
         {
             if (typeof(T) == typeof(NTestObject))
             {

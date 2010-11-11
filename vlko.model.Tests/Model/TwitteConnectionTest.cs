@@ -8,9 +8,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Twitterizer;
 using vlko.core;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.ComplexHelpers.Twitter;
-using vlko.model.Repository;
 
 namespace vlko.model.Tests.Model
 {

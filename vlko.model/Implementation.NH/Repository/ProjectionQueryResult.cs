@@ -5,7 +5,7 @@ using Castle.ActiveRecord;
 using Castle.ActiveRecord.Queries;
 using NHibernate;
 using NHibernate.Criterion;
-using vlko.model.Repository;
+using vlko.core.Repository;
 
 namespace vlko.model.Implementation.NH.Repository
 {

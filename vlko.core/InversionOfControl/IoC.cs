@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Castle.Windsor;
-using vlko.model.Repository;
+using vlko.core.Repository;
 
 namespace vlko.core.InversionOfControl
 {

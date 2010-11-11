@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using vlko.core;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 using vlko.core.Services;
+using vlko.core.ValidationAtribute;
+using vlko.model;
 using vlko.model.Action;
 using vlko.model.Action.ComplexHelpers.Twitter;
-using vlko.model.Repository;
-using vlko.model.ValidationAtribute;
 
 namespace vlko.web.Areas.Admin.Controllers
 {
-	[AuthorizeRoles(vlko.model.User.AdminRole)]
+	[AuthorizeRoles(Settings.AdminRole)]
 	[AreaCheck("Admin")]
 	public class TwitterController : BaseController
 	{
@@ -34,8 +34,8 @@ namespace vlko.web.Areas.Admin.Controllers
 					var registerUrl = twitterConnection.GetAuthorizeUrl(
 						new ConsumerAppIdent
 							{
-								ConsumerKey = Settings.Twitter.ConsumerKey.Value,
-								ConsumerSecret = Settings.Twitter.ConsumerSecret.Value
+								ConsumerKey = model.Settings.Twitter.ConsumerKey.Value,
+								ConsumerSecret = model.Settings.Twitter.ConsumerSecret.Value
 							},
 						GetAuthorizeReturnUrl()
 						);

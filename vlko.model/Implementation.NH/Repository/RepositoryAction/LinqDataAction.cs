@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using vlko.model.Repository;
-using vlko.model.Repository.RepositoryAction;
+using vlko.core.Repository;
+using vlko.core.Repository.RepositoryAction;
 
 namespace vlko.model.Implementation.NH.Repository.RepositoryAction
 {

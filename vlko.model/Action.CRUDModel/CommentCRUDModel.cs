@@ -1,20 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using vlko.model.ValidationAtribute;
+using vlko.core.Roots;
+using vlko.core.ValidationAtribute;
+using vlko.model.Roots;
 
 namespace vlko.model.Action.CRUDModel
 {
 	public class CommentCRUDModel
 	{
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="CommentCRUDModel"/> class.
-		/// </summary>
-		public CommentCRUDModel()
-		{
-
-		}
-
 		/// <summary>
 		/// Gets or sets the Id.
 		/// </summary>
@@ -60,7 +53,7 @@ namespace vlko.model.Action.CRUDModel
 		/// Gets or sets the change user.
 		/// </summary>
 		/// <value>The change user.</value>
-		public User ChangeUser { get; set; }
+		public IUser ChangeUser { get; set; }
 
 		/// <summary>
 		/// Gets or sets the name of the anonymous.

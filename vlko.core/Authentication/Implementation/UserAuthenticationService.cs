@@ -1,7 +1,7 @@
 ﻿using System;
+using vlko.core.Action;
+using vlko.core.Roots;
 using vlko.core.Services;
-using vlko.model;
-using vlko.model.Action;
 
 namespace vlko.core.Authentication.Implementation
 {
@@ -32,7 +32,7 @@ namespace vlko.core.Authentication.Implementation
         {
             get
             {
-                return User.MinRequiredPasswordLength;
+                return Settings.MinRequiredPasswordLength;
             }
         }
 

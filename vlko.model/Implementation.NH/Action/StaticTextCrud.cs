@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Framework;
+using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
-using vlko.model.Repository;
-using NotFoundException = vlko.model.Repository.Exceptions.NotFoundException;
+using vlko.model.Roots;
+using NotFoundException = vlko.core.Repository.Exceptions.NotFoundException;
 
 namespace vlko.model.Implementation.NH.Action
 {
@@ -27,7 +28,7 @@ namespace vlko.model.Implementation.NH.Action
 									 Modified = item.ChangeDate,
 									 PublishDate = item.PublishDate,
 									 Description = item.Description,
-									 CreatedBy = item.Creator,
+									 CreatedBy = (User)item.Creator,
 									 AreCommentAllowed = item.AllowComments,
 									 ActualVersion = 0,
 									 StaticTextVersions = new List<StaticTextVersion>()
@@ -35,7 +36,7 @@ namespace vlko.model.Implementation.NH.Action
 																  new StaticTextVersion
 																	  {
 																		  CreatedDate = item.ChangeDate,
-																		  CreatedBy = item.Creator,
+																		  CreatedBy = (User)item.Creator,
 																		  Text = item.Text,
 																		  Version = 0
 																	  }
@@ -115,7 +116,7 @@ namespace vlko.model.Implementation.NH.Action
 			staticText.FriendlyUrl = item.FriendlyUrl;
 			staticText.Modified = item.ChangeDate;
 			staticText.PublishDate = item.PublishDate;
-			staticText.CreatedBy = item.Creator;
+			staticText.CreatedBy = (User)item.Creator;
 			staticText.AreCommentAllowed = item.AllowComments;
 			staticText.ActualVersion = staticText.StaticTextVersions.Count;
 
@@ -125,7 +126,7 @@ namespace vlko.model.Implementation.NH.Action
 				new StaticTextVersion
 					{
 						CreatedDate = item.ChangeDate,
-						CreatedBy = item.Creator,
+						CreatedBy = (User)item.Creator,
 						Text = item.Text,
 						Version = staticText.ActualVersion
 					}

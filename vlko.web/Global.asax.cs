@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -7,11 +9,12 @@ using Castle.ActiveRecord;
 using Castle.Windsor;
 using Microsoft.Web.Mvc.AspNet4;
 using NLog;
-using vlko.core;
+using vlko.core.Action;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
+using vlko.model;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
-using vlko.model.Repository;
 using vlko.model.Search;
 
 namespace vlko.web
@@ -108,6 +111,26 @@ namespace vlko.web
 			if (!dataExists)
 			{
 				CreateSomeData();
+			}
+
+			SchemaUpdate();
+		}
+
+		/// <summary>
+		/// Schemas the update.
+		/// </summary>
+		private void SchemaUpdate()
+		{
+			IList errors = ActiveRecordStarter.UpdateSchema();
+
+			StringBuilder errorLog = new StringBuilder();
+			foreach (object error in errors)
+			{
+				errorLog.AppendLine(error.ToString());
+			}
+			if (errorLog.Length > 0)
+			{
+				LogManager.GetLogger("DbChanges").Info("Errors generated during schema update:\n {0}", errorLog.ToString());
 			}
 		}
 

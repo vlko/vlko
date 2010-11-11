@@ -1,14 +1,14 @@
 ﻿using System;
 using Castle.ActiveRecord.Testing;
-using vlko.model.Repository;
-using vlko.model.Repository.RepositoryAction;
+using vlko.core.Repository;
+using vlko.core.Repository.RepositoryAction;
 using vlko.model.Tests.Repository.NRepository.Implementation;
 
 namespace vlko.model.Tests.Repository.NRepository
 {
     public class NBaseLocalRepositoryTest : InMemoryTest
     {
-        protected BaseRepository<NTestObject> BaseRepository;
+        protected IRepository<NTestObject> BaseRepository;
 
         private IUnitOfWork _session;
 

@@ -5,8 +5,9 @@ using Castle.ActiveRecord.Framework;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Action.ViewModel;
-using vlko.model.Repository;
-using NotFoundException = vlko.model.Repository.Exceptions.NotFoundException;
+using vlko.core.Repository;
+using vlko.model.Roots;
+using NotFoundException = vlko.core.Repository.Exceptions.NotFoundException;
 
 namespace vlko.model.Implementation.NH.Action
 {

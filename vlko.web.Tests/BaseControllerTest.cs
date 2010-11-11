@@ -8,6 +8,7 @@ using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core;
 using vlko.core.InversionOfControl;
+using vlko.model;
 using vlko.model.Search;
 
 namespace vlko.web.Tests

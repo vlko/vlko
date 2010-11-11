@@ -2,12 +2,15 @@
 using System.Linq;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Framework;
+using vlko.core.Action;
+using vlko.core.Roots;
 using vlko.model.Action;
-using vlko.model.Repository;
+using vlko.core.Repository;
+using vlko.model.Roots;
 
 namespace vlko.model.Implementation.NH.Action
 {
-	public class UserAction : BaseAction<User>, IUserAction
+	public class UserAction : BaseAction<IUser>, IUserAction
     {
         /// <summary>
         /// Creates the admin.
@@ -34,7 +37,7 @@ namespace vlko.model.Implementation.NH.Action
                                        Email = adminEmail,
                                        Password = UserAuthentication.HashPassword(defaultPassword),
                                        LastSeen = DateTime.Now,
-                                       Roles = User.AdminRole,
+                                       Roles = Settings.AdminRole,
                                        Verified = true,
 
                                    };
@@ -52,7 +55,7 @@ namespace vlko.model.Implementation.NH.Action
         /// </summary>
         /// <param name="username">The username.</param>
         /// <returns>User instance.</returns>
-        public User GetByName(string username)
+        public IUser GetByName(string username)
         {
             return ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Name == username);
         }

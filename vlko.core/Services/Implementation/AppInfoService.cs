@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace vlko.core.Services.Implementation
+﻿namespace vlko.core.Services.Implementation
 {
 	public class AppInfoService : IAppInfoService
 	{

@@ -56,10 +56,6 @@
     <Reference Include="AntiXSSLibrary">
       <HintPath>..\_dependencies\AntiXSSLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.ActiveRecord">
-      <HintPath>..\_dependencies\Castle.ActiveRecord.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Components.Validator, Version=2.5.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
     <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\Castle.Core.dll</HintPath>
@@ -110,6 +106,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\AuthenicationStatuses.cs" />
+    <Compile Include="Action\IAppSettingAction.cs" />
+    <Compile Include="Action\IUserAction.cs" />
+    <Compile Include="Action\IUserAuthentication.cs" />
+    <Compile Include="Action\Model\AppSettingModel.cs" />
     <Compile Include="Authentication\AuthorizeRolesAttribute.cs" />
     <Compile Include="Authentication\ConditionalAuthorizeAttribute.cs" />
     <Compile Include="Authentication\Implementation\UserAuthenticationService.cs" />
@@ -123,8 +124,6 @@
     <Compile Include="Base\Scheduler\Scheduler.cs" />
     <Compile Include="Base\Scheduler\SchedulerTask.cs" />
     <Compile Include="Base\Scheduler\KeepAliveTask.cs" />
-    <Compile Include="Base\Scheduler\UpdateRssFeedsTask.cs" />
-    <Compile Include="Base\Scheduler\UpdateTwitterTask.cs" />
     <Compile Include="Base\Scheduler\Setting\ConfigSettingProvider.cs" />
     <Compile Include="Base\ShortGuid.cs" />
     <Compile Include="Components\IPagedModel.cs" />
@@ -135,10 +134,35 @@
     <Compile Include="HtmlExtender\Localization.cs" />
     <Compile Include="HtmlExtender\Metadata.cs" />
     <Compile Include="HtmlExtender\ScriptManager.cs" />
+    <Compile Include="Repository\BaseAction.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\EmptyQueryResult.cs" />
+    <Compile Include="Repository\Exceptions\ActionNotRegisteredException.cs" />
+    <Compile Include="Repository\Exceptions\NotFoundException.cs" />
+    <Compile Include="Repository\Exceptions\RepositoryFactoryNotInitializeException.cs" />
+    <Compile Include="Repository\Exceptions\RepositoryNotRegisteredException.cs" />
+    <Compile Include="Repository\IAction.cs" />
+    <Compile Include="Repository\InitializeContext.cs" />
+    <Compile Include="Repository\IQueryResult.cs" />
+    <Compile Include="Repository\IRepositoryFactoryResolver.cs" />
+    <Compile Include="Repository\ITransaction.cs" />
+    <Compile Include="Repository\ITransactionContext.cs" />
+    <Compile Include="Repository\IUnitOfWork.cs" />
+    <Compile Include="Repository\IUnitOfWorkContext.cs" />
+    <Compile Include="Repository\QueryLinqResult.cs" />
+    <Compile Include="Repository\RepositoryAction\ICreateAction.cs" />
+    <Compile Include="Repository\RepositoryAction\ICRUDActions.cs" />
+    <Compile Include="Repository\RepositoryAction\IDeleteAction.cs" />
+    <Compile Include="Repository\RepositoryAction\IFindByPkAction.cs" />
+    <Compile Include="Repository\RepositoryAction\ILinqDataAction.cs" />
+    <Compile Include="Repository\RepositoryAction\ISaveAction.cs" />
+    <Compile Include="Repository\RepositoryFactory.cs" />
+    <Compile Include="Roots\IAppSetting.cs" />
+    <Compile Include="Roots\IUser.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Tools\HtmlManipulation.cs" />
     <Compile Include="Tools\InstanceCreator.cs" />
     <Compile Include="Tools\FriendlyUrlGenerator.cs" />
-    <Compile Include="ApplicationInit.cs" />
     <Compile Include="Base\BaseController.cs" />
     <Compile Include="InversionOfControl\IoC.cs" />
     <Compile Include="InversionOfControl\RepositoryFactoryResolver.cs" />
@@ -152,9 +176,14 @@
     <Compile Include="Base\Scheduler\Setting\DatabaseSettingProvider.cs" />
     <Compile Include="Base\Scheduler\Setting\ISettingProvider.cs" />
     <Compile Include="Base\Scheduler\Setting\SettingValue.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="Base\Scheduler\Setting\SettingValueConverter.cs" />
     <Compile Include="Tools\StringTool.cs" />
+    <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
+    <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />
+    <Compile Include="ValidationAtribute\AntiXssSpecialTextAttribute.cs" />
+    <Compile Include="ValidationAtribute\AreaCheckAttribute.cs" />
+    <Compile Include="ValidationAtribute\PropertiesMustMatchAttribute.cs" />
+    <Compile Include="ValidationAtribute\ValidatePasswordLengthAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -173,15 +202,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\vlko.model\vlko.model.csproj">
-      <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>
-      <Name>vlko.model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Log\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

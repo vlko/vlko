@@ -7,13 +7,14 @@ using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
 using vlko.core;
+using vlko.core.Action;
 using vlko.core.Authentication;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Action.ViewModel;
-using vlko.model.Repository;
 using vlko.model.Search;
 using vlko.web.Areas.Admin.Controllers;
 

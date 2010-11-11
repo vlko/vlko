@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using vlko.model.ValidationAtribute;
+using vlko.core.Roots;
+using vlko.core.ValidationAtribute;
+using vlko.model.Roots;
 
 namespace vlko.model.Action.CRUDModel
 {
@@ -57,7 +59,7 @@ namespace vlko.model.Action.CRUDModel
 		/// </summary>
 		/// <value>The creator.</value>
 		[Editable(false)]
-		public User Creator { get; set; }
+		public IUser Creator { get; set; }
 
 		/// <summary>
 		/// Gets or sets the current date.

@@ -1,7 +1,7 @@
 ﻿using Castle.ActiveRecord;
-using vlko.model.Repository;
-using vlko.model.Repository.RepositoryAction;
-using NotFoundException = vlko.model.Repository.Exceptions.NotFoundException;
+using vlko.core.Repository;
+using vlko.core.Repository.RepositoryAction;
+using NotFoundException = vlko.core.Repository.Exceptions.NotFoundException;
 
 namespace vlko.model.Implementation.NH.Repository.RepositoryAction
 {

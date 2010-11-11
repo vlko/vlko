@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using vlko.core.Authentication;
-using vlko.model.Repository;
+using vlko.core.Repository;
 
 namespace vlko.core.Base
 {

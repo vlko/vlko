@@ -1,8 +1,9 @@
-﻿using vlko.model;
-using vlko.model.Action;
-using vlko.model.Repository;
+﻿using vlko.core.Action;
+using vlko.core.Repository;
+using vlko.core.Roots;
+using vlko.core.Action.Model;
 
-namespace vlko.core.Base.Setting
+namespace vlko.core.Base.Scheduler.Setting
 {
 	public class DatabaseSettingProvider : ISettingProvider
 	{
@@ -37,7 +38,7 @@ namespace vlko.core.Base.Setting
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				RepositoryFactory.Action<IAppSettingAction>().Save(
-					new AppSetting
+					new AppSettingModel
 						{
 							Name = name,
 							Value = value

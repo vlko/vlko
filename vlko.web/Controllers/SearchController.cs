@@ -3,10 +3,10 @@ using Microsoft.Security.Application;
 using vlko.core.Base;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
+using vlko.core.ValidationAtribute;
 using vlko.model.Action;
-using vlko.model.Repository;
 using vlko.model.Search;
-using vlko.model.ValidationAtribute;
 using vlko.web.ViewModel.Search;
 
 namespace vlko.web.Controllers

@@ -29,13 +29,13 @@ namespace vlko.core.HtmlExtender
 		/// Gets the registered inline script includes.
 		/// </summary>
 		/// <returns>Registered inline script includes.</returns>
-		private static List<Action> GetRegisteredInlineScriptIncludes()
+		private static List<System.Action> GetRegisteredInlineScriptIncludes()
 		{
-			var registeredScriptIncludes = System.Web.HttpContext.Current.Items["RegisteredInlineScriptIncludes"] as List<Action>;
+			var registeredScriptIncludes = System.Web.HttpContext.Current.Items["RegisteredInlineScriptIncludes"] as List<System.Action>;
 
 			if (registeredScriptIncludes == null)
 			{
-				registeredScriptIncludes = new List<Action>();
+				registeredScriptIncludes = new List<System.Action>();
 				System.Web.HttpContext.Current.Items["RegisteredInlineScriptIncludes"] = registeredScriptIncludes;
 			}
 
@@ -130,7 +130,7 @@ namespace vlko.core.HtmlExtender
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>
 		/// <param name="inlineScript">The inline script.</param>
-		public static void ScriptInlineInclude(this HtmlHelper htmlHelper, Action inlineScript)
+		public static void ScriptInlineInclude(this HtmlHelper htmlHelper, System.Action inlineScript)
 		{
 			var registeredInlneScriptIncludes = GetRegisteredInlineScriptIncludes();
 			registeredInlneScriptIncludes.Add(inlineScript);
@@ -178,7 +178,7 @@ namespace vlko.core.HtmlExtender
 		public static void RenderInlineScripts(this HtmlHelper htmlHelper)
 		{
 			var registeredInlineScriptIncludes = GetRegisteredInlineScriptIncludes();
-			foreach (Action script in registeredInlineScriptIncludes)
+			foreach (System.Action script in registeredInlineScriptIncludes)
 			{
 				script.Invoke();
 			}

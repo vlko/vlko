@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 
-namespace vlko.core.Base.Setting
+namespace vlko.core.Base.Scheduler.Setting
 {
 	public class SettingValue<T>
 	{

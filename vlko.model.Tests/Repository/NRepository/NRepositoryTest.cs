@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.model.Repository.Exceptions;
-using vlko.model.Repository.RepositoryAction;
+using vlko.core.Repository.Exceptions;
+using vlko.core.Repository.RepositoryAction;
 using vlko.model.Tests.Repository.NRepository.Implementation;
 
 namespace vlko.model.Tests.Repository.NRepository

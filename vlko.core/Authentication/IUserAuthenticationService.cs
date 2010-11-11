@@ -1,4 +1,4 @@
-﻿using vlko.model.Action;
+﻿using vlko.core.Action;
 
 namespace vlko.core.Authentication
 {

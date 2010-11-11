@@ -90,6 +90,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\SettingTest.cs" />
     <Compile Include="Model\AppSettingActionTest.cs" />
     <Compile Include="Model\CommentActions.cs" />
     <Compile Include="Model\RssItemActionTest.cs" />
