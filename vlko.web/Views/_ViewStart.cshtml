@@ -1,0 +1,11 @@
+﻿@{
+	var viewMaster = ((System.Web.Mvc.RazorView)(ViewContext.View)).LayoutPath;
+	if (!string.IsNullOrEmpty(viewMaster))
+	{
+		Layout = viewMaster;
+	}
+	else
+	{
+		Layout = "~/Views/Shared/_Layout.cshtml";
+	}
+}

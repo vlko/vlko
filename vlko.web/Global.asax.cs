@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.ActiveRecord;
 using Castle.Windsor;
-using Microsoft.Web.Mvc.AspNet4;
 using NLog;
 using vlko.core.Action;
 using vlko.core.InversionOfControl;
@@ -70,18 +69,17 @@ namespace vlko.web
 
 		}
 
-		/// <summary>
-		/// Application_s the start.
-		/// </summary>
+		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+		{
+			filters.Add(new HandleErrorAttribute());
+		}
+
 		protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
 
+			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
-
-			// register data annotations provider for .net 4
-			ModelMetadataProviders.Current = new DataAnnotations4ModelMetadataProvider();
-			DataAnnotations4ModelValidatorProvider.RegisterProvider();
 
 			ApplicationInit.FullInit();
 

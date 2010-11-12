@@ -29,13 +29,13 @@ namespace vlko.core.HtmlExtender
 		/// Gets the registered inline script includes.
 		/// </summary>
 		/// <returns>Registered inline script includes.</returns>
-		private static List<System.Action> GetRegisteredInlineScriptIncludes()
+		private static List<string> GetRegisteredInlineScriptIncludes()
 		{
-			var registeredScriptIncludes = System.Web.HttpContext.Current.Items["RegisteredInlineScriptIncludes"] as List<System.Action>;
+			var registeredScriptIncludes = System.Web.HttpContext.Current.Items["RegisteredInlineScriptIncludes"] as List<string>;
 
 			if (registeredScriptIncludes == null)
 			{
-				registeredScriptIncludes = new List<System.Action>();
+				registeredScriptIncludes = new List<string>();
 				System.Web.HttpContext.Current.Items["RegisteredInlineScriptIncludes"] = registeredScriptIncludes;
 			}
 
@@ -86,7 +86,7 @@ namespace vlko.core.HtmlExtender
 		}
 
 		/// <summary>
-		/// nclude script (loaded only once in ajax).
+		/// Include script (loaded only once in ajax).
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>
 		/// <param name="releaseFile">The release file.</param>
@@ -130,10 +130,10 @@ namespace vlko.core.HtmlExtender
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>
 		/// <param name="inlineScript">The inline script.</param>
-		public static void ScriptInlineInclude(this HtmlHelper htmlHelper, System.Action inlineScript)
+		public static void ScriptInlineInclude<TModel>(this HtmlHelper<TModel> htmlHelper, Func<WebViewPage<TModel>, object> inlineScript)
 		{
 			var registeredInlneScriptIncludes = GetRegisteredInlineScriptIncludes();
-			registeredInlneScriptIncludes.Add(inlineScript);
+			registeredInlneScriptIncludes.Add(inlineScript((WebViewPage<TModel>)htmlHelper.ViewDataContainer).ToString());
 		}
 
 		/// <summary>
@@ -141,7 +141,7 @@ namespace vlko.core.HtmlExtender
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>
 		/// <returns>Rendered script resources</returns>
-		public static string RenderScripts(this HtmlHelper htmlHelper)
+		public static MvcHtmlString RenderScripts(this HtmlHelper htmlHelper)
 		{
 			var registeredRootScriptIncludes = GetRegisteredRootScriptIncludes();
 			var registeredScriptIncludes = GetRegisteredScriptIncludes();
@@ -168,20 +168,22 @@ namespace vlko.core.HtmlExtender
 				scripts.AppendLine("});</script>");
 			}
 
-			return scripts.ToString();
+			return MvcHtmlString.Create(scripts.ToString());
 		}
 
 		/// <summary>
 		/// Renders the inline scripts.
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>
-		public static void RenderInlineScripts(this HtmlHelper htmlHelper)
+		public static MvcHtmlString RenderInlineScripts(this HtmlHelper htmlHelper)
 		{
 			var registeredInlineScriptIncludes = GetRegisteredInlineScriptIncludes();
-			foreach (System.Action script in registeredInlineScriptIncludes)
+			var inlineScripts = new StringBuilder();
+			foreach (string script in registeredInlineScriptIncludes)
 			{
-				script.Invoke();
+				inlineScripts.AppendLine(script);
 			}
+			return MvcHtmlString.Create(inlineScripts.ToString());
 		}
 
 		/// <summary>

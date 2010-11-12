@@ -68,13 +68,7 @@
       <HintPath>..\_dependencies\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Mvc">
-      <HintPath>..\_dependencies\MvcFutures\Microsoft.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Web.Mvc.AspNet4">
-      <HintPath>..\_dependencies\MvcFutures\Microsoft.Web.Mvc.AspNet4.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Web.Mvc.Build">
-      <HintPath>..\_dependencies\MvcFutures\Microsoft.Web.Mvc.Build.dll</HintPath>
+      <HintPath>..\_dependencies\mvc\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=3.0.0.2001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
     <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -102,6 +96,9 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\_dependencies\mvc\System.Web.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\mvc\System.Web.Mvc.dll</HintPath>
@@ -110,6 +107,9 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\_dependencies\mvc\System.Web.WebPages.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -187,7 +187,7 @@
     <Content Include="Areas\Admin\Views\RssFeed\Edit.aspx" />
     <Content Include="Areas\Admin\Views\RssFeed\Index.aspx" />
     <Content Include="Areas\Admin\Views\RssFeed\TestFeed.aspx" />
-    <Content Include="Areas\Admin\Views\Twitter\AuthorizeResult.aspx" />
+    <None Include="Areas\Admin\Views\Twitter\AuthorizeResult.cshtml" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -388,24 +388,26 @@
     <Content Include="Scripts\MicrosoftMvcRemoteValidation.js" />
     <Content Include="Scripts\Pager.js" />
     <Content Include="Scripts\upload\ajaxupload.js" />
-    <Content Include="Views\Account\ConfirmRegistration.aspx" />
-    <Content Include="Views\Account\ConfirmResetPassword.aspx" />
-    <Content Include="Views\Account\NotAuthorized.aspx" />
-    <Content Include="Views\Account\NotValidToken.aspx" />
-    <Content Include="Views\Account\ResetPassword.aspx" />
+    <None Include="Views\Account\ConfirmRegistration.cshtml" />
+    <None Include="Views\Account\ConfirmResetPassword.cshtml" />
+    <None Include="Views\Account\NotAuthorized.cshtml" />
+    <None Include="Views\Account\NotValidToken.cshtml" />
+    <None Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Areas\Admin\Views\Comment\Index.aspx" />
     <Content Include="Areas\Admin\Views\FileBrowser\Delete.aspx" />
     <Content Include="Areas\Admin\Views\FileBrowser\Index.aspx" />
-    <Content Include="Views\Page\CommentsFlat.ascx" />
-    <Content Include="Views\Page\CommentsTree.ascx" />
-    <Content Include="Views\Page\Index.aspx" />
-    <Content Include="Views\Page\NewComment.ascx" />
-    <Content Include="Views\Page\ViewPage.aspx" />
-    <Content Include="Views\Search\Comment.ascx" />
-    <Content Include="Views\Search\Index.aspx" />
-    <Content Include="Views\Search\RssItem.ascx" />
-    <Content Include="Views\Search\StaticText.ascx" />
-    <Content Include="Views\Search\TwitterStatus.ascx" />
+    <None Include="Views\Page\CommentsFlat.cshtml" />
+    <None Include="Views\Page\CommentsTree.cshtml" />
+    <None Include="Views\Page\Index.cshtml" />
+    <None Include="Views\Page\NewComment.cshtml" />
+    <None Include="Views\Page\ViewPage.cshtml" />
+    <None Include="Views\Search\Comment.cshtml" />
+    <None Include="Views\Search\Index.cshtml" />
+    <None Include="Views\Search\RssItem.cshtml" />
+    <None Include="Views\Search\StaticText.cshtml" />
+    <None Include="Views\Search\TwitterStatus.cshtml" />
+    <None Include="Views\Shared\_AjaxLayout.cshtml" />
+    <None Include="Views\Shared\LogOnUserControl.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Collection.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Decimal.ascx" />
@@ -425,7 +427,7 @@
     <Content Include="Views\Shared\EditorTemplates\Object.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Password.ascx" />
     <Content Include="Views\Shared\EditorTemplates\String.ascx" />
-    <Content Include="Views\Shared\Pager.ascx" />
+    <None Include="Views\Shared\Pager.cshtml" />
     <Content Include="Areas\Admin\Views\StaticPage\Create.aspx" />
     <Content Include="Areas\Admin\Views\StaticPage\Delete.aspx" />
     <Content Include="Areas\Admin\Views\StaticPage\Details.aspx" />
@@ -444,18 +446,17 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\Account\ChangePassword.aspx" />
-    <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
-    <Content Include="Views\Account\LogOn.aspx" />
-    <Content Include="Views\Account\Register.aspx" />
-    <Content Include="Views\Home\About.aspx" />
-    <Content Include="Views\Home\Index.aspx" />
-    <Content Include="Views\Shared\Error.aspx" />
-    <Content Include="Views\Shared\LogOnUserControl.ascx" />
-    <Content Include="Views\Shared\Site.Master" />
+    <None Include="Views\Account\ChangePassword.cshtml" />
+    <None Include="Views\Account\ChangePasswordSuccess.cshtml" />
+    <None Include="Views\Account\LogOn.cshtml" />
+    <None Include="Views\Account\Register.cshtml" />
+    <None Include="Views\Home\About.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vlko.core\vlko.core.csproj">
@@ -470,9 +471,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Ajax.Master" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Web.config">
@@ -506,6 +504,8 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>List.cs</LastGenOutput>
     </None>
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

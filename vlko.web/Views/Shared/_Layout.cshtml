@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>@View.Title</title>
+	@{ 
+		Html.CssInclude("~/Content/Site.css");
+		Html.CssInclude("~/Content/jquery-ui-1.8.1.custom.css");
+		Html.ScriptRootInclude("~/Scripts/jquery-1.4.2.js", "~/Scripts/jquery-1.4.2.js");
+		Html.ScriptRootInclude("~/Scripts/jquery-ui-1.8.5.custom.min.js");
+		Html.ScriptRootInclude("~/Scripts/jquery.history.js");
+		Html.ScriptRootInclude("~/Scripts/Common.js"); 
+	}
+	@Html.RenderCss()
+</head>
+
+<body>
+	<div class="page">
+		<div id="header">
+			<div id="title">
+				<h1>My MVC Application</h1>
+			</div>
+			<div id="logindisplay">
+				@Html.Partial("LogOnUserControl")
+			</div> 
+			<div id="menucontainer">
+			
+				<ul id="menu">              
+					<li>@Html.ActionLink("Home", "Index", "Home", routeValues: new { area = string.Empty })</li>
+					<li>@Html.ActionLink("About", "About", "Home", routeValues: new { area = string.Empty })</li>
+					<li>@Html.ActionLink("Pages", "Index", "Page", routeValues: new { area = string.Empty })</li>
+					<li>@Html.ActionLink("Static text", "Index", "StaticPage", routeValues: new { area = "Admin" })</li>
+					<li>@Html.ActionLink("Comments", "Index", "Comment", routeValues: new { area = "Admin" })</li>
+					<li>@Html.ActionLink("Rss", "Index", "RssFeed", routeValues: new { area = "Admin" })</li>
+				</ul>
+			
+				<div id="search">
+				@using (Html.BeginForm("Index", "Search", method: FormMethod.Get, routeValues: new { area = string.Empty })) {
+					@Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"]);
+					@Html.TextBox("Query", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Query"]);
+					<input type="submit" value="Search" />
+				} 
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div id="content">
+			@RenderBody()
+			</div>
+			<div id="footer">
+			</div>
+		</div>
+	</div>
+		@Html.RenderScripts()
+		@Html.RenderInlineScripts()
+</body>
+</html>

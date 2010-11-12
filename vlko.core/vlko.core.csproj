@@ -71,7 +71,7 @@
       <HintPath>..\_dependencies\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Mvc">
-      <HintPath>..\_dependencies\MvcFutures\Microsoft.Web.Mvc.dll</HintPath>
+      <HintPath>..\_dependencies\mvc\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -95,6 +95,9 @@
     </Reference>
     <Reference Include="System.Web.Routing">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\_dependencies\mvc\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -133,6 +136,7 @@
     <Compile Include="HtmlExtender\CssManager.cs" />
     <Compile Include="HtmlExtender\Localization.cs" />
     <Compile Include="HtmlExtender\Metadata.cs" />
+    <Compile Include="HtmlExtender\Razor.cs" />
     <Compile Include="HtmlExtender\ScriptManager.cs" />
     <Compile Include="Repository\BaseAction.cs" />
     <Compile Include="Repository\BaseRepository.cs" />

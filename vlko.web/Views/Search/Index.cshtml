@@ -1,0 +1,45 @@
+﻿@model vlko.web.ViewModel.Search.SearchViewModel
+@using vlko.model;
+@using vlko.model.Action.ViewModel;
+@using vlko.core.Components;
+@using vlko.model.Roots;
+@{
+	View.Title = "Search";
+}
+<h2>Search</h2>
+<section id="search_from">
+	@using (Html.BeginForm(ViewContext.RouteData.GetRequiredString("action"), "Search", method: FormMethod.Get)) { 
+		@Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"])
+		@Html.TextBoxFor(model => model.Query)
+		<input type="submit" value="Search" />
+	}
+</section>
+@if (Model.SearchResults != null) { 
+<section id="search_results">
+	@Html.ActionLink("sort by relevance", "Index", routeValues: new { Model.Query })
+	@Html.ActionLink("sort by date", "Date", routeValues: new { Model.Query })
+	@foreach (var searchResult in Model.SearchResults)
+	{
+		if (searchResult is CommentSearchViewModel 
+			&& ((CommentSearchViewModel)searchResult).Content is StaticText)
+		{
+			@Html.Partial("Comment", searchResult as CommentViewModel)
+		}
+		if (searchResult is StaticTextViewModel)
+		{
+			@Html.Partial("StaticText", searchResult as StaticTextViewModel)
+		}
+		if (searchResult is TwitterStatus)
+		{
+			@Html.Partial("TwitterStatus", searchResult as TwitterStatus)
+		}
+		if (searchResult is RssItemViewModel)
+		{
+			@Html.Partial("RssItem", searchResult as RssItemViewModel)
+		}
+	}
+
+<div>@Html.Partial("~/Views/Shared/Pager.cshtml", new PagerModel(Model.SearchResults, ViewContext.RouteData.GetRequiredString("action"), routeValues: new { Model.Query }))</div>
+</section>
+} 
+

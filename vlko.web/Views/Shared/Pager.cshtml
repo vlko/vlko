@@ -1,0 +1,77 @@
+﻿@model vlko.core.Components.PagerModel
+<div class="pager">
+@{
+	Html.ScriptInclude("~/Scripts/Pager.js");
+	const int pagerRange = 4;
+	int pagesNumber = Model.PagesNumber;
+	int currentPage = Model.CurrentPage;
+	int lowestPage = currentPage - pagerRange;
+	int highestPage = currentPage + pagerRange;
+	bool lowestRangeDelimiterDisplayed = false;
+	bool highesRangeDelimiterDisplayed = false;
+
+	if (currentPage > 1)
+	{
+		@Html.ActionLink("<<", Model.Action, routeValues: Model.GetPageRoutes(currentPage - 1), cssClass:"pager_prev" )
+	}
+	else
+	{
+		<span class="pager_prev">&lt;&lt;</span><text>&nbsp;</text>		
+	}
+	<text>&nbsp;</text>
+	if (currentPage < Model.PagesNumber)
+	{
+		@Html.ActionLink(">>", Model.Action, routeValues: Model.GetPageRoutes(currentPage + 1), cssClass:"pager_next" )
+	}
+	else
+	{
+		<span class="pager_next">&gt;&gt;</span><text>&nbsp;</text>
+	}                                                                                              	
+	<text>&nbsp;</text>
+	@Html.ActionLink("1", Model.Action, routeValues: Model.GetPageRoutes(1))<text>&nbsp;</text>
+
+	for (int i = 2; i < pagesNumber; i++)
+	{
+		if (i < lowestPage)
+		{
+			if (!lowestRangeDelimiterDisplayed)
+			{
+				<text>...&nbsp;</text>
+				lowestRangeDelimiterDisplayed = true;
+			}
+		}
+		if (i >= lowestPage && i <= highestPage)
+		{
+			@Html.ActionLink(i.ToString(), Model.Action, Model.Controller, routeValues: Model.GetPageRoutes(i))<text>&nbsp;</text>
+		}
+		if (i > highestPage)
+		{
+			if (!highesRangeDelimiterDisplayed)
+			{
+			<text>...&nbsp;</text>
+			highesRangeDelimiterDisplayed = true;
+			}
+		}
+	}
+	if (pagesNumber > 1)
+	{
+		@Html.ActionLink(pagesNumber.ToString(), Model.Action, routeValues: Model.GetPageRoutes(pagesNumber))
+	}
+ }
+<span class="pager_info">@string.Format("{0} - {1} of {2}", Model.StartItemNumber, Model.EndItemNumber, Model.TotalCount)</span>
+</div>
+@{
+Html.ScriptInlineInclude(
+@<script type="text/javascript">
+$(function () {
+	@{
+		var contentId = (string)item.ViewData["content"];
+		if (string.IsNullOrEmpty(contentId))
+		{
+		contentId = "content";
+		}
+	}
+	$("#@contentId").ajaxPager();
+});
+</script>);
+}

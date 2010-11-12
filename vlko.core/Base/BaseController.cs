@@ -50,7 +50,7 @@ namespace vlko.core.Base
 		{
 			if (Request.IsAjaxRequest())
 			{
-				return View(viewName, "~/Views/Shared/Ajax.Master", model);
+				return View(viewName, "~/Views/Shared/_AjaxLayout.cshtml", model);
 			}
 			return View(viewName, model);
 		}
