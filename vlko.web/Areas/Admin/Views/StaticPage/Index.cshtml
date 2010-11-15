@@ -1,0 +1,51 @@
+﻿@model PagedModel<vlko.model.Action.ViewModel.StaticTextViewModel>
+@using vlko.web.Areas.Admin.Controllers;
+@using vlko.core.Components;
+@{
+	View.Title = "Static page index";
+	Html.ScriptInclude("~/Scripts/Grid.js");
+}
+<h2>Index</h2>
+
+<table>
+	<thead>
+		<th></th>
+		<th>@vlko.model.ModelResources.Id</th>
+		<th>@vlko.model.ModelResources.FriendlyUrl</th>
+		<th>@vlko.model.ModelResources.Title</th>
+		<th>@vlko.model.ModelResources.ChangeDate</th>
+		<th>@vlko.model.ModelResources.PublishDate</th>
+		<th>@vlko.model.ModelResources.AllowComments</th>
+		<th>@vlko.model.ModelResources.CommentCounts</th>
+	</thead>
+
+@foreach (var item in Model) { 
+	
+	<tr>
+		<td class="no_wrap">
+			@(Html.ActionLink<StaticPageController>(c => c.Edit(item.Id), "Edit", new { @class = "grid_edit", title = "Edit" }))&nbsp;
+			@(Html.ActionLink<StaticPageController>(c => c.Details(item.Id), "Details", new { @class = "grid_details", title = "Details" }))&nbsp;
+			@(Html.ActionLink<StaticPageController>(c => c.Delete(item.Id), "Delete", new { @class = "grid_delete", title = "Delete" })) 
+		</td>
+		<td>@item.Id</td>
+		<td>@item.FriendlyUrl</td>
+		<td>@item.Title</td>
+		<td>@String.Format("{0:g}", item.ChangeDate)</td>
+		<td>@String.Format("{0:g}", item.PublishDate)</td>
+		<td>@item.AllowComments</td>
+		<td>@item.CommentCounts</td>
+	</tr>
+} 
+</table>
+<p>@Html.Partial("~/Views/Shared/Pager.cshtml", new PagerModel(Model, "Index"))</p>
+<p>
+	@(Html.ActionLink<StaticPageController>(c => c.Create(), "Create new", new { @class = "grid_create", title = "Create new" }))
+</p>
+@{ Html.ScriptInlineInclude(
+@<script type="text/javascript">
+	$(function () {
+		$("#content").ajaxGrid();
+	});
+</script>); 
+}
+

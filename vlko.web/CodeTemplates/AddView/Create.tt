@@ -24,12 +24,12 @@ if (isFramework4) {
 // The following chained if-statement outputs the user-control needed for a partial view, or opens the asp:Content tag or html tags used in the case of a master page or regular view page
 if(mvcHost.IsPartialView) {
 #>
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<#= mvcViewDataTypeGenericString #>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<#= mvcViewDataTypeGenericString #>" 
 
 <#
 } else if(mvcHost.IsContentPage) {
 #>
-<%@ Page Title="" Language="C#" MasterPageFile="<#= mvcHost.MasterPageFile #>" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="<#= mvcHost.MasterPageFile #>" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" 
 
 <#
 	foreach(string cphid in mvcHost.ContentPlaceHolderIDs) {
@@ -51,7 +51,7 @@ if(mvcHost.IsPartialView) {
 <#
 } else {
 #>
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" %>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -67,17 +67,17 @@ if(mvcHost.IsPartialView) {
 		Html.ScriptInclude("~/Scripts/jquery.validate.min.js"); 
 		Html.ScriptInclude("~/Scripts/MicrosoftMvcJQueryValidation.js"); 
 		Html.EnableClientValidation(); 
-	%>
+	
 	
 <#
 if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 	Dictionary<string, string> properties = new Dictionary<string, string>();
 	FilterProperties(mvcHost.ViewDataType, properties);
 #>
-    <% using (Html.BeginForm()) {%>
+    <% using (Html.BeginForm()) {
 	<div class="ajax_content">
 	
-        <%<#= nugget #> Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") %>
+        <%<#= nugget #> Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") 
 
         <fieldset>
             <legend>Fields</legend>
@@ -85,7 +85,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 <#
 	foreach(KeyValuePair<string, string> property in properties) {
 #>
-                <%<#= nugget #> Html.EditorFor(model => model.<#= property.Key #>) %>       
+                <%<#= nugget #> Html.EditorFor(model => model.<#= property.Key #>)        
 <#
 	}
 #>
@@ -96,10 +96,10 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
     <div class="ajax_ignore">
         <input type="submit" value="Create" />
     </div>
-    <% } %>
+    <% } 
 
     <div>
-        <%<#= nugget #> Html.ActionLink("Back to List", "Index") %>
+        <%<#= nugget #> Html.ActionLink("Back to List", "Index") 
     </div>
 
 <#

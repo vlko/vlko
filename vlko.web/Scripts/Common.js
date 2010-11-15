@@ -86,7 +86,7 @@ function createContentDialog(settings) {
 		var visibleItems = $(">:visible", content).hide().toArray();
 
 		// inner content
-		dialog.inner = $('<div class="inner"></div>').hide();
+		dialog.inner = $('<div class="inner"></div>').css("overflow", "hidden").height("0px"); ;
 
 		// create dialog wrapper
 		var contentDialog = $('<div class="' + config.dialogName + '"></div>');
@@ -98,6 +98,8 @@ function createContentDialog(settings) {
 
 		// fill content
 		fillContentWithData(dialog.inner, config.data);
+
+		dialog.inner.hide().css("overflow", "none").height("auto");
 
 		dialog.inner.show("slide", { "direction": "right" })
 
@@ -119,6 +121,11 @@ function createContentDialog(settings) {
 function fillContentWithData(content, data) {
 	content.html(data);
 	$(".ajax_ignore", content).hide();
+	var form = $("form", content);
+	if (form.length
+		&& jQuery.validator && jQuery.validator.unobtrusive) {
+		jQuery.validator.unobtrusive.parse(content);
+	}
 }
 
 function updateEffect(content, callback) {

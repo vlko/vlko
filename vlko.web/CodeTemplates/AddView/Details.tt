@@ -26,13 +26,13 @@ if (isFramework4) {
 // The following chained if-statement outputs the user-control needed for a partial view, or opens the asp:Content tag or html tags used in the case of a master page or regular view page
 if(mvcHost.IsPartialView) {
 #>
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<#= mvcViewDataTypeGenericString #>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<#= mvcViewDataTypeGenericString #>" 
 
 <#
 } else if(mvcHost.IsContentPage) {
 #>
-<%@ Page Title="" Language="C#" MasterPageFile="<#= mvcHost.MasterPageFile #>" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" %>
-<%@ Import Namespace="vlko.web.Controllers" %>
+<%@ Page Title="" Language="C#" MasterPageFile="<#= mvcHost.MasterPageFile #>" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" 
+<%@ Import Namespace="vlko.web.Controllers" 
 <#
 	foreach(string cphid in mvcHost.ContentPlaceHolderIDs) {
 		if(cphid.Equals("TitleContent", StringComparison.OrdinalIgnoreCase)) {
@@ -53,7 +53,7 @@ if(mvcHost.IsPartialView) {
 <#
 } else {
 #>
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" %>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -77,7 +77,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 <#
 	foreach(KeyValuePair<string, string> property in properties) {
 #>
-			<%<#= nugget #> Html.DisplayFor(model => model.<#= property.Key #>) %>
+			<%<#= nugget #> Html.DisplayFor(model => model.<#= property.Key #>) 
 <#
 	}
 #>
@@ -89,13 +89,13 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 	List<string> primaryKeys = GetKeyProperties(mvcHost.ViewDataType);
 	if(primaryKeys.Count > 0) {
 #>
-        <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(Model.<#= primaryKeys[0] #>), "Edit")%> |
-        <%<#= nugget #> Html.ActionLink("Back to List", "Index") %>
+        <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(Model.<#= primaryKeys[0] #>), "Edit") |
+        <%<#= nugget #> Html.ActionLink("Back to List", "Index") 
 <#
 	} else {
 #>
-        <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(Model.PrimaryKey), "Edit")%> |
-        <%<#= nugget #> Html.ActionLink("Back to List", "Index") %>
+        <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(Model.PrimaryKey), "Edit") |
+        <%<#= nugget #> Html.ActionLink("Back to List", "Index") 
 <#
 	}
 #>

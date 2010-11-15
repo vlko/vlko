@@ -1,0 +1,54 @@
+﻿@using vlko.web.Areas.Admin.Controllers;
+@using vlko.web.Controllers;
+<div class="editor-label">
+	@Html.LabelFor(model => model)
+</div>
+<div class="editor-field">
+@{
+	Html.ScriptInclude("~/Scripts/ckeditor/ck_mvc_integration.js");
+	Html.ScriptInclude("~/Scripts/ckeditor/ckeditor.js");
+	Html.ScriptInclude("~/Scripts/ckeditor/adapters/jquery.js");
+	Html.ScriptInclude("~/Scripts/ckeditor/jquery.ui.dialog-patch.js");
+	
+}
+	@if (Request.IsAuthenticated) {
+		<div>@(Html.ActionLink<FileBrowserController>(c => c.Index(), "Browse user files", new { id = "FileBrowserLink" + Html.IdForModel(), target="FileBrowser" }))</div>
+	}
+	
+	@Html.TextArea("", (string)ViewData.Model, cssClass: "text-box multi-line")
+	@Html.ValidationMessageFor(model => model)
+
+	@if (string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description))	{
+	<span class="editor-hint">
+		@Html.Raw(ViewData.ModelMetadata.Description)
+	</span>
+	}
+</div>
+@{ Html.ScriptInlineInclude(
+@<script type="text/javascript">
+	$(function () {
+		var editorId = "@item.ViewData.ModelMetadata.PropertyName";
+		if (CKEDITOR.instances[editorId]) {
+			CKEDITOR.remove(CKEDITOR.instances[editorId]);
+		}
+		$("#" + editorId).ckeditor();
+
+		$("#@("FileBrowserLink" + item.Html.IdForModel())")
+				.click(function () {
+					createLoading();
+					$.ajax({
+						url: this.href + "?ajaxTime=" + new Date().getTime(),
+						success: function (data) {
+							var fileBrowser = createContentDialog({
+								data: data,
+								prevUrl: getCurrentHistoryUrl()
+							});
+							closeLoading();
+						},
+						error: ajaxException
+					});
+					return false;
+				}); ;
+	});
+</script>); 
+} 

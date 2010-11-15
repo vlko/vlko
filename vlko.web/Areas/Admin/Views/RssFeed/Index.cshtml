@@ -1,0 +1,46 @@
+﻿@model PagedModel<vlko.model.Action.ViewModel.RssFeedViewModel>
+@using vlko.web.Areas.Admin.Controllers;
+@using vlko.web.Controllers;
+@using vlko.core.Components;
+@{
+	View.Title = "Rss feed index";
+	
+	Html.ScriptInclude("~/Scripts/Grid.js");
+}
+<h2>Index</h2>
+
+<table>
+	<tr>
+		<th></th>
+		<th>@vlko.model.ModelResources.Name</th>
+		<th>@vlko.model.ModelResources.FeedUrl</th>
+		<th>Show full content</th>
+		<th>Number of feed items</th>
+	</tr>
+@foreach (var item in Model) { 
+	<tr>
+		<td>
+			@(Html.ActionLink<RssFeedController>(c => c.Edit(item.Id), "Edit", new { @class = "grid_edit", title = "Edit" }))&nbsp;
+			@(Html.ActionLink<RssFeedController>(c => c.Details(item.Id), "Details", new { @class = "grid_details", title = "Details" }))&nbsp;
+			@(Html.ActionLink<RssFeedController>(c => c.Delete(item.Id), "Delete", new { @class = "grid_delete", title = "Delete" }))
+		</td>
+		<td>@item.Name</td>
+		<td>@item.FeedUrl</td>
+		<td>@item.DisplayFullContent</td>
+		<td>@item.FeedItemCount</td>
+	</tr>
+} 
+
+</table>
+<div>@Html.Partial("~/Views/Shared/Pager.cshtml", new PagerModel(Model, "Index"))</div>
+<div>
+	@(Html.ActionLink<RssFeedController>(c => c.Create(), "Create new", new { @class = "grid_create", title = "Create new" }))
+</div>
+@{ Html.ScriptInlineInclude(
+@<script type="text/javascript">
+	$(function () {
+		$("#content").ajaxGrid();
+	});
+</script>);
+}	
+

@@ -1,0 +1,24 @@
+﻿@model vlko.model.Action.CRUDModel.StaticTextCRUDModel
+@using vlko.web.Areas.Admin.Controllers;
+@{
+	View.Title = "Details";
+}
+<h2>Details</h2>
+<div>
+	<fieldset>
+		<legend>Fields</legend>
+		
+		@Html.DisplayFor(model => model.Id) 
+		@Html.DisplayFor(model => model.FriendlyUrl)
+		@Html.DisplayFor(model => model.Title)
+		@Html.DisplayFor(model => model.Text)
+		@Html.DisplayFor(model => model.ChangeDate)
+		@Html.DisplayFor(model => model.PublishDate)
+		@Html.DisplayFor(model => model.AllowComments)
+		
+	</fieldset>
+</div>
+<div class="ajax_ignore">
+	@(Html.ActionLink<StaticPageController>(c => c.Edit(Model.Id), "Edit")) |
+	@Html.ActionLink("Back to List", "Index") 
+</div>

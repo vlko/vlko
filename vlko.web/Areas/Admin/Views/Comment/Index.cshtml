@@ -1,0 +1,47 @@
+﻿@model PagedModel<vlko.model.Action.ViewModel.CommentForAdminViewModel>
+@using vlko.web.Areas.Admin.Controllers
+@using vlko.core.Components
+@{
+	View.Title = "Comments";
+	Html.ScriptInclude("~/Scripts/Grid.js");
+}
+<h2>Comments</h2>
+
+<table>
+	<tr>
+		<th rowspan="2"></th>
+		<th>@vlko.model.ModelResources.Name</th>
+		<th>@vlko.model.ModelResources.CreatedDate</th>
+		<th>@vlko.model.ModelResources.Changed</th>
+		<th>@vlko.model.ModelResources.UserName</th>
+		<th>@vlko.model.ModelResources.ClientIp</th>
+	</tr>
+	<tr>
+		<th colspan="5">@vlko.model.ModelResources.Text</th>
+	</tr>
+@foreach (var item in Model) { 
+	<tr>
+		<td rowspan="2">
+			@(Html.ActionLink<CommentController>(c => c.Edit(item.Id), "Edit", new { @class = "grid_edit", title = "Edit" }))&nbsp;
+			@(Html.ActionLink<CommentController>(c => c.Details(item.Id), "Details", new { @class = "grid_details", title = "Details" }))&nbsp;
+			@(Html.ActionLink<CommentController>(c => c.Delete(item.Id), "Delete", new { @class = "grid_delete", title = "Delete" }))</td>
+		<td>@item.Name</td>
+		<td>@String.Format("{0:g}", item.CreatedDate) </td>
+		<td>@(item.Changed ? "ver. " + item.Version : item.Changed.ToString())</td>
+		<td>@((item.Owner == null) ? "anonymous-" + item.AnonymousName : item.Owner.Name)</td>
+		<td>@item.ClientIp</td>
+	</tr>
+	<tr>
+		<td colspan="5">@Html.Raw(item.Text)</td>
+	</tr>
+} 
+
+</table>
+<p>@Html.Partial("~/Views/Shared/Pager.cshtml", new PagerModel(Model, "Index"))</p>
+@{ Html.ScriptInlineInclude(
+@<script type="text/javascript">
+	$(function () {
+		$("#content").ajaxGrid();
+	});
+</script>);
+}

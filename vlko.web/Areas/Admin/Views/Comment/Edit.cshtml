@@ -1,0 +1,37 @@
+﻿@model vlko.model.Action.CRUDModel.CommentCRUDModel
+@{
+	View.Title = "Edit";
+
+	Html.ScriptInclude("~/Scripts/jquery.validate.js");
+	Html.ScriptInclude("~/Scripts/jquery.validate.unobtrusive.js");
+}
+<h2>Edit</h2>
+	
+@using (Html.BeginForm()) {
+<div>
+	@Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") 
+		
+	<fieldset>
+		<legend>Fields</legend>
+			
+		@Html.HiddenFor(model => model.Id) 	     
+		@Html.DisplayFor(model => model.ContentId) 	     
+		@Html.EditorFor(model => model.Name) 
+		@Html.EditorFor(model => model.Text)	
+		@Html.DisplayFor(model => model.AnonymousName)				     
+		@Html.DisplayFor(model => model.ChangeDate)	     
+		@Html.DisplayFor(model => model.ParentId)	     
+		@Html.DisplayFor(model => model.ChangeUser.Name)     
+		@Html.DisplayFor(model => model.ClientIp)	     
+		@Html.DisplayFor(model => model.UserAgent)	     
+
+	</fieldset>
+</div>
+<div class="ajax_ignore">
+	<input type="submit" value="Save" />
+</div>
+} 
+
+<div class="ajax_ignore">
+	@Html.ActionLink("Back to List", "Index") 
+</div>

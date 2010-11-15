@@ -1,0 +1,21 @@
+﻿@model DateTime
+@using System.Globalization;
+<div class="editor-label">
+	@Html.LabelFor(model => model)
+</div>
+<div class="editor-field">
+	@Html.TextBox("", Html.FormatDateValue(ViewData.Model), cssClass: "text-box single-line")
+	@Html.ValidationMessageFor(model => model)
+	@if (string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {
+	<span class="editor-hint">
+		@Html.Raw(ViewData.ModelMetadata.Description)
+	</span>
+	} 
+</div>
+@{ Html.ScriptInlineInclude(
+@<script type="text/javascript">
+$(function() {
+	$("#@item.ViewData.ModelMetadata.PropertyName").datepicker({dateFormat: "@item.Html.GetCurrentJsDatePattern() ", showAnim:"fadeIn"});
+});
+</script>);
+}

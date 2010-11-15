@@ -1,0 +1,61 @@
+﻿@model vlko.model.Action.CRUDModel.RssFeedCRUDModel
+@{
+	View.Title = "Edit";
+
+	Html.ScriptInclude("~/Scripts/jquery.validate.js");
+	Html.ScriptInclude("~/Scripts/jquery.validate.unobtrusive.js");
+}
+<h2>Edit</h2>
+@using (Html.BeginForm()) {
+<div>
+	@Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") 
+		
+	<fieldset>
+		<legend>Fields</legend>
+			
+		@Html.HiddenFor(model => model.Id)	     
+		@Html.EditorFor(model => model.Name) 	     
+		@Html.EditorFor(model => model.Url) 	     
+		@Html.EditorFor(model => model.AuthorRegex) 	     
+		@Html.EditorFor(model => model.GetDirectContent) 	     
+		@Html.EditorFor(model => model.DisplayFullContent) 	     
+		@Html.EditorFor(model => model.ContentParseRegex) 	 
+		<div class="editor-label"></div><div class="editor-field"><button id="test_button" value="Test">Test</button></div>    
+
+	</fieldset>
+</div>
+<div class="ajax_ignore">
+	<input type="submit" value="Save" />
+</div>
+} 
+
+<div class="ajax_ignore">
+	@Html.ActionLink("Back to List", "Index") 
+</div>
+
+<div id="test_results"></div>
+
+@{ Html.ScriptInlineInclude(
+@<script type="text/javascript">
+	$(function () {
+		$("#test_button").click(function (event) {
+			var form = $(this).parents("form");
+			createLoading();
+			$.ajax({
+				type: "POST",
+				url: "@item.Url.Action("TestFeed") ",
+				data: form.serialize(),
+				success: function (data) {
+					var content = $("#test_results");
+					content.html(data);
+					closeLoading();
+					updateEffect(content);
+				},
+				error: ajaxException
+			});
+			event.preventDefault();
+		});
+	});
+</script>);
+} 	
+

@@ -24,12 +24,12 @@ if (isFramework4) {
 // The following chained if-statement outputs the user-control needed for a partial view, or opens the asp:Content tag or html tags used in the case of a master page or regular view page
 if(mvcHost.IsPartialView) {
 #>
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<#= mvcViewDataTypeGenericString #>" %>
-<%@ Import Namespace="vlko.web.Controllers" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<#= mvcViewDataTypeGenericString #>" 
+<%@ Import Namespace="vlko.web.Controllers" 
 <#
 } else if(mvcHost.IsContentPage) {
 #>
-<%@ Page Title="" Language="C#" MasterPageFile="<#= mvcHost.MasterPageFile #>" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="<#= mvcHost.MasterPageFile #>" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" 
 
 <#
 	foreach(string cphid in mvcHost.ContentPlaceHolderIDs) {
@@ -51,7 +51,7 @@ if(mvcHost.IsPartialView) {
 <#
 } else {
 #>
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" %>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<#= mvcViewDataTypeGenericString #>" 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -63,7 +63,7 @@ if(mvcHost.IsPartialView) {
 <#
 }
 #>
-	<% Html.ScriptInclude("~/Scripts/Grid.js"); %>
+	<% Html.ScriptInclude("~/Scripts/Grid.js"); 
 <#
 if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 	Dictionary<string, string> properties = new Dictionary<string, string>();
@@ -75,52 +75,52 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 <#
 	foreach(KeyValuePair<string, string> property in properties) {
 #>
-            <th><%= vlko.model.ModelResources.<#= property.Key #> %></th>
+            <th><%= vlko.model.ModelResources.<#= property.Key #> </th>
 <#
     }
 #>
         </tr>
-    <% foreach (var item in Model) { %>
+    <% foreach (var item in Model) { 
         <tr>
 <#
 	List<string> primaryKeys = GetKeyProperties(mvcHost.ViewDataType);
 	if(primaryKeys.Count > 0) {
 #>
             <td>
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.<#= primaryKeys[0] #>), "Edit", new { @class = "grid_edit", title = "Edit" })%>&nbsp;
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Details(item.<#= primaryKeys[0] #>), "Details", new { @class = "grid_details", title = "Details" })%>&nbsp;
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.<#= primaryKeys[0] #>), "Delete", new { @class = "grid_delete", title = "Delete" })%> 
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.<#= primaryKeys[0] #>), "Edit", new { @class = "grid_edit", title = "Edit" })&nbsp;
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Details(item.<#= primaryKeys[0] #>), "Details", new { @class = "grid_details", title = "Details" })&nbsp;
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.<#= primaryKeys[0] #>), "Delete", new { @class = "grid_delete", title = "Delete" }) 
             </td>
 <#
 	} else {
 #>
             <td>
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.PrimaryKey), "Edit", new { @class = "grid_edit", title = "Edit" })%>&nbsp;
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Details(item.PrimaryKey), "Details", new { @class = "grid_details", title = "Details" })%>&nbsp;
-                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.PrimaryKey), "Delete", new { @class = "grid_delete", title = "Delete" })%>             </td>
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Edit(item.PrimaryKey), "Edit", new { @class = "grid_edit", title = "Edit" })&nbsp;
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Details(item.PrimaryKey), "Details", new { @class = "grid_details", title = "Details" })&nbsp;
+                <%<#= nugget #> Html.ActionLink<change_me>(c => c.Delete(item.PrimaryKey), "Delete", new { @class = "grid_delete", title = "Delete" })             </td>
 <#
 	}
 	
 	foreach(KeyValuePair<string, string> property in properties) {
 #>
-            <td><%<#= nugget #> <#= htmlEncodeBegin #><#= property.Value #><#= htmlEncodeEnd #> %></td>
+            <td><%<#= nugget #> <#= htmlEncodeBegin #><#= property.Value #><#= htmlEncodeEnd #> </td>
 <#
 	}
 #>
         </tr>
-    <% } %>
+    <% } 
 
     </table>
     <div>
-        <%<#= nugget #> Html.ActionLink<change_me>(c => c.Create(), "Create new", new { @class = "grid_create", title = "Create new" })%> 
+        <%<#= nugget #> Html.ActionLink<change_me>(c => c.Create(), "Create new", new { @class = "grid_create", title = "Create new" }) 
     </div>
-	<% Html.ScriptInlineInclude(() => {%>
+	<% Html.ScriptInlineInclude(() => {
 	<script type="text/javascript">
 		$(function () {
 			$("#content").ajaxGrid();
 		});
 	</script> 
-	<% }); %>	
+	<% }); 	
 <#
 }
 #>
