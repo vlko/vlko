@@ -151,6 +151,7 @@ namespace vlko.model.Implementation.NH.Action
 					SessionFactory<User>.Update(userToChangePassword);
 					tran.Commit();
 				}
+				return true;
 			}
 			return false;
 		}
