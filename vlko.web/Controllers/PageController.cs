@@ -38,25 +38,29 @@ namespace vlko.web.Controllers
 		{
 			var staticText = RepositoryFactory.Action<IStaticTextData>().Get(friendlyUrl, DateTime.Now);
 
-			CommentViewTypeEnum sortType = ParseCommentViewType(sort);
+			if (staticText != null)
+			{
+				CommentViewTypeEnum sortType = ParseCommentViewType(sort);
 
-			IEnumerable<CommentTreeViewModel> comments;
-			LoadComments(sortType, out comments, commentsModel, staticText.Id);
+				IEnumerable<CommentTreeViewModel> comments;
+				LoadComments(sortType, out comments, commentsModel, staticText.Id);
 
-			return ViewWithAjax(
-				new PageViewModel
-					{
-						StaticText	= staticText,
-						CommentViewType = sortType,
-						FlatComments = commentsModel,
-						TreeComments = comments,
-						NewComment = new CommentCRUDModel
-						             	{
-											Name = staticText.Title,
-											ContentId = staticText.Id,
-						             		ChangeUser = UserInfo.User
-						             	}
-					});
+				return ViewWithAjax(
+					new PageViewModel
+						{
+							StaticText = staticText,
+							CommentViewType = sortType,
+							FlatComments = commentsModel,
+							TreeComments = comments,
+							NewComment = new CommentCRUDModel
+							             	{
+							             		Name = staticText.Title,
+							             		ContentId = staticText.Id,
+							             		ChangeUser = UserInfo.User
+							             	}
+						});
+			}
+			return new HttpNotFoundResult();
 		}
 
 

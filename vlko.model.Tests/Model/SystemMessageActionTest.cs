@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.model.Action;
+using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.NH.Testing;
 using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
@@ -24,7 +20,9 @@ namespace vlko.model.Tests.Model
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
-			using (var tran = new TransactionScope())
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+
+			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				// create items as they can 
 				_messages = new[]
@@ -53,8 +51,9 @@ namespace vlko.model.Tests.Model
 				            	};
 				foreach (var systemMessage in _messages)
 				{
-					ActiveRecordMediator<SystemMessage>.Create(systemMessage);
+					SessionFactory<SystemMessage>.Create(systemMessage);
 				}
+				tran.Commit();
 			}
 		}
 
@@ -64,15 +63,15 @@ namespace vlko.model.Tests.Model
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]
 		public void Test_get_all_sort_by_date_desc()
 		{
-			using (new SessionScope())
+			using (RepositoryFactory.StartUnitOfWork())
 			{
 				var action = RepositoryFactory.Action<ISystemMessageAction>();
 
@@ -96,7 +95,7 @@ namespace vlko.model.Tests.Model
 		[TestMethod]
 		public void Test_add_new()
 		{
-			using (new SessionScope())
+			using (RepositoryFactory.StartUnitOfWork())
 			{
 				var action = RepositoryFactory.Action<ISystemMessageAction>();
 
@@ -110,6 +109,7 @@ namespace vlko.model.Tests.Model
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
 					newItem = action.Create(newItem);
+					tran.Commit();
 				}
 				
 				var items = action.GetAll().OrderByDescending(item => item.CreatedDate).ToPage(0, 1);

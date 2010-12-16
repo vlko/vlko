@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Framework;
+using System.Collections.Generic;
+using vlko.core.Repository.Exceptions;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.core.Repository;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
-using NotFoundException = vlko.core.Repository.Exceptions.NotFoundException;
 
 namespace vlko.model.Implementation.NH.Action
 {
@@ -20,7 +19,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Created item.</returns>
 		public CommentCRUDModel Create(CommentCRUDModel item)
 		{
-			var content = ActiveRecordMediator<Content>.FindByPrimaryKey(item.ContentId);
+			var content = SessionFactory<Content>.FindByPrimaryKey(item.ContentId);
 			var comment = new Comment()
 							  {
 								  Name = item.Name,
@@ -51,14 +50,14 @@ namespace vlko.model.Implementation.NH.Action
 			}
 			else
 			{
-				var parentComment = ActiveRecordMediator<Comment>.FindByPrimaryKey(item.ParentId.Value);
+				var parentComment = SessionFactory<Comment>.FindByPrimaryKey(item.ParentId.Value);
 				comment.Level = parentComment.Level + 1;
 				comment.ParentComment = parentComment;
 				comment.TopComment = parentComment.TopComment;
 				comment.ParentVersion = parentComment.ActualVersion;
 			}
 
-			ActiveRecordMediator<Comment>.Create(comment);
+			SessionFactory<Comment>.Create(comment);
 
 			// assign id
 			item.Id = comment.Id;
@@ -89,7 +88,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// </returns>
 		public CommentCRUDModel FindByPk(Guid id, bool throwOnNotFound)
 		{
-			var query = ActiveRecordLinqBase<CommentVersion>.Queryable
+			var query = SessionFactory<CommentVersion>.Queryable
 				.Where(commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version
 				                         && commentVersion.Comment.Id == id)
 				.Select(commentVersion => new CommentCRUDModel
@@ -122,7 +121,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Updted item.</returns>
 		public CommentCRUDModel Update(CommentCRUDModel item)
 		{
-			var comment = ActiveRecordMediator<Comment>.FindByPrimaryKey(item.Id);
+			var comment = SessionFactory<Comment>.FindByPrimaryKey(item.Id);
 
 			comment.Name = item.Name;
 			comment.ActualVersion = comment.CommentVersions.Count;
@@ -139,7 +138,7 @@ namespace vlko.model.Implementation.NH.Action
 				}
 				);
 
-			ActiveRecordMediator<Comment>.Save(comment);
+			SessionFactory<Comment>.Update(comment);
 
 			return item;
 		}
@@ -150,8 +149,8 @@ namespace vlko.model.Implementation.NH.Action
 		/// <param name="item">The item.</param>
 		public void Delete(CommentCRUDModel item)
 		{
-			var comment = ActiveRecordMediator<Comment>.FindByPrimaryKey(item.Id);
-			ActiveRecordMediator<Comment>.Delete(comment);
+			var comment = SessionFactory<Comment>.FindByPrimaryKey(item.Id);
+			SessionFactory<Comment>.Delete(comment);
 		}
 	}
 }

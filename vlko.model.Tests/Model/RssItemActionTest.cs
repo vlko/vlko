@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
+using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.NH.Testing;
 using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
@@ -29,14 +26,16 @@ namespace vlko.model.Tests.Model
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
-			using (var tran = new TransactionScope())
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+
+			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				_feed = new RssFeed
 				        	{
 				        		Name = "feed",
 				        		Url = "feed_url"
 				        	};
-				ActiveRecordMediator<RssFeed>.Create(_feed);
+				SessionFactory<RssFeed>.Create(_feed);
 				_rssItems = new[]
 				            	{
 				            		new RssItem()
@@ -90,8 +89,9 @@ namespace vlko.model.Tests.Model
 				            	};
 				foreach (var rssItem in _rssItems)
 				{
-					ActiveRecordMediator<RssItem>.Create(rssItem);
+					SessionFactory<RssItem>.Create(rssItem);
 				}
+				tran.Commit();
 			}
 		}
 
@@ -101,9 +101,9 @@ namespace vlko.model.Tests.Model
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]
@@ -119,7 +119,8 @@ namespace vlko.model.Tests.Model
 								Description = "DescriptionNew",
 								Author = "twit_usernew",
 								Url = "url_new",
-								FeedId = _feed.Id
+								FeedId = _feed.Id,
+								Published = DateTime.Now
 				           	};
 
 				var action = RepositoryFactory.Action<IRssItemAction>();
@@ -130,7 +131,7 @@ namespace vlko.model.Tests.Model
 					tran.Commit();
 				}
 
-				var storedItem = ActiveRecordMediator<RssItem>.FindAllByProperty("FeedItemId", item.FeedItemId).First();
+				var storedItem = SessionFactory<RssItem>.Queryable.First(rssItem => rssItem.FeedItemId == item.FeedItemId);
 
 				Assert.AreEqual(item.FeedItemId, storedItem.FeedItemId);
 				Assert.AreEqual(item.FeedId, storedItem.RssFeed.Id);
@@ -153,7 +154,8 @@ namespace vlko.model.Tests.Model
 					Description = "Descriptionchange",
 					Author = "twit_userchange",
 					Url = "url_change",
-					FeedId = _feed.Id
+					FeedId = _feed.Id,
+					Published = DateTime.Now
 				};
 
 				using (var tran = RepositoryFactory.StartTransaction())
@@ -162,7 +164,7 @@ namespace vlko.model.Tests.Model
 					tran.Commit();
 				}
 
-				storedItem = ActiveRecordMediator<RssItem>.FindAllByProperty("FeedItemId", item.FeedItemId).First();
+				storedItem = SessionFactory<RssItem>.Queryable.First(rssItem => rssItem.FeedItemId == item.FeedItemId);
 
 				Assert.AreEqual(item.FeedItemId, storedItem.FeedItemId);
 				Assert.AreEqual(item.FeedId, storedItem.RssFeed.Id);
@@ -192,7 +194,8 @@ namespace vlko.model.Tests.Model
 				           		Description = "DescriptionNew",
 				           		Author = "twit_usernew",
 				           		Url = "url_new",
-				           		FeedId = _feed.Id
+				           		FeedId = _feed.Id,
+								Published = DateTime.Now
 				           	};
 
 				var action = RepositoryFactory.Action<IRssItemAction>();

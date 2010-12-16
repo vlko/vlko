@@ -1,10 +1,10 @@
 ﻿using System;
-using Castle.ActiveRecord;
 using vlko.core.Action;
 using vlko.core.Action.Model;
 using vlko.core.Roots;
 using vlko.model.Action;
 using vlko.core.Repository;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
 
 namespace vlko.model.Implementation.NH.Action
@@ -18,10 +18,10 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Application setting.</returns>
 		public AppSettingModel Save(AppSettingModel item)
 		{
-			var oldItem = ActiveRecordMediator<AppSetting>.FindByPrimaryKey(item.Name, false);
+			var oldItem = SessionFactory<AppSetting>.FindByPrimaryKey(item.Name, false);
 			if (oldItem == null)
 			{
-				ActiveRecordMediator<AppSetting>.Create(new AppSetting
+				SessionFactory<AppSetting>.Create(new AppSetting
 				                                        	{
 																Name = item.Name,
 																Value = item.Value
@@ -30,7 +30,7 @@ namespace vlko.model.Implementation.NH.Action
 			else
 			{
 				oldItem.Value = item.Value;
-				ActiveRecordMediator<AppSetting>.Update(oldItem);
+				SessionFactory<AppSetting>.Update(oldItem);
 			}
 			return item;
 		}
@@ -42,7 +42,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Application setting.</returns>
 		public AppSettingModel Get(string name)
 		{
-			var item = ActiveRecordMediator<AppSetting>.FindByPrimaryKey(name, false);
+			var item = SessionFactory<AppSetting>.FindByPrimaryKey(name, false);
 			if (item != null)
 			{
 				return new AppSettingModel

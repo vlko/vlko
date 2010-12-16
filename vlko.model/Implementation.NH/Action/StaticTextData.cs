@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.ActiveRecord.Framework;
 using vlko.model.Action;
 using vlko.model.Action.ViewModel;
 using vlko.core.Repository;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
 
 namespace vlko.model.Implementation.NH.Action
@@ -115,7 +115,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Projection query.</returns>
 		private static IQueryable<StaticTextViewModel> GetProjection(Func<IQueryable<StaticTextVersion>, IQueryable<StaticTextVersion>> additionalFilter)
 		{
-			var query = ActiveRecordLinqBase<StaticTextVersion>.Queryable
+			var query = SessionFactory<StaticTextVersion>.Queryable
 				.Where(textVersion => textVersion.StaticText.ActualVersion == textVersion.Version);
 			query = additionalFilter(query);
 			return query.Select(textVersion => new StaticTextViewModel
@@ -128,7 +128,7 @@ namespace vlko.model.Implementation.NH.Action
 			                                   		ChangeDate = textVersion.CreatedDate,
 			                                   		PublishDate = textVersion.StaticText.PublishDate,
 													AllowComments = textVersion.StaticText.AreCommentAllowed,
-													CommentCounts = ActiveRecordLinqBase<Comment>.Queryable.Count(comm => comm.Content.Id == textVersion.StaticText.Id)
+													CommentCounts = SessionFactory<Comment>.Queryable.Count(comm => comm.Content.Id == textVersion.StaticText.Id)
 			                                   	});
 		}
 
@@ -139,7 +139,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Projection query.</returns>
 		private static IQueryable<StaticTextWithFullTextViewModel> GetFullTextProjection(Func<IQueryable<StaticTextVersion>, IQueryable<StaticTextVersion>> additionalFilter)
 		{
-			var query = ActiveRecordLinqBase<StaticTextVersion>.Queryable
+			var query = SessionFactory<StaticTextVersion>.Queryable
 				.Where(textVersion => textVersion.StaticText.ActualVersion == textVersion.Version);
 			query = additionalFilter(query);
 			return query.Select(textVersion => new StaticTextWithFullTextViewModel
@@ -153,7 +153,7 @@ namespace vlko.model.Implementation.NH.Action
 			                                   		ChangeDate = textVersion.CreatedDate,
 			                                   		PublishDate = textVersion.StaticText.PublishDate,
 			                                   		AllowComments = textVersion.StaticText.AreCommentAllowed,
-													CommentCounts = ActiveRecordLinqBase<Comment>.Queryable.Count(comm => comm.Content.Id == textVersion.StaticText.Id)
+													CommentCounts = SessionFactory<Comment>.Queryable.Count(comm => comm.Content.Id == textVersion.StaticText.Id)
 			                                   	});
 		}
 	}

@@ -159,7 +159,7 @@
     <Compile Include="Repository\RepositoryAction\IDeleteAction.cs" />
     <Compile Include="Repository\RepositoryAction\IFindByPkAction.cs" />
     <Compile Include="Repository\RepositoryAction\ILinqDataAction.cs" />
-    <Compile Include="Repository\RepositoryAction\ISaveAction.cs" />
+    <Compile Include="Repository\RepositoryAction\IUpdateAction.cs" />
     <Compile Include="Repository\RepositoryFactory.cs" />
     <Compile Include="Roots\IAppSetting.cs" />
     <Compile Include="Roots\IUser.cs" />

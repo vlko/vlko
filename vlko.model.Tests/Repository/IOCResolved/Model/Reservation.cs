@@ -1,47 +1,32 @@
 ﻿using System;
-using Castle.ActiveRecord;
 
 namespace vlko.model.Tests.Repository.IOCResolved.Model
 {
-	[ActiveRecord]
 	public class Reservation
 	{
 		/// <summary>
 		/// Gets or sets the composite key.
 		/// </summary>
 		/// <value>The composite key.</value>
-		[CompositeKey]
 		public virtual ReservationCompositeKey CompositeKey { get; set; }
 
-		[Property("Name", ColumnType = "String", NotNull = true)]
 		public virtual string Name
 		{
 			get;
 			set;
 		}
 
-		[BelongsTo("HotelId", Insert=false, Update=false, Lazy=FetchWhen.OnInvoke)]
 		public virtual Hotel Hotel
 		{
 			get;
 			set;
 		}
 
-        [BelongsTo("RoomId", Insert = false, Update = false, Lazy = FetchWhen.OnInvoke)]
 		public virtual Room Room
 		{
 			get;
 			set;
 		}
-
-        #region ILocalPk Members
-
-        public object LocalPk
-        {
-            get { return CompositeKey; }
-        }
-
-        #endregion
 	}
 
 	[Serializable]
@@ -68,21 +53,18 @@ namespace vlko.model.Tests.Repository.IOCResolved.Model
 			ReservationDate = reservationDate;
 		}
 
-		[KeyProperty]
 		public virtual Guid HotelId
 		{
 			get;
 			set;
 		}
 
-		[KeyProperty]
 		public virtual Guid RoomId
 		{
 			get;
 			set;
 		}
 
-		[KeyProperty]
 		public virtual DateTime ReservationDate
 		{
 			get;
@@ -98,8 +80,8 @@ namespace vlko.model.Tests.Repository.IOCResolved.Model
 		public override string ToString()
 		{
 			return String.Join(":", new string[] {
-                        HotelId.ToString(),
-                        RoomId.ToString(),
+						HotelId.ToString(),
+						RoomId.ToString(),
 						ReservationDate.ToString()});
 		}
 

@@ -1,35 +1,30 @@
-﻿/*----------------------------------------------------------
-The base color for this template is #5c87b2. If you'd like
-to use a different color start by replacing all instances of
-#5c87b2 with your new color.
-----------------------------------------------------------*/
-body
+﻿body
 {
-	background-color: #5c87b2;
+	background-color: #eaf2fd;
 	font-size: 12px;
-	font-family: Helvetica, Arial, Sans-Serif;
+	font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
 	margin: 0;
 	padding: 0;
-	color: #696969;
+	color: black;
 }
 
 a:link
 {
-	color: #034af3;
+	color: #25a0da;
 	text-decoration: underline;
 }
 a:visited
 {
-	color: #505abc;
+	color: #25a0da;
 }
 a:hover
 {
-	color: #1d60ff;
+	color: #309b46;
 	text-decoration: none;
 }
 a:active
 {
-	color: #12eb87;
+	color: #309b46;
 }
 
 p, ul
@@ -42,9 +37,8 @@ p, ul
 ----------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6
 {
+	font-weight: normal;	
 	font-size: 1.5em;
-	color: #000;
-	font-family: Arial, Helvetica, sans-serif;
 }
 
 h1
@@ -104,18 +98,14 @@ page width. Or, you can specify an exact pixel width. */
 {
 	position: relative;
 	margin-bottom: 0px;
-	color: #000;
 	padding: 0;
 }
 
 #header h1
 {
-	font-weight: bold;
 	padding: 5px 0;
 	margin: 0;
-	color: #fff;
 	border: none;
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 32px !important;
 }
 
@@ -129,7 +119,6 @@ page width. Or, you can specify an exact pixel width. */
 
 #footer
 {
-	color: #999;
 	padding: 10px 0;
 	text-align: center;
 	line-height: normal;
@@ -168,7 +157,6 @@ ul#menu li#greeting
 	font-weight: bold;
 	text-decoration: none;
 	line-height: 2.8em;
-	color: #fff;
 }
 
 ul#menu li a
@@ -178,7 +166,6 @@ ul#menu li a
 	text-decoration: none;
 	line-height: 2.8em;
 	background-color: #e8eef4;
-	color: #034af3;
 }
 
 ul#menu li a:hover
@@ -196,7 +183,6 @@ ul#menu li a:active
 ul#menu li.selected a
 {
 	background-color: #fff;
-	color: #000;
 }
 
 /* FORM LAYOUT ELEMENTS   
@@ -273,7 +259,7 @@ table .no_wrap
 
 #menucontainer
 {
-	margin-top:40px;
+	clear:both;
 }
 
 div#title
@@ -289,24 +275,23 @@ div#title
 	display:block;
 	text-align:right;
 	margin:10px;
-	color:White;
 }
 
 #logindisplay a:link
 {
-	color: white;
+	color: black;
 	text-decoration: underline;
 }
 
 #logindisplay a:visited
 {
-	color: white;
+	color: black;
 	text-decoration: underline;
 }
 
 #logindisplay a:hover
 {
-	color: white;
+	color: black;
 	text-decoration: none;
 }
 

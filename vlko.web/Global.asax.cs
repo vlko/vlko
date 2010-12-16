@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Castle.ActiveRecord;
-using Castle.Windsor;
+using NHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 using NLog;
 using vlko.core.Action;
 using vlko.core.InversionOfControl;
@@ -83,11 +82,15 @@ namespace vlko.web
 
 			ApplicationInit.FullInit();
 
-			ActiveRecordStarter.Initialize();
-			ActiveRecordStarter.RegisterTypes(ApplicationInit.ListOfModelTypes());
+			var dataExists = File.Exists(HttpContext.Current.Server.MapPath("~/App_Data/ActiveRecord.dat"));
+
+			var config = new Configuration();
+			config.Configure();
+			DBInit.InitMappings(config);
+			DBInit.RegisterSessionFactory(config.BuildSessionFactory());
 			
 
-			var dataExists = File.Exists(HttpContext.Current.Server.MapPath("~/App_Data/ActiveRecord.dat"));
+
 
 			// set search folder
 			var indexDirectory = HttpContext.Current.Server.MapPath("~/App_Data/Index.Lucene");
@@ -108,21 +111,22 @@ namespace vlko.web
 
 			if (!dataExists)
 			{
-				CreateSomeData();
+				CreateSomeData(config);
 			}
 
-			SchemaUpdate();
+			SchemaUpdate(config);
 		}
 
 		/// <summary>
 		/// Schemas the update.
 		/// </summary>
-		private void SchemaUpdate()
+		private void SchemaUpdate(Configuration config)
 		{
-			IList errors = ActiveRecordStarter.UpdateSchema();
+			var updater = new SchemaUpdate(config);
+			updater.Execute(false, true);
 
 			StringBuilder errorLog = new StringBuilder();
-			foreach (object error in errors)
+			foreach (var error in updater.Exceptions)
 			{
 				errorLog.AppendLine(error.ToString());
 			}
@@ -135,15 +139,19 @@ namespace vlko.web
 		/// <summary>
 		/// Creates some data.
 		/// </summary>
-		private void CreateSomeData()
+		private void CreateSomeData(Configuration config)
 		{
-			ActiveRecordStarter.CreateSchema();
+			var schema = new SchemaExport(config);
+			schema.Create(false, true);
+
+			RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
 				var searchAction = RepositoryFactory.Action<ISearchAction>();
 
 
-				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				
 				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
 				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
 					new StaticTextCRUDModel

@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Testing;
-using Castle.Windsor;
+﻿using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.Action;
 using vlko.core.Action.Model;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
-using vlko.model.Action;
+using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.NH.Testing;
 using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
@@ -28,7 +22,8 @@ namespace vlko.model.Tests.Model
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
-			using (var tran = new TransactionScope())
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				_setting1 = new AppSetting
 				            	{
@@ -46,9 +41,10 @@ namespace vlko.model.Tests.Model
 				                		Value = null
 				                	};
 
-				ActiveRecordMediator<AppSetting>.Create(_setting1);
-				ActiveRecordMediator<AppSetting>.Create(_setting2);
-				ActiveRecordMediator<AppSetting>.Create(_emptySetting);
+				SessionFactory<AppSetting>.Create(_setting1);
+				SessionFactory<AppSetting>.Create(_setting2);
+				SessionFactory<AppSetting>.Create(_emptySetting);
+				tran.Commit();
 			}
 		}
 
@@ -58,15 +54,15 @@ namespace vlko.model.Tests.Model
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]
 		public void Test_get()
 		{
-			using (new SessionScope())
+			using (RepositoryFactory.StartUnitOfWork())
 			{
 				var action = RepositoryFactory.Action<IAppSettingAction>();
 
@@ -94,7 +90,7 @@ namespace vlko.model.Tests.Model
 		[TestMethod]
 		public void Test_save()
 		{
-			using (new SessionScope())
+			using (RepositoryFactory.StartUnitOfWork())
 			{
 				var action = RepositoryFactory.Action<IAppSettingAction>();
 
@@ -104,6 +100,7 @@ namespace vlko.model.Tests.Model
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
 					action.Save(item);
+					tran.Commit();
 				}
 
 				var dbItem = action.Get(_setting1.Name);
@@ -120,6 +117,7 @@ namespace vlko.model.Tests.Model
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
 					action.Save(newItem);
+					tran.Commit();
 				}
 
 				dbItem = action.Get(newItem.Name);

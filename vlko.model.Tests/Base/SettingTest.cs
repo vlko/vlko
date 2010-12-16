@@ -1,35 +1,40 @@
 ﻿using System;
 using System.Globalization;
-using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core.Action;
 using vlko.core.Base.Scheduler.Setting;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
+using vlko.model.Implementation.NH.Testing;
 
 namespace vlko.model.Tests.Base
 {
 	[TestClass]
 	public class SettingTest : InMemoryTest
 	{
+		private IUnitOfWork _session;
+
 		[TestInitialize]
 		public void Init()
 		{
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+			_session = RepositoryFactory.StartUnitOfWork();
 		}
 
 		[TestCleanup]
 		public void Cleanup()
 		{
+			_session.Dispose();
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]

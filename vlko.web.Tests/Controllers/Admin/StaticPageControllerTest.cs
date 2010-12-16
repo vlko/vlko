@@ -1,21 +1,14 @@
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Web.Mvc;
-using Castle.ActiveRecord.Testing;
-using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
-using vlko.core;
 using vlko.core.Action;
 using vlko.core.Authentication;
 using vlko.core.Components;
-using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Action.ViewModel;
-using vlko.model.Search;
 using vlko.web.Areas.Admin.Controllers;
 
 namespace vlko.web.Tests.Controllers.Admin
@@ -61,6 +54,7 @@ namespace vlko.web.Tests.Controllers.Admin
 
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
+
 
 			// Act
 			ActionResult result = controller.Index(new PagedModel<StaticTextViewModel>());

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Framework;
 using vlko.model.Action;
 using vlko.core.Repository;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
 
 namespace vlko.model.Implementation.NH.Action
@@ -26,7 +25,7 @@ namespace vlko.model.Implementation.NH.Action
 				return new TwitterStatus[] {};
 			}
 
-			return ActiveRecordLinqBase<TwitterStatus>.Queryable
+			return SessionFactory<TwitterStatus>.Queryable
 				.Where(status => twitterIdsArray.Contains(status.TwitterId))
 				.ToArray();
 		}
@@ -48,7 +47,7 @@ namespace vlko.model.Implementation.NH.Action
 			}
 
 			return new QueryLinqResult<TwitterStatus>(
-				ActiveRecordLinqBase<TwitterStatus>.Queryable
+				SessionFactory<TwitterStatus>.Queryable
 				.Where(status => idArray.Contains(status.Id)));
 		}
 
@@ -59,7 +58,8 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Created twitter status.</returns>
 		public TwitterStatus CreateStatus(TwitterStatus newStatus)
 		{
-			ActiveRecordMediator<TwitterStatus>.Create(newStatus);
+			newStatus.PublishDate = newStatus.CreatedDate;
+			SessionFactory<TwitterStatus>.Create(newStatus);
 			return newStatus;
 		}
 
@@ -72,7 +72,7 @@ namespace vlko.model.Implementation.NH.Action
 		public IQueryResult<TwitterStatus> GetAll()
 		{
 			return new QueryLinqResult<TwitterStatus>(
-				ActiveRecordLinqBase<TwitterStatus>.Queryable);
+				SessionFactory<TwitterStatus>.Queryable);
 		}
 	}
 }

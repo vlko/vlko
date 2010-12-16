@@ -37,7 +37,7 @@ namespace vlko.core.Base
 		/// <returns>View.</returns>
 		protected ViewResult ViewWithAjax(object model = null)
 		{
-			return ViewWithAjax(null, model);
+			return ViewWithAjax(ControllerContext.RouteData.Route != null ? ControllerContext.RouteData.GetRequiredString("action") : string.Empty, model);
 		}
 
 		/// <summary>

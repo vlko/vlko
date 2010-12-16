@@ -1,7 +1,6 @@
-﻿using Castle.ActiveRecord;
-using Castle.ActiveRecord.Framework;
-using vlko.core.Repository;
+﻿using vlko.core.Repository;
 using vlko.model.Action;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
 
 namespace vlko.model.Implementation.NH.Action
@@ -15,7 +14,7 @@ namespace vlko.model.Implementation.NH.Action
 		public IQueryResult<SystemMessage> GetAll()
 		{
 			return new QueryLinqResult<SystemMessage>(
-				ActiveRecordLinqBase<SystemMessage>.Queryable);
+				SessionFactory<SystemMessage>.Queryable);
 		}
 
 		/// <summary>
@@ -25,7 +24,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Created item.</returns>
 		public SystemMessage Create(SystemMessage item)
 		{
-			ActiveRecordMediator<SystemMessage>.Create(item);
+			SessionFactory<SystemMessage>.Create(item);
 
 			return item;
 		}

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Framework;
-using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.Action;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
-using vlko.model.Action;
+using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.NH.Testing;
 using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
@@ -28,6 +25,7 @@ namespace vlko.model.Tests.Model
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
 		}
 
 		[TestCleanup]
@@ -36,9 +34,9 @@ namespace vlko.model.Tests.Model
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]
@@ -113,12 +111,12 @@ namespace vlko.model.Tests.Model
 				Assert.AreEqual(null, tokenUser);
 
 				// test real db data
-				var userInDB = ActiveRecordLinqBase<User>.Queryable.FirstOrDefault(user => user.Name == userName);
+				var userInDB = SessionFactory<User>.Queryable.FirstOrDefault(user => user.Name == userName);
 				Assert.AreEqual(true, userInDB.Verified);
 
 				// now test confirm registration on already verified user
 				userInDB.VerifyToken = token;
-				ActiveRecordMediator<User>.Update(userInDB);
+				SessionFactory<User>.Update(userInDB);
 				registered = authentication.ConfirmRegistration(token);
 				Assert.AreEqual(false, registered);
 			}
@@ -331,7 +329,7 @@ namespace vlko.model.Tests.Model
 				};
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					ActiveRecordMediator<User>.Create(newUser);
+					SessionFactory<User>.Create(newUser);
 					tran.Commit();
 				}
 

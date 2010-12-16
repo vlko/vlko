@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
+using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.NH.Testing;
 using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
@@ -27,7 +26,9 @@ namespace vlko.model.Tests.Model
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
-			using (var tran = new TransactionScope())
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+
+			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				_user = new User()
 							{
@@ -41,6 +42,7 @@ namespace vlko.model.Tests.Model
 									CreatedDate = DateTime.Now,
 									ActualVersion = 0,
 									PublishDate = DateTime.Now,
+									Modified = DateTime.Now,
 									AreCommentAllowed = true,
 									StaticTextVersions = new List<StaticTextVersion>
 															 {
@@ -86,7 +88,7 @@ namespace vlko.model.Tests.Model
 													 Content = _testText,
 													 Owner = _user,
 													 AnonymousName = null,
-													 CreatedDate = new DateTime(2002, 1, 1),
+													 CreatedDate = new DateTime(2002, 1, 1).AddMinutes(1),
 													 ActualVersion = 1,
 													 CommentVersions = new List<CommentVersion>()
 																		   {
@@ -123,9 +125,13 @@ namespace vlko.model.Tests.Model
 
 				_testText.Comments[0].TopComment = _testText.Comments[0];
 				_testText.Comments[1].TopComment = _testText.Comments[1];
-				ActiveRecordMediator<User>.Create(_user);
-				ActiveRecordMediator<StaticText>.Create(_testText);
-				tran.VoteCommit();
+				SessionFactory<User>.Create(_user);
+				SessionFactory<StaticText>.Create(_testText);
+				foreach (var comment in _testText.Comments)
+				{
+					SessionFactory<Comment>.Create(comment);
+				}
+				tran.Commit();
 			}
 
 		}
@@ -136,15 +142,15 @@ namespace vlko.model.Tests.Model
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]
 		public void Test_find_by_primary_key()
 		{
-			using (new SessionScope())
+			using (RepositoryFactory.StartUnitOfWork())
 			{
 				var crudActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentCrud>();
 
@@ -237,9 +243,9 @@ namespace vlko.model.Tests.Model
 				Assert.AreEqual(subItem.ContentId, storedItem.ContentId);
 				Assert.AreEqual(subItem.ParentId, item.Id);
 
-				var realItem = ActiveRecordMediator<Comment>.FindByPrimaryKey(item.Id);
+				var realItem = SessionFactory<Comment>.FindByPrimaryKey(item.Id);
 				Assert.AreEqual((object) item.Id, realItem.TopComment.Id);
-				var realSubItem = ActiveRecordMediator<Comment>.FindByPrimaryKey(item.Id);
+				var realSubItem = SessionFactory<Comment>.FindByPrimaryKey(item.Id);
 				Assert.AreEqual((object) item.Id, realSubItem.TopComment.Id);
 			}
 		}
@@ -311,8 +317,8 @@ namespace vlko.model.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var initialCommentCount = ActiveRecordMediator<Comment>.Count();
-				var initialCommentVersionCount = ActiveRecordMediator<CommentVersion>.Count();
+				var initialCommentCount = SessionFactory<Comment>.Count();
+				var initialCommentVersionCount = SessionFactory<CommentVersion>.Count();
 
 				var item = new CommentCRUDModel()
 				{
@@ -348,8 +354,8 @@ namespace vlko.model.Tests.Model
 				Assert.AreEqual(item.Text, storedItem.Text);
 				Assert.AreEqual(item.ContentId, storedItem.ContentId);
 
-				Assert.AreNotEqual(initialCommentCount, ActiveRecordMediator<Comment>.Count());
-				Assert.AreNotEqual(initialCommentVersionCount, ActiveRecordMediator<CommentVersion>.Count());
+				Assert.AreNotEqual(initialCommentCount, SessionFactory<Comment>.Count());
+				Assert.AreNotEqual(initialCommentVersionCount, SessionFactory<CommentVersion>.Count());
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -357,8 +363,8 @@ namespace vlko.model.Tests.Model
 					tran.Commit();
 				}
 
-				Assert.AreEqual(initialCommentCount, ActiveRecordMediator<Comment>.Count());
-				Assert.AreEqual(initialCommentVersionCount, ActiveRecordMediator<CommentVersion>.Count());
+				Assert.AreEqual(initialCommentCount, SessionFactory<Comment>.Count());
+				Assert.AreEqual(initialCommentVersionCount, SessionFactory<CommentVersion>.Count());
 			}
 		}
 
@@ -433,8 +439,8 @@ namespace vlko.model.Tests.Model
 				Assert.AreEqual("item20000", data[1].Name);
 				Assert.AreEqual("item2000", data[2].Name);
 				Assert.AreEqual("item200", data[3].Name);
-				Assert.AreEqual("item02", data[4].Name);
-				Assert.AreEqual("item20", data[5].Name);
+				Assert.AreEqual("item20", data[4].Name);
+				Assert.AreEqual("item02", data[5].Name);
 				Assert.AreEqual("item2", data[6].Name);
 				// 2003, 1, 2
 				Assert.AreEqual("item001", data[7].Name);
@@ -444,10 +450,9 @@ namespace vlko.model.Tests.Model
 				Assert.AreEqual("item000", data[10].Name);
 				Assert.AreEqual("item00", data[11].Name);
 				Assert.AreEqual("item0", data[12].Name);
-				
-				Assert.AreEqual("first_comment", data[13].Name);
-				Assert.AreEqual("second_comment", data[14].Name);
-				
+
+				Assert.AreEqual("second_comment", data[13].Name);
+				Assert.AreEqual("first_comment", data[14].Name);				
 			}
 		}
 
@@ -652,7 +657,7 @@ namespace vlko.model.Tests.Model
 					ClientIp = "127.0.0.1",
 					ContentId = _testText.Id,
 					Text = "item20",
-					ChangeDate = new DateTime(2003, 1, 3),
+					ChangeDate = new DateTime(2003, 1, 3).AddMinutes(1),
 					UserAgent = "ie6"
 				});
 				var item200 = crudActions.Create(new CommentCRUDModel()
@@ -664,7 +669,7 @@ namespace vlko.model.Tests.Model
 					ClientIp = "127.0.0.1",
 					ContentId = _testText.Id,
 					Text = "item200",
-					ChangeDate = new DateTime(2003, 1, 3),
+					ChangeDate = new DateTime(2003, 1, 3).AddMinutes(2),
 					UserAgent = "ie6"
 				});
 				var item2000 = crudActions.Create(new CommentCRUDModel()
@@ -676,7 +681,7 @@ namespace vlko.model.Tests.Model
 					ClientIp = "127.0.0.1",
 					ContentId = _testText.Id,
 					Text = "item2000",
-					ChangeDate = new DateTime(2003, 1, 3),
+					ChangeDate = new DateTime(2003, 1, 3).AddMinutes(3),
 					UserAgent = "ie6"
 				});
 				var item20000 = crudActions.Create(new CommentCRUDModel()
@@ -688,7 +693,7 @@ namespace vlko.model.Tests.Model
 					ClientIp = "127.0.0.1",
 					ContentId = _testText.Id,
 					Text = "item20000",
-					ChangeDate = new DateTime(2003, 1, 3),
+					ChangeDate = new DateTime(2003, 1, 3).AddMinutes(4),
 					UserAgent = "ie6"
 				});
 				tran.Commit();

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Framework;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Action.ViewModel;
 using vlko.core.Repository;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
 using NotFoundException = vlko.core.Repository.Exceptions.NotFoundException;
 
@@ -30,7 +29,7 @@ namespace vlko.model.Implementation.NH.Action
 			           		Url = item.Url
 			           	};
 
-			ActiveRecordMediator<RssFeed>.Create(feed);
+			SessionFactory<RssFeed>.Create(feed);
 
 			item.Id = feed.Id;
 
@@ -62,7 +61,7 @@ namespace vlko.model.Implementation.NH.Action
 		{
 			RssFeedCRUDModel result = null;
 
-			var query = ActiveRecordLinqBase<RssFeed>.Queryable
+			var query = SessionFactory<RssFeed>.Queryable
 				.Where(item => item.Id == id)
 				.Select(item => new RssFeedCRUDModel
 				{
@@ -93,7 +92,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Updated item.</returns>
 		public RssFeedCRUDModel Update(RssFeedCRUDModel item)
 		{
-			var feed = ActiveRecordMediator<RssFeed>.FindByPrimaryKey(item.Id);
+			var feed = SessionFactory<RssFeed>.FindByPrimaryKey(item.Id);
 			feed.Name = item.Name;
 			feed.AuthorRegex = item.AuthorRegex;
 			feed.GetDirectContent = item.GetDirectContent;
@@ -101,7 +100,7 @@ namespace vlko.model.Implementation.NH.Action
 			feed.ContentParseRegex = item.ContentParseRegex;
 			feed.Url = item.Url;
 
-			ActiveRecordMediator<RssFeed>.Save(feed);
+			SessionFactory<RssFeed>.Update(feed);
 
 			return item;
 		}
@@ -112,8 +111,8 @@ namespace vlko.model.Implementation.NH.Action
 		/// <param name="item">The item.</param>
 		public void Delete(RssFeedCRUDModel item)
 		{
-			var feed = ActiveRecordMediator<RssFeed>.FindByPrimaryKey(item.Id);
-			ActiveRecordMediator<RssFeed>.Delete(feed);
+			var feed = SessionFactory<RssFeed>.FindByPrimaryKey(item.Id);
+			SessionFactory<RssFeed>.Delete(feed);
 		}
 
 		/// <summary>
@@ -122,7 +121,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Query result with all rss feeds.</returns>
 		public IQueryResult<RssFeedViewModel> GetAll()
 		{
-			return new QueryLinqResult<RssFeedViewModel>(ActiveRecordLinqBase<RssFeed>.Queryable
+			return new QueryLinqResult<RssFeedViewModel>(SessionFactory<RssFeed>.Queryable
 				.Select(item => new RssFeedViewModel
 				{
 					Id = item.Id,
@@ -139,7 +138,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Feeds to process.</returns>
 		public RssFeedCRUDModel[] GetFeedToProcess()
 		{
-			return ActiveRecordLinqBase<RssFeed>.Queryable
+			return SessionFactory<RssFeed>.Queryable
 				.Select(item => new RssFeedCRUDModel
 				{
 					Id = item.Id,

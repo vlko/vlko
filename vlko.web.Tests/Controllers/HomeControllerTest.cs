@@ -10,34 +10,21 @@ using vlko.web.Controllers;
 
 namespace vlko.web.Tests.Controllers
 {
-    [TestClass]
-    public class HomeControllerTest
-    {
-        [TestMethod]
-        public void Index()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
+	[TestClass]
+	public class HomeControllerTest
+	{
 
-            // Act
-            ActionResult result = controller.Index() as ViewResult;
+		[TestMethod]
+		public void About()
+		{
+			// Arrange
+			HomeController controller = new HomeController();
 
-            // Assert
-        	var viewData = result.AssertViewRendered().ViewData;
-            Assert.AreEqual("Welcome to ASP.NET MVC!", viewData["Message"]);
-        }
+			// Act
+			ActionResult result = controller.About();
 
-        [TestMethod]
-        public void About()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ActionResult result = controller.About();
-
-            // Assert
+			// Assert
 			result.AssertViewRendered();
-        }
-    }
+		}
+	}
 }

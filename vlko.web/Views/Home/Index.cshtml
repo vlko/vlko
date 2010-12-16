@@ -1,7 +1,25 @@
-﻿@{
+﻿@model vlko.core.Components.PagedModel<object>
+@using vlko.model.Action.ViewModel;
+@{
 	View.Title = "Home Page";
 }
-<h2>@Html.Encode(ViewData["Message"])</h2>
-<p>
-	To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-</p>
+<h2>Moja timeline</h2>
+<section id="search_results">
+	@foreach (var item in Model)
+	{
+		if (item is StaticTextViewModel)
+		{
+			@Html.Partial("~/Views/Content/StaticText.cshtml", item as StaticTextViewModel)
+		}
+		if (item is vlko.model.Roots.TwitterStatus)
+		{
+			@Html.Partial("~/Views/Content/TwitterStatus.cshtml", item as vlko.model.Roots.TwitterStatus)
+		}
+		if (item is RssItemViewModel)
+		{
+			@Html.Partial("~/Views/Content/RssItem.cshtml", item as RssItemViewModel)
+		}
+	}
+
+<div>@Html.Partial("~/Views/Shared/Pager.cshtml", new vlko.core.Components.PagerModel(Model, "Index"))</div>
+</section>

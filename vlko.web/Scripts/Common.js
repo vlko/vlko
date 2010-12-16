@@ -132,32 +132,37 @@ function updateEffect(content, callback) {
 	content.effect("slide", { direction: "up" }, 300, callback);
 }
 
+var current_url = undefined;
+
 // ajax history function
 function addToHistory(url) {
-	$.history.load(url);
+	current_url = url;
+	$.bbq.pushState({ url: url }); 
 }
 // get current ajax url
 function getCurrentHistoryUrl() {
-	return $.history.appState;
+	$.bbq.getState("url"); 
 }
 
 // initialize ajax history plugin
 $(function () {
-	$.history.init(function (url, phase) {
-		if (phase == "check") {
+	// Bind a callback that executes when document.location.hash changes.
+	$(window).bind("hashchange", function (e) {
+		// In jQuery 1.4, use e.getState( "url" );
+		var url = $.bbq.getState("url");
+		if (url != current_url) {
 			if (!url) {
 				window.location = window.location.href;
 			}
 			else {
-				if (url.charAt(0) == "%") {
-					window.location = url;
-				}
-			}
-		}
-		if (phase == "init") {
-			if (url && (url.charAt(0) == "%")) {
 				window.location = url;
 			}
 		}
-	})
+	});
+
+	// Since the event is only triggered when the hash changes, we need
+	// to trigger the event now, to handle the hash the page may have
+	// loaded with.
+	$(window).trigger("hashchange");
+
 });

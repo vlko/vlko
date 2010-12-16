@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Framework;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Action.ViewModel;
 using vlko.core.Repository;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
 
 namespace vlko.model.Implementation.NH.Action
@@ -27,7 +26,7 @@ namespace vlko.model.Implementation.NH.Action
 				return new RssItemCRUDModel[] { };
 			}
 
-			return ActiveRecordLinqBase<RssItem>.Queryable
+			return SessionFactory<RssItem>.Queryable
 				.Where(item => feedIts.Contains(item.FeedItemId))
 				.Select(item => new RssItemCRUDModel
 				                	{
@@ -58,7 +57,7 @@ namespace vlko.model.Implementation.NH.Action
 			}
 
 			return new QueryLinqResult<RssItemViewModel>(
-				ActiveRecordLinqBase<RssItem>.Queryable
+				SessionFactory<RssItem>.Queryable
 					.Where(item => feedIts.Contains(item.FeedItemId))
 					.Select(item => new RssItemViewModel
 					                	{
@@ -72,20 +71,49 @@ namespace vlko.model.Implementation.NH.Action
 		}
 
 		/// <summary>
+		/// Gets the by ids.
+		/// </summary>
+		/// <param name="feedIds">The feed ids.</param>
+		/// <returns>Only Feed items matching specified ids.</returns>
+		public IQueryResult<RssItemViewModelWithId> GetByIds(IEnumerable<Guid> feedIds)
+		{
+			var ids = feedIds.ToArray();
+
+			if (ids.Length == 0)
+			{
+				return new EmptyQueryResult<RssItemViewModelWithId>();
+			}
+
+			return new QueryLinqResult<RssItemViewModelWithId>(
+				SessionFactory<RssItem>.Queryable
+					.Where(item => ids.Contains(item.Id))
+					.Select(item => new RssItemViewModelWithId
+					{
+						Id = item.Id,
+						FeedItemId = item.FeedItemId,
+						Url = item.Url,
+						Author = item.Author,
+						Published = item.PublishDate,
+						Title = item.Title,
+						Description = item.Description
+					}));
+		}
+
+		/// <summary>
 		/// Saves the specified item.
 		/// </summary>
 		/// <param name="item">The item.</param>
 		/// <returns>Saved item.</returns>
 		public RssItemCRUDModel Save(RssItemCRUDModel item)
 		{
-			var dbItem = ActiveRecordLinqBase<RssItem>.Queryable
+			var dbItem = SessionFactory<RssItem>.Queryable
 				                         	.Where(rssItem => rssItem.FeedItemId == item.FeedItemId)
 											.FirstOrDefault();
 			
 
 			if (dbItem == null)
 			{
-				var feed = ActiveRecordMediator<RssFeed>.FindByPrimaryKey(item.FeedId);
+				var feed = SessionFactory<RssFeed>.FindByPrimaryKey(item.FeedId);
 				dbItem = new RssItem
 				         	{
 				         		Id = Guid.Empty,
@@ -107,11 +135,11 @@ namespace vlko.model.Implementation.NH.Action
 
 			if (dbItem.Id == Guid.Empty)
 			{
-				ActiveRecordMediator<RssFeed>.Create(dbItem);
+				SessionFactory<RssItem>.Create(dbItem);
 			}
 			else
 			{
-				ActiveRecordMediator<RssFeed>.Save(dbItem);
+				SessionFactory<RssItem>.Update(dbItem);
 			}
 			return item;
 		}
@@ -122,14 +150,14 @@ namespace vlko.model.Implementation.NH.Action
 		/// <param name="item">The item.</param>
 		public void Delete(RssItemCRUDModel item)
 		{
-			var dbItem = ActiveRecordLinqBase<RssItem>.Queryable
+			var dbItem = SessionFactory<RssItem>.Queryable
 											.Where(rssItem => rssItem.FeedItemId == item.FeedItemId)
 											.FirstOrDefault();
 
 			if (dbItem != null)
 			{
 				dbItem.Hidden = true;
-				ActiveRecordMediator<RssFeed>.Save(dbItem);
+				SessionFactory<RssItem>.Update(dbItem);
 			}
 		}
 
@@ -140,7 +168,7 @@ namespace vlko.model.Implementation.NH.Action
 		public IQueryResult<RssItemViewModel> GetAll()
 		{
 			return new QueryLinqResult<RssItemViewModel>(
-				ActiveRecordLinqBase<RssItem>.Queryable
+				SessionFactory<RssItem>.Queryable
 					.Where(item => !item.Hidden)
 					.Select(item => new RssItemViewModel
 					                	{

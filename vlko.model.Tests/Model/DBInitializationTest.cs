@@ -1,39 +1,47 @@
 ﻿using System;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Testing;
+using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
+using vlko.core.InversionOfControl;
+using vlko.core.Repository;
+using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.NH.Testing;
 
 namespace vlko.model.Tests.Model
 {
-    [TestClass]
-    public class DbInitializationTest : InMemoryTest
-    {
-        [TestInitialize]
-        public void Init()
-        {
-            base.SetUp();
-        }
+	[TestClass]
+	public class DbInitializationTest : InMemoryTest
+	{
+		[TestInitialize]
+		public void Init()
+		{
+			IoC.InitializeWith(new WindsorContainer());
+			ApplicationInit.InitializeRepositories();
+			base.SetUp();
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+		}
 
-        [TestCleanup]
-        public void Cleanup()
-        {
-            TearDown();
-        }
+		[TestCleanup]
+		public void Cleanup()
+		{
+			TearDown();
+		}
 
-        public override Type[] GetTypes()
-        {
-            return ApplicationInit.ListOfModelTypes();
-        }
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
+		{
+			DBInit.InitMappings(configuration);
+		}
 
-        [TestMethod]
-        public void Test_querying_all_model_types()
-        {
-            foreach (Type modelType in ApplicationInit.ListOfModelTypes())
-            {
-                var modelItems = ActiveRecordMediator.FindAll(modelType);
-                Assert.AreEqual(0, modelItems.Length);
-            }
-        }
-    }
+		[TestMethod]
+		public void Test_querying_all_model_types()
+		{
+			using (RepositoryFactory.StartUnitOfWork())
+			{
+				foreach (Type modelType in DBInit.ListOfModelTypes())
+				{
+					var modelItems = SessionFactory.Current.CreateCriteria(modelType).List();
+					Assert.AreEqual(0, modelItems.Count);
+				}
+			}
+		}
+	}
 }

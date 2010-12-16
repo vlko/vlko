@@ -1,20 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using Castle.Windsor;
 using MvcContrib.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Castle.ActiveRecord.Testing;
-using vlko.core;
 using vlko.core.Action;
 using vlko.core.Components;
-using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Action.ViewModel;
-using vlko.model.Search;
 using vlko.web.Areas.Admin.Controllers;
 
 namespace vlko.web.Tests.Controllers.Admin

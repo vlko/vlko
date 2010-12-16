@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 using vlko.model;
+using vlko.model.Implementation.NH.Testing;
 using vlko.model.Search;
 
 namespace vlko.web.Tests
 {
 	public abstract class BaseControllerTest : InMemoryTest
 	{
+		private IUnitOfWork _session;
+
 		[TestInitialize]
 		public void Init()
 		{
@@ -23,18 +22,23 @@ namespace vlko.web.Tests
 			ApplicationInit.InitializeServices();
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			base.SetUp();
+
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+
 			FillDbWithData();
+			_session = RepositoryFactory.StartUnitOfWork();
 		}
 
 		[TestCleanup]
 		public void Cleanup()
 		{
+			_session.Dispose();
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		/// <summary>

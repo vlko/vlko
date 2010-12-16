@@ -57,7 +57,8 @@ namespace vlko.core.Base.Scheduler
 		/// </summary>
 		public void InvokeTasks()
 		{
-			_logger.Trace("Scheduler invoke tasks.");
+			// we trust to this and so we can skip logging
+			// _logger.Trace("Scheduler invoke tasks.");
 			foreach (var schedulerTask in _tasks)
 			{
 				if (schedulerTask.NextRun <= DateTime.Now)

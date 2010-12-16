@@ -89,6 +89,7 @@ namespace vlko.model.Base.Scheduler
 					                                twitterData.CreateStatus(twitterStatus));
 
 				}
+				tran.Commit();
 			}
 			Logger.Debug("There were '{0}' new statuses to store for {1}", statusToStore.Count, twitterUser);
 

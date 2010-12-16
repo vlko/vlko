@@ -53,14 +53,12 @@ namespace vlko.model.Tests.Repository.NRepository
 
             Assert.AreEqual(testObj, check);
 
-            var updateObj = new NTestObject()
-            {
-                ID = 200,
-                Text = "updateSave",
-                Type = TypeEnum.Ignore
-            };
+        	var updateObj = check;
+        	updateObj.ID = 200;
+        	updateObj.Text = "updateSave";
+        	updateObj.Type = TypeEnum.Ignore;
 
-            BaseRepository.GetAction<ISaveAction<NTestObject>>().Save(updateObj);
+            BaseRepository.GetAction<IUpdateAction<NTestObject>>().Update(updateObj);
 
             check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(200);
 

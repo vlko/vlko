@@ -23,19 +23,19 @@
 		if (searchResult is CommentSearchViewModel 
 			&& ((CommentSearchViewModel)searchResult).Content is StaticText)
 		{
-			@Html.Partial("Comment", searchResult as CommentViewModel)
+			@Html.Partial("~/Views/Content/Comment.cshtml", searchResult as CommentViewModel)
 		}
 		if (searchResult is StaticTextViewModel)
 		{
-			@Html.Partial("StaticText", searchResult as StaticTextViewModel)
+			@Html.Partial("~/Views/Content/StaticText.cshtml", searchResult as StaticTextViewModel)
 		}
 		if (searchResult is TwitterStatus)
 		{
-			@Html.Partial("TwitterStatus", searchResult as TwitterStatus)
+			@Html.Partial("~/Views/Content/TwitterStatus.cshtml", searchResult as TwitterStatus)
 		}
 		if (searchResult is RssItemViewModel)
 		{
-			@Html.Partial("RssItem", searchResult as RssItemViewModel)
+			@Html.Partial("~/Views/Content/RssItem.cshtml", searchResult as RssItemViewModel)
 		}
 	}
 

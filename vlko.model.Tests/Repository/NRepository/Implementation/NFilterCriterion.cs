@@ -1,5 +1,6 @@
-﻿using NHibernate.Criterion;
+﻿using NHibernate;
 using vlko.model.Implementation.NH.Repository;
+using NHibernate.Criterion;
 
 namespace vlko.model.Tests.Repository.NRepository.Implementation
 {
@@ -12,7 +13,7 @@ namespace vlko.model.Tests.Repository.NRepository.Implementation
         /// <returns>This for fluent.</returns>
         public NFilterCriterion WhereType(TypeEnum type)
         {
-            Criteria = Criteria.Add(Expression.Eq("Type", type));
+			Criteria = Criteria.Where(Restrictions.Eq("Type", type));
             return this;
         }
 
@@ -23,7 +24,7 @@ namespace vlko.model.Tests.Repository.NRepository.Implementation
         /// <returns>This for fluent.</returns>
         public NFilterCriterion WhereTextStart(string startPattern)
         {
-            Criteria = Criteria.Add(Expression.Like("Text", startPattern, MatchMode.Start));
+			Criteria = Criteria.Where(Restrictions.Like("Text", startPattern, MatchMode.Start));
             return this;
         }
     }

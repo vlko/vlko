@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Framework;
 using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
 using NotFoundException = vlko.core.Repository.Exceptions.NotFoundException;
 
@@ -42,7 +41,7 @@ namespace vlko.model.Implementation.NH.Action
 																	  }
 															  }
 								 };
-			ActiveRecordMediator<StaticText>.Create(staticText);
+			SessionFactory<StaticText>.Create(staticText);
 
 			// assign id
 			item.Id = staticText.Id;
@@ -75,7 +74,7 @@ namespace vlko.model.Implementation.NH.Action
 		{
 			StaticTextCRUDModel result = null;
 
-			var query = ActiveRecordLinqBase<StaticTextVersion>.Queryable
+			var query = SessionFactory<StaticTextVersion>.Queryable
 				.Where(textVersion => textVersion.StaticText.Id == id &&  textVersion.StaticText.ActualVersion == textVersion.Version)
 				.Select(textVersion => new StaticTextCRUDModel{
 				                       	Id = textVersion.StaticText.Id,
@@ -105,7 +104,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Updated item.</returns>
 		public StaticTextCRUDModel Update(StaticTextCRUDModel item)
 		{
-			var staticText = ActiveRecordMediator<StaticText>.FindByPrimaryKey(item.Id);
+			var staticText = SessionFactory<StaticText>.FindByPrimaryKey(item.Id);
 
 						if (string.IsNullOrEmpty(item.FriendlyUrl))
 			{
@@ -132,7 +131,7 @@ namespace vlko.model.Implementation.NH.Action
 					}
 				);
 
-			ActiveRecordMediator<StaticText>.Save(staticText);
+			SessionFactory<StaticText>.Update(staticText);
 
 			return item;
 		}
@@ -143,9 +142,9 @@ namespace vlko.model.Implementation.NH.Action
 		/// <param name="item">The item.</param>
 		public void Delete(StaticTextCRUDModel item)
 		{
-			var staticText = ActiveRecordMediator<StaticText>.FindByPrimaryKey(item.Id);
+			var staticText = SessionFactory<StaticText>.FindByPrimaryKey(item.Id);
 			staticText.Hidden = true;
-			ActiveRecordMediator<StaticText>.Save(staticText);
+			SessionFactory<StaticText>.Update(staticText);
 		}
 
 	}

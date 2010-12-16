@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Framework;
 using vlko.core.Action;
 using vlko.core.Repository;
 using vlko.core.Roots;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
 
 namespace vlko.model.Implementation.NH.Action
@@ -46,13 +45,13 @@ namespace vlko.model.Implementation.NH.Action
 			verifyToken = null;
 
 			// check for unique username
-			if (ActiveRecordLinqBase<User>.Queryable.FirstOrDefault(user => user.Name == username) != null)
+			if (SessionFactory<User>.Queryable.FirstOrDefault(user => user.Name == username) != null)
 			{
 				return CreateUserStatus.DuplicateUserName;
 			}
 
 			// check for unique email
-			if (ActiveRecordLinqBase<User>.Queryable.FirstOrDefault(user => user.Email == email) != null)
+			if (SessionFactory<User>.Queryable.FirstOrDefault(user => user.Email == email) != null)
 			{
 				return CreateUserStatus.DuplicateEmail;
 			}
@@ -70,7 +69,7 @@ namespace vlko.model.Implementation.NH.Action
 							   };
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				ActiveRecordMediator<User>.Create(newUser);
+				SessionFactory<User>.Create(newUser);
 				tran.Commit();
 			}
 			return CreateUserStatus.Success;
@@ -85,7 +84,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>True if user validated; otherwise false.</returns>
 		public ValidateUserStatus ValidateUser(string username, string password)
 		{
-			var userToValidate = ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Name == username);
+			var userToValidate = SessionFactory<User>.Queryable.FirstOrDefault(user => user.Name == username);
 
 			if (userToValidate == null)
 			{
@@ -105,7 +104,7 @@ namespace vlko.model.Implementation.NH.Action
 			userToValidate.LastSeen = DateTime.Now;
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				ActiveRecordMediator<User>.Update(userToValidate);
+				SessionFactory<User>.Update(userToValidate);
 				tran.Commit();
 			}
 			return ValidateUserStatus.Success;
@@ -121,7 +120,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// </returns>
 		public bool IsUserInRole(string username, string role)
 		{
-			var userToValidate = ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Name == username);
+			var userToValidate = SessionFactory<User>.Queryable.FirstOrDefault(user => user.Name == username);
 			if (userToValidate != null && !string.IsNullOrEmpty(userToValidate.Roles))
 			{
 				string[] roles = userToValidate.Roles.Split(',');
@@ -141,7 +140,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// </returns>
 		public bool ChangePassword(string username, string oldPassword, string newPassword)
 		{
-			var userToChangePassword = ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Name == username);
+			var userToChangePassword = SessionFactory<User>.Queryable.FirstOrDefault(user => user.Name == username);
 			if ((userToChangePassword != null)
 				&& (userToChangePassword.Password == HashPassword(oldPassword)))
 			{
@@ -149,7 +148,7 @@ namespace vlko.model.Implementation.NH.Action
 				userToChangePassword.LastSeen = DateTime.Now;
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					ActiveRecordMediator<User>.Update(userToChangePassword);
+					SessionFactory<User>.Update(userToChangePassword);
 					tran.Commit();
 				}
 			}
@@ -165,7 +164,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// </returns>
 		public string VerifyTokenToUser(string verifyToken)
 		{
-			var userWithToken = ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.VerifyToken == verifyToken);
+			var userWithToken = SessionFactory<User>.Queryable.FirstOrDefault(user => user.VerifyToken == verifyToken);
 			if (userWithToken != null)
 			{
 				return userWithToken.Name;
@@ -182,7 +181,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// </returns>
 		public bool ConfirmRegistration(string verifyToken)
 		{
-			var userWithToken = ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.VerifyToken == verifyToken);
+			var userWithToken = SessionFactory<User>.Queryable.FirstOrDefault(user => user.VerifyToken == verifyToken);
 			if (userWithToken != null && !userWithToken.Verified)
 			{
 				userWithToken.VerifyToken = null;
@@ -190,7 +189,7 @@ namespace vlko.model.Implementation.NH.Action
 				userWithToken.LastSeen = DateTime.Now;
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					ActiveRecordMediator<User>.Update(userWithToken);
+					SessionFactory<User>.Update(userWithToken);
 					tran.Commit();
 				}
 				return true;
@@ -208,7 +207,7 @@ namespace vlko.model.Implementation.NH.Action
 		{
 			verifyToken = null;
 
-			var userToReset = ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Email == email);
+			var userToReset = SessionFactory<User>.Queryable.FirstOrDefault(user => user.Email == email);
 
 			if (userToReset != null)
 			{
@@ -229,7 +228,7 @@ namespace vlko.model.Implementation.NH.Action
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					ActiveRecordMediator<User>.Update(userToReset);
+					SessionFactory<User>.Update(userToReset);
 					tran.Commit();
 				}
 				return ResetUserPasswordStatus.Success;
@@ -246,7 +245,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>True if password changed.</returns>
 		public bool ResetPassword(string username, string verifyToken, string newPassword)
 		{
-			var userToReset = ActiveRecordLinq.AsQueryable<User>().FirstOrDefault(user => user.Name == username);
+			var userToReset = SessionFactory<User>.Queryable.FirstOrDefault(user => user.Name == username);
 			if (userToReset != null
 				&& userToReset.Verified
 				&& userToReset.VerifyToken != null
@@ -258,7 +257,7 @@ namespace vlko.model.Implementation.NH.Action
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					ActiveRecordMediator<User>.Update(userToReset);
+					SessionFactory<User>.Update(userToReset);
 					tran.Commit();
 				}
 				return true;

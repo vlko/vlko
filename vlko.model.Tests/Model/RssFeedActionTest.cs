@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
+using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.NH.Testing;
 using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
@@ -25,12 +24,14 @@ namespace vlko.model.Tests.Model
 		{
 			var doc = new XmlDocument();
 			doc.Load("log4net.config");
-			log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
+			//log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
 
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
-			using (var tran = new TransactionScope())
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+
+			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				var feed1 = new RssFeed
 				            	{
@@ -75,11 +76,11 @@ namespace vlko.model.Tests.Model
 					ContentParseRegex = "content_parser"
 				};
 
-				ActiveRecordMediator<RssFeed>.Create(feed1);
-				ActiveRecordMediator<RssFeed>.Create(feed2);
-				ActiveRecordMediator<RssFeed>.Create(feed3);
+				SessionFactory<RssFeed>.Create(feed1);
+				SessionFactory<RssFeed>.Create(feed2);
+				SessionFactory<RssFeed>.Create(feed3);
 				_testData = new[] { feed1, feed2, feed3 };
-				tran.VoteCommit();
+				tran.Commit();
 			}
 			
 		}
@@ -90,15 +91,15 @@ namespace vlko.model.Tests.Model
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]
 		public void Test_find_by_primary_key()
 		{
-			using (new SessionScope())
+			using (RepositoryFactory.StartUnitOfWork())
 			{
 				var crudActions = RepositoryFactory.Action<IRssFeedAction>();
 
@@ -236,7 +237,7 @@ namespace vlko.model.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var initialCount = ActiveRecordMediator<RssFeed>.Count();
+				var initialCount = SessionFactory<RssFeed>.Count();
 
 				var item = new RssFeedCRUDModel()
 				{
@@ -257,7 +258,7 @@ namespace vlko.model.Tests.Model
 				}
 
 
-				Assert.AreEqual(initialCount + 1, ActiveRecordMediator<RssFeed>.Count());
+				Assert.AreEqual(initialCount + 1, SessionFactory<RssFeed>.Count());
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -265,7 +266,7 @@ namespace vlko.model.Tests.Model
 					tran.Commit();
 				}
 
-				Assert.AreEqual(initialCount, ActiveRecordMediator<RssFeed>.Count());
+				Assert.AreEqual(initialCount, SessionFactory<RssFeed>.Count());
 			}
 		}
 

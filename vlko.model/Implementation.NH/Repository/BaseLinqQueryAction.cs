@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Castle.ActiveRecord.Framework;
 using vlko.core.Repository;
 
 namespace vlko.model.Implementation.NH.Repository
@@ -15,7 +14,7 @@ namespace vlko.model.Implementation.NH.Repository
 		{
 			get
 			{
-				return ActiveRecordLinqBase<T>.Queryable;
+				return SessionFactory<T>.Queryable;
 			}
 		}
 

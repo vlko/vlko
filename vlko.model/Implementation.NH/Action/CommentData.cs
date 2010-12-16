@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.ActiveRecord.Framework;
 using vlko.model.Action;
 using vlko.model.Action.ViewModel;
 using vlko.core.Repository;
+using vlko.model.Implementation.NH.Repository;
 using vlko.model.Roots;
 
 namespace vlko.model.Implementation.NH.Action
@@ -78,7 +78,7 @@ namespace vlko.model.Implementation.NH.Action
 		/// <returns>Raw tree data.</returns>
 		private IEnumerable<CommentTreeViewModel> GetTreeData(Guid contentId)
 		{
-			return ActiveRecordLinqBase<CommentVersion>.Queryable
+			return SessionFactory<CommentVersion>.Queryable
 				.Where(commentVersion =>
 					   commentVersion.Comment.ActualVersion == commentVersion.Version
 					   && commentVersion.Comment.Content.Id == contentId)
@@ -142,7 +142,7 @@ namespace vlko.model.Implementation.NH.Action
 		private QueryLinqResult<CommentViewModel> GetFlatProjection(Guid contentId)
 		{
 			return new QueryLinqResult<CommentViewModel>(
-				ActiveRecordLinqBase<CommentVersion>.Queryable
+				SessionFactory<CommentVersion>.Queryable
 					.Where(commentVersion =>
 						   commentVersion.Comment.ActualVersion == commentVersion.Version
 						   && commentVersion.Comment.Content.Id == contentId)
@@ -167,7 +167,7 @@ namespace vlko.model.Implementation.NH.Action
 		public IQueryResult<CommentForAdminViewModel> GetAllForAdmin()
 		{
 			return new QueryLinqResult<CommentForAdminViewModel>(
-				ActiveRecordLinqBase<CommentVersion>.Queryable
+				SessionFactory<CommentVersion>.Queryable
 					.Where(commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version)
 					.Select(commentVersion => new CommentForAdminViewModel
 												{
@@ -200,7 +200,7 @@ namespace vlko.model.Implementation.NH.Action
 			}
 
 			return new QueryLinqResult<CommentSearchViewModel>(
-				ActiveRecordLinqBase<CommentVersion>.Queryable
+				SessionFactory<CommentVersion>.Queryable
 					.Where(commentVersion => commentVersion.Comment.ActualVersion == commentVersion.Version
 							&& idArray.Contains(commentVersion.Comment.Id))
 					.Select(commentVersion => new CommentSearchViewModel

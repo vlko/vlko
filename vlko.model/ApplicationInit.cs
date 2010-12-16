@@ -1,7 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using ConfOrm;
+using ConfOrm.Mappers;
+using ConfOrm.NH;
+using ConfOrm.Patterns;
+using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Cfg.MappingSchema;
+using NHibernate.Tool.hbm2ddl;
+using NHibernate.Type;
 using vlko.core.Action;
 using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
@@ -19,6 +30,7 @@ using vlko.model.Implementation.NH.Repository;
 using vlko.model.Implementation.OtherTech.Action;
 using vlko.model.Roots;
 using vlko.model.Search;
+using ITransaction = vlko.core.Repository.ITransaction;
 
 namespace vlko.model
 {
@@ -37,27 +49,7 @@ namespace vlko.model
 			InitializeScheduler();
 		}
 
-		/// <summary>
-		/// Lists the of model types.
-		/// </summary>
-		/// <returns>List of model types.</returns>
-		public static Type[] ListOfModelTypes()
-		{
-			return new[]
-					   {
-						   typeof(AppSetting),
-						   typeof(SystemMessage),
-						   typeof(Content),
-						   typeof(User),
-						   typeof(Comment),
-						   typeof(CommentVersion),
-						   typeof(StaticText),
-						   typeof(StaticTextVersion),
-						   typeof(RssFeed),
-						   typeof(RssItem),
-						   typeof(TwitterStatus)
-					   };
-		}
+
 
 		/// <summary>
 		/// Initializes the repositories.
@@ -74,6 +66,9 @@ namespace vlko.model
 
 				Component.For<IRepository<SystemMessage>>().ImplementedBy<Repository<SystemMessage>>(),
 				Component.For<ISystemMessageAction>().ImplementedBy<SystemMessageAction>(),
+
+				Component.For<IRepository<Content>>().ImplementedBy<Repository<Content>>(),
+				Component.For<ITimeline>().ImplementedBy<Timeline>(),
 
 				Component.For<IRepository<StaticText>>().ImplementedBy<Repository<StaticText>>(),
 				Component.For<IStaticTextCrud>().ImplementedBy<StaticTextCrud>(),

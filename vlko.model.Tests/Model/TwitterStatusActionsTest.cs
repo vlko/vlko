@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.model.Action;
+using vlko.model.Implementation.NH.Repository;
+using vlko.model.Implementation.NH.Testing;
 using vlko.model.Roots;
 
 namespace vlko.model.Tests.Model
@@ -27,7 +24,9 @@ namespace vlko.model.Tests.Model
 			IoC.InitializeWith(new WindsorContainer());
 			ApplicationInit.InitializeRepositories();
 			base.SetUp();
-			using (var tran = new TransactionScope())
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+
+			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				_statuses = new[]
 				            	{
@@ -65,7 +64,7 @@ namespace vlko.model.Tests.Model
 				            				Text = "Status3",
 				            				User = "twit_user1",
 				            				Hidden = false,
-				            				CreatedDate = new DateTime(2010, 10, 11),
+				            				CreatedDate = new DateTime(2010, 10, 11).AddMinutes(1),
 				            				Modified = new DateTime(2010, 10, 11),
 				            				PublishDate = new DateTime(2010, 10, 11),
 				            				Reply = false,
@@ -76,8 +75,9 @@ namespace vlko.model.Tests.Model
 				            	};
 				foreach (var twitterStatus in _statuses)
 				{
-					ActiveRecordMediator<TwitterStatus>.Create(twitterStatus);
+					SessionFactory<TwitterStatus>.Create(twitterStatus);
 				}
+				tran.Commit();
 			}
 		}
 
@@ -87,9 +87,9 @@ namespace vlko.model.Tests.Model
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]
@@ -120,7 +120,7 @@ namespace vlko.model.Tests.Model
 					tran.Commit();
 				}
 
-				var storedItem = ActiveRecordMediator<TwitterStatus>.FindByPrimaryKey(item.Id);
+				var storedItem = SessionFactory<TwitterStatus>.FindByPrimaryKey(item.Id);
 
 				Assert.AreEqual(item.Id, storedItem.Id);
 				Assert.AreEqual(item.TwitterId, storedItem.TwitterId);

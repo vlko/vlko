@@ -2,11 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using Castle.ActiveRecord;
-using Castle.ActiveRecord.Testing;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core;
 using vlko.core.Action;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
@@ -14,6 +11,7 @@ using vlko.core.Roots;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Action.ViewModel;
+using vlko.model.Implementation.NH.Testing;
 using vlko.model.Roots;
 using vlko.model.Search;
 
@@ -32,12 +30,13 @@ namespace vlko.model.Tests.Model
 			ApplicationInit.InitializeRepositories();
 			ApplicationInit.InitializeServices();
 			base.SetUp();
-			using (var tran = new TransactionScope())
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				RepositoryFactory.Action<IUserAction>().CreateAdmin("user", "user@user.sk", "test");
-				tran.VoteCommit();
+				tran.Commit();
 			}
-			using (var session = new SessionScope())
+			using (RepositoryFactory.StartUnitOfWork())
 			{
 				_user = RepositoryFactory.Action<IUserAction>().GetByName("user");
 			}
@@ -49,9 +48,9 @@ namespace vlko.model.Tests.Model
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]
@@ -147,6 +146,7 @@ namespace vlko.model.Tests.Model
 				                                                		Text = "very long test",
 				                                                		ChangeUser = _user
 				                                                	});
+				tran.Commit();
 			}
 
 			for (int i = 0; i < numberOfThreads; i++)
@@ -422,6 +422,7 @@ namespace vlko.model.Tests.Model
 														{
 															TwitterId = 0,
 															CreatedDate = startDate.AddDays(-2),
+															Modified = startDate.AddDays(-2),
 															Text = "twitter status",
 															User = _user.Name,
 															AreCommentAllowed = false,

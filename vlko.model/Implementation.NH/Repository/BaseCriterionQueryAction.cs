@@ -1,4 +1,4 @@
-﻿using NHibernate.Criterion;
+﻿using NHibernate;
 using vlko.core.Repository;
 
 namespace vlko.model.Implementation.NH.Repository
@@ -10,7 +10,7 @@ namespace vlko.model.Implementation.NH.Repository
 		/// Gets or sets the criteria.
 		/// </summary>
 		/// <value>The criteria.</value>
-		protected DetachedCriteria Criteria { get; set; }
+		protected IQueryOver<T,T> Criteria { get; set; }
 
 		/// <summary>
 		/// Initializes queryAction with the specified repository.
@@ -18,7 +18,7 @@ namespace vlko.model.Implementation.NH.Repository
 		/// <param name="initializeContext">The initialize context.</param>
 		public override void Initialize(IInitializeContext<T> initializeContext)
 		{
-			Criteria = DetachedCriteria.For<T>();
+			Criteria = SessionFactory<T>.QueryOver;
 			base.Initialize(initializeContext);
 		}
 

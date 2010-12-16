@@ -26,6 +26,13 @@ namespace vlko.model.Action
 		IQueryResult<RssItemViewModel> GetByIds(IEnumerable<string> feedIds);
 
 		/// <summary>
+		/// Gets the by ids.
+		/// </summary>
+		/// <param name="feedIds">The feed ids.</param>
+		/// <returns>Only Feed items matching specified ids.</returns>
+		IQueryResult<RssItemViewModelWithId> GetByIds(IEnumerable<Guid> feedIds);
+
+		/// <summary>
 		/// Saves the specified item.
 		/// </summary>
 		/// <param name="item">The item.</param>

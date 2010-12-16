@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using MvcContrib.TestHelper;
 using Rhino.Mocks;
 using vlko.core.Authentication;
 using vlko.core.Base;

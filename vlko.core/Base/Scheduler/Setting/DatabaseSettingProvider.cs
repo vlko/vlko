@@ -43,6 +43,7 @@ namespace vlko.core.Base.Scheduler.Setting
 							Name = name,
 							Value = value
 						});
+				tran.Commit();
 			}
 		}
 	}

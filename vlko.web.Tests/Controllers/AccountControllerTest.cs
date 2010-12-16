@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Castle.ActiveRecord.Testing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
-using vlko.core;
 using vlko.core.Action;
 using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
@@ -18,7 +14,7 @@ using vlko.core.InversionOfControl;
 using vlko.core.Services;
 using vlko.core.Services.Implementation;
 using vlko.model;
-using vlko.model.Action;
+using vlko.model.Implementation.NH.Testing;
 using vlko.web.Controllers;
 using vlko.web.ViewModel.Account;
 
@@ -50,6 +46,7 @@ namespace vlko.web.Tests.Controllers
 				);
 			IoC.InitializeWith(container);
 			base.SetUp();
+			DBInit.RegisterSessionFactory(SessionFactoryInstance);
 		}
 
 		[TestCleanup]
@@ -58,9 +55,9 @@ namespace vlko.web.Tests.Controllers
 			TearDown();
 		}
 
-		public override Type[] GetTypes()
+		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			return ApplicationInit.ListOfModelTypes();
+			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]
