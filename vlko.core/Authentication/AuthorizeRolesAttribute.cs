@@ -53,7 +53,7 @@ namespace vlko.core.Authentication
             {
                 filterContext.Result = new RedirectToRouteResult(
                     new RouteValueDictionary(
-                        new {controller = "Account", action = "NotAuthorized"}));
+                        new {controller = "Account", action = "NotAuthorized", area = string.Empty}));
             }
             else
             {
