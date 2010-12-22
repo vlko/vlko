@@ -19,8 +19,8 @@ namespace vlko.model.Tests.Model
 	{
 		private const string ConsumerKey = "46KP0cc900kUX6jVPf8whQ";
 		private const string ConsumerSecret = "AB208n0msrrEPMqzDq6yq0w31LeQpFsCOX1YBkNQw";
-		private const string Token = "52357639-USalMlPWAUBU9zcCt2cIafaeKasKUfZZsExnpEHV3";
-		private const string TokenSecret = "MkVuuscDzRdquoZwdvUlssPbd3mPcRPGbW74g";
+		private const string Token = "put-here-valid-token";
+		private const string TokenSecret = "put-here-valid-token-secret";
 		private const string UserToCheck = "vlkodotnet";
 
 		[TestInitialize]
