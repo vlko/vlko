@@ -6,7 +6,7 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}</ProjectGuid>
-    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>vlko.web</RootNamespace>
@@ -166,6 +166,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>List.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileBrowserController.cs" />
@@ -187,30 +188,42 @@
     <Compile Include="ViewModel\Search\SearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Areas\Admin\Views\Comment\Delete.cshtml" />
-    <None Include="Areas\Admin\Views\Comment\Details.cshtml" />
-    <None Include="Areas\Admin\Views\Comment\Edit.cshtml" />
-    <None Include="Areas\Admin\Views\RssFeed\Create.cshtml" />
-    <None Include="Areas\Admin\Views\RssFeed\Delete.cshtml" />
-    <None Include="Areas\Admin\Views\RssFeed\Details.cshtml" />
-    <None Include="Areas\Admin\Views\RssFeed\Edit.cshtml" />
-    <None Include="Areas\Admin\Views\RssFeed\Index.cshtml" />
-    <None Include="Areas\Admin\Views\RssFeed\TestFeed.cshtml" />
-    <None Include="Areas\Admin\Views\Twitter\AuthorizeResult.cshtml" />
+    <Content Include="Areas\Admin\Views\Comment\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Comment\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Comment\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\RssFeed\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\RssFeed\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\RssFeed\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\RssFeed\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\RssFeed\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\RssFeed\TestFeed.cshtml" />
+    <Content Include="Areas\Admin\Views\Twitter\AuthorizeResult.cshtml" />
+    <Content Include="Content\images\author.gif" />
+    <Content Include="Content\images\change.gif" />
+    <Content Include="Content\images\comment.gif" />
+    <Content Include="Content\images\comments.gif" />
+    <Content Include="Content\images\note-main.gif" />
+    <Content Include="Content\images\note.gif" />
+    <Content Include="Content\images\publish.gif" />
+    <Content Include="Content\images\reply.gif" />
+    <Content Include="Content\images\rss.gif" />
+    <Content Include="Content\images\sort-az.gif" />
+    <Content Include="Content\images\sort-tree.gif" />
+    <Content Include="Content\images\sort-za.gif" />
+    <Content Include="Content\images\timeline.gif" />
+    <Content Include="Content\images\twitter.gif" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_100_1ba1e2_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_55_8cbf26_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_65_8cbf26_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_1ba1e2_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_309b46_40x100.png" />
     <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\jquery-ui-1.8.6.custom.css" />
+    <Content Include="Content\images\ui-bg_flat_95_cd0a0a_40x100.png" />
+    <Content Include="Content\images\ui-icons_000000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\images\vlko-logo.gif" />
+    <Content Include="Content\jquery-ui-1.8.7.custom.css" />
     <Content Include="Global.asax" />
     <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -386,7 +399,7 @@
     <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.6.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.7.custom.min.js" />
     <Content Include="Scripts\jquery.ba-bbq.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -400,28 +413,29 @@
     <Content Include="Scripts\MicrosoftMvcRemoteValidation.js" />
     <Content Include="Scripts\Pager.js" />
     <Content Include="Scripts\upload\ajaxupload.js" />
-    <None Include="Views\Account\ConfirmRegistration.cshtml" />
-    <None Include="Views\Account\ConfirmResetPassword.cshtml" />
-    <None Include="Views\Account\NotAuthorized.cshtml" />
-    <None Include="Views\Account\NotValidToken.cshtml" />
-    <None Include="Views\Account\ResetPassword.cshtml" />
-    <None Include="Areas\Admin\Views\Comment\Index.cshtml" />
-    <None Include="Areas\Admin\Views\FileBrowser\Delete.cshtml" />
-    <None Include="Areas\Admin\Views\FileBrowser\Index.cshtml" />
-    <None Include="Views\Page\CommentsFlat.cshtml" />
-    <None Include="Views\Page\CommentsTree.cshtml" />
-    <None Include="Views\Page\Index.cshtml" />
-    <None Include="Views\Page\NewComment.cshtml" />
-    <None Include="Views\Page\ViewPage.cshtml" />
-    <None Include="Views\Content\Comment.cshtml" />
-    <None Include="Views\Search\Index.cshtml" />
-    <None Include="Views\Content\RssItem.cshtml" />
-    <None Include="Views\Content\StaticText.cshtml" />
-    <None Include="Views\Content\TwitterStatus.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\Account\ConfirmRegistration.cshtml" />
+    <Content Include="Views\Account\ConfirmResetPassword.cshtml" />
+    <Content Include="Views\Account\NotAuthorized.cshtml" />
+    <Content Include="Views\Account\NotValidToken.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Comment\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\FileBrowser\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\FileBrowser\Index.cshtml" />
+    <Content Include="Views\Page\CommentsFlat.cshtml" />
+    <Content Include="Views\Page\CommentsTree.cshtml" />
+    <Content Include="Views\Page\Index.cshtml" />
+    <Content Include="Views\Page\NewComment.cshtml" />
+    <Content Include="Views\Page\ViewPage.cshtml" />
+    <Content Include="Views\Content\Comment.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Content\RssItem.cshtml" />
+    <Content Include="Views\Content\StaticText.cshtml" />
+    <Content Include="Views\Content\TwitterStatus.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HiddenInput.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Html.cshtml" />
-    <None Include="Views\Shared\_AjaxLayout.cshtml" />
-    <None Include="Views\Shared\LogOnUserControl.cshtml" />
+    <Content Include="Views\Shared\_AjaxLayout.cshtml" />
+    <Content Include="Views\Shared\LogOnUserControl.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Boolean.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Collection.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\Decimal.ascx" />
@@ -433,14 +447,16 @@
     <Content Include="Views\Shared\DisplayTemplates\Url.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Collection.ascx" />
-    <None Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Decimal.ascx" />
-    <None Include="Views\Shared\Pager.cshtml" />
-    <None Include="Areas\Admin\Views\StaticPage\Create.cshtml" />
-    <None Include="Areas\Admin\Views\StaticPage\Delete.cshtml" />
-    <None Include="Areas\Admin\Views\StaticPage\Details.cshtml" />
-    <None Include="Areas\Admin\Views\StaticPage\Edit.cshtml" />
-    <None Include="Areas\Admin\Views\StaticPage\Index.cshtml" />
+    <Content Include="Views\Shared\Pager.cshtml" />
+    <Content Include="Areas\Admin\Views\StaticPage\Create.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\StaticPage\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\StaticPage\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\StaticPage\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\StaticPage\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MultilineText.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Object.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Password.ascx" />
@@ -457,13 +473,12 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <None Include="Views\Account\ChangePassword.cshtml" />
-    <None Include="Views\Account\ChangePasswordSuccess.cshtml" />
-    <None Include="Views\Account\LogOn.cshtml" />
-    <None Include="Views\Account\Register.cshtml" />
-    <None Include="Views\Home\About.cshtml" />
-    <None Include="Views\Home\Index.cshtml" />
-    <None Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
+    <Content Include="Views\Account\LogOn.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -516,7 +531,7 @@
       <LastGenOutput>List.cs</LastGenOutput>
     </None>
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <None Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

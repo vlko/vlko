@@ -42,7 +42,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		public ActionResult Deleted(PagedModel<StaticTextViewModel> pageModel)
 		{
 			pageModel.LoadData(RepositoryFactory.Action<IStaticTextData>().GetDeleted().OrderByDescending(item => item.PublishDate));
-			return ViewWithAjax(pageModel);
+			return ViewWithAjax("Index", pageModel);
 		}
 
 		/// <summary>

@@ -1,12 +1,11 @@
 ﻿@model vlko.model.Action.ViewModel.StaticTextViewModel
 @using vlko.core.Tools
-<article class="comment">
-	<div class="comment_user">
-		<span class="creator">@Model.Creator.Name</span>
-		<span>@String.Format("{0:g}", Model.ChangeDate)</span>
-	</div>
-	<div class="comment_title">@Html.ActionLink(Model.Title, Model.FriendlyUrl, "Page")</div>
-	<div class="comment_text">@Html.Raw(Model.Description.Shorten(250))</div>
+<article class="note">
+	<span class="date">@String.Format("{0:g}", Model.ChangeDate)</span>	
+	<a class="icon-link" href="@Url.Action(Model.FriendlyUrl, "Page")"><img src="@Url.Content("~/Content/images/note.gif")" alt="Note link" /></a>
+	<h3 class="title">@Html.ActionLink(Model.Title, Model.FriendlyUrl, "Page")</h3>
+	<div class="comments">@Model.CommentCounts</div>
+	<div class="text">@Html.Raw(Model.Description.Shorten(250, "..."))</div>
 </article>
 
 

@@ -1,8 +1,8 @@
 ﻿@model vlko.model.Action.ViewModel.RssItemViewModel
+@using vlko.core.Tools
 <article class="rss_item">
-	<div class="rss_info">
-		<a class="rss_title" href="@Model.Url">@Model.Title</a>
-		<span class="rss_date">@String.Format("{0:g}", Model.Published)</span>
-	</div>
-	<div class="rss_text">@Model.Description</div>
+	<span class="date">@String.Format("{0:g}", Model.Published)</span>
+	<a class="icon-link" href="@Model.Url"><img src="@Url.Content("~/Content/images/rss.gif")" alt="Note link" /></a>
+	<h3 class="title"><a href="@Model.Url">@Model.Title</a></h3>
+	<div class="text">@Html.Raw(Model.Description.Shorten(250, "..."))</div>
 </article>

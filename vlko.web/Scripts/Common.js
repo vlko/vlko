@@ -166,3 +166,56 @@ $(function () {
 	$(window).trigger("hashchange");
 
 });
+
+// jquery append workaround for support of html5 elements in ie less that 9
+$(function () {
+	if ($.browser.msie && $.browser.version < 9) {
+		$.fn.append = function () {
+
+			this.domManip(arguments, true, function (E) {
+				if (this.nodeType == 1) {
+
+					if (E.nodeType == 11) E = innerShiv(E, false);
+					if (E.nodeType) {
+						this.appendChild(E);
+					}
+					else {
+						while (E.length) {
+							this.appendChild(E[0]);
+						}
+					}
+				}
+			});
+			return this;
+		};
+	}
+});
+// http://jdbartlett.github.com/innershiv | WTFPL License
+window.innerShiv = (function () {
+	var d, r;
+	return function (h, u) {
+		if (typeof h != "string") {
+			//convert h to string (w/o jQuery)
+			var t = document.createElement('div');
+			/*@cc_on document.body.appendChild(t); @*/
+			t.appendChild(h);
+			h = t.innerHTML;
+			/*@cc_on document.body.removeChild(t); @*/
+		}
+		if (!d) {
+			d = document.createElement('div');
+			r = document.createDocumentFragment();
+			/*@cc_on d.style.display = 'none'; @*/
+		}
+		var e = d.cloneNode(true);
+		/*@cc_on document.body.appendChild(e); @*/
+		e.innerHTML = h.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		/*@cc_on document.body.removeChild(e); @*/
+
+		if (u === false) return e.childNodes;
+
+		var f = r.cloneNode(true), i = e.childNodes.length;
+		while (i--) f.appendChild(e.firstChild);
+		return f;
+	}
+} ());

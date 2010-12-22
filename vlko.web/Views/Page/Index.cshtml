@@ -6,22 +6,9 @@
 	
 	Html.ScriptInclude("~/Scripts/Grid.js");
 }
-<h2>Pages list</h2>
+<h2 class="note-main">Pages list</h2>
 @foreach (var item in Model) { 
-	<div class="article">
-		<h3>@Html.ActionLink(item.Title, item.FriendlyUrl, "Page")</h3>
-		<div class="article_info">
-			<span class="creator">@item.Creator.Name</span>
-			<span class="publish_date"><span>Published </span>@String.Format("{0:g}", item.PublishDate)</span>
-			<span class="last_change_date"><span>Created </span>@String.Format("{0:g}", item.ChangeDate)</span>
-		</div>
-		<div>
-			@Html.Raw(item.Description)
-		</div> 
-		@if (item.AllowComments) {
-		<div class="article_comment"><span>Comments </span>@item.CommentCounts</div>
-		}
-	</div>
+	@Html.Partial("~/Views/Content/StaticText.cshtml", item)
 }
 <div>@Html.Partial("~/Views/Shared/Pager.cshtml", new PagerModel(Model, "Index"))</div>
 @{ Html.ScriptInlineInclude(

@@ -1,21 +1,29 @@
-﻿body
+﻿/* html5doctor.com Reset Stylesheetv1.6.1Last Updated: 2010-09-17Author: Richard Clark - http://richclarkdesign.com Twitter: @rich_clark*/
+html, body, div, span, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,abbr, address, cite, code,del, dfn, em, img, ins, kbd, q, samp,small, strong, sub, sup, var,b, i,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary,time, mark, audio, video {margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;}body {line-height:1;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section { display:block;}nav ul {list-style:none;}blockquote, q {quotes:none;}blockquote:before, blockquote:after,q:before, q:after {content:'';content:none;}a {margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;}
+/* change colours to suit your needs */ins {background-color:#ff9;color:#000;text-decoration:none;}
+/* change colours to suit your needs */mark {background-color:#ff9;color:#000; font-style:italic;font-weight:bold;}del {text-decoration: line-through;}abbr[title], dfn[title] {border-bottom:1px dotted;cursor:help;}table {border-collapse:collapse;border-spacing:0;}
+/* change border colour to suit your needs */hr {display:block;height:1px;border:0;   border-top:1px solid #cccccc;margin:1em 0;padding:0;}input, select {vertical-align:middle;}
+body
 {
 	background-color: #eaf2fd;
-	font-size: 12px;
-	font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+	font-size: 16px;
+	font-family: Arial, Helvetica, sans-serif;
 	margin: 0;
 	padding: 0;
 	color: black;
 }
+input {
+	font-size: 16px;
+}
 
-a:link
+a
 {
-	color: #25a0da;
+	color: #1ba1e2;
 	text-decoration: underline;
 }
 a:visited
 {
-	color: #25a0da;
+	color: #1ba1e2;
 }
 a:hover
 {
@@ -24,7 +32,7 @@ a:hover
 }
 a:active
 {
-	color: #309b46;
+	color: #8cbf26;
 }
 
 p, ul
@@ -38,30 +46,31 @@ p, ul
 h1, h2, h3, h4, h5, h6
 {
 	font-weight: normal;	
-	font-size: 1.5em;
+	font-size: 2em;
 }
 
 h1
 {
-	font-size: 2em;
+	font-size: 2.2em;
 	padding-bottom: 0;
 	margin-bottom: 0;
 }
 h2
 {
 	padding: 0 0 10px 0;
+	line-height: 2em;
 }
 h3
 {
-	font-size: 1.2em;
+	font-size: 1.5em;
 }
 h4
 {
-	font-size: 1.1em;
+	font-size: 1.3em;
 }
 h5, h6
 {
-	font-size: 1em;
+	font-size: 1.1em;
 }
 
 /* this rule styles <h2> tags that are the 
@@ -87,38 +96,48 @@ first child of the left and right table columns */
 
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
-.page
-{
+.page {
 	width: 960px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-#header
-{
+#header {
 	position: relative;
-	margin-bottom: 0px;
+	margin: 0;
+	margin-top: 5px;
 	padding: 0;
+	height: 128px;
+	color: White;
+	background-color: #1ba1e2;
 }
 
-#header h1
-{
-	padding: 5px 0;
+#header h1 {
+	padding: 5px 0 0 140px;
 	margin: 0;
 	border: none;
-	font-size: 32px !important;
+	font-size: 25px;
+	font-weight: bold;
+}
+#title .name {
+	font-size: 40px;
 }
 
-#main
-{
+#logo {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#main {
 	padding: 30px 30px 15px 30px;
 	background-color: #fff;
 	margin-bottom: 30px;
+	line-height: 1.25em;
 	_height: 1px; /* only IE6 applies CSS properties starting with an underscore */
 }
 
-#footer
-{
+#footer {
 	padding: 10px 0;
 	text-align: center;
 	line-height: normal;
@@ -126,95 +145,202 @@ page width. Or, you can specify an exact pixel width. */
 	font-size: .9em;
 }
 
+#search {
+	float:right;
+	padding: 5px 10px 0px 0px;
+}
+#search input {
+	border: 0px solid white;
+}
+#search input[type="submit"] {
+	color: #1ba1e2;
+	background-color: White;
+}
+#search input[type="submit"]:hover {
+	color: #8cbf26;
+}
+#logindisplay {
+	font-size:0.9em;
+	display:block;
+	text-align:right;
+	padding: 5px 10px 0px 0px;
+}
+
+#logindisplay a:link {
+	color: white;
+	text-decoration: underline;
+}
+
+#logindisplay a:visited {
+	color: white;
+	text-decoration: underline;
+}
+
+#logindisplay a:hover {
+	color: white;
+	text-decoration: none;
+}
+/* specific  
+----------------------------------------------------------*/
+
+#timeline, .note-main {
+	padding-left: 70px;
+	line-height: 30px;
+	height: 60px;
+	margin-bottom: 1em;
+}
+#timeline {
+	background: transparent url("/Content/images/timeline.gif") no-repeat left top;
+}
+.note-main{
+	background: transparent url("/Content/images/note-main.gif") no-repeat left top;
+}
+.twitter_status, .rss_item, .note, .one-note, .comment {
+	position: relative;
+	padding: 2px 2px 2px 40px;
+	margin-bottom: 2em;
+	min-height: 30px;
+}
+.twitter_status:hover, .rss_item:hover, .note:hover, .comment:hover {
+	background-color: #eaf2fd;
+}
+.rss_item .icon-link, .note .icon-link, .twitter_status .icon-link, .comment .icon-link {
+	position: absolute;
+	left: 2px;
+	top: 2px;
+}
+.rss_item .title, .note .title, .twitter_status .title, .comment .title {
+	margin-bottom: 0.3em;
+}
+.rss_item .text, .note .text, .twitter_status .text, .one-note .text, .comment .text, .content-text {
+	margin-right: 200px;
+	overflow-x: auto;
+}
+.rss_item .date, .twitter_status .date, .note .date {
+	float:right;
+	background: #1ba1e2 url("/Content/images/change.gif") no-repeat right top;
+	padding: 0px 25px 0px 5px;
+	line-height: 20px;
+	color: White;
+}
+.note .comments, .comments {
+	background: #1ba1e2 url("/Content/images/comments.gif") no-repeat right top;
+}
+.author {
+	background: #1ba1e2 url("/Content/images/author.gif") no-repeat right top;
+}
+.publish-date {
+	background: #1ba1e2 url("/Content/images/publish.gif") no-repeat right top;
+}
+.last-change-date {
+	background: #1ba1e2 url("/Content/images/change.gif") no-repeat right top;
+}
+.note .comments, .comments, .author, .publish-date, .last-change-date {
+	clear:both;
+	float:right;
+	padding: 0px 25px 0px 5px;
+	line-height: 20px;
+	color: White;
+}
+.comment-sort img {
+	border: 1px solid White; 
+}
+.comment-sort img:hover {
+	border: 1px solid #309b46; 
+}
+.one-note {
+	position: relative;
+	padding: 2px 0px;
+	min-height: 30px;
+}
+.one-note .info, .comment-sort {
+	%width: 250px;
+	float: right;
+	text-align:right;
+	padding: 3px 0px;
+}
+
 /* TAB MENU   
 ----------------------------------------------------------*/
 #menucontainer {
-	clear:both;
-	height: 2.8em;
+	position: absolute;
+	bottom: 0;
+	left: 140px;
 }
 
-ul#menu
-{
-	padding: 0 0 2px;
+ul#menu {
+	padding: 0;
 	position: relative;
 	margin: 0;
 	float: left;	
 }
 
-#search{
-	float:right;
-}
-
-ul#menu li
-{
+ul#menu li {
 	display: inline;
 	list-style: none;
 }
 
-ul#menu li#greeting
-{
-	padding: 10px 20px;
+ul#menu li#greeting {
+	padding: 0 20px;
 	font-weight: bold;
 	text-decoration: none;
-	line-height: 2.8em;
+	line-height: 30px;
 }
 
-ul#menu li a
-{
-	padding: 10px 20px;
-	font-weight: bold;
+ul#menu li a {
+	padding: 5px 10px 5px 10px;
+	font-size: 20px;
 	text-decoration: none;
-	line-height: 2.8em;
-	background-color: #e8eef4;
+	line-height: 30px;
+	color: White;
 }
 
-ul#menu li a:hover
-{
-	background-color: #fff;
+ul#menu li a:hover {
+	background-color: #309b46;
 	text-decoration: none;
 }
 
-ul#menu li a:active
-{
-	background-color: #a6e2a6;
+ul#menu li a:active {
+	background-color: #8cbf26;
 	text-decoration: none;
 }
 
-ul#menu li.selected a
-{
-	background-color: #fff;
+ul#menu li.selected a {
+	background-color: #309b46;
 }
+
+div#title {
+	display:block;
+	float:left;
+	text-align:left;
+}
+
 
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
-fieldset 
-{
+fieldset {
 	margin: 0.2em 0;
 	padding: 0.2em 0.5em 0.5em 0.5em;
 	border: 1px solid #CCC;
 }
 
-fieldset p 
-{
+fieldset p {
 	margin: 2px 12px 10px 10px;
 }
 
-legend 
-{
+legend {
 	font-size: 1.1em;
 	font-weight: 600;
 	padding: 2px 4px 8px 4px;
 }
 
-input[type="text"] 
-{
+input[type="text"] {
 	width: 200px;
 	border: 1px solid #CCC;
 }
 
-input[type="password"] 
-{
+input[type="password"] {
 	width: 200px;
 	border: 1px solid #CCC;
 }
@@ -222,119 +348,66 @@ input[type="password"]
 /* TABLE
 ----------------------------------------------------------*/
 
-table 
-{
-  border: solid 1px #e8eef4;
+table {
+  border: solid 1px #1ba1e2;
   border-collapse: collapse;
 }
 
-table td 
-{
+table td {
   padding: 5px;   
   border: solid 1px #e8eef4;
 }
 
-table th
-{
+table th {
   padding: 6px 5px;
   text-align: left;
-  background-color: #e8eef4; 
-  border: solid 1px #e8eef4;   
+  color: White;
+  background-color: #1ba1e2; 
+  border: solid 1px #1ba1e2;   
 }
-table .no_wrap
-{
+table .no_wrap {
 	white-space: nowrap;
 }
 /* MISC  
 ----------------------------------------------------------*/
-.clear
-{
-	clear: both;
-}
-
-.error
-{
+.error {
 	color:Red;
-}
-
-#menucontainer
-{
-	clear:both;
-}
-
-div#title
-{
-	display:block;
-	float:left;
-	text-align:left;
-}
-
-#logindisplay
-{
-	font-size:1.1em;
-	display:block;
-	text-align:right;
-	margin:10px;
-}
-
-#logindisplay a:link
-{
-	color: black;
-	text-decoration: underline;
-}
-
-#logindisplay a:visited
-{
-	color: black;
-	text-decoration: underline;
-}
-
-#logindisplay a:hover
-{
-	color: black;
-	text-decoration: none;
 }
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error
-{
+.field-validation-error {
 	color: #ff0000;
 }
 
-.field-validation-valid
-{
+.field-validation-valid {
 	display: none;
 }
 
-.input-validation-error
-{
+.input-validation-error {
 	border: 1px solid #ff0000;
 	background-color: #ffeeee;
 }
 
-.validation-summary-errors
-{
+.validation-summary-errors {
 	font-weight: bold;
 	color: #ff0000;
 }
 
-.validation-summary-valid
-{
+.validation-summary-valid {
 	display: none;
 }
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
-.form_content{
+.form_content {
 	padding: 1.4em 0px;
 }
 .display-label,
 .editor-label,
 .display-field,
-.editor-field
-{
-	margin: 0.5em 0;
+.editor-field {
+	margin: 10px 0 0 0;
 }
 
 .display-label, .editor-label {
@@ -342,42 +415,44 @@ div#title
 	float: left;
 	font-weight: bold;
 	text-align: right;
-	width: 256px;
-	padding-right: 5px;
+	width: 236px;
+	padding-right: 25px;
 }
 .display-field,
-.editor-field
-{
+.editor-field {
 	float: left;
-	width: 576px;
+	width: 556px;
+	border-left: 2px solid #1ba1e2;
+	padding: 10px 2em 0px 1em;
+	margin: 0;
+	position: relative;	
 }
-.editor-submit
-{
-	clear: both;
-	position: relative;
-	padding-left: 261px;
+.editor-submit {
+	float: left;
+	width: 556px;	
+	border-left: 2px solid #1ba1e;
+	padding: 10px 2em;
+	margin: 0;
+	clear: none;
 }
-.editor-submit input
-{
+.editor-submit input {
 	width: 128px;
 }
-.editor-submit input.back_submit
-{
-	position: absolute;
-	left: 5px;
-	margin-top: 3px;
+
+.editor-label input[type="checkbox"] {
+	margin-top: -8px;
 }
-.editor-field input, .editor-field select
-{
+
+.editor-field input, .editor-field select {
 	width: 256px;
 }
-
-.text-box.multi-line
-{
+.text-box.multi-line {
 	height: 6.5em;
 }
-
-.tri-state
-{
+.tri-state {
 	width: 6em;
+}
+
+.buttons {
+	margin: 2px 0px;
 }

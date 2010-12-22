@@ -8,6 +8,8 @@ namespace vlko.model.Action.CRUDModel
 {
 	public class CommentCRUDModel
 	{
+		public readonly string ExpressionText = "23 + 6 =";
+		public readonly string ExpressionCorrectValue = "29";
 		/// <summary>
 		/// Gets or sets the Id.
 		/// </summary>
@@ -36,6 +38,12 @@ namespace vlko.model.Action.CRUDModel
 		[AntiXssHtmlText]
 		[Required(ErrorMessageResourceType = typeof(ModelResources), ErrorMessageResourceName = "CommentTextRequireError")]
 		public string Text { get; set; }
+
+		/// <summary>
+		/// Gets or sets the robo check value.
+		/// </summary>
+		/// <value>The robo check value.</value>
+		public string RoboCheck { get; set; }
 
 		/// <summary>
 		/// Gets or sets the change date.

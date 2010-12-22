@@ -14,6 +14,7 @@ using vlko.model;
 using vlko.model.Action;
 using vlko.model.Action.CRUDModel;
 using vlko.model.Search;
+using Settings = vlko.model.Settings;
 
 namespace vlko.web
 {
@@ -82,15 +83,12 @@ namespace vlko.web
 
 			ApplicationInit.FullInit();
 
-			var dataExists = File.Exists(HttpContext.Current.Server.MapPath("~/App_Data/ActiveRecord.dat"));
+			var dataExists = Directory.Exists(HttpContext.Current.Server.MapPath("~/App_Data/Index.Lucene"));
 
 			var config = new Configuration();
 			config.Configure();
 			DBInit.InitMappings(config);
 			DBInit.RegisterSessionFactory(config.BuildSessionFactory());
-			
-
-
 
 			// set search folder
 			var indexDirectory = HttpContext.Current.Server.MapPath("~/App_Data/Index.Lucene");
@@ -158,56 +156,59 @@ namespace vlko.web
 						{
 							AllowComments = false,
 							Creator = admin,
-							Title = "Home",
-							FriendlyUrl = "Home",
+							Title = "About",
+							FriendlyUrl = "about",
 							ChangeDate = DateTime.Now,
 							PublishDate = DateTime.Now,
-							Text = "Welcome to vlko",
-							Description = "Welcome to vlko"
+							Text = "Some about me text",
+							Description = "Some about me text"
 						});
 				searchAction.IndexStaticText(tran, home);
-				for (int i = 0; i < 30; i++)
+				if (Settings.CreateSampleData.Value)
 				{
-					searchAction.IndexComment(tran,
-					                          RepositoryFactory.Action<ICommentCrud>().Create(
-					                          	new CommentCRUDModel()
-					                          		{
-					                          			AnonymousName = "User",
-					                          			ChangeDate = DateTime.Now.AddDays(-i),
-					                          			ClientIp = "127.0.0.1",
-					                          			ContentId = home.Id,
-					                          			Name = "Comment" + i,
-					                          			Text = "Home commment" + i,
-					                          			UserAgent = "Mozzilla"
-					                          		}));
-				}
-				for (int i = 0; i < 1000; i++)
-				{
-					var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
-						new StaticTextCRUDModel
-							{
-								AllowComments = true,
-								Creator = admin,
-								Title = "StaticPage" + i,
-								FriendlyUrl = "StaticPage" + i,
-								ChangeDate = DateTime.Now.AddDays(-i),
-								PublishDate = DateTime.Now.AddDays(-i),
-								Text = "Static page" + i,
-								Description = "Static page" + i
-							});
-					searchAction.IndexStaticText(tran, text);
-					searchAction.IndexComment(tran,
-					                          RepositoryFactory.Action<ICommentCrud>().Create(
-					                          	new CommentCRUDModel()
-					                          		{
-					                          			AnonymousName = "User",
-					                          			ChangeDate = DateTime.Now.AddDays(-i),
-					                          			ClientIp = "127.0.0.1",
-					                          			ContentId = text.Id,
-					                          			Name = "Comment" + i,
-					                          			Text = "Static page" + i,
-					                          			UserAgent = "Mozzilla"
-					                          		}));
+					for (int i = 0; i < 30; i++)
+					{
+						searchAction.IndexComment(tran,
+						                          RepositoryFactory.Action<ICommentCrud>().Create(
+						                          	new CommentCRUDModel()
+						                          		{
+						                          			AnonymousName = "User",
+						                          			ChangeDate = DateTime.Now.AddDays(-i),
+						                          			ClientIp = "127.0.0.1",
+						                          			ContentId = home.Id,
+						                          			Name = "Comment" + i,
+						                          			Text = "Home commment" + i,
+						                          			UserAgent = "Mozzilla"
+						                          		}));
+					}
+					for (int i = 0; i < 1000; i++)
+					{
+						var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
+							new StaticTextCRUDModel
+								{
+									AllowComments = true,
+									Creator = admin,
+									Title = "StaticPage" + i,
+									FriendlyUrl = "StaticPage" + i,
+									ChangeDate = DateTime.Now.AddDays(-i),
+									PublishDate = DateTime.Now.AddDays(-i),
+									Text = "Static page" + i,
+									Description = "Static page" + i
+								});
+						searchAction.IndexStaticText(tran, text);
+						searchAction.IndexComment(tran,
+						                          RepositoryFactory.Action<ICommentCrud>().Create(
+						                          	new CommentCRUDModel()
+						                          		{
+						                          			AnonymousName = "User",
+						                          			ChangeDate = DateTime.Now.AddDays(-i),
+						                          			ClientIp = "127.0.0.1",
+						                          			ContentId = text.Id,
+						                          			Name = "Comment" + i,
+						                          			Text = "Static page" + i,
+						                          			UserAgent = "Mozzilla"
+						                          		}));
+					}
 				}
 				tran.Commit();
 			}
@@ -221,9 +222,11 @@ namespace vlko.web
 		protected void Application_Error(object sender, EventArgs e)
 		{
 			var exception = Server.GetLastError();
-			if (exception is HttpException)
+			// if 404 stop logging
+			if (exception is HttpException 
+				&& ((HttpException)exception).GetHttpCode() == 404)
 			{
-				
+				return;
 			}
 			string user = "unknown";
 			string url = "unknown";

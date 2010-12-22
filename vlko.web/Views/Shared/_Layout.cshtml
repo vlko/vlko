@@ -1,21 +1,27 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>@View.Title</title>
+	<title>vlko - @View.Title</title>
+	<meta name="description" content="vlko - one coder of many">
+	<meta name="author" content="twitter:@@vlkodotnet">
 	@{ 
 		Html.CssInclude("~/Content/Site.css");
-		Html.CssInclude("~/Content/jquery-ui-1.8.6.custom.css");
+		Html.CssInclude("~/Content/jquery-ui-1.8.7.custom.css");
 		Html.ScriptRootInclude("~/Scripts/jquery-1.4.4.js", "~/Scripts/jquery-1.4.4.js");
-		Html.ScriptRootInclude("~/Scripts/jquery-ui-1.8.6.custom.min.js");
+		Html.ScriptRootInclude("~/Scripts/jquery-ui-1.8.7.custom.min.js");
 		Html.ScriptRootInclude("~/Scripts/jquery.ba-bbq.js");
 		Html.ScriptRootInclude("~/Scripts/Common.js"); 
 	}
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 	@Html.RenderCss()
 </head>
 
 <body>
 	<div class="page">
 		<div id="header">
+			<img id="logo" src="@Url.Content("~/Content/images/vlko-logo.gif")" alt="logo" />
 			<div id="title">
 				<h1><span class="name">vlko</span> - one coder of many</h1>
 			</div>
@@ -32,12 +38,14 @@
 			<div id="menucontainer">
 			
 				<ul id="menu">              
-					<li>@Html.ActionLink("Home", "Index", "Home", routeValues: new { area = string.Empty })</li>
-					<li>@Html.ActionLink("About", "About", "Home", routeValues: new { area = string.Empty })</li>
-					<li>@Html.ActionLink("Pages", "Index", "Page", routeValues: new { area = string.Empty })</li>
-					<li>@Html.ActionLink("Static text", "Index", "StaticPage", routeValues: new { area = "Admin" })</li>
-					<li>@Html.ActionLink("Comments", "Index", "Comment", routeValues: new { area = "Admin" })</li>
-					<li>@Html.ActionLink("Rss", "Index", "RssFeed", routeValues: new { area = "Admin" })</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.HomeController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Home", "Index", "Home", routeValues: new { area = string.Empty })</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.AboutController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("About", "Index", "About", routeValues: new { area = string.Empty })</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.PageController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Pages", "Index", "Page", routeValues: new { area = string.Empty })</li>
+					@if (Request.IsAuthenticated) {
+						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.StaticPageController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Static text", "Index", "StaticPage", routeValues: new { area = "Admin" })</li>
+						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.CommentController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Comments", "Index", "Comment", routeValues: new { area = "Admin" })</li>
+						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.RssFeedController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Rss", "Index", "RssFeed", routeValues: new { area = "Admin" })</li>
+					}
 				</ul>
 			</div>
 		</div>
@@ -51,5 +59,15 @@
 	</div>
 		@Html.RenderScripts()
 		@Html.RenderInlineScripts()
+<script>
+	var _gaq = [['_setAccount', '@vlko.model.Settings.GAToken'], ['_trackPageview']];
+	(function(d, t) {
+		var g = d.createElement(t),
+			s = d.getElementsByTagName(t)[0];
+		g.async = true;
+		g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g, s);
+	})(document, 'script');
+</script>
 </body>
 </html>

@@ -367,6 +367,15 @@ namespace vlko.model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please solve expression to post comment..
+        /// </summary>
+        public static string RoboCheckError {
+            get {
+                return ResourceManager.GetString("RoboCheckError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File size.
         /// </summary>
         public static string Size {

@@ -10,6 +10,18 @@ namespace vlko.model
 		public static readonly SettingValue<string> BaseUrl 
 			= new SettingValue<string>("BaseUrl", null, new ConfigSettingProvider());
 
+		/// <summary>
+		/// Indicate if to create sample data to new db.
+		/// </summary>
+		public static readonly SettingValue<bool> CreateSampleData
+			= new SettingValue<bool>("CreateSampleData", false, new ConfigSettingProvider());
+
+		/// <summary>
+		/// Google Analytics token.
+		/// </summary>
+		public static readonly SettingValue<string> GAToken
+			= new SettingValue<string>("GAToken", null, new ConfigSettingProvider());
+
 		public static class Twitter
 		{
 			/// <summary>

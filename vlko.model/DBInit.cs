@@ -81,7 +81,7 @@ namespace vlko.model
 			mapper.Customize<CommentVersion>(mapping =>
 			{
 				mapping.Property(item => item.UserAgent, pm => pm.Length(255));
-				mapping.Property(item => item.Text, pm => pm.Type(NHibernateUtil.StringClob));
+				mapping.Property(item => item.Text, pm => { pm.Type(NHibernateUtil.StringClob); pm.Length(int.MaxValue); });
 			});
 			mapper.Customize<Content>(mapping =>
 			{
@@ -111,7 +111,7 @@ namespace vlko.model
 				});
 				mapping.Property(item => item.Url, pm => pm.Length(255));
 				mapping.Property(item => item.Title, pm => pm.Length(255));
-				mapping.Property(item => item.Text, pm => pm.Type(NHibernateUtil.StringClob));
+				mapping.Property(item => item.Text, pm => { pm.Type(NHibernateUtil.StringClob); pm.Length(int.MaxValue); });
 			});
 
 			mapper.Customize<StaticText>(mapping =>
@@ -125,12 +125,12 @@ namespace vlko.model
 				}
 					);
 			});
-			mapper.Customize<StaticTextVersion>(mapping => mapping.Property(item => item.Text, pm => pm.Type(NHibernateUtil.StringClob)));
+			mapper.Customize<StaticTextVersion>(mapping => mapping.Property(item => item.Text, pm => { pm.Type(NHibernateUtil.StringClob); pm.Length(int.MaxValue); }));
 
 			mapper.Customize<SystemMessage>(mapping =>
 			{
 				mapping.Property(item => item.Sender, pm => pm.Length(255));
-				mapping.Property(item => item.Text, pm => pm.Type(NHibernateUtil.StringClob));
+				mapping.Property(item => item.Text, pm => { pm.Type(NHibernateUtil.StringClob); pm.Length(int.MaxValue); });
 			});
 
 			mapper.Customize<TwitterStatus>(mapping =>

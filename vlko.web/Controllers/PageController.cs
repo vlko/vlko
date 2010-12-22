@@ -113,6 +113,11 @@ namespace vlko.web.Controllers
 			var staticText = RepositoryFactory.Action<IStaticTextData>().Get(model.ContentId, DateTime.Now);
 			model.ChangeUser = UserInfo.User;
 
+			if (model.ChangeUser == null && model.RoboCheck != model.ExpressionCorrectValue)
+			{
+				ModelState.AddModelError<CommentCRUDModel>(item => item.RoboCheck, ModelResources.RoboCheckError);
+			}
+
 			// check for anonymous name required if not logged user
 			if (model.ChangeUser == null && string.IsNullOrEmpty(model.AnonymousName))
 			{

@@ -243,4 +243,7 @@
   <data name="RequireError" xml:space="preserve">
     <value>Cannot be empty.</value>
   </data>
+  <data name="RoboCheckError" xml:space="preserve">
+    <value>Please solve expression to post comment.</value>
+  </data>
 </root>

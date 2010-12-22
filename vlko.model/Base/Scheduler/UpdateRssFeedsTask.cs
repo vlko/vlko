@@ -48,10 +48,10 @@ namespace vlko.model.Base.Scheduler
 				{
 					var storedItemsCount = 0;
 					var feedItems = GetFeedItems(feed);
-					var storedItems = feedItemAction.GetByFeedIds(feedItems.Select(feedItem => feedItem.FeedItemId));
 
 					using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 					{
+						var storedItems = feedItemAction.GetByFeedIds(feedItems.Select(feedItem => feedItem.FeedItemId));
 						foreach (var feedItem in feedItems)
 						{
 							var storedItem = storedItems.FirstOrDefault(item => item.FeedItemId == feedItem.FeedItemId);
