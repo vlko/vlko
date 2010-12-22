@@ -50,7 +50,8 @@ namespace vlko.model
 
 			var mapper = new Mapper(orm);
 
-			mapper.AddPropertyPattern(mi => mi.GetPropertyOrFieldType() == typeof(string), pm => pm.Length(50));
+			mapper.AddPropertyPattern(mi => mi.GetPropertyOrFieldType() == typeof(string) && !mi.Name.EndsWith("Text"), pm => pm.Length(50));
+			mapper.AddPropertyPattern(mi => mi.GetPropertyOrFieldType() == typeof(string) && mi.Name.EndsWith("Text"), pm => pm.Type(NHibernateUtil.StringClob));
 
 			orm.Patterns.PoidStrategies.Add(new GuidOptimizedPoidPattern());
 
@@ -78,11 +79,7 @@ namespace vlko.model
 				});
 			});
 
-			mapper.Customize<CommentVersion>(mapping =>
-			{
-				mapping.Property(item => item.UserAgent, pm => pm.Length(255));
-				mapping.Property(item => item.Text, pm => { pm.Type(NHibernateUtil.StringClob); pm.Length(int.MaxValue); });
-			});
+			mapper.Customize<CommentVersion>(mapping => mapping.Property(item => item.UserAgent, pm => pm.Length(255)));
 			mapper.Customize<Content>(mapping =>
 			{
 				mapping.Property(item => item.Description, pm => pm.Length(ModelConstants.DescriptionMaxLenghtConst));
@@ -111,7 +108,6 @@ namespace vlko.model
 				});
 				mapping.Property(item => item.Url, pm => pm.Length(255));
 				mapping.Property(item => item.Title, pm => pm.Length(255));
-				mapping.Property(item => item.Text, pm => { pm.Type(NHibernateUtil.StringClob); pm.Length(int.MaxValue); });
 			});
 
 			mapper.Customize<StaticText>(mapping =>
@@ -125,13 +121,8 @@ namespace vlko.model
 				}
 					);
 			});
-			mapper.Customize<StaticTextVersion>(mapping => mapping.Property(item => item.Text, pm => { pm.Type(NHibernateUtil.StringClob); pm.Length(int.MaxValue); }));
 
-			mapper.Customize<SystemMessage>(mapping =>
-			{
-				mapping.Property(item => item.Sender, pm => pm.Length(255));
-				mapping.Property(item => item.Text, pm => { pm.Type(NHibernateUtil.StringClob); pm.Length(int.MaxValue); });
-			});
+			mapper.Customize<SystemMessage>(mapping => mapping.Property(item => item.Sender, pm => pm.Length(255)));
 
 			mapper.Customize<TwitterStatus>(mapping =>
 			{
