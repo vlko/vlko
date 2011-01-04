@@ -19,7 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule", "vlko.Blo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.NH", "vlko.BlogModule.NH\vlko.BlogModule.NH.csproj", "{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.Tests", "vlko.BlogModule.NH.Tests\vlko.BlogModule.Tests.csproj", "{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.RavenDB", "vlko.BlogModule.RavenDB\vlko.BlogModule.RavenDB.csproj", "{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.NH.Tests", "vlko.BlogModule.NH.Tests\vlko.BlogModule.NH.Tests.csproj", "{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -54,6 +56,10 @@ Global
 		{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
