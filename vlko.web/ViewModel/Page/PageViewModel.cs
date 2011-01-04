@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using vlko.core.Components;
-using vlko.model.Action.CRUDModel;
-using vlko.model.Action.ViewModel;
+using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Action.ViewModel;
 
 namespace vlko.web.ViewModel.Page
 {

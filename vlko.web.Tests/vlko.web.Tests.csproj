@@ -143,13 +143,17 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\vlko.BlogModule.NH\vlko.BlogModule.NH.csproj">
+      <Project>{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}</Project>
+      <Name>vlko.BlogModule.NH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vlko.BlogModule\vlko.BlogModule.csproj">
+      <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>
+      <Name>vlko.BlogModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\vlko.core\vlko.core.csproj">
       <Project>{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}</Project>
       <Name>vlko.core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\vlko.model\vlko.model.csproj">
-      <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>
-      <Name>vlko.model</Name>
     </ProjectReference>
     <ProjectReference Include="..\vlko.web\vlko.web.csproj">
       <Project>{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}</Project>

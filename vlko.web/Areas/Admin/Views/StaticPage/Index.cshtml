@@ -1,4 +1,4 @@
-﻿@model PagedModel<vlko.model.Action.ViewModel.StaticTextViewModel>
+﻿@model PagedModel<vlko.BlogModule.Action.ViewModel.StaticTextViewModel>
 @using vlko.web.Areas.Admin.Controllers;
 @using vlko.core.Components;
 @{
@@ -10,13 +10,13 @@
 <table>
 	<thead>
 		<th></th>
-		<th>@vlko.model.ModelResources.Id</th>
-		<th>@vlko.model.ModelResources.FriendlyUrl</th>
-		<th>@vlko.model.ModelResources.Title</th>
-		<th>@vlko.model.ModelResources.ChangeDate</th>
-		<th>@vlko.model.ModelResources.PublishDate</th>
-		<th>@vlko.model.ModelResources.AllowComments</th>
-		<th>@vlko.model.ModelResources.CommentCounts</th>
+		<th>@vlko.BlogModule.ModelResources.Id</th>
+		<th>@vlko.BlogModule.ModelResources.FriendlyUrl</th>
+		<th>@vlko.BlogModule.ModelResources.Title</th>
+		<th>@vlko.BlogModule.ModelResources.ChangeDate</th>
+		<th>@vlko.BlogModule.ModelResources.PublishDate</th>
+		<th>@vlko.BlogModule.ModelResources.AllowComments</th>
+		<th>@vlko.BlogModule.ModelResources.CommentCounts</th>
 	</thead>
 
 @foreach (var item in Model) { 

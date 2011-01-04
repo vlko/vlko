@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>vlko.BlogModule</RootNamespace>
+    <AssemblyName>vlko.BlogModule</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AntiXSSLibrary">
+      <HintPath>..\_dependencies\AntiXSSLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\_dependencies\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\_dependencies\twitter\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\_dependencies\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\_dependencies\mvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Twitterizer2">
+      <HintPath>..\_dependencies\twitter\Twitterizer2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Action.ComplexHelpers\Rss\RssItemRawData.cs" />
+    <Compile Include="Action.ComplexHelpers\Twitter\ConsumerAppIdent.cs" />
+    <Compile Include="Action.CRUDModel\CommentCRUDModel.cs" />
+    <Compile Include="Action.CRUDModel\RssItemCRUDModel.cs" />
+    <Compile Include="Action.CRUDModel\StaticTextCRUDModel.cs" />
+    <Compile Include="Action.ComplexHelpers\Twitter\OAuthToken.cs" />
+    <Compile Include="Action.ViewModel\RssFeedViewModel.cs" />
+    <Compile Include="Action.ViewModel\RssItemViewModel.cs" />
+    <Compile Include="Action.ViewModel\RssItemViewModelWithId.cs" />
+    <Compile Include="Action\IRssFeedAction.cs" />
+    <Compile Include="Action\IRssFeedConnection.cs" />
+    <Compile Include="Action\IRssItemAction.cs" />
+    <Compile Include="Action\ITimeline.cs" />
+    <Compile Include="Action\ITwitterConnection.cs" />
+    <Compile Include="Action\ITwitterStatusAction.cs" />
+    <Compile Include="Action.CRUDModel\RssFeedCRUDModel.cs" />
+    <Compile Include="Base\Scheduler\UpdateRssFeedsTask.cs" />
+    <Compile Include="Base\Scheduler\UpdateTwitterTask.cs" />
+    <Compile Include="Implementation.OtherTech\Action\RssFeedConnection.cs" />
+    <Compile Include="Implementation.OtherTech\Action\TwitterConnection.cs" />
+    <Compile Include="Action\ISystemMessageAction.cs" />
+    <Compile Include="Implementation.OtherTech\Action\SearchAction.cs" />
+    <Compile Include="Action\ICommentCrud.cs" />
+    <Compile Include="Action\ICommentData.cs" />
+    <Compile Include="Action\IFileBrowserAction.cs" />
+    <Compile Include="Action\ISearchAction.cs" />
+    <Compile Include="Action\IStaticTextCrud.cs" />
+    <Compile Include="Action\IStaticTextData.cs" />
+    <Compile Include="ModelConstants.cs" />
+    <Compile Include="ModelResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roots\AppSetting.cs" />
+    <Compile Include="Roots\Comment.cs" />
+    <Compile Include="Roots\CommentVersion.cs" />
+    <Compile Include="Roots\Content.cs" />
+    <Compile Include="Roots\ContentType.cs" />
+    <Compile Include="Roots\RssFeed.cs" />
+    <Compile Include="Roots\RssItem.cs" />
+    <Compile Include="Roots\StaticText.cs" />
+    <Compile Include="Roots\StaticTextVersion.cs" />
+    <Compile Include="Roots\SystemMessage.cs" />
+    <Compile Include="Roots\TwitterStatus.cs" />
+    <Compile Include="Roots\User.cs" />
+    <Compile Include="SearchRoot.cs" />
+    <Compile Include="Search\ISearchProvider.cs" />
+    <Compile Include="Search\SearchContext.cs" />
+    <Compile Include="Search\SearchProvider.cs" />
+    <Compile Include="Search\SearchResult.cs" />
+    <Compile Include="Search\SearchUpdateContext.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Action.ViewModel\CommentForAdminViewModel.cs" />
+    <Compile Include="Action.ViewModel\CommentSearchViewModel.cs" />
+    <Compile Include="Action.ViewModel\CommentTreeViewModel.cs" />
+    <Compile Include="Action.ViewModel\CommentViewModel.cs" />
+    <Compile Include="Action.ViewModel\FileViewModel.cs" />
+    <Compile Include="Action.ViewModel\StaticTextViewModel.cs" />
+    <Compile Include="Action.ViewModel\StaticTextWithFullTextViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Roots\Model.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ModelResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ModelResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\vlko.core\vlko.core.csproj">
+      <Project>{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}</Project>
+      <Name>vlko.core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

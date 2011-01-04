@@ -7,11 +7,11 @@ using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.core.Tools;
 using vlko.core.ValidationAtribute;
-using vlko.model;
-using vlko.model.Action;
-using vlko.model.Action.CRUDModel;
-using vlko.model.Action.ViewModel;
-using vlko.model.Search;
+using vlko.BlogModule;
+using vlko.BlogModule.Action;
+using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Search;
 using vlko.web.ViewModel.Page;
 
 namespace vlko.web.Controllers

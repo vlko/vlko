@@ -1,5 +1,5 @@
 ﻿@model vlko.core.Components.PagedModel<object>
-@using vlko.model.Action.ViewModel;
+@using vlko.BlogModule.Action.ViewModel;
 @{
 	View.Title = "Home Page";
 }
@@ -11,9 +11,9 @@
 		{
 			@Html.Partial("~/Views/Content/StaticText.cshtml", item as StaticTextViewModel)
 		}
-		if (item is vlko.model.Roots.TwitterStatus)
+		if (item is vlko.BlogModule.Roots.TwitterStatus)
 		{
-			@Html.Partial("~/Views/Content/TwitterStatus.cshtml", item as vlko.model.Roots.TwitterStatus)
+			@Html.Partial("~/Views/Content/TwitterStatus.cshtml", item as vlko.BlogModule.Roots.TwitterStatus)
 		}
 		if (item is RssItemViewModel)
 		{

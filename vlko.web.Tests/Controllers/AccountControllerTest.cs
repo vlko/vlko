@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Principal;
+﻿using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -7,14 +6,14 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
+using vlko.BlogModule.NH;
+using vlko.BlogModule.NH.Testing;
 using vlko.core.Action;
 using vlko.core.Authentication;
 using vlko.core.Authentication.Implementation;
 using vlko.core.InversionOfControl;
 using vlko.core.Services;
 using vlko.core.Services.Implementation;
-using vlko.model;
-using vlko.model.Implementation.NH.Testing;
 using vlko.web.Controllers;
 using vlko.web.ViewModel.Account;
 

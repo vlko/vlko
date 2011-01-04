@@ -77,7 +77,7 @@ if(!String.IsNullOrEmpty(mvcViewDataTypeGenericString)) {
 <#
 	foreach(KeyValuePair<string, string> property in properties) {
 #>
-            <th><%= vlko.model.ModelResources.<#= property.Key #> </th>
+            <th><%= vlko.BlogModule.ModelResources.<#= property.Key #> </th>
 <#
     }
 #>

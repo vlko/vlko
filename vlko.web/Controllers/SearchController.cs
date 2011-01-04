@@ -5,8 +5,8 @@ using vlko.core.Components;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.core.ValidationAtribute;
-using vlko.model.Action;
-using vlko.model.Search;
+using vlko.BlogModule.Action;
+using vlko.BlogModule.Search;
 using vlko.web.ViewModel.Search;
 
 namespace vlko.web.Controllers

@@ -2,15 +2,15 @@
 using System.Web.Mvc;
 using vlko.core.Repository;
 using vlko.core.ValidationAtribute;
-using vlko.model;
+using vlko.BlogModule;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
-using vlko.model.Action;
-using vlko.model.Action.CRUDModel;
-using vlko.model.Action.ViewModel;
-using vlko.model.Search;
+using vlko.BlogModule.Action;
+using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Search;
 
 namespace vlko.web.Areas.Admin.Controllers
 {

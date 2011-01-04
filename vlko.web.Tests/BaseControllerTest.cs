@@ -1,12 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using vlko.BlogModule.NH;
+using vlko.BlogModule.NH.Testing;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
-using vlko.model;
-using vlko.model.Implementation.NH.Testing;
-using vlko.model.Search;
+using vlko.BlogModule.Search;
 
 namespace vlko.web.Tests
 {

@@ -9,12 +9,12 @@ using vlko.core.Components;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.core.ValidationAtribute;
-using vlko.model;
-using vlko.model.Action;
-using vlko.model.Action.CRUDModel;
-using vlko.model.Action.ViewModel;
-using vlko.model.Base.Scheduler;
-using vlko.model.Search;
+using vlko.BlogModule;
+using vlko.BlogModule.Action;
+using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Base.Scheduler;
+using vlko.BlogModule.Search;
 using vlko.web.Areas.Admin.ViewModel.RssFeed;
 
 namespace vlko.web.Areas.Admin.Controllers

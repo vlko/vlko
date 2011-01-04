@@ -9,9 +9,9 @@ using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.core.Services;
 using vlko.core.ValidationAtribute;
-using vlko.model;
-using vlko.model.Action;
-using vlko.model.Action.ComplexHelpers.Twitter;
+using vlko.BlogModule;
+using vlko.BlogModule.Action;
+using vlko.BlogModule.Action.ComplexHelpers.Twitter;
 
 namespace vlko.web.Areas.Admin.Controllers
 {
@@ -34,8 +34,8 @@ namespace vlko.web.Areas.Admin.Controllers
 					var registerUrl = twitterConnection.GetAuthorizeUrl(
 						new ConsumerAppIdent
 							{
-								ConsumerKey = model.Settings.Twitter.ConsumerKey.Value,
-								ConsumerSecret = model.Settings.Twitter.ConsumerSecret.Value
+								ConsumerKey = Settings.Twitter.ConsumerKey.Value,
+								ConsumerSecret = Settings.Twitter.ConsumerSecret.Value
 							},
 						GetAuthorizeReturnUrl()
 						);

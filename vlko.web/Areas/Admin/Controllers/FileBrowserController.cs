@@ -4,8 +4,8 @@ using System.Web.Mvc;
 using vlko.core.Base;
 using vlko.core.InversionOfControl;
 using vlko.core.ValidationAtribute;
-using vlko.model.Action;
-using vlko.model.Action.ViewModel;
+using vlko.BlogModule.Action;
+using vlko.BlogModule.Action.ViewModel;
 using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 
 namespace vlko.web.Areas.Admin.Controllers
@@ -50,7 +50,7 @@ namespace vlko.web.Areas.Admin.Controllers
 			if (!IoC.Resolve<IFileBrowserAction>()
 				.DeleteFile(UserInfo.Name, model.Ident))
 			{
-				ModelState.AddModelError(string.Empty, vlko.model.ModelResources.FileDeleteFailedError);
+				ModelState.AddModelError(string.Empty, vlko.BlogModule.ModelResources.FileDeleteFailedError);
 				return ViewWithAjax(model);
 			}
 			return RedirectToActionWithAjax("Index");   
@@ -74,14 +74,14 @@ namespace vlko.web.Areas.Admin.Controllers
 			if (file.ContentLength > FileBrowserViewModel.MaxFileSize)
 			{
 				ModelState.AddModelError<FileBrowserViewModel>(item => item.Ident,
-				                                               string.Format(vlko.model.ModelResources.FileTooBigError, FileBrowserViewModel.MaxFileSize));
+				                                               string.Format(vlko.BlogModule.ModelResources.FileTooBigError, FileBrowserViewModel.MaxFileSize));
 			}
 			else
 			{
 				// test if ident specified
 				if (string.IsNullOrWhiteSpace(model.Ident))
 				{
-					ModelState.AddModelError<FileBrowserViewModel>(item => item.Ident, vlko.model.ModelResources.FileIdentRequireError);
+					ModelState.AddModelError<FileBrowserViewModel>(item => item.Ident, vlko.BlogModule.ModelResources.FileIdentRequireError);
 				}
 				else
 				{
@@ -92,14 +92,14 @@ namespace vlko.web.Areas.Admin.Controllers
 					var existingItem = fileBrowserActions.GetFileInfo(UserInfo.Name, fileIdent);
 					if (existingItem != null)
 					{
-						ModelState.AddModelError<FileBrowserViewModel>(item => item.Ident, string.Format(vlko.model.ModelResources.FileIdentExistsError, fileIdent));
+						ModelState.AddModelError<FileBrowserViewModel>(item => item.Ident, string.Format(vlko.BlogModule.ModelResources.FileIdentExistsError, fileIdent));
 					}
 					else
 					{
 						// Save file
 						if (!fileBrowserActions.SaveFile(UserInfo.Name, fileIdent, file.InputStream))
 						{
-							ModelState.AddModelError(string.Empty, vlko.model.ModelResources.FileUploadFailedError);
+							ModelState.AddModelError(string.Empty, vlko.BlogModule.ModelResources.FileUploadFailedError);
 						}
 						else
 						{

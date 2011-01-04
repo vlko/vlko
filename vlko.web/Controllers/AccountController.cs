@@ -5,7 +5,7 @@ using vlko.core.Action;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.InversionOfControl;
-using vlko.model.Action;
+using vlko.BlogModule.Action;
 using vlko.web.ViewModel.Account;
 using ChangePasswordModel = vlko.web.ViewModel.Account.ChangePasswordModel;
 using LogOnModel = vlko.web.ViewModel.Account.LogOnModel;

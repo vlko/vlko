@@ -7,14 +7,15 @@ using System.Web.Routing;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NLog;
+using vlko.BlogModule.NH;
 using vlko.core.Action;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
-using vlko.model;
-using vlko.model.Action;
-using vlko.model.Action.CRUDModel;
-using vlko.model.Search;
-using Settings = vlko.model.Settings;
+using vlko.BlogModule;
+using vlko.BlogModule.Action;
+using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Search;
+using Settings = vlko.BlogModule.Settings;
 
 namespace vlko.web
 {
