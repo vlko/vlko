@@ -28,17 +28,17 @@ namespace vlko.BlogModule.Tests.Model
 			{
 				_setting1 = new AppSetting
 				            	{
-				            		Name = "setting1",
+				            		Id = "setting1",
 									Value = "val1"
 				            	};
 				_setting2 = new AppSetting
 				{
-					Name = "setting2",
+					Id = "setting2",
 					Value = "val2"
 				};
 				_emptySetting = new AppSetting
 				                	{
-				                		Name = "empty_setting",
+				                		Id = "empty_setting",
 				                		Value = null
 				                	};
 
@@ -67,19 +67,19 @@ namespace vlko.BlogModule.Tests.Model
 			{
 				var action = RepositoryFactory.Action<IAppSettingAction>();
 
-				var item = action.Get(_setting1.Name);
+				var item = action.Get(_setting1.Id);
 
-				Assert.AreEqual(_setting1.Name, item.Name);
+				Assert.AreEqual(_setting1.Id, item.Name);
 				Assert.AreEqual(_setting1.Value, item.Value);
 
-				item = action.Get(_setting2.Name);
+				item = action.Get(_setting2.Id);
 
-				Assert.AreEqual(_setting2.Name, item.Name);
+				Assert.AreEqual(_setting2.Id, item.Name);
 				Assert.AreEqual(_setting2.Value, item.Value);
 
-				var empty = action.Get(_emptySetting.Name);
+				var empty = action.Get(_emptySetting.Id);
 
-				Assert.AreEqual(_emptySetting.Name, empty.Name);
+				Assert.AreEqual(_emptySetting.Id, empty.Name);
 				Assert.AreEqual(null, empty.Value);
 
 				var notExisted = action.Get("not_existed");
@@ -95,7 +95,7 @@ namespace vlko.BlogModule.Tests.Model
 			{
 				var action = RepositoryFactory.Action<IAppSettingAction>();
 
-				var item = action.Get(_setting1.Name);
+				var item = action.Get(_setting1.Id);
 				item.Value = "changed_value";
 				// try to update value
 				using (var tran = RepositoryFactory.StartTransaction())
@@ -104,7 +104,7 @@ namespace vlko.BlogModule.Tests.Model
 					tran.Commit();
 				}
 
-				var dbItem = action.Get(_setting1.Name);
+				var dbItem = action.Get(_setting1.Id);
 
 				Assert.AreEqual(item.Name, dbItem.Name);
 				Assert.AreEqual(item.Value, dbItem.Value);

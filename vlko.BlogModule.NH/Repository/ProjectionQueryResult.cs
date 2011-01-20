@@ -35,7 +35,7 @@ namespace vlko.BlogModule.NH.Repository
 		/// </summary>
 		/// <param name="query">The query.</param>
 		/// <returns>Order query result.</returns>
-		public IQueryResult<T> OrderBy(Expression<Func<T, object>> query)
+		public IQueryResult<T> OrderBy<TKey>(Expression<Func<T, TKey>> query)
 		{
 			return new ProjectionQueryResult<ARType, T>(_criteria.Clone()
 				.OrderBy(GetProjectionFromOrderQuery(query, _projectionList)).Asc,
@@ -47,7 +47,7 @@ namespace vlko.BlogModule.NH.Repository
 		/// </summary>
 		/// <param name="query">The query.</param>
 		/// <returns>Order query result.</returns>
-		public IQueryResult<T> OrderByDescending(Expression<Func<T, object>> query)
+		public IQueryResult<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> query)
 		{
 			return new ProjectionQueryResult<ARType, T>(_criteria.Clone()
 				.OrderBy(GetProjectionFromOrderQuery(query, _projectionList)).Desc,
@@ -60,7 +60,7 @@ namespace vlko.BlogModule.NH.Repository
 		/// <param name="query">The query.</param>
 		/// <param name="projectionList">The projection list.</param>
 		/// <returns>Projection based on query.</returns>
-		private static IProjection GetProjectionFromOrderQuery(Expression<Func<T, object>> query, ProjectionList projectionList)
+		private static IProjection GetProjectionFromOrderQuery<TKey>(Expression<Func<T, TKey>> query, ProjectionList projectionList)
 		{
 			string alias = string.Empty;
 			if (((LambdaExpression)query).Body is UnaryExpression)

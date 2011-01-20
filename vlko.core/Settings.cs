@@ -19,6 +19,5 @@ namespace vlko.core
 		/// </summary>
 		public static readonly SettingValue<string> BaseUrl 
 			= new SettingValue<string>("BaseUrl", null, new ConfigSettingProvider());
-
 	}
 }

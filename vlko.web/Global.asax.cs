@@ -7,8 +7,9 @@ using System.Web.Routing;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NLog;
-using vlko.BlogModule.NH;
+using Raven.Client.Client;
 using vlko.core.Action;
+using vlko.core.Base.Scheduler.Setting;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.BlogModule;
@@ -82,15 +83,81 @@ namespace vlko.web
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
-			ApplicationInit.FullInit();
-
 			var dataExists = Directory.Exists(HttpContext.Current.Server.MapPath("~/App_Data/Index.Lucene"));
 
+			// check from settings if we should use ravendb
+			if (new SettingValue<bool>("UseRavenDB", false, new ConfigSettingProvider()).Value)
+			{
+				ConfigureForRavenDb(dataExists);
+			}
+			else
+			{
+				ConfigureForNHibernate(dataExists);
+			}
+		}
+
+		/// <summary>
+		/// Configures application for Raven DB.
+		/// </summary>
+		/// <param name="dataExists">if set to <c>true</c> [data exists].</param>
+		private static void ConfigureForRavenDb(bool dataExists)
+		{
+			BlogModule.RavenDB.ApplicationInit.FullInit();
+			var documentStore = new EmbeddableDocumentStore()
+			{
+				Configuration =
+				{
+					DataDirectory = HttpContext.Current.Server.MapPath("~/App_Data/RavenDB"),
+				}
+			};
+
+			documentStore.Initialize();
+
+			BlogModule.RavenDB.DBInit.RegisterDocumentStore(documentStore);
+			BlogModule.RavenDB.DBInit.RegisterIndexes(documentStore);
+
+			ConfigureSearchProvider(dataExists);
+
+			if (!dataExists)
+			{
+				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				BlogModule.RavenDB.Repository.SessionFactory.WaitForStaleIndexes();
+				CreateSomeData();
+			}
+		}
+
+		/// <summary>
+		/// Configures application for NHibernate.
+		/// </summary>
+		/// <param name="dataExists">if set to <c>true</c> [data exists].</param>
+		private void ConfigureForNHibernate(bool dataExists)
+		{
+			BlogModule.NH.ApplicationInit.FullInit();
 			var config = new Configuration();
 			config.Configure();
-			DBInit.InitMappings(config);
-			DBInit.RegisterSessionFactory(config.BuildSessionFactory());
+			BlogModule.NH.DBInit.InitMappings(config);
+			BlogModule.NH.DBInit.RegisterSessionFactory(config.BuildSessionFactory());
+			
+			ConfigureSearchProvider(dataExists);
 
+			if (!dataExists)
+			{
+				var schema = new SchemaExport(config);
+				schema.Create(false, true);
+
+				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				CreateSomeData();
+			}
+
+			SchemaUpdate(config);
+		}
+
+		/// <summary>
+		/// Configures the search provider.
+		/// </summary>
+		/// <param name="dataExists">if set to <c>true</c> [data exists].</param>
+		private static void ConfigureSearchProvider(bool dataExists)
+		{
 			// set search folder
 			var indexDirectory = HttpContext.Current.Server.MapPath("~/App_Data/Index.Lucene");
 
@@ -107,13 +174,6 @@ namespace vlko.web
 			}
 
 			IoC.Resolve<ISearchProvider>().Initialize(indexDirectory);
-
-			if (!dataExists)
-			{
-				CreateSomeData(config);
-			}
-
-			SchemaUpdate(config);
 		}
 
 		/// <summary>
@@ -138,80 +198,75 @@ namespace vlko.web
 		/// <summary>
 		/// Creates some data.
 		/// </summary>
-		private void CreateSomeData(Configuration config)
+		private static void CreateSomeData()
 		{
-			var schema = new SchemaExport(config);
-			schema.Create(false, true);
-
-			RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
-
-			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
+			if (new SettingValue<bool>("CreateSampleData", false, new ConfigSettingProvider()).Value)
 			{
-				var searchAction = RepositoryFactory.Action<ISearchAction>();
-
-
-				
-				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
-				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
-					new StaticTextCRUDModel
-						{
-							AllowComments = false,
-							Creator = admin,
-							Title = "About",
-							FriendlyUrl = "about",
-							ChangeDate = DateTime.Now,
-							PublishDate = DateTime.Now,
-							Text = "Some about me text",
-							Description = "Some about me text"
-						});
-				searchAction.IndexStaticText(tran, home);
-				if (Settings.CreateSampleData.Value)
+				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 				{
-					for (int i = 0; i < 30; i++)
+					var searchAction = RepositoryFactory.Action<ISearchAction>();
+					var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
+					var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
+						new StaticTextCRUDModel
+							{
+								AllowComments = false,
+								Creator = admin,
+								Title = "About",
+								FriendlyUrl = "about",
+								ChangeDate = DateTime.Now,
+								PublishDate = DateTime.Now,
+								Text = "Some about me text",
+								Description = "Some about me text"
+							});
+					searchAction.IndexStaticText(tran, home);
+					if (Settings.CreateSampleData.Value)
 					{
-						searchAction.IndexComment(tran,
-						                          RepositoryFactory.Action<ICommentCrud>().Create(
-						                          	new CommentCRUDModel()
-						                          		{
-						                          			AnonymousName = "User",
-						                          			ChangeDate = DateTime.Now.AddDays(-i),
-						                          			ClientIp = "127.0.0.1",
-						                          			ContentId = home.Id,
-						                          			Name = "Comment" + i,
-						                          			Text = "Home commment" + i,
-						                          			UserAgent = "Mozzilla"
-						                          		}));
+						for (int i = 0; i < 30; i++)
+						{
+							searchAction.IndexComment(tran,
+							                          RepositoryFactory.Action<ICommentCrud>().Create(
+							                          	new CommentCRUDModel()
+							                          		{
+							                          			AnonymousName = "User",
+							                          			ChangeDate = DateTime.Now.AddDays(-i),
+							                          			ClientIp = "127.0.0.1",
+							                          			ContentId = home.Id,
+							                          			Name = "Comment" + i,
+							                          			Text = "Home commment" + i,
+							                          			UserAgent = "Mozzilla"
+							                          		}));
+						}
+						for (int i = 0; i < 1000; i++)
+						{
+							var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
+								new StaticTextCRUDModel
+									{
+										AllowComments = true,
+										Creator = admin,
+										Title = "StaticPage" + i,
+										FriendlyUrl = "StaticPage" + i,
+										ChangeDate = DateTime.Now.AddDays(-i),
+										PublishDate = DateTime.Now.AddDays(-i),
+										Text = "Static page" + i,
+										Description = "Static page" + i
+									});
+							searchAction.IndexStaticText(tran, text);
+							searchAction.IndexComment(tran,
+							                          RepositoryFactory.Action<ICommentCrud>().Create(
+							                          	new CommentCRUDModel()
+							                          		{
+							                          			AnonymousName = "User",
+							                          			ChangeDate = DateTime.Now.AddDays(-i),
+							                          			ClientIp = "127.0.0.1",
+							                          			ContentId = text.Id,
+							                          			Name = "Comment" + i,
+							                          			Text = "Static page" + i,
+							                          			UserAgent = "Mozzilla"
+							                          		}));
+						}
 					}
-					for (int i = 0; i < 1000; i++)
-					{
-						var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
-							new StaticTextCRUDModel
-								{
-									AllowComments = true,
-									Creator = admin,
-									Title = "StaticPage" + i,
-									FriendlyUrl = "StaticPage" + i,
-									ChangeDate = DateTime.Now.AddDays(-i),
-									PublishDate = DateTime.Now.AddDays(-i),
-									Text = "Static page" + i,
-									Description = "Static page" + i
-								});
-						searchAction.IndexStaticText(tran, text);
-						searchAction.IndexComment(tran,
-						                          RepositoryFactory.Action<ICommentCrud>().Create(
-						                          	new CommentCRUDModel()
-						                          		{
-						                          			AnonymousName = "User",
-						                          			ChangeDate = DateTime.Now.AddDays(-i),
-						                          			ClientIp = "127.0.0.1",
-						                          			ContentId = text.Id,
-						                          			Name = "Comment" + i,
-						                          			Text = "Static page" + i,
-						                          			UserAgent = "Mozzilla"
-						                          		}));
-					}
+					tran.Commit();
 				}
-				tran.Commit();
 			}
 		}
 

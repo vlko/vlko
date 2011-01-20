@@ -21,7 +21,7 @@ namespace vlko.BlogModule.NH.Action
 			{
 				SessionFactory<AppSetting>.Create(new AppSetting
 				                                        	{
-																Name = item.Name,
+																Id = item.Name,
 																Value = item.Value
 				                                        	});
 			}
@@ -45,7 +45,7 @@ namespace vlko.BlogModule.NH.Action
 			{
 				return new AppSettingModel
 				       	{
-				       		Name = item.Name,
+				       		Name = item.Id,
 				       		Value = item.Value
 				       	};
 			}

@@ -48,6 +48,9 @@
     <Reference Include="Antlr3.Runtime, Version=3.1.3.42154, Culture=neutral, PublicKeyToken=3a9cab8f8d22bfb7, processorArchitecture=MSIL">
       <HintPath>..\_dependencies\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="AsyncCtpLibrary">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\AsyncCtpLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\Castle.Core.dll</HintPath>
@@ -65,11 +68,20 @@
     <Reference Include="ConfOrm, Version=1.0.1.2, Culture=neutral, PublicKeyToken=ed8affdf01cbe4cf, processorArchitecture=MSIL">
       <HintPath>..\_dependencies\ConfOrm.dll</HintPath>
     </Reference>
+    <Reference Include="Esent.Interop">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Esent.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\_dependencies\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Lucene.Net, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\_dependencies\Lucene.Net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=2.9.2.1, Culture=neutral, PublicKeyToken=02f879aa45933051, processorArchitecture=MSIL">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -77,6 +89,9 @@
     </Reference>
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\_dependencies\mvc\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=3.0.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\_dependencies\NHibernate.dll</HintPath>
@@ -88,8 +103,38 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_dependencies\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Embedded">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Client.Embedded.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Database">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Http">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Munin">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Munin.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Storage.Esent">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Storage.Esent.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Storage.Managed">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Storage.Managed.dll</HintPath>
+    </Reference>
     <Reference Include="Remotion.Data.Linq, Version=1.13.41.2, Culture=neutral, PublicKeyToken=cab60358ab4081ea, processorArchitecture=MSIL">
       <HintPath>..\_dependencies\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Spatial.Net">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Spatial.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="SpellChecker.Net">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\SpellChecker.Net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -488,6 +533,10 @@
     <ProjectReference Include="..\vlko.BlogModule.NH\vlko.BlogModule.NH.csproj">
       <Project>{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}</Project>
       <Name>vlko.BlogModule.NH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vlko.BlogModule.RavenDB\vlko.BlogModule.RavenDB.csproj">
+      <Project>{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}</Project>
+      <Name>vlko.BlogModule.RavenDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\vlko.BlogModule\vlko.BlogModule.csproj">
       <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>

@@ -64,7 +64,7 @@ namespace vlko.BlogModule.NH
 			// defines the whole hierarchy coming up from Content
 			orm.TablePerConcreteClass<Content>();
 
-			orm.Poid<AppSetting>(item => item.Name);
+			orm.Poid<AppSetting>(item => item.Id);
 
 			mapper.Customize<AppSetting>(mapping => mapping.Property(item => item.Value, pm => pm.Length(255)));
 

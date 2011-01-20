@@ -10,14 +10,14 @@ namespace vlko.core.Repository
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns>Ordered IQueryAction.</returns>
-        IQueryResult<T> OrderBy(Expression<Func<T, object>> query);
+		IQueryResult<T> OrderBy<TKey>(Expression<Func<T, TKey>> query);
 
         /// <summary>
         /// Orders by descending the query.
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns>Ordered IQueryAction.</returns>
-        IQueryResult<T> OrderByDescending(Expression<Func<T, object>> query);
+		IQueryResult<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> query);
 
         /// <summary>
         /// Counts of items in query.

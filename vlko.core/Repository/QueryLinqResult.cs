@@ -36,7 +36,7 @@ namespace vlko.core.Repository
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns>Ordered IQueryAction.</returns>
-        public IQueryResult<T> OrderBy(Expression<Func<T, object>> query)
+		public IQueryResult<T> OrderBy<TKey>(Expression<Func<T, TKey>> query)
         {
             return GetNewInstance(_queryable.OrderBy(query));
         }
@@ -45,7 +45,7 @@ namespace vlko.core.Repository
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns>Ordered IQueryAction.</returns>
-        public IQueryResult<T> OrderByDescending(Expression<Func<T, object>> query)
+        public IQueryResult<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> query)
         {
             return GetNewInstance(_queryable.OrderByDescending(query));
         }

@@ -28,19 +28,31 @@ namespace vlko.BlogModule.NH.Repository
 		/// </summary>
 		/// <param name="query">The query.</param>
 		/// <returns>Order query result.</returns>
-		public IQueryResult<T> OrderBy(Expression<Func<T, object>> query)
+		public IQueryResult<T> OrderBy<TKey>(Expression<Func<T, TKey>> query)
 		{
-			return new CriterionQueryResult<T>(_criteria.Clone().OrderBy(query).Asc);
+			return new CriterionQueryResult<T>(_criteria.Clone().OrderBy(Convert(query)).Asc);
 		}
+
 
 		/// <summary>
 		/// Orders descending the by query.
 		/// </summary>
 		/// <param name="query">The query.</param>
 		/// <returns>Order query result.</returns>
-		public IQueryResult<T> OrderByDescending(Expression<Func<T, object>> query)
+		public IQueryResult<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> query)
 		{
-			return new CriterionQueryResult<T>(_criteria.Clone().OrderBy(query).Desc);
+			return new CriterionQueryResult<T>(_criteria.Clone().OrderBy(Convert(query)).Desc);
+		}
+
+
+		/// <summary>
+		/// Converts the specified query.
+		/// </summary>
+		/// <typeparam name="TKey">The type of the key.</typeparam>
+		/// <param name="query">The query.</param>
+		private static Expression<Func<T, object>> Convert<TKey>(Expression<Func<T, TKey>> query)
+		{
+			return Expression.Lambda<Func<T, object>>(Expression.Convert(query.Body, typeof(object)), query.Parameters);
 		}
 
 		/// <summary>

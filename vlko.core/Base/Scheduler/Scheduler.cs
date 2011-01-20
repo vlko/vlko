@@ -21,7 +21,7 @@ namespace vlko.core.Base.Scheduler
 		/// Initializes a new instance of the <see cref="Scheduler"/> class.
 		/// </summary>
 		/// <param name="tasks">The tasks.</param>
-		/// <param name="internalCheckInterval">The internal check interval in minutes (in seconds.</param>
+		/// <param name="internalCheckInterval">The internal check interval (in seconds).</param>
 		public Scheduler(SchedulerTask[] tasks, int internalCheckInterval = 120)
 		{
 			_tasks = tasks;

@@ -37,7 +37,7 @@ namespace vlko.BlogModule.Search
 		/// </summary>
 		/// <param name="query">The query.</param>
 		/// <returns>Exception: NotImplementedException.</returns>
-		public IQueryResult<object> OrderBy(Expression<Func<object, object>> query)
+		public IQueryResult<object> OrderBy<TKey>(Expression<Func<object, TKey>> query)
 		{
 			throw new NotImplementedException();
 		}
@@ -47,7 +47,7 @@ namespace vlko.BlogModule.Search
 		/// </summary>
 		/// <param name="query">The query.</param>
 		/// <returns>Exception: NotImplementedException.</returns>
-		public IQueryResult<object> OrderByDescending(Expression<Func<object, object>> query)
+		public IQueryResult<object> OrderByDescending<TKey>(Expression<Func<object, TKey>> query)
 		{
 			throw new NotImplementedException();
 		}
