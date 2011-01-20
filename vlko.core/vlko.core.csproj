@@ -89,8 +89,7 @@
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\_dependencies\mvc\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing">
@@ -136,7 +135,6 @@
     <Compile Include="HtmlExtender\CssManager.cs" />
     <Compile Include="HtmlExtender\Localization.cs" />
     <Compile Include="HtmlExtender\Metadata.cs" />
-    <Compile Include="HtmlExtender\Razor.cs" />
     <Compile Include="HtmlExtender\ScriptManager.cs" />
     <Compile Include="Repository\BaseAction.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
@@ -184,7 +182,7 @@
     <Compile Include="Tools\StringTool.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
     <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />
-    <Compile Include="ValidationAtribute\AntiXssSpecialTextAttribute.cs" />
+    <Compile Include="ValidationAtribute\AntiXssIgnoreAttribute.cs" />
     <Compile Include="ValidationAtribute\AreaCheckAttribute.cs" />
     <Compile Include="ValidationAtribute\PropertiesMustMatchAttribute.cs" />
     <Compile Include="ValidationAtribute\ValidatePasswordLengthAttribute.cs" />
