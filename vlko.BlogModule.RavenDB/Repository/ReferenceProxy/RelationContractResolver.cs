@@ -23,9 +23,9 @@ namespace vlko.BlogModule.RavenDB.Repository.ReferenceProxy
 			DefaultMembersSearchFlags = original.DefaultMembersSearchFlags;
 		}
 
-		protected override JsonProperty CreateProperty(JsonObjectContract contract, MemberInfo member)
+		protected override JsonProperty CreateProperty(MemberInfo member, Newtonsoft.Json.MemberSerialization memberSerialization)
 		{
-			JsonProperty property = base.CreateProperty(contract, member);
+			JsonProperty property = base.CreateProperty(member, memberSerialization);
 
 			if (_rootTypes.Contains(property.PropertyType))
 			{

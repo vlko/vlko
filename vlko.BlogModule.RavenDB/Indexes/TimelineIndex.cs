@@ -13,14 +13,17 @@ namespace vlko.BlogModule.RavenDB.Indexes
 		{
 			Map = contents => from item in contents
 							  select new {item.PublishDate, item.Hidden };
+			TransformResults = (database, contents) => from item in contents
+			                                           select new
+			                                                  	{
+			                                                  		Id = item.Id,
+			                                                  		ContentType = item.ContentType
+			                                                  	};
 		}
 
 		public override Raven.Database.Indexing.IndexDefinition CreateIndexDefinition()
 		{
 			var indexDefinition = base.CreateIndexDefinition();
-			// manually create transform function as original one doesn't convert id to __document_id
-			indexDefinition.TransformResults =
-				@"results.Select(item => new { Id = item.__document_id, ContentType = item.ContentType })";
 			return indexDefinition;
 		}
 	}

@@ -108,9 +108,8 @@ namespace vlko.BlogModule.RavenDB.Action
 
 			return GetProjection(
 				query => query
-							.WhereContainsAsOr(idArray, id => id, id => staticText => staticText.Id == id));
-							// removed hidden condition as there is bug in RavenDB with handling or conditions
-							//.Where(staticText => staticText.Hidden == false));
+							.WhereContainsAsOr(idArray, id => id, id => staticText => staticText.Id == id)
+							.Where(staticText => staticText.Hidden == false));
 		}
 
 		/// <summary>

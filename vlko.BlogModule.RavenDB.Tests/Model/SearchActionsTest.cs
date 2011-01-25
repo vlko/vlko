@@ -309,7 +309,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 				Assert.AreEqual(332 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
-				Assert.AreEqual(SearchResult.MaximumRawResults, searchResult.ToArray().Length);
+				Assert.IsTrue(SearchResult.MaximumRawResults >= searchResult.ToArray().Length);
 
 				// test search for text
 				searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "home");
@@ -339,7 +339,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 				Assert.AreEqual(332 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
-				Assert.AreEqual(SearchResult.MaximumRawResults, searchResult.ToArray().Length);
+				Assert.IsTrue(SearchResult.MaximumRawResults >= searchResult.ToArray().Length);
 
 				// test search for text
 				searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, "home");
