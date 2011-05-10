@@ -6,7 +6,7 @@
 <div class="editor-field">
 	@Html.TextBox("", Html.FormatDateValue(ViewData.Model), cssClass: "text-box single-line")
 	@Html.ValidationMessageFor(model => model)
-	@if (string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {
+	@if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {
 	<span class="editor-hint">
 		@Html.Raw(ViewData.ModelMetadata.Description)
 	</span>

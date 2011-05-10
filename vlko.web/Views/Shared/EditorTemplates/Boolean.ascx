@@ -27,7 +27,7 @@
 <% } else { %>
 	<%= Html.CheckBox("", Value ?? false, cssClass: "check-box") %>
 <% } %>
-	<% if (string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
+	<% if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
 	<span class="editor-hint">
 		<%= ViewData.ModelMetadata.Description%>
 	</span>

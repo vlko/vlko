@@ -43,8 +43,8 @@
     <Reference Include="MissingBitsFromClientProfile">
       <HintPath>..\_dependencies\RavenDB.Client\MissingBitsFromClientProfile.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\_dependencies\RavenDB.Client\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\_dependencies\NLog.dll</HintPath>

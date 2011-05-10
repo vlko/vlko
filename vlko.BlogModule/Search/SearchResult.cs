@@ -86,7 +86,7 @@ namespace vlko.BlogModule.Search
 			var rssItemIdents = new List<string>();
 
 			// check ranges
-			startIndex = Math.Min(startIndex, _topDocs.totalHits);
+			startIndex = Math.Min(startIndex * itemsPerPage, _topDocs.totalHits);
 			int numberOfResult = Math.Min(Math.Min(startIndex + itemsPerPage, startIndex + MaximumRawResults), _topDocs.totalHits);
 
 			// get ids from search results

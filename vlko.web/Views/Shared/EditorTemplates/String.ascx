@@ -5,7 +5,7 @@
 <div class="editor-field">
 	<%= Html.TextBoxFor(m => m, cssClass: "text-box single-line", maxLength: Html.MaxLength(m => m))%>
 	<%: Html.ValidationMessageFor(model => model)%>
-	<% if (string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
+	<% if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
 	<span class="editor-hint">
 		<%= ViewData.ModelMetadata.Description%>
 	</span>
