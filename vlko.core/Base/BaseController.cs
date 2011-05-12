@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using System.Web.Routing;
 using vlko.core.Authentication;
 using vlko.core.Repository;
@@ -73,6 +74,22 @@ namespace vlko.core.Base
 			}
 			return result;
 
+		}
+
+
+
+		/// <summary>
+		/// Gets the model errors in ajax format.
+		/// </summary>
+		/// <returns>The model errors in ajax format.</returns>
+		public AjaxModelErrorInfo[] GetAjaxModelErrors()
+		{
+			return ModelState.AsEnumerable()
+				.Where(item => item.Value.Errors.Count > 0)
+				.Select(
+					item =>
+					new AjaxModelErrorInfo {Field = item.Key, Errors = item.Value.Errors.Select(error => error.ErrorMessage).ToArray()})
+				.ToArray();
 		}
 	}
 }

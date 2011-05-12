@@ -88,7 +88,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Action
 		/// <returns>
 		/// List of twitter status for specified user.
 		/// </returns>
-		public TwitterStatus[] GetStatusesForUser(OAuthToken token, string userName, int page = 0, int pageCount = 20)
+		public TwitterStatus[] GetStatusesForUser(OAuthToken token, string userName, int page = 0, int pageCount = 50)
 		{
 			var userTimeline = Twitterizer.TwitterTimeline.UserTimeline(
 				new OAuthTokens
@@ -189,7 +189,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Action
 				                                    hashtag, match.Value));
 			}
 
-			return AntiXss.GetSafeHtmlFragment(input);
+			return Sanitizer.GetSafeHtmlFragment(input);
 		}
 	}
 }

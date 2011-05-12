@@ -72,9 +72,9 @@ namespace vlko.BlogModule.RavenDB.Repository.ReferenceProxy
 		private object CreateInstance()
 		{
 			var session = SessionFactory.Current;
-			MethodInfo method = session.GetType().GetMethod("Load", new Type[] { typeof(string) });
+			MethodInfo method = session.GetType().GetMethod("Load", new Type[] { typeof(Guid) });
 			MethodInfo genericMethod = method.MakeGenericMethod(new Type[] { _type });
-			return genericMethod.Invoke(session, new object[] { _id });
+			return genericMethod.Invoke(session, new object[] { new Guid(_id) });
 		}
 
 		/// <summary>

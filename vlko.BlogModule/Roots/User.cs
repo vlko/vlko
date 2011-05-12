@@ -18,7 +18,7 @@ namespace vlko.BlogModule.Roots
 		/// Gets or sets the name.
 		/// </summary>
 		/// <value>The name.</value>
-		public new virtual string Name { get; set; }
+		public virtual string Name { get; set; }
 
 		/// <summary>
 		/// Gets or sets the password.

@@ -120,7 +120,7 @@ namespace vlko.BlogModule.RavenDB.Action
 			// get ids from search results
 			for (int i = 0; i < dataItems.Length; i++)
 			{
-				var id = new Guid(dataItems[i].Id);
+				var id = new Guid(dataItems[i].Id.Substring(dataItems[i].Id.IndexOf('/') + 1));
 				var type = dataItems[i].ContentType;
 
 				switch (type)
@@ -147,7 +147,7 @@ namespace vlko.BlogModule.RavenDB.Action
 			var result = new List<object>();
 			foreach (var item in dataItems)
 			{
-				var id = new Guid(item.Id);
+				var id = new Guid(item.Id.Substring(item.Id.IndexOf('/') + 1));
 				switch (item.ContentType)
 				{
 					case ContentType.RssItem:

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using Raven.Client.Connection;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
 using Raven.Client.Linq;
@@ -9,7 +10,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Web;
 using Raven.Client;
-using Raven.Client.Client;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
@@ -276,6 +276,14 @@ namespace vlko.BlogModule.RavenDB.Repository
 
 	public static class SessionFactory<T> where T : class
 	{
+		private static string ConvertToStringId(object id)
+		{
+			if (id is string)
+			{
+				return (string)id;
+			}
+			return string.Format(CultureInfo.InvariantCulture, "{0}{1}", GetTypeIdent(), id);
+		}
 		/// <summary>
 		/// Gets the current.
 		/// </summary>
@@ -283,6 +291,16 @@ namespace vlko.BlogModule.RavenDB.Repository
 		public static IDocumentSession Current
 		{
 			get { return SessionFactory.Current; }
+		}
+
+		/// <summary>
+		/// Existses the specified id.
+		/// </summary>
+		/// <param name="id">The id.</param>
+		/// <returns></returns>
+		public static bool Exists(object id)
+		{
+			return Current.Advanced.DatabaseCommands.Get(ConvertToStringId(id)) != null;
 		}
 
 		/// <summary>
@@ -321,7 +339,7 @@ namespace vlko.BlogModule.RavenDB.Repository
 		/// <returns>Object with specified key</returns>
 		public static T Load(object id, bool throwOnNotFound)
 		{
-			T loaded = Current.Load<T>(string.Format(CultureInfo.InvariantCulture, "{0}", id));
+			T loaded = Current.Load<T>(ConvertToStringId(id));
 			if (throwOnNotFound && loaded == null)
 			{
 				throw new NotFoundException(typeof(T), id, string.Empty);
@@ -336,7 +354,7 @@ namespace vlko.BlogModule.RavenDB.Repository
 		/// <returns>Array of object for specified ids.</returns>
 		public static T[] LoadMore<TKey>(IEnumerable<TKey> ids)
 		{
-			var idents = ids.Select(id => string.Format(CultureInfo.InvariantCulture, "{0}", id));
+			var idents = ids.Select(id => ConvertToStringId(id));
 			return Current.Load<T>(idents);
 		}
 
@@ -419,6 +437,23 @@ namespace vlko.BlogModule.RavenDB.Repository
 		public static ILoaderWithInclude<T> Include(Expression<Func<T, object>> path)
 		{
 			return Current.Include(path);
+		}
+
+		/// <summary>Generates the id.</summary>
+		/// <param name="entity">The entity.</param>
+		/// <returns>Generate id based on </returns>
+		public static string GenerateId(T entity)
+		{
+			return Current.Advanced.Conventions.GenerateDocumentKey(entity).ToLower();
+		}
+
+		/// <summary>
+		/// Generate type ident.
+		/// </summary>
+		/// <returns>Type ident for this session factory type.</returns>
+		public static string GetTypeIdent()
+		{
+			return Current.Advanced.Conventions.GetTypeTagName(typeof (T)).ToLower() + "/";
 		}
 	}
 }

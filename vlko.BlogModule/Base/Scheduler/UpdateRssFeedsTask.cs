@@ -110,7 +110,7 @@ namespace vlko.BlogModule.Base.Scheduler
 					           		Url = rssItemRawData.Url,
 					           		Published = rssItemRawData.Published,
 					           		Author = rssItemRawData.Author,
-					           		Title = AntiXss.GetSafeHtmlFragment(rssItemRawData.Title),
+					           		Title = Sanitizer.GetSafeHtmlFragment(rssItemRawData.Title),
 					           		FeedId = feed.Id
 					           	};
 
@@ -139,10 +139,10 @@ namespace vlko.BlogModule.Base.Scheduler
 						{
 							content = match.Groups[1].Value;
 						}
-						item.Text = AntiXss.GetSafeHtmlFragment(content);
+						item.Text = Sanitizer.GetSafeHtmlFragment(content);
 					}
 
-					item.Text = AntiXss.GetSafeHtmlFragment(content);
+					item.Text = Sanitizer.GetSafeHtmlFragment(content);
 					item.Description = content.RemoveTags().Shorten(ModelConstants.DescriptionMaxLenghtConst);
 
 					result.Add(item);

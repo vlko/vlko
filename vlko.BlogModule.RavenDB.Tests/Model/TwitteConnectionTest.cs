@@ -13,8 +13,8 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 	{
 		private const string ConsumerKey = "46KP0cc900kUX6jVPf8whQ";
 		private const string ConsumerSecret = "AB208n0msrrEPMqzDq6yq0w31LeQpFsCOX1YBkNQw";
-		private const string Token = "put-here-valid-token";
-		private const string TokenSecret = "put-here-valid-token-secret";
+		private const string Token = null; // "put-here-valid-token"
+		private const string TokenSecret = null; // "put-here-valid-token-secret";
 		private const string UserToCheck = "vlkodotnet";
 
 		[TestInitialize]
@@ -48,22 +48,31 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 			var authorizeUrl = action.GetAuthorizeUrl(new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret + "_to_fail"}, returnUrl);
 		}
 
-		// unable to reproduce this as user request is necessary
-		//[TestMethod]
-		//public void Test_get_o_auth_token()
-		//{
-		//    var action = RepositoryFactory.Action<ITwitterConnection>();
+		[TestMethod]
+		public void Test_get_o_auth_token()
+		{
+			string requestToken = null;
+			string requestVerifier = null;
 
-		//    var oAuthToken = action.GetOAuthToken(
-		//            new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret }, 
-		//            null, null);
+			Assert.IsNotNull(requestToken, "Request token not set, you should put there value from reply url of authorize twitter request");
+			Assert.IsNotNull(requestVerifier, "Request verifier not set, you should put there value from reply url of authorize twitter request");
 
-		//    Assert.IsNotNull(oAuthToken);
-		//}
+			var action = RepositoryFactory.Action<ITwitterConnection>();
+
+			// as second parameters put values from reply url of authorize
+			var oAuthToken = action.GetOAuthToken(
+					new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret },
+					"authorize_token", "authorize_secret");
+
+			Assert.IsNotNull(oAuthToken);
+		}
 
 		[TestMethod]
 		public void Test_is_token_valid()
 		{
+			Assert.IsNotNull(Token, "User token not set, you should generate one with GetOAuthToken");
+			Assert.IsNotNull(TokenSecret, "User secret token not set, you should generate one with GetOAuthToken");
+
 			var action = RepositoryFactory.Action<ITwitterConnection>();
 
 			var valid = action.IsTokenValid(new OAuthToken
@@ -86,8 +95,8 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 			{
 				ConsumerKey = ConsumerKey,
 				ConsumerSecret = ConsumerSecret,
-				Token = Token,
-				TokenSecret = TokenSecret + "something"
+				Token = "somethingempty",
+				TokenSecret = "somethingnotworking"
 			});
 
 			Assert.IsFalse(valid);
@@ -96,6 +105,9 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 		[TestMethod]
 		public void Test_get_user_data()
 		{
+			Assert.IsNotNull(Token, "User token not set, you should generate one with GetOAuthToken");
+			Assert.IsNotNull(TokenSecret, "User secret token not set, you should generate one with GetOAuthToken");
+
 			var action = RepositoryFactory.Action<ITwitterConnection>();
 			// with default 20 item
 			var timeLine = action.GetStatusesForUser(
@@ -116,6 +128,9 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 		[TestMethod]
 		public void Test_get_user_data_paging()
 		{
+			Assert.IsNotNull(Token, "User token not set, you should generate one with GetOAuthToken");
+			Assert.IsNotNull(TokenSecret, "User secret token not set, you should generate one with GetOAuthToken");
+
 			var action = RepositoryFactory.Action<ITwitterConnection>();
 			// with default 20 item
 			var timeLine = action.GetStatusesForUser(

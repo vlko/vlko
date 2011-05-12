@@ -22,7 +22,7 @@ namespace vlko.core.ValidationAtribute
 		{
 			if (property.Attributes.Contains(AntiXssHtmlText))
 			{
-				property.SetValue(value, AntiXss.GetSafeHtmlFragment((string) property.GetValue(value)));
+				property.SetValue(value, Sanitizer.GetSafeHtmlFragment((string) property.GetValue(value)));
 			}
 			else if (property.Attributes.Contains(AntiXssIgnore))
 			{

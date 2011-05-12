@@ -31,32 +31,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\_dependencies\Antlr3.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Castle.Core">
-      <HintPath>..\_dependencies\Castle.Core.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor">
-      <HintPath>..\_dependencies\Castle.Windsor.dll</HintPath>
+      <HintPath>..\packages\Castle.Windsor.2.5.3\lib\NET40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="ConfOrm">
-      <HintPath>..\_dependencies\ConfOrm.dll</HintPath>
+    <Reference Include="ConfOrm, Version=1.0.1.4, Culture=neutral, PublicKeyToken=ed8affdf01cbe4cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConfOrm.1.0.1.4\lib\Net35\ConfOrm.dll</HintPath>
+    </Reference>
+    <Reference Include="ConfOrm.Shop, Version=1.0.1.4, Culture=neutral, PublicKeyToken=90b38bd64c76a74a, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConfOrm.1.0.1.4\lib\Net35\ConfOrm.Shop.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
-      <HintPath>..\_dependencies\Iesi.Collections.dll</HintPath>
+      <HintPath>..\packages\Iesi.Collections.3.2.0.1003\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\_dependencies\NHibernate.dll</HintPath>
+    <Reference Include="NHibernate, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NHibernate.3.1.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.ByteCode.Castle">
-      <HintPath>..\_dependencies\NHibernate.ByteCode.Castle.dll</HintPath>
+      <HintPath>..\packages\NHibernate.Castle.3.1.0.4000\lib\Net35\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
-      <HintPath>..\_dependencies\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.2.0.0.0\lib\NET40\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="Remotion.Data.Linq">
-      <HintPath>..\_dependencies\Remotion.Data.Linq.dll</HintPath>
+    <Reference Include="NLog.Extended">
+      <HintPath>..\packages\NLog.2.0.0.0\lib\NET40\NLog.Extended.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -112,6 +113,9 @@
       <Project>{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}</Project>
       <Name>vlko.core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

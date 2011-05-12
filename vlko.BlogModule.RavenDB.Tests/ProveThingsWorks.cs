@@ -74,7 +74,6 @@ namespace vlko.BlogModule.RavenDB.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(NonUniqueObjectException))]
 		public void Same_id_stored_to_different_class()
 		{
 			Guid id = Guid.NewGuid();
@@ -104,7 +103,7 @@ namespace vlko.BlogModule.RavenDB.Tests
 			{
 				SessionFactory<RssFeed>.Store(classOne);
 
-				// here it should fail !!!
+				// here it should not fail as we have adding type ident to ident !!!
 				SessionFactory<RssItem>.Store(classTwo);
 				tran.Commit();
 			}

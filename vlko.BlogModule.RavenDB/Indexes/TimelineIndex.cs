@@ -20,11 +20,5 @@ namespace vlko.BlogModule.RavenDB.Indexes
 			                                                  		ContentType = item.ContentType
 			                                                  	};
 		}
-
-		public override Raven.Database.Indexing.IndexDefinition CreateIndexDefinition()
-		{
-			var indexDefinition = base.CreateIndexDefinition();
-			return indexDefinition;
-		}
 	}
 }

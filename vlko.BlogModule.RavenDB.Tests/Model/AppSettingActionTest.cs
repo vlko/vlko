@@ -1,6 +1,5 @@
 ﻿using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Raven.Client.Client;
 using System.Linq;
 using Raven.Client.Document;
 using vlko.BlogModule.RavenDB.Repository;

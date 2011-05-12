@@ -7,7 +7,7 @@ using System.Web.Routing;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NLog;
-using Raven.Client.Client;
+using Raven.Client.Embedded;
 using vlko.core.Action;
 using vlko.core.Base.Scheduler.Setting;
 using vlko.core.InversionOfControl;

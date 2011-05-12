@@ -5,9 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using Castle.Core.Configuration;
 using Raven.Client;
-using Raven.Client.Client;
 using Raven.Client.Document;
+using Raven.Client.Embedded;
 using Raven.Database.Extensions;
 using vlko.BlogModule.RavenDB.Repository;
 using Newtonsoft.Json.Linq;
@@ -50,19 +51,25 @@ namespace vlko.BlogModule.RavenDB.Tests
 
 		public EmbeddableDocumentStore NewEmbedableDocumentStore()
 		{
-			path = Path.GetDirectoryName(Assembly.GetAssembly(typeof(LocalClientTest)).CodeBase);
-			path = Path.Combine(path, "TestDb").Substring(6);
+			path = Path.GetDirectoryName(Assembly.GetAssembly(typeof(LocalClientTest)).CodeBase).Substring(6);
+			foreach (var folder in Directory.EnumerateDirectories(path))
+			{
+				if (!folder.EndsWith("TestResults") && !folder.EndsWith("Index"))
+				{
+					IOExtensions.DeleteDirectory(folder);
+				}
+			}
 
-			IOExtensions.DeleteDirectory(path);
 
 			var documentStore = new EmbeddableDocumentStore()
 			{
 				Configuration =
 				{
 					DataDirectory = path,
+					
+					RunInMemory = true,
 					RunInUnreliableYetFastModeThatIsNotSuitableForProduction = true
-				}
-
+				},
 			};
 			return documentStore;
 		}

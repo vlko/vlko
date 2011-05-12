@@ -38,7 +38,7 @@ namespace vlko.core.Components
 		/// </returns>
 		private static bool HasGenericTypeBase(Type type, Type genericType)
 		{
-			while (type != typeof(object))
+			while (type != typeof (object) && type != null)
 			{
 				if (type.IsGenericType && type.GetGenericTypeDefinition() == genericType) return true;
 				type = type.BaseType;

@@ -192,7 +192,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Action
 		/// <returns>Html input with removed tags.</returns>
 		public static string RemoveTags(string htmlInput)
 		{
-			string result = AntiXss.GetSafeHtmlFragment(htmlInput).Trim();
+			string result = Sanitizer.GetSafeHtmlFragment(htmlInput).Trim();
 			return Regex.Replace(result, @"<(.|\n)*?>", string.Empty);
 		}
 	}

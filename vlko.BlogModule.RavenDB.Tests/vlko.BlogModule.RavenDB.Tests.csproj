@@ -33,74 +33,82 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncCtpLibrary, Version=1.0.3951.36518, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\AsyncCtpLibrary.dll</HintPath>
+    <Reference Include="AsyncCtpLibrary">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\AsyncCtpLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
-      <HintPath>..\_dependencies\Castle.Core.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor">
-      <HintPath>..\_dependencies\Castle.Windsor.dll</HintPath>
+      <HintPath>..\packages\Castle.Windsor.2.5.3\lib\NET40\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Esent.Interop">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Esent.Interop.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Esent.Interop.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\ICSharpCode.NRefactory.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\ICSharpCode.NRefactory.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Lucene.Net, Version=2.9.2.1, Culture=neutral, PublicKeyToken=02f879aa45933051, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Lucene.Net.dll</HintPath>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MissingBitsFromClientProfile">
-      <HintPath>..\_dependencies\RavenDB.Client\MissingBitsFromClientProfile.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\MissingBitsFromClientProfile.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Abstractions.dll</HintPath>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.0\lib\NET40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog.Extended">
+      <HintPath>..\packages\NLog.2.0.0.0\lib\NET40\NLog.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Raven.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client.Embedded">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Client.Embedded.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Raven.Client.Embedded.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Client.Lightweight.dll</HintPath>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Database">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Database.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Raven.Database.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Http">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Http.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Raven.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Json">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Raven.Json.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Munin">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Munin.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Raven.Munin.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Storage.Esent">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Storage.Esent.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Raven.Storage.Esent.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Storage.Managed">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Raven.Storage.Managed.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Raven.Storage.Managed.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks">
-      <HintPath>..\_dependencies\Rhino.Mocks.dll</HintPath>
+      <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="Spatial.Net">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\Spatial.Net.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\Spatial.Net.dll</HintPath>
     </Reference>
     <Reference Include="SpellChecker.Net">
-      <HintPath>..\_dependencies\RavenDB.EmbeddedClient\SpellChecker.Net.dll</HintPath>
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.360\lib\net40\SpellChecker.Net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Twitterizer2, Version=2.3.0.39334, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\_dependencies\twitter\Twitterizer2.dll</HintPath>
+    <Reference Include="Twitterizer2">
+      <HintPath>..\packages\twitterizer.2.3.2\lib\Twitterizer2.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +146,10 @@
       <Project>{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}</Project>
       <Name>vlko.core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
