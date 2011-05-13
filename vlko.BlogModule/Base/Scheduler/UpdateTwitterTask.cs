@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.ComplexHelpers.Twitter;
 using vlko.BlogModule.Roots;
@@ -55,7 +56,10 @@ namespace vlko.BlogModule.Base.Scheduler
 			var statusToStore = new List<TwitterStatus>();
 			do
 			{
-				var items = twitterConnection.GetStatusesForUser(oAuthToken, twitterUser, currentPage);
+				// wait a while to not flood twitter
+				Thread.Sleep(5000);
+
+				var items = twitterConnection.GetStatusesForUser(oAuthToken, twitterUser, currentPage, 100);
 
 				using (RepositoryFactory.StartUnitOfWork())
 				{
@@ -72,7 +76,7 @@ namespace vlko.BlogModule.Base.Scheduler
 						}
 					}
 					++currentPage;
-					proceedNextPage = items.Length > 0 && storedItems.Length < items.Length;
+					proceedNextPage = items.Length > 0 || storedItems.Length == 0;
 				}
 
 			} while (proceedNextPage);
