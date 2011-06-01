@@ -6,6 +6,7 @@ using Microsoft.Security.Application;
 using NLog;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Action.ComplexHelpers.Rss;
 using vlko.BlogModule.Search;
 using vlko.core.Base.Scheduler;
 using vlko.core.InversionOfControl;
@@ -32,6 +33,7 @@ namespace vlko.BlogModule.Base.Scheduler
 		protected override void DoJob()
 		{
 			var feedItemAction = RepositoryFactory.Action<IRssItemAction>();
+			var connectionAction = RepositoryFactory.Action<IRssFeedConnection>();
 			var searchAction = RepositoryFactory.Action<ISearchAction>();
 
 			RssFeedCRUDModel[] rssFeeds = null;
@@ -47,30 +49,27 @@ namespace vlko.BlogModule.Base.Scheduler
 				try
 				{
 					var storedItemsCount = 0;
-					var feedItems = GetFeedItems(feed);
+					var rssItems = connectionAction.GetFeedUrlItems(feed.Url);
 
 					using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 					{
-						var storedItems = feedItemAction.GetByFeedIds(feedItems.Select(feedItem => feedItem.FeedItemId));
-						foreach (var feedItem in feedItems)
+						var storedItems = feedItemAction.GetByFeedIds(rssItems.Select(rssItem => rssItem.Id));
+						foreach (var rssItem in rssItems)
 						{
-							var storedItem = storedItems.FirstOrDefault(item => item.FeedItemId == feedItem.FeedItemId);
-							if (storedItem != null)
+							var storedItem = storedItems.FirstOrDefault(item => item.FeedItemId == rssItem.Id);
+							if (storedItem == null || storedItem.Title != Sanitizer.GetSafeHtmlFragment(rssItem.Title))
 							{
-								// if no change continue to next
-								if (storedItem.Title == feedItem.Title
-								    && storedItem.Text == feedItem.Text)
+								var feedItem = GetFeedItem(rssItem, feed);
+								if (feedItem != null)
 								{
-									continue;
+									// save to db and to index
+									feedItemAction.Save(feedItem);
+									searchAction.IndexRssItem(tran, feedItem);
+									++storedItemsCount;
 								}
-								// else remove from index
-								searchAction.DeleteFromIndex(tran, storedItem.FeedItemId);
 							}
 
-							// save to db and to index
-							feedItemAction.Save(feedItem);
-							searchAction.IndexRssItem(tran, feedItem);
-							++storedItemsCount;
+							
 						}
 						tran.Commit();
 						Logger.Debug("There were '{0}' new rss feeds in feed {1}.", storedItemsCount, feed.Name);
@@ -78,77 +77,71 @@ namespace vlko.BlogModule.Base.Scheduler
 				}
 				catch (Exception ex)
 				{
-					Logger.ErrorException(string.Format("Unable to load feed '{0}' for url '{1}'.", feed.Name, feed.Url), ex);
-					throw;
+					string errorMessage = string.Format("Unable to load feed '{0}' for url '{1}'.", feed.Name, feed.Url);
+					Logger.ErrorException(errorMessage, ex);
+					throw new Exception(errorMessage, ex);
 				}
 			}
 		}
 
-		/// <summary>
-		/// Gets the feed items.
-		/// </summary>
+		/// <summary>Gets the feed items.</summary>
+		/// <param name="rssItemRawData">The RSS item raw data.</param>
 		/// <param name="feed">The feed.</param>
 		/// <returns>Feed items to save.</returns>
-		public static RssItemCRUDModel[] GetFeedItems(RssFeedCRUDModel feed)
+		public static RssItemCRUDModel GetFeedItem(RssItemRawData rssItemRawData, RssFeedCRUDModel feed)
 		{
-			List<RssItemCRUDModel> result = new List<RssItemCRUDModel>();
 
 			var connectionAction = RepositoryFactory.Action<IRssFeedConnection>();
 
-			// get items from remote url
-			var items = connectionAction.GetFeedUrlItems(feed.Url);
-
-			foreach (var rssItemRawData in items)
+			// if no author regex or author regex match
+			if (string.IsNullOrEmpty(feed.AuthorRegex)
+			    || Regex.IsMatch(rssItemRawData.Author, feed.AuthorRegex, RegexOptions.Singleline))
 			{
-				// if no author regex or author regex match
-				if (string.IsNullOrEmpty(feed.AuthorRegex)
-					|| Regex.IsMatch(rssItemRawData.Author, feed.AuthorRegex, RegexOptions.Singleline))
+				var item = new RssItemCRUDModel
+				           	{
+				           		FeedItemId = rssItemRawData.Id,
+				           		Url = rssItemRawData.Url,
+				           		Published = rssItemRawData.Published,
+				           		Author = rssItemRawData.Author,
+				           		Title = Sanitizer.GetSafeHtmlFragment(rssItemRawData.Title),
+				           		FeedId = feed.Id
+				           	};
+
+				string content = rssItemRawData.Text;
+
+				// if display full content, then get content url
+				if (feed.GetDirectContent)
 				{
-					var item = new RssItemCRUDModel
-					           	{
-					           		FeedItemId = rssItemRawData.Id,
-					           		Url = rssItemRawData.Url,
-					           		Published = rssItemRawData.Published,
-					           		Author = rssItemRawData.Author,
-					           		Title = Sanitizer.GetSafeHtmlFragment(rssItemRawData.Title),
-					           		FeedId = feed.Id
-					           	};
 
-					string content = rssItemRawData.Text;
-
-					// if display full content, then get content url
-					if (feed.GetDirectContent)
+					try
 					{
-						
-						try
-						{
-							content = connectionAction.GetArticle(item.Url);
-						}
-						catch (Exception ex)
-						{
-							LogManager.GetCurrentClassLogger().ErrorException(
-								string.Format("Unable to get article content for feed '{0}' for item url '{1}'. \nException: {2}", feed.Name, item.Url), 
-								ex);
-						}
+						content = connectionAction.GetArticle(item.Url);
 					}
-					// apply content regex
-					if (!string.IsNullOrEmpty(feed.ContentParseRegex))
+					catch (Exception ex)
 					{
-						var match = Regex.Match(content, feed.ContentParseRegex, RegexOptions.Singleline);
-						if (match.Success && match.Groups.Count > 0)
-						{
-							content = match.Groups[1].Value;
-						}
-						item.Text = Sanitizer.GetSafeHtmlFragment(content);
+						LogManager.GetCurrentClassLogger().ErrorException(
+							string.Format("Unable to get article content for feed '{0}' for item url '{1}'. \nException: {2}", feed.Name,
+							              item.Url),
+							ex);
 					}
-
-					item.Text = Sanitizer.GetSafeHtmlFragment(content);
-					item.Description = content.RemoveTags().Shorten(ModelConstants.DescriptionMaxLenghtConst);
-
-					result.Add(item);
 				}
+				// apply content regex
+				if (!string.IsNullOrEmpty(feed.ContentParseRegex))
+				{
+					var match = Regex.Match(content, feed.ContentParseRegex, RegexOptions.Singleline);
+					if (match.Success && match.Groups.Count > 0)
+					{
+						content = match.Groups[1].Value;
+					}
+					item.Text = Sanitizer.GetSafeHtmlFragment(content);
+				}
+
+				item.Text = Sanitizer.GetSafeHtmlFragment(content);
+				item.Description = content.RemoveTags().Shorten(ModelConstants.DescriptionMaxLenghtConst);
+
+				return item;
 			}
-			return result.ToArray();
+			return null;
 		}
 	}
 }

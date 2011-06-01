@@ -56,8 +56,6 @@ namespace vlko.BlogModule.Base.Scheduler
 			var statusToStore = new List<TwitterStatus>();
 			do
 			{
-				// wait a while to not flood twitter
-				Thread.Sleep(5000);
 
 				var items = twitterConnection.GetStatusesForUser(oAuthToken, twitterUser, currentPage, 100);
 
@@ -76,7 +74,7 @@ namespace vlko.BlogModule.Base.Scheduler
 						}
 					}
 					++currentPage;
-					proceedNextPage = items.Length > 0 || storedItems.Length == 0;
+					proceedNextPage = items.Length > 0 && storedItems.Length == 0;
 				}
 
 			} while (proceedNextPage);

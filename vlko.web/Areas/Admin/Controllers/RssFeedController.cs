@@ -120,16 +120,25 @@ namespace vlko.web.Areas.Admin.Controllers
 		[HttpPost]
 		public ActionResult TestFeed(RssFeedCRUDModel model)
 		{
-			RssItemCRUDModel[] feedItems = null;
+			var feedItems = new List<RssItemCRUDModel>();
 			try
 			{
-				feedItems = UpdateRssFeedsTask.GetFeedItems(model);
+				var connectionAction = RepositoryFactory.Action<IRssFeedConnection>();
+				var rssItems = connectionAction.GetFeedUrlItems(model.Url);
+				foreach (var rssItem in rssItems)
+				{
+					var feedItem = UpdateRssFeedsTask.GetFeedItem(rssItem, model);
+					if (feedItem != null)
+					{
+						feedItems.Add(feedItem);
+					}
+				}
 			}
 			catch (Exception ex)
 			{
 				ModelState.AddModelError("", ex.ToString());
 			}
-			return ViewWithAjax(feedItems);
+			return ViewWithAjax(feedItems.ToArray());
 		}
 
 		/// <summary>
