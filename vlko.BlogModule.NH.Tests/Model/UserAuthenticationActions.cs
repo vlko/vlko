@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Castle.Windsor;
+using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.core.Action;
@@ -23,10 +23,9 @@ namespace vlko.BlogModule.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();
-			DBInit.RegisterSessionFactory(SessionFactoryInstance);
 		}
 
 		[TestCleanup]

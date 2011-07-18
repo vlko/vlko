@@ -448,7 +448,8 @@ table .no_wrap {
 	width: 256px;
 }
 .text-box.multi-line {
-	height: 6.5em;
+	height: 8em;
+	width: 99%;
 }
 .tri-state {
 	width: 6em;

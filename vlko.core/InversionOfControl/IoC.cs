@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections;
-using Castle.Windsor;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.Reflection;
+using System.Linq;
 using vlko.core.Repository;
 
 namespace vlko.core.InversionOfControl
@@ -10,22 +15,71 @@ namespace vlko.core.InversionOfControl
 	/// </summary>
 	public static class IoC
 	{
-		private static IWindsorContainer _container;
+		private static readonly List<Assembly> CatalogAssemblies = new List<Assembly>
+		                                                     	{
+		                                                     		Assembly.GetAssembly(typeof(IoC))
+		                                                     	};
+
+		private static readonly IDictionary<Type, Lazy<object>> Reroutings = new ConcurrentDictionary<Type, Lazy<object>>();
+
+		/// <summary>
+		/// Adds the rerouting.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="value">The value.</param>
+		public static void AddRerouting<T>(Lazy<object> value)
+		{
+			Reroutings.Add(typeof(T), value);
+		}
+
+		/// <summary>
+		/// Adds the rerouting.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <param name="value">The value.</param>
+		public static void AddRerouting(Type type, Lazy<object> value)
+		{
+			Reroutings.Add(type, value);
+		}
+
+		/// <summary>
+		/// Clears the reroutings.
+		/// </summary>
+		public static void ClearReroutings()
+		{
+			Reroutings.Clear();
+		}
+
+		/// <summary>
+		/// Adds the catalog assembly.
+		/// </summary>
+		/// <param name="catalogAssembly">The catalog assembly.</param>
+		public static void AddCatalogAssembly(Assembly catalogAssembly)
+		{
+			if (!CatalogAssemblies.Contains(catalogAssembly))
+			{
+				CatalogAssemblies.Add(catalogAssembly);
+				_container = null;
+			}
+		}
+
+		private static CompositionContainer _container;
 		/// <summary>
 		/// The IoC container.
 		/// </summary>
 		/// <value>The container.</value>
-		public static IWindsorContainer Container
+		public static CompositionContainer Container
 		{
 			get
 			{
-				if (_container == null)
+				lock (typeof(IoC))
 				{
-					Exception ex = new ApplicationException("IoC container not initialized, please call IoC.InitializeWith(IWindsorContainer) before using this library!");
-					NLog.LogManager.GetCurrentClassLogger().FatalException(ex.Message, ex);
-					throw ex;
+					if (_container == null)
+					{
+						Initialize();
+					}
+					return _container;
 				}
-				return _container;
 			}
 			set
 			{
@@ -34,15 +88,15 @@ namespace vlko.core.InversionOfControl
 		}
 
 		/// <summary>
-		/// Initialize this static instance the with specified container.
+		/// Initialize this static instance.
 		/// </summary>
-		/// <param name="container">The container.</param>
-		public static void InitializeWith(IWindsorContainer container)
+		public static void Initialize()
 		{
 			NLog.LogManager.GetCurrentClassLogger().Info("Initializing IoC...");
-			_container = container;
-			// Initialize repository IoC resolver
-			RepositoryFactory.IntitializeWith(new RepositoryFactoryResolver());
+			var catalog = new AggregateCatalog(
+					CatalogAssemblies.Select(assembly => new AssemblyCatalog(assembly))
+					);
+			_container = new CompositionContainer(catalog, true, null);
 		}
 
 		/// <summary>
@@ -52,29 +106,11 @@ namespace vlko.core.InversionOfControl
 		/// <returns>Returns a component instance by the service</returns>
 		public static T Resolve<T>()
 		{
-			return Container.Resolve<T>();
-		}
-
-		/// <summary>
-		/// Returns a component instance by the service.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="arguments">The arguments.</param>
-		/// <returns>Returns a component instance by the service.</returns>
-		public static T Resolve<T>(IDictionary arguments)
-		{
-			return Container.Resolve<T>(arguments);
-		}
-
-		/// <summary>
-		/// Resolves the specified arguments as anonymous type.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="argumentsAsAnonymousType">Type of the arguments as anonymous.</param>
-		/// <returns>Returns a component instance by the service.</returns>
-		public static T Resolve<T>(object argumentsAsAnonymousType)
-		{
-			return Container.Resolve<T>(argumentsAsAnonymousType);
+			if (Reroutings.ContainsKey(typeof(T)))
+			{
+				return (T) Reroutings[typeof (T)].Value;
+			}
+			return Container.GetExportedValue<T>();
 		}
 
 		/// <summary>
@@ -85,31 +121,7 @@ namespace vlko.core.InversionOfControl
 		/// <returns>Returns a component instance by the key.</returns>
 		public static T Resolve<T>(string key)
 		{
-			return Container.Resolve<T>(key);
-		}
-
-		/// <summary>
-		/// Returns a component instance by the key.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="key">The key.</param>
-		/// <param name="arguments">The arguments.</param>
-		/// <returns>Returns a component instance by the key.</returns>
-		public static T Resolve<T>(string key, IDictionary arguments)
-		{
-			return Container.Resolve<T>(key, arguments);
-		}
-
-		/// <summary>
-		/// Resolves the specified arguments as anonymous type for key.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="key">The key.</param>
-		/// <param name="argumentsAsAnonymousType">Type of the arguments as anonymous.</param>
-		/// <returns>Returns a component instance by the key.</returns>
-		public static T Resolve<T>(string key, object argumentsAsAnonymousType)
-		{
-			return Container.Resolve<T>(key, argumentsAsAnonymousType);
+			return Container.GetExportedValue<T>(key);
 		}
 	}
 }

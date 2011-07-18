@@ -1,4 +1,4 @@
-﻿using Castle.Windsor;
+﻿using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Twitterizer;
 using vlko.BlogModule.Action;
@@ -21,8 +21,8 @@ namespace vlko.BlogModule.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 		}
 
 		[TestMethod]

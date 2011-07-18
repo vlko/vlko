@@ -1,9 +1,11 @@
-﻿using vlko.BlogModule.Action.ComplexHelpers.Rss;
+﻿using System.ComponentModel.Composition;
+using vlko.BlogModule.Action.ComplexHelpers.Rss;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.Action
 {
+	[InheritedExport]
 	public interface IRssFeedConnection : IAction<RssFeed>
 	{
 		/// <summary>

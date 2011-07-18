@@ -1,8 +1,10 @@
-﻿using vlko.core.Repository;
+﻿using System.ComponentModel.Composition;
+using vlko.core.Repository;
 using vlko.core.Roots;
 
 namespace vlko.core.Action
 {
+	[InheritedExport]
 	public interface IUserAction : IAction<IUser>
 	{
 		/// <summary>

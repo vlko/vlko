@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using Lucene.Net.Index;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.Search
 {
+	[Export(typeof(SearchUpdateContext))]
+	[PartCreationPolicy(CreationPolicy.NonShared)]
 	public class SearchUpdateContext : ITransactionContext
 	{
 		private readonly ISearchProvider _searchProvider;
@@ -12,6 +15,7 @@ namespace vlko.BlogModule.Search
 		/// Initializes a new instance of the <see cref="SearchUpdateContext"/> class.
 		/// </summary>
 		/// <param name="searchProvider">The search provider.</param>
+		[ImportingConstructor]
 		public SearchUpdateContext(ISearchProvider searchProvider)
 		{
 			_searchProvider = searchProvider;

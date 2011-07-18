@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using vlko.BlogModule.Action.CRUDModel;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
@@ -6,6 +7,7 @@ using vlko.core.Repository.Exceptions;
 
 namespace vlko.BlogModule.Action
 {
+	[InheritedExport]
     public interface IStaticTextCrud : IAction<StaticText>
     {
 

@@ -23,6 +23,8 @@ namespace vlko.BlogModule.NH.Repository
 			public Transaction TopTransaction { get; set; }
 		}
 
+		public static ISessionFactory SessionFactoryInstance { get; set; }
+
 		const string StackIdent = "SessionFactory.CurrentStack";
 
 		[ThreadStatic]
@@ -85,7 +87,7 @@ namespace vlko.BlogModule.NH.Repository
 			if (stack.Session == null)
 			{
 				stack.TopUnitOfWork = unitOfWork;
-				stack.Session = unitOfWork.SessionFactoryInstance.OpenSession();
+				stack.Session = SessionFactoryInstance.OpenSession();
 				stack.Session.FlushMode = FlushMode.Commit;
 			}
 		}
@@ -117,7 +119,7 @@ namespace vlko.BlogModule.NH.Repository
 			// if no session yet, start new
 			if (stack.Session == null)
 			{
-				stack.Session = transaction.SessionFactoryInstance.OpenSession();
+				stack.Session = SessionFactoryInstance.OpenSession();
 				stack.Session.FlushMode = FlushMode.Commit;
 			}
 			// and if no transaction yet, then start new one

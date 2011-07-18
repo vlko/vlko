@@ -1,5 +1,5 @@
 ﻿using System;
-using Castle.Windsor;
+using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.core.Action;
@@ -26,11 +26,9 @@ namespace vlko.BlogModule.Tests.Model
 			//doc.Load("log4net.config");
 			//log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
 
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
-			ApplicationInit.InitializeServices();
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();
-			DBInit.RegisterSessionFactory(SessionFactoryInstance);
 
 			using (var tran = RepositoryFactory.StartTransaction())
 			{

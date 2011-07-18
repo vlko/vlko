@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.IO;
 using vlko.BlogModule.Action.ViewModel;
 
 namespace vlko.BlogModule.Action
 {
+	[InheritedExport]
     public interface IFileBrowserAction
     {
         /// <summary>

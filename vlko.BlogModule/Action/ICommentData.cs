@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.Action
 {
+	[InheritedExport]
 	public interface ICommentData : IAction<Comment>
 	{
 		/// <summary>

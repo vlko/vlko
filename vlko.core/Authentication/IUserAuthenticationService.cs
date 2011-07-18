@@ -1,7 +1,9 @@
-﻿using vlko.core.Action;
+﻿using System.ComponentModel.Composition;
+using vlko.core.Action;
 
 namespace vlko.core.Authentication
 {
+	[InheritedExport]
     public interface IUserAuthenticationService
     {
         /// <summary>

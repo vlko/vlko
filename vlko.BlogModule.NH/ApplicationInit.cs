@@ -1,6 +1,4 @@
 ﻿using System.Web.Mvc;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Base.Scheduler;
 using vlko.BlogModule.Implementation.OtherTech.Action;
@@ -29,85 +27,85 @@ namespace vlko.BlogModule.NH
 		/// </summary>
 		public static void FullInit()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			InitializeRepositories();
-			InitializeServices();
+			//IoC.InitializeWith(new WindsorContainer());
+			//InitializeRepositories();
+			//InitializeServices();
 			RegisterBinders();
 			InitializeScheduler();
 		}
 
 
 
-		/// <summary>
-		/// Initializes the repositories.
-		/// </summary>
-		public static void InitializeRepositories()
-		{
-			IWindsorContainer container = IoC.Container;
-			container.Register(
-				Component.For<IUnitOfWork>().ImplementedBy<UnitOfWork>().LifeStyle.Transient,
-				Component.For<ITransaction>().ImplementedBy<Transaction>().LifeStyle.Transient,
+		///// <summary>
+		///// Initializes the repositories.
+		///// </summary>
+		//public static void InitializeRepositories()
+		//{
+		//    IWindsorContainer container = IoC.Container;
+		//    container.Register(
+		//        Component.For<IUnitOfWork>().ImplementedBy<UnitOfWork>().LifeStyle.Transient,
+		//        Component.For<ITransaction>().ImplementedBy<Transaction>().LifeStyle.Transient,
 
-				Component.For<IRepository<AppSetting>>().ImplementedBy<Repository<AppSetting>>(),
-				Component.For<IAppSettingAction>().ImplementedBy<AppSettingAction>(),
+		//        Component.For<IRepository<AppSetting>>().ImplementedBy<Repository<AppSetting>>(),
+		//        Component.For<IAppSettingAction>().ImplementedBy<AppSettingAction>(),
 
-				Component.For<IRepository<SystemMessage>>().ImplementedBy<Repository<SystemMessage>>(),
-				Component.For<ISystemMessageAction>().ImplementedBy<SystemMessageAction>(),
+		//        Component.For<IRepository<SystemMessage>>().ImplementedBy<Repository<SystemMessage>>(),
+		//        Component.For<ISystemMessageAction>().ImplementedBy<SystemMessageAction>(),
 
-				Component.For<IRepository<Content>>().ImplementedBy<Repository<Content>>(),
-				Component.For<ITimeline>().ImplementedBy<Timeline>(),
+		//        Component.For<IRepository<Content>>().ImplementedBy<Repository<Content>>(),
+		//        Component.For<ITimeline>().ImplementedBy<Timeline>(),
 
-				Component.For<IRepository<StaticText>>().ImplementedBy<Repository<StaticText>>(),
-				Component.For<IStaticTextCrud>().ImplementedBy<StaticTextCrud>(),
-				Component.For<IStaticTextData>().ImplementedBy<StaticTextData>(),
+		//        Component.For<IRepository<StaticText>>().ImplementedBy<Repository<StaticText>>(),
+		//        Component.For<IStaticTextCrud>().ImplementedBy<StaticTextCrud>(),
+		//        Component.For<IStaticTextData>().ImplementedBy<StaticTextData>(),
 
-				Component.For<IRepository<Comment>>().ImplementedBy<Repository<Comment>>(),
-				Component.For<ICommentCrud>().ImplementedBy<CommentCrud>(),
-				Component.For<ICommentData>().ImplementedBy<CommentData>(),
+		//        Component.For<IRepository<Comment>>().ImplementedBy<Repository<Comment>>(),
+		//        Component.For<ICommentCrud>().ImplementedBy<CommentCrud>(),
+		//        Component.For<ICommentData>().ImplementedBy<CommentData>(),
 
-				Component.For<IRepository<IUser>>().ImplementedBy<Repository<User>>(),
-				Component.For<IUserAuthentication>().ImplementedBy<UserAuthentication>(),
-				Component.For<IUserAction>().ImplementedBy<UserAction>(),
+		//        Component.For<IRepository<IUser>>().ImplementedBy<Repository<User>>(),
+		//        Component.For<IUserAuthentication>().ImplementedBy<UserAuthentication>(),
+		//        Component.For<IUserAction>().ImplementedBy<UserAction>(),
 
-				Component.For<IFileBrowserAction>().ImplementedBy<FileBrowserAction>()
-					.DynamicParameters((kernel, parameters) =>
-					                   	{
-					                   		var appInfo = IoC.Resolve<IAppInfoService>();
-					                   		parameters["rootUrl"] = appInfo.RootUrl;
-					                   		parameters["rootPath"] = appInfo.RootPath;
-					                   	}),
+		//        Component.For<IFileBrowserAction>().ImplementedBy<FileBrowserAction>()
+		//            .DynamicParameters((kernel, parameters) =>
+		//                                {
+		//                                    var appInfo = IoC.Resolve<IAppInfoService>();
+		//                                    parameters["rootUrl"] = appInfo.RootUrl;
+		//                                    parameters["rootPath"] = appInfo.RootPath;
+		//                                }),
 
-				Component.For<IRepository<RssFeed>>().ImplementedBy<Repository<RssFeed>>(),
-				Component.For<IRssFeedAction>().ImplementedBy<RssFeedAction>(),
-				Component.For<IRssFeedConnection>().ImplementedBy<RssFeedConnection>(),
+		//        Component.For<IRepository<RssFeed>>().ImplementedBy<Repository<RssFeed>>(),
+		//        Component.For<IRssFeedAction>().ImplementedBy<RssFeedAction>(),
+		//        Component.For<IRssFeedConnection>().ImplementedBy<RssFeedConnection>(),
 
-				Component.For<IRepository<RssItem>>().ImplementedBy<Repository<RssItem>>(),
-				Component.For<IRssItemAction>().ImplementedBy<RssItemAction>(),
+		//        Component.For<IRepository<RssItem>>().ImplementedBy<Repository<RssItem>>(),
+		//        Component.For<IRssItemAction>().ImplementedBy<RssItemAction>(),
 
-				Component.For<IRepository<TwitterStatus>>().ImplementedBy<Repository<TwitterStatus>>(),
-				Component.For<ITwitterConnection>().ImplementedBy<TwitterConnection>(),
-				Component.For<ITwitterStatusAction>().ImplementedBy<TwitterStatusAction>() 
-				);
-		}
+		//        Component.For<IRepository<TwitterStatus>>().ImplementedBy<Repository<TwitterStatus>>(),
+		//        Component.For<ITwitterConnection>().ImplementedBy<TwitterConnection>(),
+		//        Component.For<ITwitterStatusAction>().ImplementedBy<TwitterStatusAction>() 
+		//        );
+		//}
 
-		/// <summary>
-		/// Initializes the services.
-		/// </summary>
-		public static void InitializeServices()
-		{
-			IWindsorContainer container = IoC.Container;
-			container.Register(
-				Component.For<IAppInfoService>().ImplementedBy<AppInfoService>(),
-				Component.For<IEmailService>().ImplementedBy<EmailService>(),
-				Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>(),
-				Component.For<IUserAuthenticationService>().ImplementedBy<UserAuthenticationService>(),
-				Component.For<BaseRepository<SearchRoot>>().ImplementedBy<Repository<SearchRoot>>(),
-				Component.For<ISearchAction>().ImplementedBy<SearchAction>(),
-				Component.For<ISearchProvider>().ImplementedBy<SearchProvider>(),
-				Component.For<SearchContext>().ImplementedBy<SearchContext>().LifeStyle.Transient,
-				Component.For<SearchUpdateContext>().ImplementedBy<SearchUpdateContext>().LifeStyle.Transient
-				);
-		}
+		///// <summary>
+		///// Initializes the services.
+		///// </summary>
+		//public static void InitializeServices()
+		//{
+		//    IWindsorContainer container = IoC.Container;
+		//    container.Register(
+		//        Component.For<IAppInfoService>().ImplementedBy<AppInfoService>(),
+		//        Component.For<IEmailService>().ImplementedBy<EmailService>(),
+		//        Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>(),
+		//        Component.For<IUserAuthenticationService>().ImplementedBy<UserAuthenticationService>(),
+		//        Component.For<BaseRepository<SearchRoot>>().ImplementedBy<Repository<SearchRoot>>(),
+		//        Component.For<ISearchAction>().ImplementedBy<SearchAction>(),
+		//        Component.For<ISearchProvider>().ImplementedBy<SearchProvider>(),
+		//        Component.For<SearchContext>().ImplementedBy<SearchContext>().LifeStyle.Transient,
+		//        Component.For<SearchUpdateContext>().ImplementedBy<SearchUpdateContext>().LifeStyle.Transient
+		//        );
+		//}
 
 		/// <summary>
 		/// Registers the binders.

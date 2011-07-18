@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
-using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.core.Action;
@@ -27,11 +27,10 @@ namespace vlko.BlogModule.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
-			ApplicationInit.InitializeServices();
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();
-			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				RepositoryFactory.Action<IUserAction>().CreateAdmin("user", "user@user.sk", "test");

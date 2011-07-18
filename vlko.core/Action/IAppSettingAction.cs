@@ -1,9 +1,11 @@
-﻿using vlko.core.Repository;
+﻿using System.ComponentModel.Composition;
+using vlko.core.Repository;
 using vlko.core.Roots;
 using vlko.core.Action.Model;
 
 namespace vlko.core.Action
 {
+	[InheritedExport]
 	public interface IAppSettingAction : IAction<IAppSetting>
 	{
 		/// <summary>

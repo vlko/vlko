@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
+using System.Reflection;
 using ConfOrm;
 using ConfOrm.Mappers;
 using ConfOrm.NH;
@@ -9,14 +8,12 @@ using ConfOrm.Patterns;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Tool.hbm2ddl;
-using vlko.BlogModule.NH.Repository;
 using vlko.BlogModule.NH.Repository.RepositoryAction;
 using vlko.BlogModule.NH.Testing;
-using vlko.core.InversionOfControl;
-using vlko.core.Repository;
-using vlko.core.Repository.RepositoryAction;
-using vlko.BlogModule.Tests.Repository.IOCResolved.Model;
 using vlko.BlogModule.Tests.Repository.IOCResolved.Queries;
+using vlko.core.InversionOfControl;
+using vlko.BlogModule.Tests.Repository.IOCResolved.Model;
+using vlko.core.Repository.RepositoryAction;
 
 namespace vlko.BlogModule.Tests.Repository.IOCResolved
 {
@@ -28,25 +25,18 @@ namespace vlko.BlogModule.Tests.Repository.IOCResolved
 		[TestInitialize]
 		public void Init()
 		{
-			IWindsorContainer container = new WindsorContainer();
-			container.Register(
-				Component.For<IUnitOfWork>().ImplementedBy<UnitOfWork>().LifeStyle.Transient,
-				Component.For<ITransaction>().ImplementedBy<Transaction>().LifeStyle.Transient,
-				Component.For<BaseRepository<Hotel>>().ImplementedBy<Repository<Hotel>>(),
-				Component.For<BaseRepository<Room>>().ImplementedBy<Repository<Room>>(),
-				Component.For<BaseRepository<Reservation>>().ImplementedBy<Repository<Reservation>>(),
-				Component.For<ICreateAction<Hotel>>().ImplementedBy<CRUDActions<Hotel>>(),
-				Component.For<ICreateAction<Room>>().ImplementedBy<CRUDActions<Room>>(),
-				Component.For<ICreateAction<Reservation>>().ImplementedBy<CRUDActions<Reservation>>(),
-				Component.For<IQueryActionAll<Hotel>>().ImplementedBy<QueryActionAllLinq<Hotel>>().LifeStyle.Transient,
-				Component.For<IQueryActionHotelRooms>().ImplementedBy<QueryActionHotelRoomsLinq>().LifeStyle.Transient,
-				Component.For<IQueryActionReservationForDay>().ImplementedBy<QueryActionReservationForDayLinq>().LifeStyle.Transient,
-				Component.For<IQueryActionProjection>().ImplementedBy<QueryActionProjectionLinq>().LifeStyle.Transient
-				);
-			IoC.InitializeWith(container);
-			base.SetUp();
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 
-			container.Register(Component.For<NHibernate.ISessionFactory>().Instance(SessionFactoryInstance));
+			IoC.AddRerouting<ICreateAction<Hotel>>(new Lazy<object>(() => new CRUDActions<Hotel>()));
+			IoC.AddRerouting<ICreateAction<Room>>(new Lazy<object>(() => new CRUDActions<Room>()));
+			IoC.AddRerouting<ICreateAction<Reservation>>(new Lazy<object>(() => new CRUDActions<Reservation>()));
+			IoC.AddRerouting<IQueryActionAll<Hotel>>(new Lazy<object>(() => new QueryActionAllLinq<Hotel>()));
+			IoC.AddRerouting<IQueryActionHotelRooms>(new Lazy<object>(() => new QueryActionHotelRoomsLinq()));
+			IoC.AddRerouting<IQueryActionReservationForDay>(new Lazy<object>(() => new QueryActionReservationForDayLinq()));
+			IoC.AddRerouting<IQueryActionProjection>(new Lazy<object>(() => new QueryActionProjectionLinq()));
+
+			base.SetUp();
 	  
 			_Test = new BaseTest();
 			_Test.Intialize();
@@ -55,6 +45,7 @@ namespace vlko.BlogModule.Tests.Repository.IOCResolved
 		[TestCleanup]
 		public void Cleanup()
 		{
+			IoC.ClearReroutings();
 			TearDown();
 		}
 

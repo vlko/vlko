@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using NHibernate;
 using vlko.core.Repository;
 
@@ -7,17 +8,14 @@ namespace vlko.BlogModule.NH.Repository
 	/// <summary>
 	/// Session implementation for Active record.
 	/// </summary>
+	[PartCreationPolicy(CreationPolicy.NonShared)]
 	public sealed class UnitOfWork : IUnitOfWork
 	{
-		public ISessionFactory SessionFactoryInstance { get; private set; }
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnitOfWork"/> class.
 		/// </summary>
-		/// <param name="sessionFactory">The session factory.</param>
-		public UnitOfWork(ISessionFactory sessionFactory)
+		public UnitOfWork()
 		{
-			SessionFactoryInstance = sessionFactory;
 			SessionFactory.RegisterUnitOfWork(this);
 		}
 

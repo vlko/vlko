@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
+using vlko.BlogModule.NH.Repository;
 
 namespace vlko.BlogModule.NH.Testing
 {
@@ -9,10 +11,10 @@ namespace vlko.BlogModule.NH.Testing
 	/// Base class for in memory unit tests. This class does not contain any
 	/// attributes specific to a testing framework.
 	/// </summary>
+	[Export("test")]
 	public abstract class InMemoryTest
 	{
 		protected Configuration Configuration;
-		protected ISessionFactory SessionFactoryInstance;
 
 		/// <summary>
 		/// The common test setup code. To activate it in a specific test framework,
@@ -39,7 +41,7 @@ namespace vlko.BlogModule.NH.Testing
 			schema.Create(false, true);
 
 
-			SessionFactoryInstance = Configuration.BuildSessionFactory();
+			SessionFactory.SessionFactoryInstance = Configuration.BuildSessionFactory();
 
 		}
 
@@ -49,7 +51,7 @@ namespace vlko.BlogModule.NH.Testing
 		/// </summary>
 		public virtual void TearDown()
 		{
-			SessionFactoryInstance.Close();
+			SessionFactory.SessionFactoryInstance.Close();
 			InMemoryConnectionProvider.Restart();
 		}
 

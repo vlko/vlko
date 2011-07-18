@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.Search
 {
+	[Export(typeof(SearchContext))]
+	[PartCreationPolicy(CreationPolicy.NonShared)]
 	public class SearchContext : IUnitOfWorkContext
 	{
 
@@ -15,6 +18,7 @@ namespace vlko.BlogModule.Search
 		/// Initializes a new instance of the <see cref="SearchContext"/> class.
 		/// </summary>
 		/// <param name="searchProvider">The search provider.</param>
+		[ImportingConstructor]
 		public SearchContext(ISearchProvider searchProvider)
 		{
 			_searchProvider = searchProvider;

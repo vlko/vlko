@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using vlko.BlogModule.NH.Repository;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.core.Repository.RepositoryAction;
@@ -10,9 +11,9 @@ namespace vlko.BlogModule.Tests.Repository.IOCResolved
 {
     public class BaseTest
     {
-        BaseRepository<Hotel> _hotelBaseRepository = IoC.Resolve<BaseRepository<Hotel>>();
-        BaseRepository<Room> _roomBaseRepository = IoC.Resolve<BaseRepository<Room>>();
-        BaseRepository<Reservation> _reservationBaseRepository = IoC.Resolve<BaseRepository<Reservation>>();
+        BaseRepository<Hotel> _hotelBaseRepository = new Repository<Hotel>();
+        BaseRepository<Room> _roomBaseRepository = new Repository<Room>();
+        BaseRepository<Reservation> _reservationBaseRepository = new Repository<Reservation>();
 
         public virtual void Intialize()
         {

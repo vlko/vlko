@@ -1,5 +1,8 @@
-﻿namespace vlko.core.Repository
+﻿using System.ComponentModel.Composition;
+
+namespace vlko.core.Repository
 {
+	[InheritedExport]
 	public interface IRepositoryFactoryResolver
 	{
 		/// <summary>

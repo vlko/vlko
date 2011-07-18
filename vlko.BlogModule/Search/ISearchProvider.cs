@@ -1,9 +1,11 @@
-﻿using Lucene.Net.Index;
+﻿using System.ComponentModel.Composition;
+using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 
 namespace vlko.BlogModule.Search
 {
+	[InheritedExport]
 	public interface ISearchProvider
 	{
 		/// <summary>

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using vlko.core.Repository.Exceptions;
 
 namespace vlko.core.Repository
 {
+	[InheritedExport]
 	public interface IRepository<out T> where T : class
 	{
 		/// <summary>

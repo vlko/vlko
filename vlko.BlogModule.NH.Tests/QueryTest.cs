@@ -21,6 +21,12 @@ namespace vlko.BlogModule.Tests
             RepositoryFactory.IntitializeWith(_factoryResolver);
         }
 
+		[TestCleanup]
+		public void CleanupThreadManager()
+		{
+			RepositoryFactory.IntitializeWith(null);
+		}
+
         [TestMethod]
         public void Test_get_query()
         {

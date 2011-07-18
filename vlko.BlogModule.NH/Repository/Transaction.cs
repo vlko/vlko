@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using NHibernate;
 using vlko.core.Repository;
 using ITransaction = vlko.core.Repository.ITransaction;
@@ -8,19 +9,18 @@ namespace vlko.BlogModule.NH.Repository
 	/// <summary>
 	/// Active record transaction implementation.
 	/// </summary>
+	[PartCreationPolicy(CreationPolicy.NonShared)]
 	public sealed class Transaction : ITransaction
 	{
-		public ISessionFactory SessionFactoryInstance { get; private set; }
+
 
 		internal object LockObject { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnitOfWork"/> class.
 		/// </summary>
-		/// <param name="sessionFactory">The session factory.</param>
-		public Transaction(ISessionFactory sessionFactory)
+		public Transaction()
 		{
-			SessionFactoryInstance = sessionFactory;
 			SessionFactory.RegisterTransaction(this);
 		}
 

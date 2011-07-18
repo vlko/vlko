@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.ComponentModel.Composition;
+using System.Data;
 using NHibernate.Connection;
 
 namespace vlko.BlogModule.NH.Testing
@@ -9,6 +10,7 @@ namespace vlko.BlogModule.NH.Testing
 	/// ConnectionProvider for Sqlite in memory tests, that suppresses closing
 	/// the connection to keep the data until the test is finished.
 	/// </summary>
+	[Export("test")]
 	public class InMemoryConnectionProvider : DriverConnectionProvider
 	{
 		/// <summary>

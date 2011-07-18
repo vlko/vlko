@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.MicroKernel.Registration;
 using ConfOrm;
 using ConfOrm.Mappers;
 using ConfOrm.NH;
@@ -149,13 +148,5 @@ namespace vlko.BlogModule.NH
 			SchemaMetadataUpdater.QuoteTableAndColumns(config);
 		}
 
-		/// <summary>
-		/// Registers the session factory.
-		/// </summary>
-		/// <param name="sessionFactory">The session factory.</param>
-		public static void RegisterSessionFactory(ISessionFactory sessionFactory)
-		{
-			IoC.Container.Register(Component.For<ISessionFactory>().Instance(sessionFactory));
-		}
 	}
 }

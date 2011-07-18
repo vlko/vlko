@@ -1,6 +1,7 @@
-﻿using vlko.core.Repository;
+﻿using vlko.core.InversionOfControl;
+using vlko.core.Repository;
 
-namespace vlko.core.InversionOfControl   
+namespace vlko.BlogModule.NH.Repository   
 {
 	public class RepositoryFactoryResolver : IRepositoryFactoryResolver
 	{
@@ -11,7 +12,7 @@ namespace vlko.core.InversionOfControl
 		/// <returns>Resolved action or query.</returns>
 		public T ResolveAction<T>() where T : class, IAction
 		{
-			return InversionOfControl.IoC.Resolve<T>();
+			return IoC.Resolve<T>();
 		}
 
 		/// <summary>
@@ -20,7 +21,7 @@ namespace vlko.core.InversionOfControl
 		/// <returns></returns>
 		public IUnitOfWork GetUnitOfWork()
 		{
-			return InversionOfControl.IoC.Resolve<IUnitOfWork>();
+			return IoC.Resolve<IUnitOfWork>();
 		}
 
 		/// <summary>
@@ -29,7 +30,7 @@ namespace vlko.core.InversionOfControl
 		/// <returns>New transaction.</returns>
 		public ITransaction GetTransaction()
 		{
-			return InversionOfControl.IoC.Resolve<ITransaction>();
+			return IoC.Resolve<ITransaction>();
 		}
 
 
@@ -40,7 +41,7 @@ namespace vlko.core.InversionOfControl
 		/// <returns>Registered BaseRepository for type.</returns>
 		public IRepository<T> GetRepository<T>() where T : class
 		{
-			return InversionOfControl.IoC.Resolve<IRepository<T>>();
+			return new Repository<T>();
 		}
 
 	}

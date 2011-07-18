@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
-using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.core.InversionOfControl;
@@ -25,15 +25,14 @@ namespace vlko.BlogModule.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
-			var doc = new XmlDocument();
-			doc.Load("log4net.config");
+			//var doc = new XmlDocument();
+			//doc.Load("log4net.config");
 			// logging fails on simple linq query because of bool parameter is trying to cast as string
 			//log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
 
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();
-			DBInit.RegisterSessionFactory(SessionFactoryInstance);
 
 			using (var tran = RepositoryFactory.StartTransaction())
 			{

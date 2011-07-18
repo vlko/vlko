@@ -40,12 +40,12 @@ namespace vlko.BlogModule.Tests.Repository.NRepository.Implementation
 
         public IUnitOfWork GetUnitOfWork()
         {
-			return new UnitOfWork(_sessionFactory);
+			return new UnitOfWork();
         }
 
         public ITransaction GetTransaction()
         {
-			return new Transaction(_sessionFactory);
+			return new Transaction();
         }
 
         public IRepository<T> GetRepository<T>() where T : class

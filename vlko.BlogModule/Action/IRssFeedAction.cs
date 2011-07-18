@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using vlko.BlogModule.Action.CRUDModel;
 using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.Roots;
@@ -7,6 +8,7 @@ using vlko.core.Repository.Exceptions;
 
 namespace vlko.BlogModule.Action
 {
+	[InheritedExport]
 	public interface IRssFeedAction : IAction<RssFeed>
 	{
 		/// <summary>

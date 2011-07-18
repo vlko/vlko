@@ -1,4 +1,5 @@
 ﻿using System;
+using vlko.core.InversionOfControl;
 using vlko.core.Repository.Exceptions;
 
 namespace vlko.core.Repository
@@ -19,28 +20,17 @@ namespace vlko.core.Repository
 		{
 			get
 			{
-				if (_factoryResolver == null)
+				lock (typeof(RepositoryFactory))
 				{
-					Exception ex = new RepositoryFactoryNotInitializeException();
-					throw ex;
+					if (_factoryResolver == null)
+					{
+						// Initialize repository IoC resolver
+						_factoryResolver = IoC.Resolve<IRepositoryFactoryResolver>();
+					}
+					return _factoryResolver;
 				}
-				return _factoryResolver;
 			}
 
-		}
-
-		/// <summary>
-		/// Gets a value indicating whether this instance is initialized.
-		/// </summary>
-		/// <value>
-		/// 	<c>true</c> if this instance is initialized; otherwise, <c>false</c>.
-		/// </value>
-		public static bool IsInitialized
-		{
-			get
-			{
-				return _factoryResolver != null;
-			}
 		}
 
 		/// <summary>

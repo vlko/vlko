@@ -8,6 +8,7 @@ using ConfOrm.Patterns;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Tool.hbm2ddl;
+using vlko.BlogModule.NH.Repository;
 using vlko.core.Repository;
 using vlko.core.Repository.RepositoryAction;
 using vlko.BlogModule.NH.Testing;
@@ -55,7 +56,7 @@ namespace vlko.BlogModule.Tests.Repository.NRepository
 		public void Initialize()
 		{
 			SetUp();
-			RepositoryFactory.IntitializeWith(new NLocalFactoryResolver(SessionFactoryInstance));
+			RepositoryFactory.IntitializeWith(new NLocalFactoryResolver(SessionFactory.SessionFactoryInstance));
 
 			_session = RepositoryFactory.StartUnitOfWork();
 
@@ -93,6 +94,7 @@ namespace vlko.BlogModule.Tests.Repository.NRepository
 		public override void TearDown()
 		{
 			_session.Dispose();
+			RepositoryFactory.IntitializeWith(null);
 			base.TearDown();
 		}
 	}
