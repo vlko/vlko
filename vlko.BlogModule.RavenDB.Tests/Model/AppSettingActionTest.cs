@@ -1,7 +1,5 @@
-﻿using Castle.Windsor;
+﻿using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using Raven.Client.Document;
 using vlko.BlogModule.RavenDB.Repository;
 using vlko.core.Action;
 using vlko.core.Action.Model;
@@ -20,10 +18,10 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.RavenDB"));
 			base.SetUp();
-			DBInit.RegisterDocumentStore(Store);
+
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 				_setting1 = new AppSetting

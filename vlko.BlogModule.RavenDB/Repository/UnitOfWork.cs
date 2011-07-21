@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using Raven.Client;
 using vlko.core.Repository;
 
@@ -7,17 +8,14 @@ namespace vlko.BlogModule.RavenDB.Repository
 	/// <summary>
 	/// Session implementation for Active record.
 	/// </summary>
+	[PartCreationPolicy(CreationPolicy.NonShared)]
 	public sealed class UnitOfWork : IUnitOfWork
 	{
-		public IDocumentStore DocumentStoreInstance { get; private set; }
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnitOfWork"/> class.
 		/// </summary>
-		/// <param name="documentStore">The document store.</param>
-		public UnitOfWork(IDocumentStore documentStore)
+		public UnitOfWork()
 		{
-			DocumentStoreInstance = documentStore;
 			SessionFactory.RegisterUnitOfWork(this);
 		}
 

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using Castle.MicroKernel.Registration;
 using Newtonsoft.Json;
 using Raven.Client;
 using Raven.Client.Document;
 using vlko.BlogModule.RavenDB.Indexes;
+using vlko.BlogModule.RavenDB.Repository;
 using vlko.BlogModule.RavenDB.Repository.ReferenceProxy;
 using vlko.BlogModule.Roots;
-using vlko.core.InversionOfControl;
 
 namespace vlko.BlogModule.RavenDB
 {
@@ -58,7 +54,7 @@ namespace vlko.BlogModule.RavenDB
 		/// <param name="documentStore">The document store.</param>
 		public static void RegisterDocumentStore(IDocumentStore documentStore)
 		{
-			IoC.Container.Register(Component.For<IDocumentStore>().Instance(documentStore));
+			SessionFactory.DocumentStoreInstance = documentStore;
 
 			documentStore.Conventions.CustomizeJsonSerializer += json => json.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
 

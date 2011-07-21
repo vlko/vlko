@@ -9,6 +9,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Tool.hbm2ddl;
+using vlko.BlogModule.NH.Repository;
 using vlko.BlogModule.Roots;
 using vlko.core.InversionOfControl;
 
@@ -44,6 +45,8 @@ namespace vlko.BlogModule.NH
 		/// <param name="config">The configuration.</param>
 		public static void InitMappings(Configuration config)
 		{
+			SessionFactory.SessionFactoryInstance = config.BuildSessionFactory();
+
 			var orm = new ObjectRelationalMapper();
 
 			var mapper = new Mapper(orm);

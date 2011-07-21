@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using Raven.Client;
 using vlko.core.Repository;
 
@@ -7,17 +8,14 @@ namespace vlko.BlogModule.RavenDB.Repository
 	/// <summary>
 	/// Active record transaction implementation.
 	/// </summary>
+	[PartCreationPolicy(CreationPolicy.NonShared)]
 	public sealed class Transaction : ITransaction
 	{
-		public IDocumentStore DocumentStoreInstance { get; private set; }
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnitOfWork"/> class.
 		/// </summary>
-		/// <param name="documentStore">The document store.</param>
-		public Transaction(IDocumentStore documentStore)
+		public Transaction()
 		{
-			DocumentStoreInstance = documentStore;
 			SessionFactory.RegisterTransaction(this);
 		}
 

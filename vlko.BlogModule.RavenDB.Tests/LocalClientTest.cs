@@ -28,6 +28,8 @@ namespace vlko.BlogModule.RavenDB.Tests
 				//NewRemoteDocumentStore();
 			CustomizeStore(Store);
 			Store.Initialize();
+			DBInit.RegisterDocumentStore(Store);
+			DBInit.RegisterIndexes(Store);
 		}
 
 		protected virtual void CustomizeStore(IDocumentStore store)

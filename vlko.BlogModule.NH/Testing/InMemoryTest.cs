@@ -39,10 +39,6 @@ namespace vlko.BlogModule.NH.Testing
 
 			var schema = new SchemaExport(Configuration);
 			schema.Create(false, true);
-
-
-			SessionFactory.SessionFactoryInstance = Configuration.BuildSessionFactory();
-
 		}
 
 		/// <summary>

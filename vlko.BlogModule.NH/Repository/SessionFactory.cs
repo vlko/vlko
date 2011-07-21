@@ -23,6 +23,12 @@ namespace vlko.BlogModule.NH.Repository
 			public Transaction TopTransaction { get; set; }
 		}
 
+		/// <summary>
+		/// Gets or sets the session factory instance.
+		/// </summary>
+		/// <value>
+		/// The session factory instance.
+		/// </value>
 		public static ISessionFactory SessionFactoryInstance { get; set; }
 
 		const string StackIdent = "SessionFactory.CurrentStack";

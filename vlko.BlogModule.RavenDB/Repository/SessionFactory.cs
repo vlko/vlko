@@ -39,6 +39,14 @@ namespace vlko.BlogModule.RavenDB.Repository
 			public TransactionStateEnum TransactionState { get; set; }
 		}
 
+		/// <summary>
+		/// Gets or sets the document store instance.
+		/// </summary>
+		/// <value>
+		/// The document store instance.
+		/// </value>
+		public static IDocumentStore DocumentStoreInstance { get; set; }
+
 		const string StackIdent = "SessionFactory.CurrentStack";
 
 		[ThreadStatic]
@@ -127,7 +135,7 @@ namespace vlko.BlogModule.RavenDB.Repository
 			if (stack.Session == null)
 			{
 				stack.TopUnitOfWork = unitOfWork;
-				stack.Session = (DocumentSession)unitOfWork.DocumentStoreInstance.OpenSession();
+				stack.Session = (DocumentSession)DocumentStoreInstance.OpenSession();
 			}
 		}
 
@@ -158,7 +166,7 @@ namespace vlko.BlogModule.RavenDB.Repository
 			// if no session yet, start new
 			if (stack.Session == null)
 			{
-				stack.Session = (DocumentSession)transaction.DocumentStoreInstance.OpenSession();
+				stack.Session = (DocumentSession)DocumentStoreInstance.OpenSession();
 			}
 			// and if no transaction yet, then start new one
 			if (stack.TopTransaction == null)
