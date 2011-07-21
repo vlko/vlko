@@ -1,19 +1,14 @@
-﻿using System.Security.Principal;
+﻿using System;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
-using vlko.BlogModule.NH;
-using vlko.BlogModule.NH.Testing;
 using vlko.core.Action;
 using vlko.core.Authentication;
-using vlko.core.Authentication.Implementation;
 using vlko.core.InversionOfControl;
 using vlko.core.Services;
-using vlko.core.Services.Implementation;
 using vlko.web.Controllers;
 using vlko.web.ViewModel.Account;
 
@@ -21,7 +16,7 @@ namespace vlko.web.Tests.Controllers
 {
 
 	[TestClass]
-	public class AccountControllerTest : InMemoryTest
+	public class AccountControllerTest : BaseControllerTest
 	{
 		public class LocalEmailSender : IEmailService
 		{
@@ -31,32 +26,9 @@ namespace vlko.web.Tests.Controllers
 			}
 		}
 
-		[TestInitialize]
-		public void Init()
+		protected override void FillDbWithData()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
-			IWindsorContainer container = new WindsorContainer();
-			container.Register(
-				Component.For<IAppInfoService>().ImplementedBy<AppInfoService>(),
-				Component.For<IEmailService>().ImplementedBy<LocalEmailSender>(),
-				Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>(),
-				Component.For<IUserAuthenticationService>().ImplementedBy<UserAuthenticationService>()
-				);
-			IoC.InitializeWith(container);
-			base.SetUp();
-			DBInit.RegisterSessionFactory(SessionFactoryInstance);
-		}
-
-		[TestCleanup]
-		public void Cleanup()
-		{
-			TearDown();
-		}
-
-		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
-		{
-			DBInit.InitMappings(configuration);
+			IoC.AddRerouting<IEmailService>(() => new LocalEmailSender());
 		}
 
 		[TestMethod]

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NHibernate.Cfg;
 using vlko.BlogModule.NH;
 using vlko.core.Action;
 using vlko.core.Action.Model;

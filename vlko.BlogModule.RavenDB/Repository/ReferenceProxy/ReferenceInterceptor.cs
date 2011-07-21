@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using Castle.Core.Interceptor;
+using Castle.DynamicProxy;
 
 namespace vlko.BlogModule.RavenDB.Repository.ReferenceProxy
 {

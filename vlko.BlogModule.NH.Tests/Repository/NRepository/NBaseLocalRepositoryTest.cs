@@ -43,6 +43,8 @@ namespace vlko.BlogModule.Tests.Repository.NRepository
 			// inject the mapping in NHibernate
 			configuration.AddDeserializedMapping(mappingDocument, "Domain");
 
+			SessionFactory.SessionFactoryInstance = configuration.BuildSessionFactory();
+
 		}
 
 		public override Type[] GetMappingTypes()

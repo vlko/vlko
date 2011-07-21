@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Castle.Windsor;
+using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.BlogModule.NH.Testing;
@@ -16,13 +16,11 @@ namespace vlko.web.Tests
 		[TestInitialize]
 		public void Init()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			ApplicationInit.InitializeRepositories();
-			ApplicationInit.InitializeServices();
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
-			base.SetUp();
 
-			DBInit.RegisterSessionFactory(SessionFactoryInstance);
+			base.SetUp();
 
 			FillDbWithData();
 			_session = RepositoryFactory.StartUnitOfWork();

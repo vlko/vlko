@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using vlko.core.Action;
 using vlko.core.Roots;
 using vlko.core.Services;
@@ -17,6 +18,7 @@ namespace vlko.core.Authentication.Implementation
 		/// <param name="userAuthentication">The user authentication.</param>
 		/// <param name="emailService">The email service.</param>
 		/// <param name="appInfoService">The app info service.</param>
+		[ImportingConstructor]
 		public UserAuthenticationService(IUserAuthentication userAuthentication, IEmailService emailService, IAppInfoService appInfoService)
 		{
 			_userAuthentication = userAuthentication;

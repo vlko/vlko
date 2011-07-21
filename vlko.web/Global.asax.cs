@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -102,6 +103,9 @@ namespace vlko.web
 		/// <param name="dataExists">if set to <c>true</c> [data exists].</param>
 		private static void ConfigureForRavenDb(bool dataExists)
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.RavenDB"));
+
 			BlogModule.RavenDB.ApplicationInit.FullInit();
 			var documentStore = new EmbeddableDocumentStore()
 			{
@@ -132,11 +136,13 @@ namespace vlko.web
 		/// <param name="dataExists">if set to <c>true</c> [data exists].</param>
 		private void ConfigureForNHibernate(bool dataExists)
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
+			
 			BlogModule.NH.ApplicationInit.FullInit();
 			var config = new Configuration();
 			config.Configure();
 			BlogModule.NH.DBInit.InitMappings(config);
-			BlogModule.NH.DBInit.RegisterSessionFactory(config.BuildSessionFactory());
 			
 			ConfigureSearchProvider(dataExists);
 

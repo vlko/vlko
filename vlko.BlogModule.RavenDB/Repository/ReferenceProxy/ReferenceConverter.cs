@@ -41,9 +41,10 @@ namespace vlko.BlogModule.RavenDB.Repository.ReferenceProxy
 				var denormalizedReference = new DenormalizedReference();
 				serializer.Populate(reader, denormalizedReference);
 
-				var referenceInstace = _generator.CreateClassProxy(
+				var referenceInstace = _generator.CreateClassProxyWithTarget(
 					denormalizedReference.ReferenceInstanceType,
-					new Type[] {typeof(IDynamicProxy)},
+					new Type[] { typeof(IDynamicProxy) },
+					InstanceCreator.Create(denormalizedReference.ReferenceInstanceType),
 					new ReferenceInterceptor(denormalizedReference.Id, denormalizedReference.ReferenceInstanceType));
 
 				return referenceInstace;

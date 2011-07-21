@@ -45,8 +45,6 @@ namespace vlko.BlogModule.NH
 		/// <param name="config">The configuration.</param>
 		public static void InitMappings(Configuration config)
 		{
-			SessionFactory.SessionFactoryInstance = config.BuildSessionFactory();
-
 			var orm = new ObjectRelationalMapper();
 
 			var mapper = new Mapper(orm);
@@ -149,6 +147,8 @@ namespace vlko.BlogModule.NH
 			config.AddDeserializedMapping(mappingDocument, "Domain");
 			// fix up the schema
 			SchemaMetadataUpdater.QuoteTableAndColumns(config);
+
+			SessionFactory.SessionFactoryInstance = config.BuildSessionFactory();
 		}
 
 	}

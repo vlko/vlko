@@ -27,19 +27,9 @@ namespace vlko.core.InversionOfControl
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="value">The value.</param>
-		public static void AddRerouting<T>(Lazy<object> value)
+		public static void AddRerouting<T>(Func<T> value)
 		{
-			Reroutings.Add(typeof(T), value);
-		}
-
-		/// <summary>
-		/// Adds the rerouting.
-		/// </summary>
-		/// <param name="type">The type.</param>
-		/// <param name="value">The value.</param>
-		public static void AddRerouting(Type type, Lazy<object> value)
-		{
-			Reroutings.Add(type, value);
+			Reroutings[typeof(T)] = new Lazy<object>(() => value());
 		}
 
 		/// <summary>

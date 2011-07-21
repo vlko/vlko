@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using MvcContrib.TestHelper;
-using Rhino.Mocks;
+﻿using System.Web.Mvc;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.InversionOfControl;
@@ -50,10 +38,7 @@ namespace vlko.web.Tests
 		/// <param name="userName">Name of the user.</param>
 		public static void MockUser(this BaseController controller, string userName)
 		{
-			IWindsorContainer container = IoC.Container;
-			container.Register(
-				Component.For<IUserAuthenticationService>().ImplementedBy<StaticPageControllerTest.UserAuthenticationServiceMock>()
-				);
+			IoC.AddRerouting<IUserAuthenticationService>(() => new StaticPageControllerTest.UserAuthenticationServiceMock());
 			controller.UserInfo = new UserInfo(userName);
 		}
 

@@ -52,9 +52,6 @@
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\packages\Castle.Windsor.2.5.3\lib\NET40\Castle.Windsor.dll</HintPath>
-    </Reference>
     <Reference Include="ConfOrm, Version=1.0.1.4, Culture=neutral, PublicKeyToken=ed8affdf01cbe4cf, processorArchitecture=MSIL">
       <HintPath>..\packages\ConfOrm.1.0.1.4\lib\Net35\ConfOrm.dll</HintPath>
     </Reference>

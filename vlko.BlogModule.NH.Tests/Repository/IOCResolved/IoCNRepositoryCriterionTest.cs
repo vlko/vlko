@@ -8,6 +8,7 @@ using ConfOrm.Patterns;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Tool.hbm2ddl;
+using vlko.BlogModule.NH.Repository;
 using vlko.BlogModule.NH.Repository.RepositoryAction;
 using vlko.BlogModule.NH.Testing;
 using vlko.core.InversionOfControl;
@@ -29,13 +30,13 @@ namespace vlko.BlogModule.Tests.Repository.IOCResolved
 			//doc.Load("log4net.config");
 			//log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
 
-			IoC.AddRerouting<ICreateAction<Hotel>>(new Lazy<object>(() => new CRUDActions<Hotel>()));
-			IoC.AddRerouting<ICreateAction<Room>>(new Lazy<object>(() => new CRUDActions<Room>()));
-			IoC.AddRerouting<ICreateAction<Reservation>>(new Lazy<object>(() => new CRUDActions<Reservation>()));
-			IoC.AddRerouting<IQueryActionAll<Hotel>>(new Lazy<object>(() => new QueryActionAllCriterion<Hotel>()));
-			IoC.AddRerouting<IQueryActionHotelRooms>(new Lazy<object>(() => new QueryActionHotelRoomsCriterion()));
-			IoC.AddRerouting<IQueryActionReservationForDay>(new Lazy<object>(() => new QueryActionReservationForDayCriterion()));
-			IoC.AddRerouting<IQueryActionProjection>(new Lazy<object>(() => new QueryActionProjectionCriterion()));
+			IoC.AddRerouting<ICreateAction<Hotel>>(() => new CRUDActions<Hotel>());
+			IoC.AddRerouting<ICreateAction<Room>>(() => new CRUDActions<Room>());
+			IoC.AddRerouting<ICreateAction<Reservation>>(() => new CRUDActions<Reservation>());
+			IoC.AddRerouting<IQueryActionAll<Hotel>>(() => new QueryActionAllCriterion<Hotel>());
+			IoC.AddRerouting<IQueryActionHotelRooms>(() => new QueryActionHotelRoomsCriterion());
+			IoC.AddRerouting<IQueryActionReservationForDay>(() => new QueryActionReservationForDayCriterion());
+			IoC.AddRerouting<IQueryActionProjection>(() => new QueryActionProjectionCriterion());
 
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
@@ -87,6 +88,8 @@ namespace vlko.BlogModule.Tests.Repository.IOCResolved
 			configuration.AddDeserializedMapping(mappingDocument, "Domain");
 			// fix up the schema
 			SchemaMetadataUpdater.QuoteTableAndColumns(configuration);
+
+			SessionFactory.SessionFactoryInstance = configuration.BuildSessionFactory();
 		}
 
 		[TestCleanup]

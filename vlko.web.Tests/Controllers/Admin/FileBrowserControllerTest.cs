@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
 using vlko.BlogModule.NH.Action;
@@ -26,17 +25,15 @@ namespace vlko.web.Tests.Controllers.Admin
 		[TestInitialize]
 		public void Init()
 		{
-			IoC.InitializeWith(new WindsorContainer());
-			IoC.Container.Register(
-				Component.For<IFileBrowserAction>().ImplementedBy<FileBrowserAction>()
-					.DynamicParameters((kernel, parameters) =>
-					{
-						var appInfo = IoC.Resolve<IAppInfoService>();
-						parameters["rootUrl"] = appInfo.RootUrl;
-						parameters["rootPath"] = appInfo.RootPath;
-					}),
-				Component.For<IAppInfoService>().ImplementedBy<AppInfoServiceMock>()
-				);
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
+			IoC.AddRerouting<IFileBrowserAction>(() =>
+			                                     	{
+			                                     		var appInfo = IoC.Resolve<IAppInfoService>();
+			                                     		return new FileBrowserAction(appInfo.RootUrl,
+			                                     		                             appInfo.RootPath);
+			                                     	});
+			IoC.AddRerouting<IAppInfoService>(() => new AppInfoServiceMock());
 		}
 
 		[TestMethod]
