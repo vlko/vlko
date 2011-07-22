@@ -1,4 +1,6 @@
-﻿namespace vlko.core.Services.Implementation
+﻿using System.Reflection;
+
+namespace vlko.core.Services.Implementation
 {
 	public class AppInfoService : IAppInfoService
 	{
@@ -37,7 +39,12 @@
 		{
 			get
 			{
-				return System.Web.HttpContext.Current.Request.PhysicalApplicationPath;
+				System.Web.HttpContext context = System.Web.HttpContext.Current;
+				if (context != null)
+				{
+					return System.Web.HttpContext.Current.Request.PhysicalApplicationPath;
+				}
+				return System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
 			}
 		}
 

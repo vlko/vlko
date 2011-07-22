@@ -30,8 +30,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			IoC.AddRerouting<IFileBrowserAction>(() =>
 			                                     	{
 			                                     		var appInfo = IoC.Resolve<IAppInfoService>();
-			                                     		return new FileBrowserAction(appInfo.RootUrl,
-			                                     		                             appInfo.RootPath);
+														return new FileBrowserAction(appInfo);
 			                                     	});
 			IoC.AddRerouting<IAppInfoService>(() => new AppInfoServiceMock());
 		}

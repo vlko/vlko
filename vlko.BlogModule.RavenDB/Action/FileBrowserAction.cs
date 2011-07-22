@@ -6,27 +6,51 @@ using System.Text;
 using NLog;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.ViewModel;
+using vlko.core.Services;
+using System.ComponentModel.Composition;
 
 namespace vlko.BlogModule.RavenDB.Action
 {
     public class FileBrowserAction : IFileBrowserAction
     {
-        public readonly string UserDirectoryName = "user_content";
-        private readonly string _basePath;
-        private readonly string _baseUrlPath;
+    	private readonly IAppInfoService _appInfo;
+    	public readonly string UserDirectoryName = "user_content";
 
 		/// <summary>
+		/// Gets the base path.
+		/// </summary>
+    	public string BasePath
+    	{
+    		get
+    		{
+				var result = _appInfo.RootPath.TrimEnd('\\');
+				result += "\\" + UserDirectoryName;
+    			return result;
+    		}
+    	}
+
+		/// <summary>
+		/// Gets the base URL path.
+		/// </summary>
+		public string BaseUrlPath
+		{
+			get
+			{
+				var result = _appInfo.RootUrl.TrimEnd('/');
+				result += "/" + UserDirectoryName;
+				return result;
+			}
+		}
+
+    	/// <summary>
 		/// Initializes a new instance of the <see cref="FileBrowserAction"/> class.
 		/// </summary>
-		/// <param name="rootUrl">The root URL.</param>
-		/// <param name="rootPath">The root path.</param>
-    	public  FileBrowserAction(string rootUrl, string rootPath)
-        {
-            _baseUrlPath = rootUrl.TrimEnd('/');
-            _baseUrlPath += "/" + UserDirectoryName;
-            _basePath = rootPath.TrimEnd('\\');
-            _basePath += "\\" + UserDirectoryName;
-        }
+		/// <param name="appInfo">The app info.</param>
+		[ImportingConstructor]
+		public FileBrowserAction(IAppInfoService appInfo)
+		{
+			_appInfo = appInfo;
+		}
 
         /// <summary>
         /// Gets all user files.
@@ -36,7 +60,7 @@ namespace vlko.BlogModule.RavenDB.Action
         public IEnumerable<FileViewModel> GetAllUserFileInfos(string user)
         {
             List<FileViewModel> result = new List<FileViewModel>();
-            string userDirectory = Path.Combine(_basePath, SanitizeFileName(user));
+            string userDirectory = Path.Combine(BasePath, SanitizeFileName(user));
             if (Directory.Exists(userDirectory))
             {
                 foreach (var file in new DirectoryInfo(userDirectory).EnumerateFiles())
@@ -45,7 +69,7 @@ namespace vlko.BlogModule.RavenDB.Action
                                    {
                                        Ident = file.Name,
                                        Size = file.Length,
-                                       Url = _baseUrlPath + "/" + SanitizeFileName(user) + "/" + file.Name
+                                       Url = BaseUrlPath + "/" + SanitizeFileName(user) + "/" + file.Name
                                    });
                 }
             }
@@ -77,7 +101,7 @@ namespace vlko.BlogModule.RavenDB.Action
             {
                 try
                 {
-                    File.Delete(Path.Combine(_basePath, SanitizeFileName(user), SanitizeFileName(fileInfo.Ident)));
+                    File.Delete(Path.Combine(BasePath, SanitizeFileName(user), SanitizeFileName(fileInfo.Ident)));
                     return true;
                 }
                 catch (Exception e)
@@ -99,7 +123,7 @@ namespace vlko.BlogModule.RavenDB.Action
         /// <returns>True if succeed.</returns>
         public bool SaveFile(string user, string fileIdent, Stream fileStream)
         {
-            string path = Path.Combine(_basePath, SanitizeFileName(user));
+            string path = Path.Combine(BasePath, SanitizeFileName(user));
             string file = Path.Combine(path, SanitizeFileName(fileIdent));
             try
             {
