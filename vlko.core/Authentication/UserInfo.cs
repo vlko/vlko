@@ -6,7 +6,7 @@ namespace vlko.core.Authentication
 	public class UserInfo
 	{
 		private readonly IUserAuthenticationService _authenticationService;
-		private IUser _user;
+		private User _user;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UserInfo"/> class.
@@ -51,7 +51,7 @@ namespace vlko.core.Authentication
 		/// Gets the user.
 		/// </summary>
 		/// <value>The user.</value>
-		public IUser User
+		public User User
 		{ 
 			get
 			{

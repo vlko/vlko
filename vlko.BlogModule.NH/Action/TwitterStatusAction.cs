@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using vlko.BlogModule.Action;
-using vlko.BlogModule.NH.Repository;
 using vlko.BlogModule.Roots;
+using vlko.core.NH.Repository;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Action
@@ -25,8 +25,8 @@ namespace vlko.BlogModule.NH.Action
 				return new TwitterStatus[] {};
 			}
 
-			return Enumerable.ToArray<TwitterStatus>(SessionFactory<TwitterStatus>.Queryable
-				                        	.Where(status => twitterIdsArray.Contains(status.TwitterId)));
+			return SessionFactory<TwitterStatus>.Queryable
+				.Where(status => twitterIdsArray.Contains(status.TwitterId)).ToArray();
 		}
 
 		/// <summary>

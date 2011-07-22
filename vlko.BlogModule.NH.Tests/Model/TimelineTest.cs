@@ -2,23 +2,23 @@
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
-using vlko.core.Action;
 using vlko.core.InversionOfControl;
+using vlko.core.NH.Testing;
 using vlko.core.Repository;
 using vlko.core.Roots;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.CRUDModel;
 using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.NH.Action;
-using vlko.BlogModule.NH.Testing;
 using vlko.BlogModule.Roots;
+using vlko.core.Action;
 
 namespace vlko.BlogModule.Tests.Model
 {
 	[TestClass]
 	public class TimelineTest : InMemoryTest
 	{
-		private IUser _user;
+		private User _user;
 		[TestInitialize]
 		public void Init()
 		{
@@ -26,6 +26,7 @@ namespace vlko.BlogModule.Tests.Model
 			//doc.Load("log4net.config");
 			//log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
 
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.Core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();

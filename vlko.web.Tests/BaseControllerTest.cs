@@ -2,8 +2,8 @@
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
-using vlko.BlogModule.NH.Testing;
 using vlko.core.InversionOfControl;
+using vlko.core.NH.Testing;
 using vlko.core.Repository;
 using vlko.BlogModule.Search;
 

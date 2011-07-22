@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Raven.Client.Indexes;
 using vlko.BlogModule.Roots;
+using vlko.core.Roots;
 
 namespace vlko.BlogModule.RavenDB.Indexes
 {

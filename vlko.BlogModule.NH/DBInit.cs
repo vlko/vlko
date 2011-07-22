@@ -9,9 +9,9 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Tool.hbm2ddl;
-using vlko.BlogModule.NH.Repository;
 using vlko.BlogModule.Roots;
-using vlko.core.InversionOfControl;
+using vlko.core.NH.Repository;
+using vlko.core.Roots;
 
 namespace vlko.BlogModule.NH
 {

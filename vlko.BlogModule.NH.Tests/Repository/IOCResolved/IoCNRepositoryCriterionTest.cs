@@ -8,11 +8,11 @@ using ConfOrm.Patterns;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Tool.hbm2ddl;
-using vlko.BlogModule.NH.Repository;
-using vlko.BlogModule.NH.Repository.RepositoryAction;
-using vlko.BlogModule.NH.Testing;
 using vlko.core.InversionOfControl;
 using vlko.BlogModule.Tests.Repository.IOCResolved.Model;
+using vlko.core.NH.Repository;
+using vlko.core.NH.Repository.RepositoryAction;
+using vlko.core.NH.Testing;
 using vlko.core.Repository.RepositoryAction;
 using vlko.BlogModule.Tests.Repository.IOCResolved.Queries;
 
@@ -38,11 +38,11 @@ namespace vlko.BlogModule.Tests.Repository.IOCResolved
 			IoC.AddRerouting<IQueryActionReservationForDay>(() => new QueryActionReservationForDayCriterion());
 			IoC.AddRerouting<IQueryActionProjection>(() => new QueryActionProjectionCriterion());
 
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.Core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();
 			log4net.LogManager.GetLogger("test").Debug("test");
-			base.SetUp();
 	  
 			_Test = new BaseTest();
 			_Test.Intialize();

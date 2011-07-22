@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.BlogModule.NH.Repository;
-using vlko.core.InversionOfControl;
+using vlko.core.NH.Repository;
 using vlko.core.Repository;
 using vlko.core.Repository.RepositoryAction;
 using vlko.BlogModule.Tests.Repository.IOCResolved.Model;

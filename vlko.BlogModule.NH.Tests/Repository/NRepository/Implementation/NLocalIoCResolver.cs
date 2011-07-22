@@ -1,9 +1,9 @@
 ﻿using System;
 using NHibernate;
+using vlko.core.NH.Repository;
+using vlko.core.NH.Repository.RepositoryAction;
 using vlko.core.Repository;
 using vlko.core.Repository.RepositoryAction;
-using vlko.BlogModule.NH.Repository;
-using vlko.BlogModule.NH.Repository.RepositoryAction;
 using ITransaction = vlko.core.Repository.ITransaction;
 
 namespace vlko.BlogModule.Tests.Repository.NRepository.Implementation

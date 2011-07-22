@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.core.InversionOfControl;
+using vlko.core.NH.Repository;
+using vlko.core.NH.Testing;
 using vlko.core.Repository;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.CRUDModel;
-using vlko.BlogModule.NH.Repository;
-using vlko.BlogModule.NH.Testing;
 using vlko.BlogModule.Roots;
 
 namespace vlko.BlogModule.Tests.Model
@@ -27,6 +26,7 @@ namespace vlko.BlogModule.Tests.Model
 			//doc.Load("log4net.config");
 			//log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
 
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.Core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();

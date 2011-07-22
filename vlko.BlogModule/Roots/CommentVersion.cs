@@ -1,4 +1,5 @@
 ﻿using System;
+using vlko.core.Roots;
 
 namespace vlko.BlogModule.Roots
 {

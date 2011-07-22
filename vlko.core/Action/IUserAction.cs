@@ -5,7 +5,7 @@ using vlko.core.Roots;
 namespace vlko.core.Action
 {
 	[InheritedExport]
-	public interface IUserAction : IAction<IUser>
+	public interface IUserAction : IAction<User>
 	{
 		/// <summary>
 		/// Creates the admin.
@@ -23,6 +23,6 @@ namespace vlko.core.Action
 		/// </summary>
 		/// <param name="username">The username.</param>
 		/// <returns>User instance.</returns>
-		IUser GetByName(string username);
+		User GetByName(string username);
 	}
 }

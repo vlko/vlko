@@ -34,14 +34,16 @@
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="ConfOrm, Version=1.0.1.4, Culture=neutral, PublicKeyToken=ed8affdf01cbe4cf, processorArchitecture=MSIL">
-      <HintPath>..\packages\ConfOrm.1.0.1.4\lib\Net35\ConfOrm.dll</HintPath>
+    <Reference Include="ConfOrm, Version=1.0.1.5, Culture=neutral, PublicKeyToken=ed8affdf01cbe4cf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ConfOrm.1.0.1.5\lib\Net35\ConfOrm.dll</HintPath>
     </Reference>
-    <Reference Include="ConfOrm.Shop, Version=1.0.1.4, Culture=neutral, PublicKeyToken=90b38bd64c76a74a, processorArchitecture=MSIL">
-      <HintPath>..\packages\ConfOrm.1.0.1.4\lib\Net35\ConfOrm.Shop.dll</HintPath>
+    <Reference Include="ConfOrm.Shop, Version=1.0.1.5, Culture=neutral, PublicKeyToken=90b38bd64c76a74a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ConfOrm.1.0.1.5\lib\Net35\ConfOrm.Shop.dll</HintPath>
     </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\packages\Iesi.Collections.3.2.0.1003\lib\Net35\Iesi.Collections.dll</HintPath>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.3001\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -50,11 +52,11 @@
     <Reference Include="NHibernate.ByteCode.Castle">
       <HintPath>..\packages\NHibernate.Castle.3.1.0.4000\lib\Net35\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.2.0.0.0\lib\NET40\NLog.dll</HintPath>
+    <Reference Include="NHibernate.Linq">
+      <HintPath>..\packages\NHibernate.Linq.1.0\lib\NHibernate.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="NLog.Extended">
-      <HintPath>..\packages\NLog.2.0.0.0\lib\NET40\NLog.Extended.dll</HintPath>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -70,7 +72,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action\AppSettingAction.cs" />
     <Compile Include="Action\CommentCrud.cs" />
     <Compile Include="Action\CommentData.cs" />
     <Compile Include="Action\FileBrowserAction.cs" />
@@ -81,32 +82,18 @@
     <Compile Include="Action\SystemMessageAction.cs" />
     <Compile Include="Action\Timeline.cs" />
     <Compile Include="Action\TwitterStatusAction.cs" />
-    <Compile Include="Action\UserAction.cs" />
-    <Compile Include="Action\UserAuthentication.cs" />
     <Compile Include="ApplicationInit.cs" />
     <Compile Include="DBInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\BaseCriterionQueryAction.cs" />
-    <Compile Include="Repository\BaseLinqQueryAction.cs" />
-    <Compile Include="Repository\CriterionQueryResult.cs" />
-    <Compile Include="Repository\LinqQueryExtensions.cs" />
-    <Compile Include="Repository\ProjectionQueryResult.cs" />
-    <Compile Include="Repository\Repository.cs" />
-    <Compile Include="Repository\RepositoryAction\CRUDActions.cs" />
-    <Compile Include="Repository\RepositoryAction\LinqDataAction.cs" />
-    <Compile Include="Repository\RepositoryFactoryResolver.cs" />
-    <Compile Include="Repository\SessionException.cs" />
-    <Compile Include="Repository\SessionFactory.cs" />
-    <Compile Include="Repository\Transaction.cs" />
-    <Compile Include="Repository\UnitOfWork.cs" />
-    <Compile Include="Testing\InMemoryConnectionProvider.cs" />
-    <Compile Include="Testing\InMemoryTest.cs" />
-    <Compile Include="Testing\NHibernateMappingsExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vlko.BlogModule\vlko.BlogModule.csproj">
       <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>
       <Name>vlko.BlogModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vlko.core.NH\vlko.core.NH.csproj">
+      <Project>{FCD22BED-2009-4E6E-889F-A84B15B9E7F2}</Project>
+      <Name>vlko.core.NH</Name>
     </ProjectReference>
     <ProjectReference Include="..\vlko.core\vlko.core.csproj">
       <Project>{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}</Project>

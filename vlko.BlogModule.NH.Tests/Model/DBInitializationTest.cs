@@ -3,18 +3,20 @@ using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.core.InversionOfControl;
+using vlko.core.NH.Repository;
+using vlko.core.NH.Testing;
 using vlko.core.Repository;
-using vlko.BlogModule.NH.Repository;
-using vlko.BlogModule.NH.Testing;
 
 namespace vlko.BlogModule.Tests.Model
 {
 	[TestClass]
 	public class DbInitializationTest : InMemoryTest
+
 	{
 		[TestInitialize]
 		public void Init()
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.Core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();

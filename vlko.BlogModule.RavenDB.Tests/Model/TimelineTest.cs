@@ -16,7 +16,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 	[TestClass]
 	public class TimelineTest : LocalClientTest
 	{
-		private IUser _user;
+		private User _user;
 		[TestInitialize]
 		public void Init()
 		{
@@ -26,13 +26,13 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				RepositoryFactory.Action<IUserAction>().CreateAdmin("user", "user@user.sk", "test");
+				RepositoryFactory.Action<UserAction>().CreateAdmin("user", "user@user.sk", "test");
 				tran.Commit();
 			}
 			WaitForIndexing();
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				_user = RepositoryFactory.Action<IUserAction>().GetByName("user");
+				_user = RepositoryFactory.Action<UserAction>().GetByName("user");
 				CreateTestData();
 			}
 			WaitForIndexing();

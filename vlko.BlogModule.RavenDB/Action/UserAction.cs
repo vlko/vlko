@@ -9,7 +9,7 @@ using vlko.BlogModule.Roots;
 
 namespace vlko.BlogModule.RavenDB.Action
 {
-	public class UserAction : BaseAction<IUser>, IUserAction
+	public class UserAction : BaseAction<User>, IUserAction
 	{
 		/// <summary>
 		/// Creates the admin.
@@ -55,7 +55,7 @@ namespace vlko.BlogModule.RavenDB.Action
 		/// </summary>
 		/// <param name="username">The username.</param>
 		/// <returns>User instance.</returns>
-		public IUser GetByName(string username)
+		public User GetByName(string username)
 		{
 			return SessionFactory<User>.IndexQuery<UsersByNameSortIndex>().FirstOrDefault(user => user.Name == username);
 		}

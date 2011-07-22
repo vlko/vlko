@@ -58,7 +58,7 @@ namespace vlko.BlogModule.Action.CRUDModel
 		/// </summary>
 		/// <value>The creator.</value>
 		[Editable(false)]
-		public IUser Creator { get; set; }
+		public User Creator { get; set; }
 
 		/// <summary>
 		/// Gets or sets the current date.

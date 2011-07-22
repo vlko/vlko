@@ -9,6 +9,7 @@ using vlko.core.Repository;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.CRUDModel;
 using vlko.BlogModule.Roots;
+using vlko.core.Roots;
 
 namespace vlko.BlogModule.RavenDB.Tests.Model
 {

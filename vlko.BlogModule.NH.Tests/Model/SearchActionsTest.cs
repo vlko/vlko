@@ -7,12 +7,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.core.Action;
 using vlko.core.InversionOfControl;
+using vlko.core.NH.Testing;
 using vlko.core.Repository;
 using vlko.core.Roots;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.CRUDModel;
 using vlko.BlogModule.Action.ViewModel;
-using vlko.BlogModule.NH.Testing;
 using vlko.BlogModule.Roots;
 using vlko.BlogModule.Search;
 
@@ -22,11 +22,12 @@ namespace vlko.BlogModule.Tests.Model
 	public class SearchActionsTest : InMemoryTest
 	{
 
-		private IUser _user;
+		private User _user;
 
 		[TestInitialize]
 		public void Init()
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.Core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();

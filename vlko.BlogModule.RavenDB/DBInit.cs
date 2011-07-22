@@ -6,6 +6,7 @@ using vlko.BlogModule.RavenDB.Indexes;
 using vlko.BlogModule.RavenDB.Repository;
 using vlko.BlogModule.RavenDB.Repository.ReferenceProxy;
 using vlko.BlogModule.Roots;
+using vlko.core.Roots;
 
 namespace vlko.BlogModule.RavenDB
 {

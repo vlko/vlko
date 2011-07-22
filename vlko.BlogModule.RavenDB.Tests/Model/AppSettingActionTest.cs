@@ -6,6 +6,7 @@ using vlko.core.Action.Model;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.BlogModule.Roots;
+using vlko.core.Roots;
 
 namespace vlko.BlogModule.RavenDB.Tests.Model
 {

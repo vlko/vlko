@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using ConfOrm;
 using ConfOrm.NH;
 using ConfOrm.Patterns;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
-using NHibernate.Tool.hbm2ddl;
-using vlko.BlogModule.NH.Repository;
+using vlko.core.NH.Repository;
+using vlko.core.NH.Testing;
 using vlko.core.Repository;
 using vlko.core.Repository.RepositoryAction;
-using vlko.BlogModule.NH.Testing;
 using vlko.BlogModule.Tests.Repository.NRepository.Implementation;
 
 namespace vlko.BlogModule.Tests.Repository.NRepository

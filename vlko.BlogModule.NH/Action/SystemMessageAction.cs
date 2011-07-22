@@ -1,6 +1,6 @@
 ﻿using vlko.BlogModule.Action;
-using vlko.BlogModule.NH.Repository;
 using vlko.BlogModule.Roots;
+using vlko.core.NH.Repository;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Action

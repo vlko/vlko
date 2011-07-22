@@ -7,7 +7,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.RavenDB.Action
 {
-	public class AppSettingAction : BaseAction<IAppSetting>, IAppSettingAction
+	public class AppSettingAction : BaseAction<AppSetting>, IAppSettingAction
 	{
 		/// <summary>
 		/// Saves the specified item (create or update).

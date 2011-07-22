@@ -6,8 +6,8 @@ using vlko.BlogModule.NH;
 using vlko.core.Action;
 using vlko.core.Base.Scheduler.Setting;
 using vlko.core.InversionOfControl;
+using vlko.core.NH.Testing;
 using vlko.core.Repository;
-using vlko.BlogModule.NH.Testing;
 
 namespace vlko.BlogModule.Tests.Base
 {
@@ -19,6 +19,7 @@ namespace vlko.BlogModule.Tests.Base
 		[TestInitialize]
 		public void Init()
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.Core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();

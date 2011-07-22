@@ -60,7 +60,7 @@ namespace vlko.BlogModule.Action.CRUDModel
 		/// Gets or sets the change user.
 		/// </summary>
 		/// <value>The change user.</value>
-		public IUser ChangeUser { get; set; }
+		public User ChangeUser { get; set; }
 
 		/// <summary>
 		/// Gets or sets the name of the anonymous.

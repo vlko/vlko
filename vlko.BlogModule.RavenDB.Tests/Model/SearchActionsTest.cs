@@ -21,7 +21,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 	public class SearchActionsTest : LocalClientTest
 	{
 
-		private IUser _user;
+		private User _user;
 
 		[TestInitialize]
 		public void Init()

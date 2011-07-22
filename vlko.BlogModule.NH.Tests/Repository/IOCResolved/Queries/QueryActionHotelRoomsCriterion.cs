@@ -1,4 +1,4 @@
-﻿using vlko.BlogModule.NH.Repository;
+﻿using vlko.core.NH.Repository;
 using vlko.core.Repository;
 using vlko.BlogModule.Tests.Repository.IOCResolved.Model;
 

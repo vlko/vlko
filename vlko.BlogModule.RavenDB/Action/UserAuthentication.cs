@@ -10,7 +10,7 @@ using vlko.core.Roots;
 
 namespace vlko.BlogModule.RavenDB.Action
 {
-	public class UserAuthentication : BaseAction<IUser>, IUserAuthentication
+	public class UserAuthentication : BaseAction<User>, IUserAuthentication
 	{
 		/// <summary>
 		/// Generates the verify token.

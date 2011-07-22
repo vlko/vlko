@@ -7,6 +7,7 @@ using vlko.BlogModule.RavenDB.Repository;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
+using vlko.core.Roots;
 
 namespace vlko.BlogModule.RavenDB.Action
 {

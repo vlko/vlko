@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using vlko.BlogModule.NH.Repository;
+using vlko.core.NH.Repository;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.Tests.Repository.NRepository.Implementation
