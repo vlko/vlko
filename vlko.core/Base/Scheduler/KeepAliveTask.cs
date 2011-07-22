@@ -37,8 +37,8 @@ namespace vlko.core.Base.Scheduler
 		/// </summary>
 		protected override void DoJob()
 		{
-			var aliveReuquest = new WebClient();
-			var aliveRequestContent = aliveReuquest.DownloadString(_aliveUrl.Value);
+			var aliveRequest = new WebClient();
+			var aliveRequestContent = aliveRequest.DownloadString(_aliveUrl.Value);
 			Logger.Debug("Alive request to '{0}' completed succesfully", _aliveUrl.Value);
 		}
 	}
