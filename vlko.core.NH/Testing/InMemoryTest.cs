@@ -54,7 +54,10 @@ namespace vlko.core.NH.Testing
 		/// Configures the mapping.
 		/// </summary>
 		/// <param name="configuration">The configuration.</param>
-		public abstract void ConfigureMapping(Configuration configuration);
+		public virtual void ConfigureMapping(Configuration configuration)
+		{
+			DbInit.InitMappings(configuration);
+		}
 
 		/// <summary>
 		/// Gets the mapping types.

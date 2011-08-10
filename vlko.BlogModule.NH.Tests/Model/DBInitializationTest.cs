@@ -3,6 +3,7 @@ using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.core.InversionOfControl;
+using vlko.core.NH;
 using vlko.core.NH.Repository;
 using vlko.core.NH.Testing;
 using vlko.core.Repository;
@@ -28,17 +29,12 @@ namespace vlko.BlogModule.Tests.Model
 			TearDown();
 		}
 
-		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
-		{
-			DBInit.InitMappings(configuration);
-		}
-
 		[TestMethod]
 		public void Test_querying_all_model_types()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				foreach (Type modelType in DBInit.ListOfModelTypes())
+				foreach (Type modelType in DbInit.ListOfModelTypes())
 				{
 					var modelItems = SessionFactory.Current.CreateCriteria(modelType).List();
 					Assert.AreEqual(0, modelItems.Count);

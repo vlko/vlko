@@ -636,6 +636,14 @@
       <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>
       <Name>vlko.BlogModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\vlko.core.NH\vlko.core.NH.csproj">
+      <Project>{FCD22BED-2009-4E6E-889F-A84B15B9E7F2}</Project>
+      <Name>vlko.core.NH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vlko.core.RavenDB\vlko.core.RavenDB.csproj">
+      <Project>{C354C632-E30B-480A-A2F3-4D1D573DB71B}</Project>
+      <Name>vlko.core.RavenDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\vlko.core\vlko.core.csproj">
       <Project>{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}</Project>
       <Name>vlko.core</Name>

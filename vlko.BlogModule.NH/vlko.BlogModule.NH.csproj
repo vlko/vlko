@@ -83,7 +83,7 @@
     <Compile Include="Action\Timeline.cs" />
     <Compile Include="Action\TwitterStatusAction.cs" />
     <Compile Include="ApplicationInit.cs" />
-    <Compile Include="DBInit.cs" />
+    <Compile Include="ComponentDbInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

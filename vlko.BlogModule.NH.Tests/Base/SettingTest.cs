@@ -6,6 +6,7 @@ using vlko.BlogModule.NH;
 using vlko.core.Action;
 using vlko.core.Base.Scheduler.Setting;
 using vlko.core.InversionOfControl;
+using vlko.core.NH;
 using vlko.core.NH.Testing;
 using vlko.core.Repository;
 
@@ -31,11 +32,6 @@ namespace vlko.BlogModule.Tests.Base
 		{
 			_session.Dispose();
 			TearDown();
-		}
-
-		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
-		{
-			DBInit.InitMappings(configuration);
 		}
 
 		[TestMethod]

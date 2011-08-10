@@ -113,6 +113,16 @@ namespace vlko.core.InversionOfControl
 		{
 			return Container.GetExportedValue<T>(key);
 		}
+
+		/// <summary>
+		/// Resolves all implementations.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns>All instances registered for specified type.</returns>
+		public static IEnumerable<T> ResolveAllInstances<T>()
+		{
+			return Container.GetExportedValues<T>();
+		}
 	}
 }
 

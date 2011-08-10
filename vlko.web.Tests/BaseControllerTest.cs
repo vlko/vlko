@@ -16,6 +16,7 @@ namespace vlko.web.Tests
 		[TestInitialize]
 		public void Init()
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
@@ -31,11 +32,6 @@ namespace vlko.web.Tests
 		{
 			_session.Dispose();
 			TearDown();
-		}
-
-		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
-		{
-			DBInit.InitMappings(configuration);
 		}
 
 		/// <summary>

@@ -36,11 +36,6 @@ namespace vlko.BlogModule.Tests.Model
 			TearDown();
 		}
 
-		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
-		{
-			DBInit.InitMappings(configuration);
-		}
-
 		[TestMethod]
 		public void Create_user()
 		{

@@ -142,7 +142,7 @@ namespace vlko.web
 			BlogModule.NH.ApplicationInit.FullInit();
 			var config = new Configuration();
 			config.Configure();
-			BlogModule.NH.DBInit.InitMappings(config);
+			core.NH.DbInit.InitMappings(config);
 			
 			ConfigureSearchProvider(dataExists);
 
