@@ -8,8 +8,8 @@ using vlko.BlogModule.Action.CRUDModel;
 using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.RavenDB.Indexes;
 using vlko.BlogModule.RavenDB.Indexes.ReduceModelView;
-using vlko.BlogModule.RavenDB.Repository;
 using vlko.BlogModule.Roots;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
 

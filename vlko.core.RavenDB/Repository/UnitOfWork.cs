@@ -1,57 +1,36 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using Raven.Client;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.RavenDB.Repository
+namespace vlko.core.RavenDB.Repository
 {
 	/// <summary>
-	/// Active record transaction implementation.
+	/// Session implementation for Active record.
 	/// </summary>
 	[PartCreationPolicy(CreationPolicy.NonShared)]
-	public sealed class Transaction : ITransaction
+	public sealed class UnitOfWork : IUnitOfWork
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnitOfWork"/> class.
 		/// </summary>
-		public Transaction()
+		public UnitOfWork()
 		{
-			SessionFactory.RegisterTransaction(this);
-		}
-
-		public ITransactionContext TransactionContext  { get; private set; }
-
-		/// <summary>
-		/// Inits the transaction context.
-		/// </summary>
-		/// <param name="transactionContext">The transaction context.</param>
-		public void InitTransactionContext(ITransactionContext transactionContext)
-		{
-			TransactionContext = transactionContext;
+			SessionFactory.RegisterUnitOfWork(this);
 		}
 
 		/// <summary>
-		/// Commits this instance.
+		/// Gets or sets the unit of work context.
 		/// </summary>
-		public void Commit()
-		{
-			SessionFactory.CommitTransaction(this);
-			if (TransactionContext != null)
-			{
-				TransactionContext.Commit();
-			}
-		}
+		/// <value>The unit of work context.</value>
+		public IUnitOfWorkContext UnitOfWorkContext { get; private set; }
 
 		/// <summary>
-		/// Rollbacks this instance.
+		/// Inits the unit of work context.
 		/// </summary>
-		public void Rollback()
+		/// <param name="unitOfWorkContext">The unit of work context.</param>
+		public void InitUnitOfWorkContext(IUnitOfWorkContext unitOfWorkContext)
 		{
-			SessionFactory.RollbackTransaction(this);
-			if (TransactionContext != null)
-			{
-				TransactionContext.Rollback();
-			}
+			UnitOfWorkContext = unitOfWorkContext;
 		}
 
 		/// <summary>
@@ -67,7 +46,7 @@ namespace vlko.BlogModule.RavenDB.Repository
 		/// Releases unmanaged resources and performs other cleanup operations before the
 		/// <see cref="UnitOfWork"/> is reclaimed by garbage collection.
 		/// </summary>
-		~Transaction()
+		~UnitOfWork()
 		{
 			Dispose(false);
 		}
@@ -80,20 +59,13 @@ namespace vlko.BlogModule.RavenDB.Repository
 		{
 			if (disposing)
 			{
-				try
+				SessionFactory.UnregisterUnitOfWork(this);
+				if (UnitOfWorkContext != null)
 				{
-					
-					SessionFactory.UnregisterTransaction(this);
-				}
-				finally
-				{
-					if (TransactionContext != null)
-					{
-						TransactionContext.Dispose();
-					}			
+					UnitOfWorkContext.Dispose();
 				}
 			}   
-		}	
+		}
 	}
 }
 

@@ -2,46 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using Raven.Client.Linq;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.RavenDB.Repository
+namespace vlko.core.RavenDB.Repository
 {
 	/// <summary>
-	/// Result projection query results.
+	/// Projection query results using As`T extension.
 	/// </summary>
 	/// <typeparam name="TRoot">The root agregate type.</typeparam>
 	/// <typeparam name="T">Type of output.</typeparam>
-	public class ResultProjectionQueryResult<TRoot, T> : IQueryResult<T>
+	public class ProjectionAsQueryResult<TRoot, T> : IQueryResult<T>
 		where T : class
 		where TRoot : class
 	{
 		private readonly Dictionary<string, LambdaExpression> _sortMappings;
-		private readonly Func<TRoot[], T[]> _transformFunction;
 		private readonly IQueryable<TRoot> _query;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ResultProjectionQueryResult&lt;TRoot, T&gt;"/> class.
+		/// Initializes a new instance of the <see cref="ProjectionQueryResult&lt;TRoot, T&gt;"/> class.
 		/// </summary>
 		/// <param name="query">The query.</param>
-		/// <param name="transformFunction">The transform function.</param>
-		public ResultProjectionQueryResult(IQueryable<TRoot> query, Func<TRoot[], T[]> transformFunction)
-			:this(query, transformFunction, null)
+		public ProjectionAsQueryResult(IQueryable<TRoot> query)
+			:this(query, null)
 		{
 			
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ResultProjectionQueryResult&lt;TRoot, T&gt;"/> class.
+		/// Initializes a new instance of the <see cref="ProjectionQueryResult&lt;TRoot, T&gt;"/> class.
 		/// </summary>
 		/// <param name="query">The query.</param>
-		/// <param name="transformFunction">The transform function.</param>
 		/// <param name="sortMappings">The allowed orders.</param>
-		private ResultProjectionQueryResult(IQueryable<TRoot> query, Func<TRoot[], T[]> transformFunction, Dictionary<string, LambdaExpression> sortMappings)
+		private ProjectionAsQueryResult(IQueryable<TRoot> query, Dictionary<string, LambdaExpression> sortMappings)
 		{
 			_query = query;
-			_transformFunction = transformFunction;
 			_sortMappings = sortMappings ?? new Dictionary<string, LambdaExpression>();
 		}
 
@@ -52,7 +47,7 @@ namespace vlko.BlogModule.RavenDB.Repository
 		/// <param name="rootSort">The root sort.</param>
 		/// <param name="transformSort">The transform sort.</param>
 		/// <returns>Fluent interface.</returns>
-		public ResultProjectionQueryResult<TRoot, T> AddSortMapping<TKey>(Expression<Func<TRoot, TKey>> rootSort, Expression<Func<T, TKey>> transformSort)
+		public ProjectionAsQueryResult<TRoot, T> AddSortMapping<TKey>(Expression<Func<TRoot, TKey>> rootSort, Expression<Func<T, TKey>> transformSort)
 		{
 			string alias = GetAlias(transformSort);
 			_sortMappings.Add(alias, rootSort);
@@ -91,8 +86,7 @@ namespace vlko.BlogModule.RavenDB.Repository
 			Expression<Func<TRoot, TKey>> sortExpression = TryResolveSortGetExpression(query);
 
 			// immutable copy as a result with sort
-			return new ResultProjectionQueryResult<TRoot, T>(
-				_query.OrderBy(sortExpression), _transformFunction, _sortMappings);
+			return new ProjectionAsQueryResult<TRoot, T>(_query.OrderBy(sortExpression), _sortMappings);
 		}
 
 		/// <summary>
@@ -107,8 +101,7 @@ namespace vlko.BlogModule.RavenDB.Repository
 			Expression<Func<TRoot, TKey>> sortExpression = TryResolveSortGetExpression(query);
 
 			// immutable copy as a result with sort
-			return new ResultProjectionQueryResult<TRoot, T>(
-				_query.OrderByDescending(sortExpression), _transformFunction, _sortMappings);
+			return new ProjectionAsQueryResult<TRoot, T>(_query.OrderByDescending(sortExpression), _sortMappings);
 
 		}
 
@@ -151,12 +144,16 @@ namespace vlko.BlogModule.RavenDB.Repository
 		/// <returns>All items from query.</returns>
 		public T[] ToArray()
 		{
-			return _transformFunction(_query.ToArray());
+			return _query.As<T>().ToArray();
 		}
 
+		/// <summary>Returns a specified page of data.</summary>
+		/// <param name="startIndex">The start index.</param>
+		/// <param name="itemsPerPage">The items per page.</param>
+		/// <returns>Specified page of data.</returns>
 		public T[] ToPage(int startIndex, int itemsPerPage)
 		{
-			return _transformFunction(_query.Skip(startIndex * itemsPerPage).Take(itemsPerPage).ToArray());
+			return _query.Skip(startIndex * itemsPerPage).Take(itemsPerPage).As<T>().ToArray();
 		}
 	}
 }

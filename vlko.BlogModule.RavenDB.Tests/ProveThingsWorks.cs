@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Raven.Client.Linq;
 using vlko.BlogModule.RavenDB.Indexes;
 using vlko.BlogModule.RavenDB.Indexes.ReduceModelView;
-using vlko.BlogModule.RavenDB.Repository;
 using vlko.BlogModule.Roots;
 using vlko.core.InversionOfControl;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.RavenDB.Tests
@@ -20,6 +21,7 @@ namespace vlko.BlogModule.RavenDB.Tests
 		[TestInitialize]
 		public void Init()
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.RavenDB"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.RavenDB"));
 			base.SetUp();

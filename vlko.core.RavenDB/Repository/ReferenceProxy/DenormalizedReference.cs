@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace vlko.BlogModule.RavenDB.Repository.ReferenceProxy
+namespace vlko.core.RavenDB.Repository.ReferenceProxy
 {
 	public class DenormalizedReference
 	{

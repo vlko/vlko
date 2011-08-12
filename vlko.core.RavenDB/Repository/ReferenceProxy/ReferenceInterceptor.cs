@@ -2,7 +2,7 @@
 using System.Reflection;
 using Castle.DynamicProxy;
 
-namespace vlko.BlogModule.RavenDB.Repository.ReferenceProxy
+namespace vlko.core.RavenDB.Repository.ReferenceProxy
 {
 	public class ReferenceInterceptor : IInterceptor
 	{

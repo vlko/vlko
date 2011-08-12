@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace vlko.BlogModule.RavenDB.Repository.ReferenceProxy
+namespace vlko.core.RavenDB.Repository.ReferenceProxy
 {
 	public interface IDynamicProxy
 	{

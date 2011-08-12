@@ -2,7 +2,7 @@
 using vlko.core.Repository.Exceptions;
 using vlko.core.Repository.RepositoryAction;
 
-namespace vlko.BlogModule.RavenDB.Repository.RepositoryAction
+namespace vlko.core.RavenDB.Repository.RepositoryAction
 {
 	public class CRUDActions<T> : BaseAction<T>, ICRUDActions<T>, IFindByPkAction<T>, ICreateAction<T>, IUpdateAction<T>, IDeleteAction<T> where T : class
 	{

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.RavenDB.Repository
+namespace vlko.core.RavenDB.Repository
 {
 
 	public class BaseLinqQueryAction<T> : BaseAction<T>, IAction<T> where T : class

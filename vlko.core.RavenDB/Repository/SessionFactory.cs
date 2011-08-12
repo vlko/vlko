@@ -8,15 +8,14 @@ using Raven.Client.Indexes;
 using Raven.Client.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Web;
 using Raven.Client;
-using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Web;
 
-namespace vlko.BlogModule.RavenDB.Repository
+namespace vlko.core.RavenDB.Repository
 {
 	/// <summary>
 	/// Session factory inspired by Scopes in Castle.ActiveRecord.

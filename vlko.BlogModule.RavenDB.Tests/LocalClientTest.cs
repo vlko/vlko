@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading;
-using Castle.Core.Configuration;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Embedded;
 using Raven.Database.Extensions;
-using vlko.BlogModule.RavenDB.Repository;
-using Newtonsoft.Json.Linq;
-using vlko.core.Repository;
+using vlko.core.RavenDB;
+using vlko.core.RavenDB.Repository;
 
 namespace vlko.BlogModule.RavenDB.Tests
 {
@@ -29,7 +23,6 @@ namespace vlko.BlogModule.RavenDB.Tests
 			CustomizeStore(Store);
 			Store.Initialize();
 			DBInit.RegisterDocumentStore(Store);
-			DBInit.RegisterIndexes(Store);
 		}
 
 		protected virtual void CustomizeStore(IDocumentStore store)

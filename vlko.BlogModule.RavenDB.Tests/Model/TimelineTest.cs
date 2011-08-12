@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.RavenDB.Action;
 using vlko.core.Action;
 using vlko.core.InversionOfControl;
+using vlko.core.RavenDB.Action;
 using vlko.core.Repository;
 using vlko.core.Roots;
 using vlko.BlogModule.Action;
@@ -20,19 +21,20 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.RavenDB"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.RavenDB"));
 			base.SetUp();
 
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				RepositoryFactory.Action<UserAction>().CreateAdmin("user", "user@user.sk", "test");
+				RepositoryFactory.Action<IUserAction>().CreateAdmin("user", "user@user.sk", "test");
 				tran.Commit();
 			}
 			WaitForIndexing();
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				_user = RepositoryFactory.Action<UserAction>().GetByName("user");
+				_user = RepositoryFactory.Action<IUserAction>().GetByName("user");
 				CreateTestData();
 			}
 			WaitForIndexing();

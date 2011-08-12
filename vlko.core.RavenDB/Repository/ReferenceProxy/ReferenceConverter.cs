@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Raven.Client.Document;
 using vlko.core.Tools;
 
-namespace vlko.BlogModule.RavenDB.Repository.ReferenceProxy
+namespace vlko.core.RavenDB.Repository.ReferenceProxy
 {
 	public class ReferenceConverter : JsonConverter
 	{

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using vlko.core.Repository;
 using vlko.core.Repository.RepositoryAction;
 
-namespace vlko.BlogModule.RavenDB.Repository.RepositoryAction
+namespace vlko.core.RavenDB.Repository.RepositoryAction
 {
 	public class LinqDataAction<T> : BaseLinqQueryAction<T>, ILinqDataAction<T> where T : class
 	{

@@ -4,9 +4,9 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.BlogModule.RavenDB.Repository;
 using vlko.core.Action;
 using vlko.core.InversionOfControl;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.core.Roots;
 using vlko.BlogModule.Action;
@@ -26,6 +26,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.RavenDB"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.RavenDB"));
 			base.SetUp();

@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 using Raven.Client.Linq;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.RavenDB.Indexes;
-using vlko.BlogModule.RavenDB.Repository;
 using vlko.BlogModule.Roots;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 
 

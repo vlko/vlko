@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
-using vlko.BlogModule.RavenDB.Indexes;
-using vlko.BlogModule.RavenDB.Repository;
-using vlko.BlogModule.Roots;
 using vlko.core.Action;
+using vlko.core.RavenDB.Indexes;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.core.Roots;
 
-namespace vlko.BlogModule.RavenDB.Action
+namespace vlko.core.RavenDB.Action
 {
 	public class UserAuthentication : BaseAction<User>, IUserAuthentication
 	{

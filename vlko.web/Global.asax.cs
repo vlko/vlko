@@ -12,6 +12,7 @@ using Raven.Client.Embedded;
 using vlko.core.Action;
 using vlko.core.Base.Scheduler.Setting;
 using vlko.core.InversionOfControl;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.BlogModule;
 using vlko.BlogModule.Action;
@@ -103,6 +104,7 @@ namespace vlko.web
 		/// <param name="dataExists">if set to <c>true</c> [data exists].</param>
 		private static void ConfigureForRavenDb(bool dataExists)
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.RavenDB"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.RavenDB"));
 
@@ -117,15 +119,14 @@ namespace vlko.web
 
 			documentStore.Initialize();
 
-			BlogModule.RavenDB.DBInit.RegisterDocumentStore(documentStore);
-			BlogModule.RavenDB.DBInit.RegisterIndexes(documentStore);
+			core.RavenDB.DBInit.RegisterDocumentStore(documentStore);
 
 			ConfigureSearchProvider(dataExists);
 
 			if (!dataExists)
 			{
 				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
-				BlogModule.RavenDB.Repository.SessionFactory.WaitForStaleIndexes();
+				SessionFactory.WaitForStaleIndexes();
 				CreateSomeData();
 			}
 		}
@@ -136,6 +137,7 @@ namespace vlko.web
 		/// <param name="dataExists">if set to <c>true</c> [data exists].</param>
 		private void ConfigureForNHibernate(bool dataExists)
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			

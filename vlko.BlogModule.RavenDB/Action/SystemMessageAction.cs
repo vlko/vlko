@@ -1,7 +1,7 @@
 ﻿using System;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Roots;
-using vlko.BlogModule.RavenDB.Repository;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.RavenDB.Action

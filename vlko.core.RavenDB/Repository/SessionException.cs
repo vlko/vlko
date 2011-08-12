@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace vlko.BlogModule.RavenDB.Repository
+namespace vlko.core.RavenDB.Repository
 {
 	[Serializable]
 	public class SessionException : Exception

@@ -20,6 +20,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.RavenDB"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.RavenDB"));
 		}

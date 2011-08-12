@@ -1,11 +1,10 @@
-﻿using vlko.BlogModule.RavenDB.Repository;
-using vlko.BlogModule.Roots;
-using vlko.core.Action;
+﻿using vlko.core.Action;
 using vlko.core.Action.Model;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Roots;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.RavenDB.Action
+namespace vlko.core.RavenDB.Action
 {
 	public class AppSettingAction : BaseAction<AppSetting>, IAppSettingAction
 	{

@@ -4,7 +4,7 @@ using System.Reflection;
 using Newtonsoft.Json.Serialization;
 using Raven.Client.Document;
 
-namespace vlko.BlogModule.RavenDB.Repository.ReferenceProxy
+namespace vlko.core.RavenDB.Repository.ReferenceProxy
 {
 	public class RelationContractResolver : DefaultRavenContractResolver
 	{

@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using Raven.Client.Document;
 using vlko.core.Repository.Exceptions;
 
-namespace vlko.BlogModule.RavenDB.Repository
+namespace vlko.core.RavenDB.Repository
 {
 	public static class SessionFactoryExtensions
 	{

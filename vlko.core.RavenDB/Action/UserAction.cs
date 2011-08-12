@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using vlko.BlogModule.RavenDB.Indexes;
-using vlko.BlogModule.RavenDB.Repository;
 using vlko.core.Action;
+using vlko.core.RavenDB.Indexes;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.core.Roots;
-using vlko.BlogModule.Roots;
 
-namespace vlko.BlogModule.RavenDB.Action
+namespace vlko.core.RavenDB.Action
 {
 	public class UserAction : BaseAction<User>, IUserAction
 	{

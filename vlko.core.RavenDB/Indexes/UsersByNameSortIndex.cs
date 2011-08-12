@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Raven.Client.Indexes;
-using vlko.BlogModule.Roots;
 using vlko.core.Roots;
 
-namespace vlko.BlogModule.RavenDB.Indexes
+namespace vlko.core.RavenDB.Indexes
 {
 	public class UsersByNameSortIndex : AbstractIndexCreationTask<User>
 	{

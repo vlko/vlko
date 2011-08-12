@@ -5,8 +5,8 @@ using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.RavenDB.Indexes;
 using vlko.BlogModule.Roots;
+using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
-using vlko.BlogModule.RavenDB.Repository;
 
 namespace vlko.BlogModule.RavenDB.Action
 {
