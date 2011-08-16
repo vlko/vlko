@@ -33,3 +33,4 @@ vlko.web/App_Data/ActiveRecord.dat
 vlko.web.Publish.xml
 vlko.web/App_Data/RavenDB
 vlko.sln.docstates
+nuget/Lib
