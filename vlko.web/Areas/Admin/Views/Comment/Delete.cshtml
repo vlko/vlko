@@ -7,7 +7,7 @@
 <h2>Delete</h2>
 
 <div>
-	@Html.ValidationSummary(excludePropertyErrors: true, cssClass: "ui-state-error ui-corner-all")
+	@Html.ValidationSummary(true, string.Empty, new { @class = "ui-state-error ui-corner-all" })
 
 		<h3>Are you sure you want to delete this?</h3>
 	<fieldset>

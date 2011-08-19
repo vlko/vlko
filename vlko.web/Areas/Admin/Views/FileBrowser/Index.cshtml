@@ -10,7 +10,7 @@
 	Html.ScriptInclude("~/Scripts/jquery.validate.unobtrusive.js");
 }
 
-@{ Html.ScriptInlineInclude(
+@*@{ Html.ScriptInlineInclude(
 @<script type="text/javascript">
 	$(function () {
 		var fileInput = $("#File");
@@ -45,13 +45,13 @@
 		});
 	});
 </script>); 
-}
+}*@
 
 <h2>User uploaded files</h2>
 
 <div id="FileBrowser" class="ajax_content">
-	@using (Html.BeginForm("Upload", encType: "multipart/form-data")) {
-		@Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all")
+	@using (Html.BeginForm((object)Routes.UploadOfThisForThis, encType: "multipart/form-data")) {
+		@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" })
 		<fieldset>
 			<legend>Upload new file</legend>
 			@Html.EditorFor(model => model.Ident) 
@@ -74,7 +74,7 @@
 	@foreach (var item in Model.UserFiles) { 
 	
 		<tr>
-			<td>@(Html.ActionLink<FileBrowserController>(c => c.Delete(item.Ident), "Delete", new { @class = "grid_delete", title = "Delete"})) </td>
+			<td>@Html.Link("Delete", (object)Routes.DeleteOfThisFromThis(ident: item.Ident), cssClass: "grid_delete", title: "Delete")</td>
 			<td><a href="@item.Url" target="Preview">@item.Url</a></td>
 			<td>@item.Size</td>
 		</tr>

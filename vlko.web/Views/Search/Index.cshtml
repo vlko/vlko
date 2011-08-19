@@ -16,8 +16,8 @@
 </section>
 @if (Model.SearchResults != null) { 
 <section id="search_results">
-	@Html.ActionLink("sort by relevance", "Index", routeValues: new { Model.Query })
-	@Html.ActionLink("sort by date", "Date", routeValues: new { Model.Query })
+	@Html.ActionLink("sort by relevance", "Index", new { Model.Query })
+	@Html.ActionLink("sort by date", "Date", new { Model.Query })
 	@foreach (var searchResult in Model.SearchResults)
 	{
 		if (searchResult is CommentSearchViewModel 

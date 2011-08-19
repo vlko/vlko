@@ -4,7 +4,7 @@
 }
 <h2>Test results:</h2>
 
-@Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") 
+@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" }) 
 @if (Model != null)
 {
 	<table>

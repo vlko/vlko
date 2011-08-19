@@ -60,6 +60,7 @@
     <Reference Include="HtmlSanitizationLibrary">
       <HintPath>..\packages\AntiXSS.4.0.1\lib\net35\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Mvc, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
@@ -109,6 +110,9 @@
     <Compile Include="Authentication\UserInfo.cs" />
     <Compile Include="Base\AjaxModelErrorInfo.cs" />
     <Compile Include="Base\BaseExtensions.cs" />
+    <Compile Include="Base\BaseViewPage.cs" />
+    <Compile Include="Base\DynamicRoutes.cs" />
+    <Compile Include="Base\DynamicRoutesResult.cs" />
     <Compile Include="Base\LockExtensions.cs" />
     <Compile Include="Base\Scheduler\Scheduler.cs" />
     <Compile Include="Base\Scheduler\SchedulerTask.cs" />
@@ -120,6 +124,9 @@
     <Compile Include="Components\PagedModel.cs" />
     <Compile Include="Components\ExtendedModelBinder.cs" />
     <Compile Include="HtmlExtender\CssManager.cs" />
+    <Compile Include="HtmlExtender\FormExtensions.cs" />
+    <Compile Include="HtmlExtender\HtmlHelperExtensions.cs" />
+    <Compile Include="HtmlExtender\LinkExtensions.cs" />
     <Compile Include="HtmlExtender\Localization.cs" />
     <Compile Include="HtmlExtender\Metadata.cs" />
     <Compile Include="HtmlExtender\ScriptManager.cs" />

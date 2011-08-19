@@ -12,7 +12,7 @@
 
 	if (currentPage > 1)
 	{
-		@Html.ActionLink("<<", Model.Action, routeValues: Model.GetPageRoutes(currentPage - 1), cssClass:"pager_prev" )
+		@Html.ActionLink("<<", Model.Action, Model.GetPageRoutes(currentPage - 1), new RouteValueDictionary(new { @class = "pager_prev" }))
 	}
 	else
 	{
@@ -21,14 +21,14 @@
 	<text>&nbsp;</text>
 	if (currentPage < Model.PagesNumber)
 	{
-		@Html.ActionLink(">>", Model.Action, routeValues: Model.GetPageRoutes(currentPage + 1), cssClass:"pager_next" )
+		@Html.ActionLink(">>", Model.Action, Model.GetPageRoutes(currentPage + 1), new RouteValueDictionary(new { @class = "pager_next" }))
 	}
 	else
 	{
 		<span class="pager_next">&gt;&gt;</span><text>&nbsp;</text>
 	}                                                                                              	
 	<text>&nbsp;</text>
-	@Html.ActionLink("1", Model.Action, routeValues: Model.GetPageRoutes(1))<text>&nbsp;</text>
+	@Html.ActionLink("1", Model.Action, Model.GetPageRoutes(1))<text>&nbsp;</text>
 
 	for (int i = 2; i < pagesNumber; i++)
 	{
@@ -42,14 +42,14 @@
 		}
 		if (i >= lowestPage && i <= highestPage)
 		{
-			@Html.ActionLink(i.ToString(), Model.Action, Model.Controller, routeValues: Model.GetPageRoutes(i))<text>&nbsp;</text>
+			@Html.ActionLink(i.ToString(), Model.Action, Model.GetPageRoutes(i))<text>&nbsp;</text>
 		}
 		if (i > highestPage)
 		{
 			if (!highesRangeDelimiterDisplayed)
 			{
 			<text>...&nbsp;</text>
-			highesRangeDelimiterDisplayed = true;
+				highesRangeDelimiterDisplayed = true;
 			}
 		}
 	}
@@ -61,14 +61,14 @@
 <span class="pager_info">@string.Format("{0} - {1} of {2}", Model.StartItemNumber, Model.EndItemNumber, Model.TotalCount)</span>
 </div>
 @{
-Html.ScriptInlineInclude(
-@<script type="text/javascript">
+	Html.ScriptInlineInclude(
+	@<script type="text/javascript">
 $(function () {
 	@{
 		var contentId = (string)item.ViewData["content"];
 		if (string.IsNullOrEmpty(contentId))
 		{
-		contentId = "content";
+			contentId = "content";
 		}
 	}
 	$("#@contentId").ajaxPager();

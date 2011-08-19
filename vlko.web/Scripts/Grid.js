@@ -16,7 +16,7 @@
 						dialog.close();
 						var nextUrl = data.actionName;
 						$.ajax({
-							url: nextUrl + "?ajaxTime=" + new Date().getTime(),
+							url: nextUrl + (nextUrl.indexOf("?") > 0 ? "&" : "?") + "ajaxTime=" + new Date().getTime(),
 							success: function (data) {
 								var content = $(config.content);
 								content.html(data);
@@ -42,7 +42,7 @@
 					createLoading();
 					var nextUrl = $(this).attr("href");
 					$.ajax({
-						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
+						url: nextUrl + (nextUrl.indexOf("?") > 0 ? "&" : "?") + "ajaxTime=" + new Date().getTime(),
 						success: function (data) {
 							var edit = createContentDialog({
 								data: data,
@@ -81,7 +81,7 @@
 					createLoading();
 					var nextUrl = $(this).attr("href");
 					$.ajax({
-						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
+						url: nextUrl + (nextUrl.indexOf("?") > 0 ? "&" : "?") + "ajaxTime=" + new Date().getTime(),
 						success: function (data) {
 							var edit = createContentDialog({
 								data: data,
@@ -107,7 +107,7 @@
 					createLoading();
 					var nextUrl = $(this).attr("href");
 					$.ajax({
-						url: nextUrl + "?ajaxTime=" + new Date().getTime(),
+						url: nextUrl + (nextUrl.indexOf("?") > 0 ? "&" : "?") + "ajaxTime=" + new Date().getTime(),
 						success: function (data) {
 							var edit = createContentDialog({
 								data: data,
@@ -144,7 +144,7 @@
 				createLoading();
 				var nextUrl = $(this).attr("href");
 				$.ajax({
-					url: nextUrl + "?ajaxTime=" + new Date().getTime(),
+					url: nextUrl + (nextUrl.indexOf("?") > 0 ? "&" : "?") + "ajaxTime=" + new Date().getTime(),
 					success: function (data) {
 						var edit = createContentDialog({
 							data: data,

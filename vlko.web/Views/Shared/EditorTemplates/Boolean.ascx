@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+<%@ Import Namespace="Microsoft.Web.Mvc.Html" %>
 <script runat="server">
 	private List<SelectListItem> TriStateValues {
 		get {
@@ -19,7 +20,7 @@
 	}
 </script>
 <div class="editor-label">
-	<%: Html.LabelFor(model => model)%>
+	<%: Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model)%>
 </div>
 <div class="editor-field">
 <% if (ViewData.ModelMetadata.IsNullableValueType) { %>

@@ -21,7 +21,7 @@
 	</fieldset>
 </div>
 <div class="ajax_ignore">
-	@(Html.ActionLink<RssFeedController>(c => c.Edit(Model.Id), "Edit")) |
+	@(Html.Link("Edit", (object)Routes.EditOfThisFromThis(Model.Id))) |
 	@Html.ActionLink("Back to List", "Index") 
 </div>
 

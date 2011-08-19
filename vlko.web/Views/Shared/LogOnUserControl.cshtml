@@ -1,6 +1,6 @@
 ﻿@if (Request.IsAuthenticated) {
-	<text>Welcome <b>@User.Identity.Name</b>! [ @Html.ActionLink("Log Off", "LogOff", "Account", routeValues: new { area = string.Empty }) ]</text>
+	<text>Welcome <b>@User.Identity.Name</b>! [  @Html.Link("Log Off", (object)Routes.LogOffOfAccount) ]</text>
 }
 else {
-	<text>[ @Html.ActionLink("Log On", "LogOn", "Account", routeValues: new { area = string.Empty }) ]</text>
+	<text>[ @Html.Link("Log On", (object)Routes.LogOnOfAccount) ]</text>
 }

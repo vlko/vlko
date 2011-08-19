@@ -1,17 +1,16 @@
 ﻿@model vlko.BlogModule.Action.CRUDModel.CommentCRUDModel
 @using vlko.web.Controllers;
 @using vlko.web.ViewModel.Page;
+@using Microsoft.Web.Mvc.Html;
 @{
 	Html.ScriptInclude("~/Scripts/jquery.validate.js");
 	Html.ScriptInclude("~/Scripts/jquery.validate.unobtrusive.js");
 }
 	
-@using (Html.BeginRouteForm("PageComment",
-		new RouteValueDictionary(new
-									{
-										friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
-										sort = Html.ViewContext.RouteData.GetRequiredString("sort")
-									})
+@using (Html.BeginForm((object)Routes.PageComment(
+										friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+										sort : Html.ViewContext.RouteData.GetRequiredString("sort")
+									)
 									, cssClass: "cleaner"))
 {
 	<fieldset>

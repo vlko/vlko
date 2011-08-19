@@ -22,9 +22,10 @@
 @foreach (var item in Model) { 
 	<tr>
 		<td rowspan="2">
-			@(Html.ActionLink<CommentController>(c => c.Edit(item.Id), "Edit", new { @class = "grid_edit", title = "Edit" }))&nbsp;
-			@(Html.ActionLink<CommentController>(c => c.Details(item.Id), "Details", new { @class = "grid_details", title = "Details" }))&nbsp;
-			@(Html.ActionLink<CommentController>(c => c.Delete(item.Id), "Delete", new { @class = "grid_delete", title = "Delete" }))</td>
+			@Html.Link("Edit", (object)Routes.EditOfThisFromThis(item.Id), cssClass: "grid_edit")&nbsp;
+			@Html.Link("Details", (object)Routes.DetailsOfThisFromThis(item.Id), cssClass: "grid_details")&nbsp;
+			@Html.Link("Delete", (object)Routes.DeleteOfThisFromThis(item.Id), cssClass: "grid_delete")
+		</td>
 		<td>@item.Name</td>
 		<td>@String.Format("{0:g}", item.CreatedDate) </td>
 		<td>@(item.Changed ? "ver. " + item.Version : item.Changed.ToString())</td>

@@ -20,21 +20,18 @@
 		<div class="comments cleaner">@Model.StaticText.CommentCounts</div>
 		<div class="comment-sort cleaner">
 		
-			<a class="comment_sort flat" href="@Url.RouteUrl("PageView", routeValues: new
-										 {
-											 friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
-											 sort = "flat"
-										 })" title="Sort by date"><img src="@Url.Content("~/Content/images/sort-az.gif")" alt="flat" /></a>
-			<a class="comment_sort desc" href="@Url.RouteUrl("PageView", routeValues: new
-										 {
-											 friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
-											 sort = "desc"
-										 })" title="Sort by date desc"><img src="@Url.Content("~/Content/images/sort-za.gif")" alt="flat desc" /></a>
-			<a class="comment_sort tree" href="@Url.RouteUrl("PageView", routeValues: new
-										 {
-											 friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
-											 sort = "tree"
-										 })" title="Sort as tree"><img src="@Url.Content("~/Content/images/sort-tree.gif")" alt="tree" /></a>
+			<a class="comment_sort flat" href="@Routes.PageView(
+										   friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+										   sort : "flat"
+										 )" title="Sort by date"><img src="@Url.Content("~/Content/images/sort-az.gif")" alt="flat" /></a>
+			<a class="comment_sort desc" href="@Routes.PageView(
+										   friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+										   sort : "desc"
+										 )" title="Sort by date desc"><img src="@Url.Content("~/Content/images/sort-za.gif")" alt="flat desc" /></a>
+			<a class="comment_sort tree" href="@Routes.PageView(
+										   friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+										   sort : "tree"
+										 )" title="Sort as tree"><img src="@Url.Content("~/Content/images/sort-tree.gif")" alt="tree" /></a>
 		</div>
 	 }
 	@if (Model.CommentViewType == CommentViewTypeEnum.FlatDesc && Model.StaticText.AllowComments) {

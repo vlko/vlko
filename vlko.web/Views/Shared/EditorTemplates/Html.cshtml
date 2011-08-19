@@ -12,7 +12,7 @@
 		<div>@(Html.ActionLink<FileBrowserController>(c => c.Index(), "Browse user files", new { id = "FileBrowserLink" + Html.IdForModel(), target="FileBrowser" }))</div>
 	}
 	
-	@Html.TextArea("", (string)ViewData.Model, cssClass: "text-box multi-line")
+	@Html.TextArea("", (string)ViewData.Model, new { @class = "text-box multi-line" })
 	@Html.ValidationMessageFor(model => model)
 
 	@if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description))	{

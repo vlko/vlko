@@ -5,8 +5,8 @@
 
 <h2>Log On</h2>
 <p>
-	Please enter your username and password. @Html.ActionLink("Register", "Register")  if you don't have an account.<br />
-	Or @Html.ActionLink("reset password", "ResetPassword")   if you cannot remember old one.
+	Please enter your username and password. @Html.Link("Register", (object)Routes.RegisterOfThis)  if you don't have an account.<br />
+	Or @Html.Link("reset password", (object)Routes.ResetPasswordOfThis)   if you cannot remember old one.
 </p>
 
 @using (Html.BeginForm()) { 

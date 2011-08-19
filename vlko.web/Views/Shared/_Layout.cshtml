@@ -4,6 +4,9 @@
 	<title>vlko - @ViewBag.Title</title>
 	<meta name="description" content="vlko - one coder of many">
 	<meta name="author" content="twitter:@@vlkodotnet">
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 	@{ 
 		Html.CssInclude("~/Content/Site.css");
 		Html.CssInclude("~/Content/jquery-ui-1.8.7.custom.css");
@@ -12,9 +15,7 @@
 		Html.ScriptRootInclude("~/Scripts/jquery.ba-bbq.js");
 		Html.ScriptRootInclude("~/Scripts/Common.js"); 
 	}
-	<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+
 	@Html.RenderCss()
 </head>
 
@@ -29,8 +30,8 @@
 				@Html.Partial("LogOnUserControl")
 			</div>
 			<div id="search">
-				@using (Html.BeginForm("Index", "Search", method: FormMethod.Get, routeValues: new { area = string.Empty })) {
-					@Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"]);
+				@using (Html.BeginForm((object)Routes.IndexOfSearch(), FormMethod.Get)) {
+				@*	@Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"]);*@
 					@Html.TextBox("Query", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Query"]);
 					<input type="submit" value="Search" />
 				} 
@@ -38,13 +39,13 @@
 			<div id="menucontainer">
 			
 				<ul id="menu">              
-					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.HomeController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Home", "Index", "Home", routeValues: new { area = string.Empty })</li>
-					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.AboutController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("About", "Index", "About", routeValues: new { area = string.Empty })</li>
-					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.PageController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Pages", "Index", "Page", routeValues: new { area = string.Empty })</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.HomeController ? " class=\"selected\"" : string.Empty)>@Html.Link("Home", (object)Routes.IndexOfHome())</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.AboutController ? " class=\"selected\"" : string.Empty)>@Html.Link("About", (object)Routes.IndexOfAbout())</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.PageController ? " class=\"selected\"" : string.Empty)>@Html.Link("Pages", (object)Routes.IndexOfPage())</li>
 					@if (Request.IsAuthenticated) {
-						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.StaticPageController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Static text", "Index", "StaticPage", routeValues: new { area = "Admin" })</li>
-						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.CommentController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Comments", "Index", "Comment", routeValues: new { area = "Admin" })</li>
-						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.RssFeedController ? " class=\"selected\"" : string.Empty)>@Html.ActionLink("Rss", "Index", "RssFeed", routeValues: new { area = "Admin" })</li>
+						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.StaticPageController ? " class=\"selected\"" : string.Empty)>@Html.Link("Static text", (object)Routes.IndexOfStaticPageFromAdmin())</li>
+						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.CommentController ? " class=\"selected\"" : string.Empty)>@Html.Link("Comments", (object)Routes.IndexOfCommentFromAdmin())</li>
+						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.RssFeedController ? " class=\"selected\"" : string.Empty)>@Html.Link("Rss", (object)Routes.IndexOfRssFeedFromAdmin())</li>
 					}
 				</ul>
 			</div>

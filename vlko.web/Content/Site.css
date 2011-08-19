@@ -67,6 +67,9 @@ hr {
 input, select {
   vertical-align: middle; }
 
+section, article {
+  display: block; }
+
 body {
   background-color: #eaf2fd;
   font-size: 16px;

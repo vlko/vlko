@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+<%@ Import Namespace="Microsoft.Web.Mvc.Html" %>
 <div class="editor-label">
-	<%: Html.LabelFor(model => model)%>
+	<%: Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model)%>
 </div>
 <div class="editor-field">
 	<%= Html.TextBoxFor(m => m, cssClass: "text-box single-line", maxLength: Html.MaxLength(m => m))%>

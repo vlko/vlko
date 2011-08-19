@@ -11,12 +11,11 @@
 	<article class="comment cleaner">
 		<div class="author" title="Author">@((item.Owner == null) ? "anonymous-" + item.AnonymousName : item.Owner.Name)</div>
 		<div class="last-change-date" title="Date">@String.Format("{0:g}", item.CreatedDate)@(item.Changed ? " ver. " + item.Version : string.Empty)</div>
-		<a class="icon-link reply_link" title="Reply" rel="@item.Id.ToString()" href="@Url.RouteUrl("PageCommentReply", routeValues: new
-																			{
-																				friendlyUrl = Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
-																				parentId = item.Id,
-																				sort = Html.ViewContext.RouteData.GetRequiredString("sort")
-																			})"><img src="@Url.Content("~/Content/images/comment.gif")" alt="Comment"/></a>
+		<a class="icon-link reply_link" title="Reply" rel="@item.Id.ToString()" href="@Routes.PageCommentReply(
+																				  friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+																				  parentId : item.Id,
+																				  sort : Html.ViewContext.RouteData.GetRequiredString("sort")
+																			)"><img src="@Url.Content("~/Content/images/comment.gif")" alt="Comment"/></a>
 		<div class="title">@Html.Raw(item.Name)</div>
 		<div class="text">@Html.Raw(item.Text)</div>
 	</article>

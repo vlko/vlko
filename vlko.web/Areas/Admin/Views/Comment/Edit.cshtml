@@ -9,7 +9,7 @@
 	
 @using (Html.BeginForm()) {
 <div>
-	@Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") 
+	@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" }) 
 		
 	<fieldset>
 		<legend>Fields</legend>

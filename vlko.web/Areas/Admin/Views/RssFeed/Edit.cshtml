@@ -8,7 +8,7 @@
 <h2>Edit</h2>
 @using (Html.BeginForm()) {
 <div>
-	@Html.ValidationSummary(cssClass: "ui-state-error ui-corner-all") 
+	@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" }) 
 		
 	<fieldset>
 		<legend>Fields</legend>
@@ -43,7 +43,7 @@
 			createLoading();
 			$.ajax({
 				type: "POST",
-				url: "@item.Url.Action("TestFeed") ",
+				url: "@Routes.TestFeedOfThisFromThis",
 				data: form.serialize(),
 				success: function (data) {
 					var content = $("#test_results");

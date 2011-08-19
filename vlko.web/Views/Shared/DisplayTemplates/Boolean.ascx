@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+<%@ Import Namespace="Microsoft.Web.Mvc.Html" %>
 <script runat="server">
 	private List<SelectListItem> TriStateValues {
 		get {

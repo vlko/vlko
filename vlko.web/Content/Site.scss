@@ -14,6 +14,9 @@ html, body, div, span, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre
 /* change colours to suit your needs */ins {background-color:#ff9;color:#000;text-decoration:none;}
 /* change colours to suit your needs */mark {background-color:#ff9;color:#000; font-style:italic;font-weight:bold;}del {text-decoration: line-through;}abbr[title], dfn[title] {border-bottom:1px dotted;cursor:help;}table {border-collapse:collapse;border-spacing:0;}
 /* change border colour to suit your needs */hr {display:block;height:1px;border:0;   border-top:1px solid #cccccc;margin:1em 0;padding:0;}input, select {vertical-align:middle;}
+section, article {
+	display:block;
+}
 
 body
 {
@@ -376,7 +379,6 @@ table {
 .note-main{
 	background: transparent url("/Content/images/note-main.gif") no-repeat left top;
 }
-
 .twitter_status, .rss_item, .note, .one-note, .comment {
 	position: relative;
 	padding: 2px 2px 2px 40px;
