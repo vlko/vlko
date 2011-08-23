@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using Lucene.Net.Search;
 using vlko.BlogModule.Action;
 using vlko.core.Repository;
+using vlko.BlogModule.Implementation.OtherTech.Action;
 
 namespace vlko.BlogModule.Search
 {
@@ -58,7 +59,7 @@ namespace vlko.BlogModule.Search
 		/// <returns>Counts of items in query.</returns>
 		public int Count()
 		{
-			return _topDocs.totalHits;
+			return Math.Min(_topDocs.totalHits, SearchAction.MaximalSearchDepthConst);
 		}
 
 		/// <summary>
@@ -67,7 +68,7 @@ namespace vlko.BlogModule.Search
 		/// <returns>All items from query.</returns>
 		public object[] ToArray()
 		{
-			return ToPage(0, _topDocs.totalHits);
+			return ToPage(0, Count());
 		}
 
 		/// <summary>

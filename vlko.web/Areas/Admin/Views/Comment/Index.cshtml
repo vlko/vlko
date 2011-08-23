@@ -38,7 +38,7 @@
 } 
 
 </table>
-<p>@Html.Partial("~/Views/Shared/Pager.cshtml", new PagerModel(Model, "Index"))</p>
+<div>@Pager.Render(Html, Model)</div>
 @{ Html.ScriptInlineInclude(
 @<script type="text/javascript">
 	$(function () {

@@ -39,7 +39,7 @@
 		}
 	}
 
-<div>@Html.Partial("~/Views/Shared/Pager.cshtml", new PagerModel(Model.SearchResults, ViewContext.RouteData.GetRequiredString("action"), routeValues: new { Model.Query }))</div>
+<div>@Pager.Render(Html, Model.SearchResults, routeValues: new { Model.Query })</div>
 </section>
 } 
 

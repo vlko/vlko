@@ -20,6 +20,5 @@
 			@Html.Partial("~/Views/Content/RssItem.cshtml", item as RssItemViewModel)
 		}
 	}
-
-<div>@Html.Partial("~/Views/Shared/Pager.cshtml", new vlko.core.Components.PagerModel(Model, "Index"))</div>
+<div>@Pager.Render(Html, Model)</div>
 </section>

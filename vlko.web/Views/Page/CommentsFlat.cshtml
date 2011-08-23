@@ -21,9 +21,5 @@
 	</article>
 }
 </section>
-@Html.Partial("~/Views/Shared/Pager.cshtml", 
-		new PagerModel(
-			Model,
-			Html.ViewContext.RouteData.GetRequiredString("friendlyUrl") + "/" + Html.ViewContext.RouteData.GetRequiredString("sort")), 
-			new ViewDataDictionary(new { content = "page_view_content" }))
+<div>@Pager.Render(Html, Model, "PageView")</div>
 

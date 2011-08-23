@@ -47,19 +47,38 @@
 			@Html.TextAreaFor(model => model.Text, cssClass: "text-box multi-line")
 			@{if (Model.ChangeUser != null) {
 
-				 Html.ScriptInclude("~/Scripts/ckeditor/ck_mvc_integration.js");
-				 Html.ScriptInclude("~/Scripts/ckeditor/ckeditor.js");
-				 Html.ScriptInclude("~/Scripts/ckeditor/adapters/jquery.js");
-				 Html.ScriptInclude("~/Scripts/ckeditor/jquery.ui.dialog-patch.js");
+				Html.ScriptInclude("~/Scripts/tiny_mce/jquery.tinymce.js");
 
 				 Html.ScriptInlineInclude(
 				 @<script type="text/javascript">
 				  	$(function () {
 				  		var editorId = "@item.Html.NameFor(model => model.Text)";
-				  		if (CKEDITOR.instances[editorId]) {
-				  			CKEDITOR.remove(CKEDITOR.instances[editorId]);
-				  		}
-				  		$("#" + editorId).ckeditor();
+		
+						$("#" + editorId).tinymce({
+							// Location of TinyMCE script
+							script_url : '@Url.Content("~/Scripts/tiny_mce/tiny_mce.js")',
+
+							// General options
+							theme : "advanced",
+							plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
+
+							// Theme options
+							theme_advanced_buttons1 : ",undo,redo,|bold,italic,underline,strikethrough,|,formatselect,|,cut,copy,paste,pastetext,pasteword,|,cite,abbr,acronym,del,ins,attribs,",
+							theme_advanced_buttons2 : ",bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,image,|,removeformat,visualaid,|,cleanup,code,fullscreen",
+							theme_advanced_buttons3 : "",
+							theme_advanced_buttons4 : "",
+							theme_advanced_toolbar_location : "top",
+							theme_advanced_toolbar_align : "left",
+							theme_advanced_statusbar_location : "bottom",
+							theme_advanced_resizing : true,
+
+							// Example content CSS (should be your site CSS)
+							content_css : "@Url.Content("~/Content/Site.css")"
+						});
+		
+						setTimeout(function() {
+							tinyMCE.execCommand('mceAddControl', false, editorId);
+						}, 1000);
 					});
 					</script>);
 			 }

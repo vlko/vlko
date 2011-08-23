@@ -1,0 +1,109 @@
+﻿@using vlko.core.Components
+
+@helper Render(System.Web.Mvc.HtmlHelper html, IPagedModel pageModel, string routeName = null, object routeValues = null)
+	{
+	var routeValuesDictionary = new System.Web.Routing.RouteValueDictionary(routeValues);
+	routeValuesDictionary.Add("Page", 0);
+
+	Func<int, System.Web.Routing.RouteValueDictionary> pageRoutes = (pageNumber) =>
+	                                                                	{
+																			routeValuesDictionary["Page"] = pageNumber;
+																			return routeValuesDictionary;
+																		};
+
+	// check ranges
+	int startItemNumber = (pageModel.CurrentPage - 1) * pageModel.PageItems + 1;
+	if (startItemNumber < 0)
+	{
+		startItemNumber = 0;
+	}
+
+	int endItemNumber = startItemNumber + pageModel.PageItems - 1;
+	if (endItemNumber > pageModel.Count)
+	{
+		endItemNumber = pageModel.Count;
+	}
+
+	if (startItemNumber > endItemNumber)
+	{
+		startItemNumber = endItemNumber;
+	}
+
+	
+	const int pagerRange = 4;
+	int pagesNumber = pageModel.PagesNumber;
+	int currentPage = pageModel.CurrentPage;
+	int lowestPage = currentPage - pagerRange;
+	int highestPage = currentPage + pagerRange;
+	bool lowestRangeDelimiterDisplayed = false;
+	bool highesRangeDelimiterDisplayed = false;
+	
+	<text><div class="pager"></text>
+	 
+	if (currentPage > 1)
+	{
+		@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, "<<", routeName, pageRoutes(currentPage - 1), new System.Web.Routing.RouteValueDictionary(new { @class = "pager_prev" })))
+	}
+	else
+	{
+		<span class="pager_prev">&lt;&lt;</span><text>&nbsp;</text>		
+	}
+	<text>&nbsp;</text>
+		if (currentPage < pageModel.PagesNumber)
+	{
+		@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, ">>", routeName, pageRoutes(currentPage + 1), new System.Web.Routing.RouteValueDictionary(new { @class = "pager_next" })))
+	}
+	else
+	{
+		<span class="pager_next">&gt;&gt;</span><text>&nbsp;</text>
+	}                                                                                              	
+	<text>&nbsp;</text>
+	@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, "1", routeName, pageRoutes(1), null))<text>&nbsp;</text>
+
+		for (int i = 2; i < pagesNumber; i++)
+		{
+			if (i < lowestPage)
+			{
+				if (!lowestRangeDelimiterDisplayed)
+				{
+				<text>...&nbsp;</text>
+					lowestRangeDelimiterDisplayed = true;
+				}
+			}
+			if (i >= lowestPage && i <= highestPage)
+			{
+				@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, i.ToString(), routeName, pageRoutes(i), null))<text>&nbsp;</text>
+			}
+		if (i > highestPage)
+		{
+			if (!highesRangeDelimiterDisplayed)
+			{
+			<text>...&nbsp;</text>
+				highesRangeDelimiterDisplayed = true;
+			}
+		}
+	}
+	if (pagesNumber > 1)
+	{
+		@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, pagesNumber.ToString(), routeName, pageRoutes(pagesNumber), null))
+	}
+ 
+	<span class="pager_info">@string.Format("{0} - {1} of {2}", startItemNumber, endItemNumber, pageModel.Count)</span>
+	@html.Raw("</div>")
+
+	vlko.core.HtmlExtender.ScriptManager.ScriptInclude(html, "~/Scripts/Pager.js");
+	
+	vlko.core.HtmlExtender.ScriptManager.ScriptInlineInclude(html,
+		@<script type="text/javascript">
+		$(function () {
+			@{
+				var contentId = (string)item.ViewData["content"];
+				if (string.IsNullOrEmpty(contentId))
+				{
+					contentId = "content";
+				}
+			}
+			$("#@contentId").ajaxPager();
+		});
+		</script>);	
+}

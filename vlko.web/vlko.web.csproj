@@ -650,7 +650,6 @@
     <Content Include="Views\Shared\EditorTemplates\Collection.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Decimal.ascx" />
-    <Content Include="Views\Shared\Pager.cshtml" />
     <Content Include="Areas\Admin\Views\StaticPage\Create.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -718,6 +717,7 @@
     <Content Include="Areas\Admin\Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Code\Pager.cshtml" />
     <None Include="CodeTemplates\AddView\PagedList.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PagedList.cs</LastGenOutput>

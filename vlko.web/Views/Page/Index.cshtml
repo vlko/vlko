@@ -10,7 +10,7 @@
 @foreach (var item in Model) { 
 	@Html.Partial("~/Views/Content/StaticText.cshtml", item)
 }
-<div>@Html.Partial("~/Views/Shared/Pager.cshtml", new PagerModel(Model, "Index"))</div>
+<div>@Pager.Render(Html, Model)</div>
 @{ Html.ScriptInlineInclude(
 @<script type="text/javascript">
 	$(function () {

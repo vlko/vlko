@@ -137,6 +137,17 @@ namespace vlko.core.HtmlExtender
 		}
 
 		/// <summary>
+		/// Include script
+		/// </summary>
+		/// <param name="htmlHelper">The HTML helper.</param>
+		/// <param name="inlineScript">The inline script.</param>
+		public static void ScriptInlineInclude(this HtmlHelper htmlHelper, Func<WebViewPage, object> inlineScript)
+		{
+			var registeredInlneScriptIncludes = GetRegisteredInlineScriptIncludes();
+			registeredInlneScriptIncludes.Add(inlineScript((WebViewPage)htmlHelper.ViewDataContainer).ToString());
+		}
+
+		/// <summary>
 		/// Renders the scripts.
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>

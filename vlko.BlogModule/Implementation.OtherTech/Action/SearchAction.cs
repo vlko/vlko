@@ -14,7 +14,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Action
 {
 	public class SearchAction :  BaseAction<SearchRoot>, ISearchAction
 	{
-		private const int MaximalSearchDepth = 1000;
+		public const int MaximalSearchDepthConst = 2000;
 		/// <summary>
 		/// Indexes the comment.
 		/// </summary>
@@ -157,7 +157,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Action
 			Filter filter = RangeFilter.Less("Published", DateTools.DateToString(DateTime.Now.AddSeconds(1), DateTools.Resolution.SECOND));
 
 
-			var topDocs = searchContext.IndexSearcher.Search(query, filter, MaximalSearchDepth);
+			var topDocs = searchContext.IndexSearcher.Search(query, filter, MaximalSearchDepthConst);
 
 			return new SearchResult(topDocs, searchContext.IndexSearcher);
 		}
@@ -180,7 +180,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Action
 
 			Filter filter = RangeFilter.Less("Published", DateTools.DateToString(DateTime.Now.AddSeconds(1), DateTools.Resolution.SECOND));
 
-			var topDocs = searchContext.IndexSearcher.Search(query, filter, MaximalSearchDepth, new Sort("Date", true));
+			var topDocs = searchContext.IndexSearcher.Search(query, filter, MaximalSearchDepthConst, new Sort("Date", true));
 
 			return new SearchResult(topDocs, searchContext.IndexSearcher);
 		}

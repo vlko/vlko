@@ -120,7 +120,6 @@
     <Compile Include="Base\Scheduler\Setting\ConfigSettingProvider.cs" />
     <Compile Include="Base\ShortGuid.cs" />
     <Compile Include="Components\IPagedModel.cs" />
-    <Compile Include="Components\PagerModel.cs" />
     <Compile Include="Components\PagedModel.cs" />
     <Compile Include="Components\ExtendedModelBinder.cs" />
     <Compile Include="HtmlExtender\CssManager.cs" />

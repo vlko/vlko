@@ -32,7 +32,7 @@
 } 
 
 </table>
-<div>@Html.Partial("~/Views/Shared/Pager.cshtml", new PagerModel(Model, "Index"))</div>
+<div>@Pager.Render(Html, Model)</div>
 <div>
 	@Html.Link("Create new", (object)Routes.CreateOfThisFromThis(), cssClass: "grid_create", title : "Create new")
 </div>
