@@ -82,7 +82,9 @@ namespace vlko.core.HtmlExtender
 		/// <param name="fallbackFile">The fallback file.</param>
 		public static void ScriptRootDebugInclude(this HtmlHelper htmlHelper, string releaseFile, string debugFile, string fallbackTypeCheck = null, string fallbackFile = null)
 		{
-			var script = Microsoft.Web.Mvc.ScriptExtensions.Script(htmlHelper, releaseFile, debugFile).ToString();
+			string file = htmlHelper.ViewContext.HttpContext.IsDebuggingEnabled ? debugFile : releaseFile;
+			var script = string.Format("<script src='{0}' type='text/javascript'></script>", GenerateContentUrl(htmlHelper, file));
+
 			if (!string.IsNullOrEmpty(fallbackTypeCheck) && !string.IsNullOrEmpty(fallbackFile))
 			{
 				script +=
@@ -157,6 +159,7 @@ if (typeof({0}) == 'undefined')
 			{
 				src = file;
 			}
+			src += (src.IndexOf('?') < 0 ? "?_" : "&_") + Settings.StaticContentVersion.Value;
 			return UrlHelper.GenerateContentUrl(src, htmlHelper.ViewContext.HttpContext);
 		}
 

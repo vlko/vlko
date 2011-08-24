@@ -43,6 +43,7 @@ namespace vlko.core.HtmlExtender
 		/// <param name="mediaType">Type of the media.</param>
 		public static void CssInclude(this HtmlHelper htmlHelper, string cssFile, string mediaType)
 		{
+			cssFile += (cssFile.IndexOf('?') < 0 ? "?_" : "&_") + Settings.StaticContentVersion.Value;
 			var css = Microsoft.Web.Mvc.CssExtensions.Css(htmlHelper, cssFile, mediaType).ToString();
 			var registeredCssIncludes = GetRegisteredCssIncludes();
 			if (!registeredCssIncludes.ContainsValue(css))
