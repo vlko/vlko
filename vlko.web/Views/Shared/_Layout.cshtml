@@ -10,8 +10,12 @@
 	@{ 
 		Html.CssInclude("~/Content/Site.css");
 		Html.CssInclude("~/Content/jquery-ui-1.8.7.custom.css");
-		Html.ScriptRootInclude("~/Scripts/jquery-1.6.2.minjs", "~/Scripts/jquery-1.6.2.js");
-		Html.ScriptRootInclude("~/Scripts/jquery-ui-1.8.15.min.js");
+		
+		Html.ScriptRootDebugInclude("http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js", "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.js", 
+				fallbackTypeCheck: "jQuery", fallbackFile: "~/Scripts/jquery-1.6.2.min.js");
+		Html.ScriptRootInclude("http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.15/jquery-ui.min.js",
+				fallbackTypeCheck: "jQuery.ui", fallbackFile: "~/Scripts/jquery-ui-1.8.15.min.js");
+				
 		Html.ScriptRootInclude("~/Scripts/jquery.ba-bbq.js");
 		Html.ScriptRootInclude("~/Scripts/Common.js"); 
 	}

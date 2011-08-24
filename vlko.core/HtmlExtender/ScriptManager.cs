@@ -59,14 +59,17 @@ namespace vlko.core.HtmlExtender
 			return registeredScriptIncludes;
 		}
 
+
 		/// <summary>
 		/// Include root script (skipped in ajax).
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>
 		/// <param name="releaseFile">The release file.</param>
-		public static void ScriptRootInclude(this HtmlHelper htmlHelper, string releaseFile)
+		/// <param name="fallbackTypeCheck">The fallback type check (value to be checked for undefined to load fallback file).</param>
+		/// <param name="fallbackFile">The fallback file.</param>
+		public static void ScriptRootInclude(this HtmlHelper htmlHelper, string releaseFile, string fallbackTypeCheck = null, string fallbackFile = null)
 		{
-			ScriptRootInclude(htmlHelper, releaseFile, releaseFile);
+			ScriptRootDebugInclude(htmlHelper, releaseFile, releaseFile, fallbackTypeCheck, fallbackFile);
 		}
 
 		/// <summary>
@@ -75,9 +78,23 @@ namespace vlko.core.HtmlExtender
 		/// <param name="htmlHelper">The HTML helper.</param>
 		/// <param name="releaseFile">The release file.</param>
 		/// <param name="debugFile">The debug file.</param>
-		public static void ScriptRootInclude(this HtmlHelper htmlHelper, string releaseFile, string debugFile)
+		/// <param name="fallbackTypeCheck">The fallback type check (value to be checked for undefined to load fallback file).</param>
+		/// <param name="fallbackFile">The fallback file.</param>
+		public static void ScriptRootDebugInclude(this HtmlHelper htmlHelper, string releaseFile, string debugFile, string fallbackTypeCheck = null, string fallbackFile = null)
 		{
 			var script = Microsoft.Web.Mvc.ScriptExtensions.Script(htmlHelper, releaseFile, debugFile).ToString();
+			if (!string.IsNullOrEmpty(fallbackTypeCheck) && !string.IsNullOrEmpty(fallbackFile))
+			{
+				script +=
+					string.Format(
+						@"<script type=""text/javascript"">
+if (typeof({0}) == 'undefined')
+{{
+	document.write(unescape(""%3Cscript src='{1}' type='text/javascript'%3E%3C/script%3E""));
+}}
+</script>",
+						fallbackTypeCheck, GenerateContentUrl(htmlHelper, fallbackFile));
+			}
 			var getRegisteredRootScriptIncludes = GetRegisteredRootScriptIncludes();
 			if (!getRegisteredRootScriptIncludes.ContainsValue(script))
 			{
@@ -90,9 +107,10 @@ namespace vlko.core.HtmlExtender
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>
 		/// <param name="releaseFile">The release file.</param>
-		public static void ScriptInclude(this HtmlHelper htmlHelper, string releaseFile)
+		/// <param name="fallbackFile">The fallback file.</param>
+		public static void ScriptInclude(this HtmlHelper htmlHelper, string releaseFile, string fallbackFile = null)
 		{
-			ScriptInclude(htmlHelper, releaseFile, releaseFile);
+			ScriptDebugInclude(htmlHelper, releaseFile, releaseFile, fallbackFile);
 		}
 
 
@@ -102,10 +120,35 @@ namespace vlko.core.HtmlExtender
 		/// <param name="htmlHelper">The HTML helper.</param>
 		/// <param name="releaseFile">The release file.</param>
 		/// <param name="debugFile">The debug file.</param>
-		public static void ScriptInclude(this HtmlHelper htmlHelper, string releaseFile, string debugFile)
+		/// <param name="fallbackFile">The fallback file.</param>
+		public static void ScriptDebugInclude(this HtmlHelper htmlHelper, string releaseFile, string debugFile, string fallbackFile = null)
+		{
+			string file = htmlHelper.ViewContext.HttpContext.IsDebuggingEnabled ? debugFile : releaseFile;
+
+			var script = string.Format("scriptCache.load(\"{0}\");", GenerateContentUrl(htmlHelper, file));
+
+			if (!string.IsNullOrEmpty(fallbackFile))
+			{
+				script = string.Format("scriptCache.load(\"{0}\", \"{1}\");",
+					GenerateContentUrl(htmlHelper, file), GenerateContentUrl(htmlHelper, fallbackFile));
+			}
+
+			var getRegisteredScriptIncludes = GetRegisteredScriptIncludes();
+			if (!getRegisteredScriptIncludes.ContainsValue(script))
+			{
+				getRegisteredScriptIncludes.Add(getRegisteredScriptIncludes.Count, script);
+			}
+		}
+
+		/// <summary>
+		/// Generates the content URL.
+		/// </summary>
+		/// <param name="htmlHelper">The HTML helper.</param>
+		/// <param name="file">The file.</param>
+		/// <returns>Content url.</returns>
+		private static string GenerateContentUrl(HtmlHelper htmlHelper, string file)
 		{
 			string src;
-			string file = htmlHelper.ViewContext.HttpContext.IsDebuggingEnabled ? debugFile : releaseFile;
 			if (IsRelativeToDefaultPath(file))
 			{
 				src = "~/Scripts/" + file;
@@ -114,15 +157,7 @@ namespace vlko.core.HtmlExtender
 			{
 				src = file;
 			}
-
-			var script = string.Format("scriptCache.load(\"{0}\");", 
-				UrlHelper.GenerateContentUrl(src, htmlHelper.ViewContext.HttpContext));
-
-			var getRegisteredScriptIncludes = GetRegisteredScriptIncludes();
-			if (!getRegisteredScriptIncludes.ContainsValue(script))
-			{
-				getRegisteredScriptIncludes.Add(getRegisteredScriptIncludes.Count, script);
-			}
+			return UrlHelper.GenerateContentUrl(src, htmlHelper.ViewContext.HttpContext);
 		}
 
 		/// <summary>
@@ -171,12 +206,12 @@ namespace vlko.core.HtmlExtender
 			// load script with cache support
 			if (registeredScriptIncludes.Count > 0)
 			{
-				scripts.AppendLine("<script type=\"text/javascript\">$(function() {");
+				scripts.AppendLine("<script type=\"text/javascript\">");
 				foreach (string script in registeredScriptIncludes.Values)
 				{
 					scripts.AppendLine(script);
 				}
-				scripts.AppendLine("});</script>");
+				scripts.AppendLine("</script>");
 			}
 
 			return MvcHtmlString.Create(scripts.ToString());

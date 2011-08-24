@@ -19,5 +19,11 @@ namespace vlko.core
 		/// </summary>
 		public static readonly SettingValue<string> BaseUrl 
 			= new SettingValue<string>("BaseUrl", null, new ConfigSettingProvider());
+
+		/// <summary>
+		/// Static content version used to bypass static file caching.
+		/// </summary>
+		public static readonly SettingValue<string> StaticContentVersion
+			= new SettingValue<string>("StaticContentVersion", "0", new ConfigSettingProvider());
 	}
 }

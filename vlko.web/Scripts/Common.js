@@ -1,10 +1,34 @@
 ﻿// script cache handling
 (function (scriptCache, $, undefined) {
 	var loadedScripts = [];
-	scriptCache.load = function (scriptUrl) {
+	$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+		if (options.dataType == 'script' || originalOptions.dataType == 'script') {
+			options.cache = true;
+		}
+	});
+
+	scriptCache.load = function (scriptUrl, fallbackFile) {
+
 		// if script is not yet loaded
 		if (!loadedScripts[scriptUrl]) {
-			$("body").append('<script src="' + scriptUrl + '" type="text/javascript"></script>');
+			$.ajax({
+				url: scriptUrl,
+				dataType: "script",
+				cache: true,
+				async: false,
+				error	: function (){alert("fail")},
+				complete: function (jqXHR, textStatus) {
+					// if empty response 
+					if (!jqXHR.responseText && fallbackFile) {
+						$.ajax({
+								url: fallbackFile,
+								dataType: "script",
+								cache: true,
+								async: false
+							});
+					}
+				}
+			});
 			loadedScripts[scriptUrl] = true;
 		}
 	}

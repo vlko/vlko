@@ -185,41 +185,6 @@
     <Compile Include="Areas\Admin\Controllers\RssFeedController.cs" />
     <Compile Include="Areas\Admin\Controllers\TwitterController.cs" />
     <Compile Include="Areas\Admin\ViewModel\RssFeed\RssFeedTestResult.cs" />
-    <Compile Include="CodeTemplates\AddView\PagedList.cs">
-      <DependentUpon>PagedList.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\Create.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Create.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\Delete.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Delete.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\Details.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Details.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\Edit.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Edit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\Empty.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Empty.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeTemplates\AddView\List.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>List.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentController.cs" />
@@ -712,40 +677,13 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="CodeTemplates\AddView\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Code\Pager.cshtml" />
-    <None Include="CodeTemplates\AddView\PagedList.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PagedList.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\Create.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Create.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\Delete.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Delete.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\Details.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Details.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\Edit.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Edit.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\Empty.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Empty.cs</LastGenOutput>
-    </None>
-    <None Include="CodeTemplates\AddView\List.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>List.cs</LastGenOutput>
-    </None>
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="packages.config" />
