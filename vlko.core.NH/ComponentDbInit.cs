@@ -33,6 +33,7 @@ namespace vlko.core.NH
 			orm.TablePerClass(baseEntities);
 
 			orm.Poid<AppSetting>(item => item.Id);
+			
 
 			mapper.Customize<AppSetting>(mapping => mapping.Property(item => item.Value, pm => pm.Length(255)));
 
@@ -41,6 +42,8 @@ namespace vlko.core.NH
 				mapping.Property(item => item.Email, pm => pm.Unique(true));
 				mapping.Property(item => item.Password, pm => pm.Length(64));
 			});
+			orm.ExcludeProperty<User>(item => item.IsAuthenticated);
+			orm.ExcludeProperty<User>(item => item.AuthenticationType);
 		}
 	}
 }

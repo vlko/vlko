@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
+using vlko.core.Action;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.InversionOfControl;
+using vlko.core.Roots;
 using vlko.web.Tests.Controllers.Admin;
 
 namespace vlko.web.Tests
@@ -39,7 +41,8 @@ namespace vlko.web.Tests
 		public static void MockUser(this BaseController controller, string userName)
 		{
 			IoC.AddRerouting<IUserAuthenticationService>(() => new StaticPageControllerTest.UserAuthenticationServiceMock());
-			controller.UserInfo = new UserInfo(userName);
+			var user = IoC.Resolve<IUserAction>().GetByName(userName);
+			controller.HttpContext.User = new UserPrincipal(user);
 		}
 
 	}

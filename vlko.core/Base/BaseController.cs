@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using vlko.core.Action;
 using vlko.core.Authentication;
 using vlko.core.Repository;
+using vlko.core.Roots;
 
 namespace vlko.core.Base
 {
@@ -12,10 +14,12 @@ namespace vlko.core.Base
 	public class BaseController : Controller
 	{
 		/// <summary>
-		/// Gets or sets the user info.
+		/// Gets the user info (returns null if user not authenticated).
 		/// </summary>
-		/// <value>The user info.</value>
-		public UserInfo UserInfo { get; set; }
+		public User CurrentUser
+		{
+			get { return User is UserPrincipal ? ((UserPrincipal) User).User : null; }
+		}
 
 		/// <summary>
 		/// Executes the specified request context.
@@ -26,8 +30,22 @@ namespace vlko.core.Base
 		{
 			using (var session = RepositoryFactory.StartUnitOfWork())
 			{
-				UserInfo = new UserInfo(requestContext.HttpContext.User.Identity.Name);
 				base.Execute(requestContext);
+			}
+		}
+
+		/// <summary>
+		/// Called when authorization occurs.
+		/// </summary>
+		/// <param name="filterContext">Information about the current request and action.</param>
+		protected override void OnAuthorization(AuthorizationContext filterContext)
+		{
+			base.OnAuthorization(filterContext);
+			// if user is authenticated then set custom user principal
+			if (filterContext.HttpContext.User.Identity.IsAuthenticated)
+			{
+				var user = InversionOfControl.IoC.Resolve<IUserAction>().GetByName(filterContext.HttpContext.User.Identity.Name);
+				filterContext.HttpContext.User = new UserPrincipal(user);
 			}
 		}
 
@@ -61,9 +79,11 @@ namespace vlko.core.Base
 		/// </summary>
 		/// <param name="actionName">Name of the action.</param>
 		/// <param name="controllerName">Name of the controller.</param>
-		/// <param name="additionalActionLink">The additional action link.</param>
 		/// <param name="routeValues">The route values.</param>
-		/// <returns>Action result.</returns>
+		/// <param name="allowJsonGetRequest">if set to <c>true</c> [allow json get request].</param>
+		/// <returns>
+		/// Action result.
+		/// </returns>
 		protected ActionResult RedirectToActionWithAjax(string actionName, string controllerName = null, object routeValues = null, bool allowJsonGetRequest = false)
 		{
 			var result = RedirectToAction(actionName, controllerName, routeValues);

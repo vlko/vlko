@@ -67,15 +67,5 @@ namespace vlko.core.Authentication
         /// <param name="newPassword">The new password.</param>
         /// <returns>True if success otherwise false.</returns>
         bool ConfirmResetPassword(string username, string token, string newPassword);
-
-        /// <summary>
-        /// Determines whether [is user in role] [the specified username].
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="role">The role.</param>
-        /// <returns>
-        /// 	<c>true</c> if [is user in role] [the specified username]; otherwise, <c>false</c>.
-        /// </returns>
-        bool IsUserInRole(string username, string role);
     }
 }

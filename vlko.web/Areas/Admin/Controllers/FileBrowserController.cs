@@ -20,7 +20,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Index()
 		{
-			var files = IoC.Resolve<IFileBrowserAction>().GetAllUserFileInfos(UserInfo.Name);
+			var files = IoC.Resolve<IFileBrowserAction>().GetAllUserFileInfos(User.Identity.Name);
 			return ViewWithAjax(new FileBrowserViewModel
 							{
 								UserFiles = files
@@ -36,7 +36,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		{
 			return ViewWithAjax(
 				IoC.Resolve<IFileBrowserAction>()
-					.GetFileInfo(UserInfo.Name, ident));
+					.GetFileInfo(User.Identity.Name, ident));
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		public ActionResult Delete(FileViewModel model)
 		{
 			if (!IoC.Resolve<IFileBrowserAction>()
-				.DeleteFile(UserInfo.Name, model.Ident))
+				.DeleteFile(User.Identity.Name, model.Ident))
 			{
 				ModelState.AddModelError(string.Empty, vlko.BlogModule.ModelResources.FileDeleteFailedError);
 				return ViewWithAjax(model);
@@ -89,7 +89,7 @@ namespace vlko.web.Areas.Admin.Controllers
 					string fileIdent = model.Ident + Path.GetExtension(file.FileName);
 
 					// check if file exists
-					var existingItem = fileBrowserActions.GetFileInfo(UserInfo.Name, fileIdent);
+					var existingItem = fileBrowserActions.GetFileInfo(User.Identity.Name, fileIdent);
 					if (existingItem != null)
 					{
 						ModelState.AddModelError<FileBrowserViewModel>(item => item.Ident, string.Format(vlko.BlogModule.ModelResources.FileIdentExistsError, fileIdent));
@@ -97,7 +97,7 @@ namespace vlko.web.Areas.Admin.Controllers
 					else
 					{
 						// Save file
-						if (!fileBrowserActions.SaveFile(UserInfo.Name, fileIdent, file.InputStream))
+						if (!fileBrowserActions.SaveFile(User.Identity.Name, fileIdent, file.InputStream))
 						{
 							ModelState.AddModelError(string.Empty, vlko.BlogModule.ModelResources.FileUploadFailedError);
 						}
@@ -110,7 +110,7 @@ namespace vlko.web.Areas.Admin.Controllers
 			}
 
 			// load user files
-			model.UserFiles = fileBrowserActions.GetAllUserFileInfos(UserInfo.Name);
+			model.UserFiles = fileBrowserActions.GetAllUserFileInfos(User.Identity.Name);
 
 			// return normal view, for ajax we have iframe technique so normal result is needed
 			return View("Index", model);

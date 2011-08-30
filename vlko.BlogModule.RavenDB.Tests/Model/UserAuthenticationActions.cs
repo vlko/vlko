@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.core.Action;
+using vlko.core.Authentication;
 using vlko.core.InversionOfControl;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
@@ -325,7 +326,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 				User newUser = new User()
 				{
 					Id = Guid.NewGuid(),
-					Name = "test",
+					Name = username,
 					Email = "test@test.sk",
 					LastSeen = DateTime.Now,
 					Verified = true,
@@ -338,17 +339,15 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 				}
 				WaitForIndexing();
 
-				var authentication = RepositoryFactory.Action<IUserAuthentication>();
+				var user = IoC.Resolve<IUserAction>().GetByName(username);
+				var authentication = new UserPrincipal(user);
 
 				// valid user and roles
-				Assert.IsTrue(authentication.IsUserInRole(username, "admin"));
-				Assert.IsTrue(authentication.IsUserInRole(username, "superuser"));
+				Assert.IsTrue(authentication.IsInRole("admin"));
+				Assert.IsTrue(authentication.IsInRole("superuser"));
 
 				// unknown group should fail
-				Assert.IsFalse(authentication.IsUserInRole(username, "helpdesk"));
-
-				// unknown user should fail
-				Assert.IsFalse(authentication.IsUserInRole("not_valid_user", "admin"));
+				Assert.IsFalse(authentication.IsInRole("helpdesk"));
 
 			}
 		}

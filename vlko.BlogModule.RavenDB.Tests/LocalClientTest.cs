@@ -7,6 +7,7 @@ using Raven.Client.Embedded;
 using Raven.Database.Extensions;
 using vlko.core.RavenDB;
 using vlko.core.RavenDB.Repository;
+using vlko.core.Repository;
 
 namespace vlko.BlogModule.RavenDB.Tests
 {
@@ -17,6 +18,7 @@ namespace vlko.BlogModule.RavenDB.Tests
 
 		public void SetUp()
 		{
+			RepositoryFactory.IntitializeWith(null);
 			Store = 
 				NewEmbedableDocumentStore();
 				//NewRemoteDocumentStore();

@@ -75,8 +75,8 @@ namespace vlko.web.Areas.Admin.Controllers
 		public ActionResult Delete(StaticTextCRUDModel model)
 		{
 			var item = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(model.Id);
-			if (item.Creator.Name == UserInfo.Name
-				|| UserInfo.IsAdmin())
+			if (item.Creator.Name == CurrentUser.Name
+				|| ((UserPrincipal)User).IsAdmin())
 			{
 				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 				{
@@ -119,8 +119,8 @@ namespace vlko.web.Areas.Admin.Controllers
 
 				if (originalItem != null)
 				{
-					if (originalItem.Creator.Name == UserInfo.Name
-						|| UserInfo.IsAdmin())
+					if (originalItem.Creator.Name == CurrentUser.Name
+						|| CurrentUser.IsAdmin())
 					{
 
 						if (string.IsNullOrWhiteSpace(model.FriendlyUrl))
@@ -130,7 +130,7 @@ namespace vlko.web.Areas.Admin.Controllers
 
 						model.FriendlyUrl = GenerateUniqueFriendlyUrl(model.FriendlyUrl, model.Id);
 						model.ChangeDate = DateTime.Now;
-						model.Creator = RepositoryFactory.Action<IUserAction>().GetByName(UserInfo.Name);
+						model.Creator = ((UserPrincipal)User).User;
 						model.Description = GenerateDescription(model.Text);
 
 						using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
@@ -187,7 +187,7 @@ namespace vlko.web.Areas.Admin.Controllers
 
 				model.FriendlyUrl = GenerateUniqueFriendlyUrl(model.FriendlyUrl, Guid.Empty);
 				model.ChangeDate = DateTime.Now;
-				model.Creator = RepositoryFactory.Action<IUserAction>().GetByName(UserInfo.Name);
+				model.Creator = ((UserPrincipal)User).User;
 				model.Description = GenerateDescription(model.Text);
 
 				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))

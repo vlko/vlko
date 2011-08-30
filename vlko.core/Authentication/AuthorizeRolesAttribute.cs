@@ -28,12 +28,11 @@ namespace vlko.core.Authentication
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             var result = base.AuthorizeCore(httpContext);
-            if (result)
+            if (result && httpContext.User.Identity.IsAuthenticated)
             {
-                var userAuthenticationService = InversionOfControl.IoC.Resolve<IUserAuthenticationService>();
                 foreach (var role in _roles)
                 {
-                    var isInRole = userAuthenticationService.IsUserInRole(httpContext.User.Identity.Name, role);
+                    var isInRole = httpContext.User.IsInRole(role);
                     if (isInRole)
                     {
                         return true;

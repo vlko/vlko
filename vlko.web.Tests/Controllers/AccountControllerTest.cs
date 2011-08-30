@@ -613,11 +613,6 @@ namespace vlko.web.Tests.Controllers
 			{
 				return (username == "someUser" && token == "validToken" && newPassword == "goodNewPassword");
 			}
-
-			public bool IsUserInRole(string username, string role)
-			{
-				return true;
-			}
 		}
 
 	}

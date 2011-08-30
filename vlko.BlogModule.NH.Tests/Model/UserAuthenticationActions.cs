@@ -4,6 +4,7 @@ using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.NH;
 using vlko.core.Action;
+using vlko.core.Authentication;
 using vlko.core.InversionOfControl;
 using vlko.core.NH.Repository;
 using vlko.core.NH.Testing;
@@ -318,7 +319,7 @@ namespace vlko.BlogModule.Tests.Model
 				string username = "test";
 				User newUser = new User()
 				{
-					Name = "test",
+					Name = username,
 					Email = "test@test.sk",
 					LastSeen = DateTime.Now,
 					Verified = true,
@@ -330,17 +331,15 @@ namespace vlko.BlogModule.Tests.Model
 					tran.Commit();
 				}
 
-				var authentication = RepositoryFactory.Action<IUserAuthentication>();
+				var user = IoC.Resolve<IUserAction>().GetByName(username);
+				var authentication = new UserPrincipal(user);
 
 				// valid user and roles
-				Assert.IsTrue(authentication.IsUserInRole(username, "admin"));
-				Assert.IsTrue(authentication.IsUserInRole(username, "superuser"));
+				Assert.IsTrue(authentication.IsInRole("admin"));
+				Assert.IsTrue(authentication.IsInRole("superuser"));
 
 				// unknown group should fail
-				Assert.IsFalse(authentication.IsUserInRole(username, "helpdesk"));
-
-				// unknown user should fail
-				Assert.IsFalse(authentication.IsUserInRole("not_valid_user", "admin"));
+				Assert.IsFalse(authentication.IsInRole("helpdesk"));
 
 			}
 		}

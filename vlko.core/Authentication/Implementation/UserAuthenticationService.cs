@@ -161,22 +161,5 @@ namespace vlko.core.Authentication.Implementation
 
 			return _userAuthentication.ResetPassword(username, token, newPassword);
 		}
-
-		/// <summary>
-		/// Determines whether [is user in role] [the specified username].
-		/// </summary>
-		/// <param name="username">The username.</param>
-		/// <param name="role">The role.</param>
-		/// <returns>
-		/// 	<c>true</c> if [is user in role] [the specified username]; otherwise, <c>false</c>.
-		/// </returns>
-		public bool IsUserInRole(string username, string role)
-		{
-			if (String.IsNullOrEmpty(username) || string.IsNullOrEmpty(role))
-			{
-				return false;
-			}
-			return _userAuthentication.IsUserInRole(username, role);
-		}
 	}
 }

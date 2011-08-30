@@ -20,17 +20,16 @@ namespace vlko.core.Repository
 		{
 			get
 			{
-				lock (typeof(RepositoryFactory))
+				if (_factoryResolver == null)
 				{
-					if (_factoryResolver == null)
+					lock (typeof (RepositoryFactory))
 					{
 						// Initialize repository IoC resolver
 						_factoryResolver = IoC.Resolve<IRepositoryFactoryResolver>();
 					}
-					return _factoryResolver;
 				}
+				return _factoryResolver;
 			}
-
 		}
 
 		/// <summary>

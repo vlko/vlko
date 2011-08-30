@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.Components;
 using vlko.core.InversionOfControl;
@@ -56,7 +57,7 @@ namespace vlko.web.Controllers
 							             	{
 							             		Name = staticText.Title,
 							             		ContentId = staticText.Id,
-							             		ChangeUser = UserInfo.User
+												ChangeUser = User is UserPrincipal ? ((UserPrincipal)User).User : null
 							             	}
 						});
 			}
@@ -95,7 +96,7 @@ namespace vlko.web.Controllers
 						Name = "Re: " + parentComment.Name,
 						ParentId = parentId,
 						ContentId = staticText.Id,
-						ChangeUser = UserInfo.User
+						ChangeUser = User is UserPrincipal ? ((UserPrincipal)User).User : null
 					}
 				});	
 		}
@@ -111,7 +112,7 @@ namespace vlko.web.Controllers
 		public ActionResult NewComment(PagedModel<CommentViewModel> commentsModel, CommentCRUDModel model, string sort)
 		{
 			var staticText = RepositoryFactory.Action<IStaticTextData>().Get(model.ContentId, DateTime.Now);
-			model.ChangeUser = UserInfo.User;
+			model.ChangeUser = CurrentUser;
 
 			if (model.ChangeUser == null && model.RoboCheck != model.ExpressionCorrectValue)
 			{

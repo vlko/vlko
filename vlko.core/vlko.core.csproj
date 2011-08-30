@@ -107,7 +107,7 @@
     <Compile Include="Authentication\Implementation\FormsAuthenticationService.cs" />
     <Compile Include="Authentication\IFormsAuthenticationService.cs" />
     <Compile Include="Authentication\IUserAuthenticationService.cs" />
-    <Compile Include="Authentication\UserInfo.cs" />
+    <Compile Include="Authentication\UserPrincipal.cs" />
     <Compile Include="Base\AjaxModelErrorInfo.cs" />
     <Compile Include="Base\BaseExtensions.cs" />
     <Compile Include="Base\BaseViewPage.cs" />

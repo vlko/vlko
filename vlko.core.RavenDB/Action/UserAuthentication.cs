@@ -112,25 +112,6 @@ namespace vlko.core.RavenDB.Action
 		}
 
 		/// <summary>
-		/// Determines whether [is user in role] [the specified username].
-		/// </summary>
-		/// <param name="username">The username.</param>
-		/// <param name="role">The role.</param>
-		/// <returns>
-		/// 	<c>true</c> if [is user in role] [the specified username]; otherwise, <c>false</c>.
-		/// </returns>
-		public bool IsUserInRole(string username, string role)
-		{
-			var userToValidate = SessionFactory<User>.IndexQuery<UsersByNameSortIndex>().FirstOrDefault(user => user.Name == username);
-			if (userToValidate != null && !string.IsNullOrEmpty(userToValidate.Roles))
-			{
-				string[] roles = userToValidate.Roles.Split(',');
-				return roles.Contains(role);
-			}
-			return false;
-		}
-
-		/// <summary>
 		/// Changes the password.
 		/// </summary>
 		/// <param name="username">The username.</param>

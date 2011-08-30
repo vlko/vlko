@@ -26,16 +26,6 @@ namespace vlko.core.Action
         ValidateUserStatus ValidateUser(string username, string password);
 
         /// <summary>
-        /// Determines whether [is user in role] [the specified username].
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="role">The role.</param>
-        /// <returns>
-        /// 	<c>true</c> if [is user in role] [the specified username]; otherwise, <c>false</c>.
-        /// </returns>
-        bool IsUserInRole(string username, string role);
-
-        /// <summary>
         /// Changes the password.
         /// </summary>
         /// <param name="username">The username.</param>

@@ -687,6 +687,7 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="packages.config" />
+    <Content Include="App_Code\Script.cshtml" />
     <None Include="Content\Site.scss">
       <Generator>ScssGenerator</Generator>
       <LastGenOutput>Site.css</LastGenOutput>
