@@ -16,7 +16,6 @@
 				dataType: "script",
 				cache: true,
 				async: false,
-				error	: function (){alert("fail")},
 				complete: function (jqXHR, textStatus) {
 					// if empty response 
 					if (!jqXHR.responseText && fallbackFile) {
