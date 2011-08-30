@@ -2,12 +2,8 @@
 @using vlko.web.Controllers;
 @using vlko.web.ViewModel.Page;
 @using Microsoft.Web.Mvc.Html;
-@{
-	Html.ScriptInclude("http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js",
-		fallbackFile: "~/Scripts/jquery.validate.js");
-	Html.ScriptInclude("http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.validate.unobtrusive.min.js",
-		fallbackFile: "~/Scripts/jquery.validate.unobtrusive.js");
-}
+
+@Script.RegisterValidationJs(Html)
 	
 @using (Html.BeginForm((object)Routes.PageComment(
 										friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),

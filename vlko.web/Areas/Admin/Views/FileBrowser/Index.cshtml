@@ -6,8 +6,7 @@
 	
 	Html.ScriptInclude("~/Scripts/Grid.js");
 	Html.ScriptInclude("~/Scripts/upload/ajaxupload.js");
-	Html.ScriptInclude("~/Scripts/jquery.validate.js");
-	Html.ScriptInclude("~/Scripts/jquery.validate.unobtrusive.js");
+	Script.RegisterValidationJs(Html);
 }
 
 @{ Html.ScriptInlineInclude(
