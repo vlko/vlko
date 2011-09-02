@@ -615,13 +615,13 @@
     <Content Include="Views\Shared\EditorTemplates\Collection.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Decimal.ascx" />
-    <Content Include="Areas\Admin\Views\StaticPage\Create.cshtml">
+    <None Include="Areas\Admin\Views\StaticPage\Create.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Areas\Admin\Views\StaticPage\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\StaticPage\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\StaticPage\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\StaticPage\Index.cshtml" />
+    </None>
+    <None Include="Areas\Admin\Views\StaticPage\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\StaticPage\Details.cshtml" />
+    <None Include="Areas\Admin\Views\StaticPage\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\StaticPage\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MultilineText.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Object.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Password.ascx" />
@@ -677,7 +677,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="CodeTemplates\AddView\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Web.config">
@@ -688,6 +687,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="packages.config" />
     <Content Include="App_Code\Script.cshtml" />
+    <None Include="CodeTemplates\AddView\CSHTML\ListPaged.tt " />
+    <None Include="CodeTemplates\AddView\CSHTML\Create.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Delete.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Details.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Edit.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Empty.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\List.tt" />
     <None Include="Content\Site.scss">
       <Generator>ScssGenerator</Generator>
       <LastGenOutput>Site.css</LastGenOutput>
