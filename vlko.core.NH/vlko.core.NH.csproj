@@ -89,6 +89,7 @@
     <Compile Include="Testing\InMemoryConnectionProvider.cs" />
     <Compile Include="Testing\InMemoryTest.cs" />
     <Compile Include="Testing\NHibernateMappingsExtensions.cs" />
+    <Compile Include="Testing\NHTestProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

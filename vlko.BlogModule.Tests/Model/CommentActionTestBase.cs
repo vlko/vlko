@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core.InversionOfControl;
-using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.CRUDModel;
 using vlko.BlogModule.Roots;
 using vlko.core.Roots;
+using vlko.core.Testing;
 
-namespace vlko.BlogModule.RavenDB.Tests.Model
+namespace vlko.BlogModule.Tests.Model
 {
-	[TestClass]
-	public class CommentActions : LocalClientTest
+	public abstract class CommentActionTestBase : LocalTest
 	{
 		private StaticText _testText;
 
 		private User _user;
 
-		[TestInitialize]
-		public void Init()
+		protected CommentActionTestBase(ITestProvider testProvider) : base(testProvider)
 		{
-			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.RavenDB"));
-			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
-			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.RavenDB"));
-			base.SetUp();
+		}
+
+		public virtual void Init()
+		{
+			TestProvider.SetUp();
 
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
@@ -50,6 +47,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 															 {
 																 new StaticTextVersion
 																	 {
+																		 Id = Guid.NewGuid(),
 																		 CreatedBy = _user,
 																		 Text = "only one version",
 																		 Version = 0,
@@ -72,6 +70,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 																		   {
 																			   new CommentVersion
 																				   {
+																					   Id = Guid.NewGuid(),
 																					   CreatedDate =
 																						   new DateTime(2002,
 																										1, 1),
@@ -98,6 +97,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 																		   {
 																			   new CommentVersion
 																				   {
+																					   Id = Guid.NewGuid(),
 																					   CreatedDate =
 																						   new DateTime(2002,
 																										1, 1),
@@ -111,6 +111,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 																				   },
 																			   new CommentVersion
 																				   {
+																					   Id = Guid.NewGuid(),
 																					   CreatedDate =
 																						   new DateTime(2002,
 																										2, 1),
@@ -129,26 +130,24 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 
 				_testText.Comments[0].TopComment = _testText.Comments[0];
 				_testText.Comments[1].TopComment = _testText.Comments[1];
-				SessionFactory<User>.Store(_user);
-				SessionFactory<StaticText>.Store(_testText);
+				TestProvider.Create<User>(_user);
+				TestProvider.Create<StaticText>(_testText);
 				foreach (var comment in _testText.Comments)
 				{
-					SessionFactory<Comment>.Store(comment);
+					TestProvider.Create<Comment>(comment);
 				}
 				tran.Commit();
 			}
 
-			WaitForIndexing();
+			TestProvider.WaitForIndexing();
 		}
 
-		[TestCleanup]
-		public void Cleanup()
+		public virtual void Cleanup()
 		{
-			TearDown();
+			TestProvider.TearDown();
 		}
 
-		[TestMethod]
-		public void Test_find_by_primary_key()
+		public virtual void Test_find_by_primary_key()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
@@ -174,8 +173,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 			}
 		}
 
-		[TestMethod]
-		public void Test_create()
+		public virtual void Test_create()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
@@ -243,15 +241,14 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 				Assert.AreEqual(subItem.ContentId, storedItem.ContentId);
 				Assert.AreEqual(subItem.ParentId, item.Id);
 
-				var realItem = SessionFactory<Comment>.Load(item.Id);
+				var realItem = TestProvider.GetById<Comment>(item.Id);
 				Assert.AreEqual((object) item.Id, realItem.TopComment.Id);
-				var realSubItem = SessionFactory<Comment>.Load(item.Id);
+				var realSubItem = TestProvider.GetById<Comment>(item.Id);
 				Assert.AreEqual((object) item.Id, realSubItem.TopComment.Id);
 			}
 		}
 
-		[TestMethod]
-		public void Test_update()
+		public virtual void Test_update()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
@@ -312,8 +309,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 			}
 		}
 
-		[TestMethod]
-		public void Test_delete()
+		public virtual void Test_delete()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
@@ -341,7 +337,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 					tran.Commit();
 				}
 
-				WaitForIndexing();
+				TestProvider.WaitForIndexing();
 
 				// check created item
 				var storedItem = crudActions.FindByPk(item.Id);
@@ -364,15 +360,13 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 					tran.Commit();
 				}
 
-				WaitForIndexing();
+				TestProvider.WaitForIndexing();
 
 				Assert.AreEqual(initialCommentCount, dataActions.GetAllForAdmin().Count());
 			}
 		}
 
-
-		[TestMethod]
-		public void Get_by_ids()
+		public virtual void Get_by_ids()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
@@ -396,8 +390,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 			}
 		}
 
-		[TestMethod]
-		public void GetAllFlat()
+		public virtual void GetAllFlat()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
@@ -427,8 +420,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 			}
 		}
 
-		[TestMethod]
-		public void GetAllFlatDesc()
+		public virtual void GetAllFlatDesc()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
@@ -458,8 +450,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 			}
 		}
 
-		[TestMethod]
-		public void GetAllTree()
+		public virtual void GetAllTree()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
@@ -491,8 +482,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 			}
 		}
 
-		[TestMethod]
-		public void GetAllAdmin()
+		public virtual void GetAllAdmin()
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
@@ -701,7 +691,7 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 				tran.Commit();
 			}
 
-			WaitForIndexing();
+			TestProvider.WaitForIndexing();
 		}
 	}
 }

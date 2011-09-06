@@ -22,6 +22,7 @@ namespace vlko.BlogModule.NH.Action
 		{
 			var staticText = new StaticText
 								 {
+									 Id = Guid.NewGuid(),
 									 Title = item.Title,
 									 FriendlyUrl = item.FriendlyUrl,
 									 CreatedDate = item.ChangeDate,
@@ -35,6 +36,7 @@ namespace vlko.BlogModule.NH.Action
 															  {
 																  new StaticTextVersion
 																	  {
+																		  Id = Guid.NewGuid(),
 																		  CreatedDate = item.ChangeDate,
 																		  CreatedBy = (User)item.Creator,
 																		  Text = item.Text,
@@ -125,6 +127,7 @@ namespace vlko.BlogModule.NH.Action
 			staticText.StaticTextVersions.Add(
 				new StaticTextVersion
 					{
+						Id = Guid.NewGuid(),
 						CreatedDate = item.ChangeDate,
 						CreatedBy = (User)item.Creator,
 						Text = item.Text,

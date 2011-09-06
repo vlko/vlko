@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.BlogModule.Tests.Repository.NRepository.Implementation;
+using vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation;
 
-namespace vlko.BlogModule.Tests.Repository.NRepository
+namespace vlko.BlogModule.NH.Tests.Repository.NRepository
 {
     [TestClass]
     public class NRepositoryQueryLinqTest : NBaseLocalRepositoryTest

@@ -21,6 +21,7 @@ namespace vlko.BlogModule.NH.Action
 		{
 			var feed = new RssFeed
 			           	{
+							Id = Guid.NewGuid(),
 			           		Name = item.Name,
 			           		AuthorRegex = item.AuthorRegex,
 			           		GetDirectContent = item.GetDirectContent,

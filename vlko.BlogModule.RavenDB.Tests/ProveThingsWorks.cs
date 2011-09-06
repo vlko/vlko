@@ -9,6 +9,7 @@ using vlko.BlogModule.RavenDB.Indexes.ReduceModelView;
 using vlko.BlogModule.Roots;
 using vlko.core.InversionOfControl;
 using vlko.core.RavenDB.Repository;
+using vlko.core.RavenDB.Testing;
 using vlko.core.Repository;
 
 namespace vlko.BlogModule.RavenDB.Tests

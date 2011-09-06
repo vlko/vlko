@@ -107,14 +107,15 @@ namespace vlko.BlogModule.NH.Action
 		{
 			var dbItem = SessionFactory<RssItem>.Queryable
 				.Where(rssItem => rssItem.FeedItemId == item.FeedItemId).FirstOrDefault();
-			
 
-			if (dbItem == null)
+			var exists = dbItem != null;
+
+			if (!exists)
 			{
 				var feed = SessionFactory<RssFeed>.FindByPrimaryKey(item.FeedId);
 				dbItem = new RssItem
 				         	{
-				         		Id = Guid.Empty,
+								Id = Guid.NewGuid(),
 				         		AreCommentAllowed = false,
 				         		RssFeed = feed,
 
@@ -131,7 +132,7 @@ namespace vlko.BlogModule.NH.Action
 			dbItem.Url = item.Url;
 			dbItem.FeedItemId = item.FeedItemId;
 
-			if (dbItem.Id == Guid.Empty)
+			if (!exists)
 			{
 				SessionFactory<RssItem>.Create(dbItem);
 			}

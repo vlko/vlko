@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace vlko.BlogModule.Tests.Repository.IOCResolved.Model
+namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Model
 {
 	public class Hotel
 	{

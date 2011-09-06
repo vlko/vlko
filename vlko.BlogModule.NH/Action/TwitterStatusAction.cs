@@ -56,6 +56,7 @@ namespace vlko.BlogModule.NH.Action
 		/// <returns>Created twitter status.</returns>
 		public TwitterStatus CreateStatus(TwitterStatus newStatus)
 		{
+			newStatus.Id = Guid.NewGuid();
 			newStatus.PublishDate = newStatus.CreatedDate;
 			SessionFactory<TwitterStatus>.Create(newStatus);
 			return newStatus;

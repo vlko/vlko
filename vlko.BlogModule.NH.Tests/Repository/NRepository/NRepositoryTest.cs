@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation;
 using vlko.core.Repository.Exceptions;
 using vlko.core.Repository.RepositoryAction;
-using vlko.BlogModule.Tests.Repository.NRepository.Implementation;
 
-namespace vlko.BlogModule.Tests.Repository.NRepository
+namespace vlko.BlogModule.NH.Tests.Repository.NRepository
 {
     [TestClass]
     public class NRepositoryTest : NBaseLocalRepositoryTest

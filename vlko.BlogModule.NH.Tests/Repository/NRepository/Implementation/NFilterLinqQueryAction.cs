@@ -2,7 +2,7 @@
 using vlko.core.NH.Repository;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Tests.Repository.NRepository.Implementation
+namespace vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation
 {
 	public class NFilterLinqQueryAction : BaseLinqQueryAction<NTestObject>
 	{

@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Twitterizer;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.ComplexHelpers.Twitter;
-using vlko.BlogModule.NH;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 
@@ -50,18 +49,17 @@ namespace vlko.BlogModule.Tests.Model
 			var authorizeUrl = action.GetAuthorizeUrl(new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret + "_to_fail"}, returnUrl);
 		}
 
-		// unable to reproduce this as user request is necessary
-		//[TestMethod]
-		//public void Test_get_o_auth_token()
-		//{
-		//    var action = RepositoryFactory.Action<ITwitterConnection>();
+		[TestMethod]
+		public void Test_get_o_auth_token()
+		{
+			var action = RepositoryFactory.Action<ITwitterConnection>();
 
-		//    var oAuthToken = action.GetOAuthToken(
-		//            new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret }, 
-		//            null, null);
+			var oAuthToken = action.GetOAuthToken(
+					new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret },
+					null, null);
 
-		//    Assert.IsNotNull(oAuthToken);
-		//}
+			Assert.IsNotNull(oAuthToken);
+		}
 
 		[TestMethod]
 		public void Test_is_token_valid()

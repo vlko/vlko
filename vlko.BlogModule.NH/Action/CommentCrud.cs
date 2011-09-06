@@ -23,6 +23,7 @@ namespace vlko.BlogModule.NH.Action
 			var content = SessionFactory<Content>.FindByPrimaryKey(item.ContentId);
 			var comment = new Comment()
 							  {
+								  Id = Guid.NewGuid(),
 								  Name = item.Name,
 								  Content = content,
 								  Owner = (User)item.ChangeUser,
@@ -33,6 +34,7 @@ namespace vlko.BlogModule.NH.Action
 														{
 															new CommentVersion
 																{
+																	Id = Guid.NewGuid(),
 																	CreatedDate = item.ChangeDate,
 																	CreatedBy = (User)item.ChangeUser,
 																	ClientIp = item.ClientIp,
@@ -130,6 +132,7 @@ namespace vlko.BlogModule.NH.Action
 			comment.CommentVersions.Add(
 				new CommentVersion()
 				{
+					Id = Guid.NewGuid(),
 					CreatedDate = item.ChangeDate,
 					CreatedBy = (User)item.ChangeUser,
 					ClientIp = item.ClientIp,

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.BlogModule.NH;
 using vlko.core.InversionOfControl;
 using vlko.core.NH;
 using vlko.core.NH.Repository;
 using vlko.core.NH.Testing;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Tests.Model
+namespace vlko.BlogModule.NH.Tests.Model
 {
 	[TestClass]
 	public class DbInitializationTest : InMemoryTest

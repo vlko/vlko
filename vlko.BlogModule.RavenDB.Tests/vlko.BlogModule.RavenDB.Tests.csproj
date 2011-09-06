@@ -103,9 +103,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Twitterizer2">
-      <HintPath>..\packages\twitterizer.2.3.2\lib\Twitterizer2.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -113,16 +110,14 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocalClientTest.cs" />
+    <Compile Include="Model\CommentActionTest.cs" />
     <Compile Include="Model\AppSettingActionTest.cs" />
-    <Compile Include="Model\CommentActions.cs" />
     <Compile Include="Model\RssFeedActionTest.cs" />
     <Compile Include="Model\RssItemActionTest.cs" />
     <Compile Include="Model\SearchActionsTest.cs" />
     <Compile Include="Model\StaticTextActions.cs" />
     <Compile Include="Model\SystemMessageActionTest.cs" />
     <Compile Include="Model\TimelineTest.cs" />
-    <Compile Include="Model\TwitteConnectionTest.cs" />
     <Compile Include="Model\TwitterStatusActionsTest.cs" />
     <Compile Include="Model\UserAuthenticationActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,6 +128,10 @@
     <ProjectReference Include="..\vlko.BlogModule.RavenDB\vlko.BlogModule.RavenDB.csproj">
       <Project>{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}</Project>
       <Name>vlko.BlogModule.RavenDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vlko.BlogModule.Tests\vlko.BlogModule.Tests.csproj">
+      <Project>{82E23EFB-9E50-4276-81FB-501A373F50D9}</Project>
+      <Name>vlko.BlogModule.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\vlko.BlogModule\vlko.BlogModule.csproj">
       <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>

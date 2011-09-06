@@ -1,15 +1,14 @@
-﻿using System.IO;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Embedded;
 using Raven.Database.Extensions;
-using vlko.core.RavenDB;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.RavenDB.Tests
+namespace vlko.core.RavenDB.Testing
 {
 	public abstract class LocalClientTest
 	{

@@ -6,7 +6,7 @@ using vlko.core.Repository;
 using vlko.core.Repository.RepositoryAction;
 using ITransaction = vlko.core.Repository.ITransaction;
 
-namespace vlko.BlogModule.Tests.Repository.NRepository.Implementation
+namespace vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation
 {
     public class NLocalFactoryResolver : IRepositoryFactoryResolver
     {

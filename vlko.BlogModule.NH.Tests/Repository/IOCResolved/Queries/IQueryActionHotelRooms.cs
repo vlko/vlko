@@ -1,7 +1,7 @@
-﻿using vlko.core.Repository;
-using vlko.BlogModule.Tests.Repository.IOCResolved.Model;
+﻿using vlko.BlogModule.NH.Tests.Repository.IOCResolved.Model;
+using vlko.core.Repository;
 
-namespace vlko.BlogModule.Tests.Repository.IOCResolved.Queries
+namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
 	public interface IQueryActionHotelRooms : IAction<Room>
     {

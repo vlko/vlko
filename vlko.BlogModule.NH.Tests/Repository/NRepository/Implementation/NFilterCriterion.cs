@@ -1,7 +1,7 @@
 ﻿using NHibernate.Criterion;
 using vlko.core.NH.Repository;
 
-namespace vlko.BlogModule.Tests.Repository.NRepository.Implementation
+namespace vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation
 {
     public class NFilterCriterion : BaseCriterionQueryAction<NTestObject>
     {

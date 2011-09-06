@@ -1,7 +1,7 @@
 ﻿using vlko.core.NH.Repository;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Tests.Repository.IOCResolved.Queries
+namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
     public class QueryActionAllLinq<T> : BaseCriterionQueryAction<T>, IQueryActionAll<T> where T : class
     {

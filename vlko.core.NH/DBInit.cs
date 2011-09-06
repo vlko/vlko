@@ -43,7 +43,7 @@ namespace vlko.core.NH
 			mapper.AddPropertyPattern(mi => mi.GetPropertyOrFieldType() == typeof(string) && !mi.Name.EndsWith("Text"), pm => pm.Length(50));
 			mapper.AddPropertyPattern(mi => mi.GetPropertyOrFieldType() == typeof(string) && mi.Name.EndsWith("Text"), pm => pm.Type(NHibernateUtil.StringClob));
 
-			orm.Patterns.PoidStrategies.Add(new GuidOptimizedPoidPattern());
+			orm.Patterns.PoidStrategies.Add(new AssignedPoidPattern());
 
 			foreach (var componentDbInit in IoC.ResolveAllInstances<IComponentDbInit>())
 			{

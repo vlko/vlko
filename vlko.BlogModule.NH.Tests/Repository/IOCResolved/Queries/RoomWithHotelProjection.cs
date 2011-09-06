@@ -1,4 +1,4 @@
-﻿namespace vlko.BlogModule.Tests.Repository.IOCResolved.Queries
+﻿namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
     public class RoomWithHotelProjection
     {

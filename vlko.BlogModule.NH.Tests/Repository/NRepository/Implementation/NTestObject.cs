@@ -1,5 +1,5 @@
 ﻿
-namespace vlko.BlogModule.Tests.Repository.NRepository.Implementation
+namespace vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation
 {
 	public enum TypeEnum
 	{

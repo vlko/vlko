@@ -1,8 +1,8 @@
 ﻿using System;
+using vlko.BlogModule.NH.Tests.Repository.IOCResolved.Model;
 using vlko.core.Repository;
-using vlko.BlogModule.Tests.Repository.IOCResolved.Model;
 
-namespace vlko.BlogModule.Tests.Repository.IOCResolved.Queries
+namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
 	public interface IQueryActionReservationForDay : IAction<Reservation>
     {

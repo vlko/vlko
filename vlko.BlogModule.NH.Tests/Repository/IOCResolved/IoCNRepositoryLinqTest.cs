@@ -8,15 +8,15 @@ using ConfOrm.Patterns;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Tool.hbm2ddl;
-using vlko.BlogModule.Tests.Repository.IOCResolved.Queries;
+using vlko.BlogModule.NH.Tests.Repository.IOCResolved.Model;
+using vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries;
 using vlko.core.InversionOfControl;
-using vlko.BlogModule.Tests.Repository.IOCResolved.Model;
 using vlko.core.NH.Repository;
 using vlko.core.NH.Repository.RepositoryAction;
 using vlko.core.NH.Testing;
 using vlko.core.Repository.RepositoryAction;
 
-namespace vlko.BlogModule.Tests.Repository.IOCResolved
+namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
 {
 	[TestClass]
 	public class IoCNRepositoryLinqTest : InMemoryTest

@@ -5,7 +5,7 @@ using Rhino.Mocks.Constraints;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
 
-namespace vlko.BlogModule.Tests
+namespace vlko.BlogModule.RavenDB.Tests
 {
     [TestClass]
     public class QueryTest

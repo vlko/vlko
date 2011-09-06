@@ -1,6 +1,6 @@
 ﻿using vlko.core.Repository;
 
-namespace vlko.BlogModule.Tests.Repository.IOCResolved.Queries
+namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
     public interface IQueryActionAll<T> : IAction<T> where T : class
     {

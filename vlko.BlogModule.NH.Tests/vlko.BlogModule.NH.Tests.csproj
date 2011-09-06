@@ -51,9 +51,6 @@
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.3.5.8\lib\35\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="NHibernate, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NHibernate.3.1.0.4000\lib\Net35\NHibernate.dll</HintPath>
@@ -79,9 +76,6 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="Twitterizer2">
-      <HintPath>..\packages\twitterizer.2.3.2\lib\Twitterizer2.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -91,7 +85,7 @@
   <ItemGroup>
     <Compile Include="Base\SettingTest.cs" />
     <Compile Include="Model\AppSettingActionTest.cs" />
-    <Compile Include="Model\CommentActions.cs" />
+    <Compile Include="Model\CommentActionTest.cs" />
     <Compile Include="Model\DBInitializationTest.cs" />
     <Compile Include="Model\RssFeedActionTest.cs" />
     <Compile Include="Model\RssItemActionTest.cs" />
@@ -99,7 +93,6 @@
     <Compile Include="Model\StaticTextActions.cs" />
     <Compile Include="Model\SystemMessageActionTest.cs" />
     <Compile Include="Model\TimelineTest.cs" />
-    <Compile Include="Model\TwitteConnectionTest.cs" />
     <Compile Include="Model\TwitterStatusActionsTest.cs" />
     <Compile Include="Model\UserAuthenticationActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,6 +134,10 @@
     <ProjectReference Include="..\vlko.BlogModule.NH\vlko.BlogModule.NH.csproj">
       <Project>{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}</Project>
       <Name>vlko.BlogModule.NH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vlko.BlogModule.Tests\vlko.BlogModule.Tests.csproj">
+      <Project>{82E23EFB-9E50-4276-81FB-501A373F50D9}</Project>
+      <Name>vlko.BlogModule.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\vlko.BlogModule\vlko.BlogModule.csproj">
       <Project>{2D2F6A81-4568-4861-B3CE-E798B46671AB}</Project>

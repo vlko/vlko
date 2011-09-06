@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using vlko.BlogModule.NH.Tests.Repository.IOCResolved.Model;
+using vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries;
 using vlko.core.NH.Repository;
 using vlko.core.Repository;
 using vlko.core.Repository.RepositoryAction;
-using vlko.BlogModule.Tests.Repository.IOCResolved.Model;
-using vlko.BlogModule.Tests.Repository.IOCResolved.Queries;
 
-namespace vlko.BlogModule.Tests.Repository.IOCResolved
+namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
 {
     public class BaseTest
     {

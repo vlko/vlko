@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.NH", "vlko.core.N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.RavenDB", "vlko.core.RavenDB\vlko.core.RavenDB.csproj", "{C354C632-E30B-480A-A2F3-4D1D573DB71B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.Tests", "vlko.BlogModule.Tests\vlko.BlogModule.Tests.csproj", "{82E23EFB-9E50-4276-81FB-501A373F50D9}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = vlko.vsmdi
@@ -82,6 +84,10 @@ Global
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82E23EFB-9E50-4276-81FB-501A373F50D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82E23EFB-9E50-4276-81FB-501A373F50D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E23EFB-9E50-4276-81FB-501A373F50D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82E23EFB-9E50-4276-81FB-501A373F50D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
