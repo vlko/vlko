@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace vlko.BlogModule.Action.ComplexHelpers.Rss
+namespace vlko.BlogModule.Commands.ComplexHelpers.Rss
 {
 	public class RssItemRawData
 	{

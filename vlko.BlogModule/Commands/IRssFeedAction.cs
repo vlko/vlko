@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using vlko.BlogModule.Action.CRUDModel;
-using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Commands.CRUDModel;
+using vlko.BlogModule.Commands.ViewModel;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
 
-namespace vlko.BlogModule.Action
+namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
 	public interface IRssFeedCommands : ICommandGroup<RssFeed>

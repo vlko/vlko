@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Commands.ViewModel;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Action
+namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
 	public interface IStaticTextData : ICommandGroup<StaticText>

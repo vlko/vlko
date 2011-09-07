@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Security.Application;
 using Twitterizer;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ComplexHelpers.Twitter;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
 using vlko.core.Repository;
 using TwitterStatus = vlko.BlogModule.Roots.TwitterStatus;
 

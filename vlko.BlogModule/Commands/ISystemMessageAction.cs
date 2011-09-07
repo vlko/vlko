@@ -2,7 +2,7 @@
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Action
+namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
 	public interface ISystemMessageCommands : ICommandGroup<SystemMessage>

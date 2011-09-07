@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Raven.Client.Indexes;
-using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.RavenDB.Indexes.ReduceModelView;
 using vlko.BlogModule.Roots;
 

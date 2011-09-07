@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace vlko.BlogModule.Action.CRUDModel
+namespace vlko.BlogModule.Commands.CRUDModel
 {
 	public class RssItemCRUDModel
 	{

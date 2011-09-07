@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ViewModel;
 using vlko.BlogModule.Roots;
 using vlko.core.NH.Repository;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.NH.Action
+namespace vlko.BlogModule.NH.Commands
 {
 	public class CommentData : CommandGroup<Comment>, ICommentData
 	{

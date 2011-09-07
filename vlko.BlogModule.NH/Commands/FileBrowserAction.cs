@@ -5,11 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using NLog;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ViewModel;
 using vlko.core.Services;
 
-namespace vlko.BlogModule.NH.Action
+namespace vlko.BlogModule.NH.Commands
 {
 	public class FileBrowserAction : IFileBrowserAction
 	{

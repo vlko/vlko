@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.CRUDModel;
+using vlko.BlogModule.Commands.ViewModel;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.Components;
@@ -9,9 +12,6 @@ using vlko.core.Repository;
 using vlko.core.Tools;
 using vlko.core.ValidationAtribute;
 using vlko.BlogModule;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
-using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.Search;
 using vlko.web.ViewModel.Page;
 

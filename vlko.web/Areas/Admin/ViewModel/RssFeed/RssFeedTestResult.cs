@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Commands.CRUDModel;
 
 namespace vlko.web.Areas.Admin.ViewModel.RssFeed
 {

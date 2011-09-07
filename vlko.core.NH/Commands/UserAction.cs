@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using vlko.core.Action;
+using vlko.core.Commands;
 using vlko.core.NH.Repository;
 using vlko.core.Repository;
 using vlko.core.Roots;
 
-namespace vlko.core.NH.Action
+namespace vlko.core.NH.Commands
 {
 	public class UserCommands : CommandGroup<User>, IUserCommands
 	{

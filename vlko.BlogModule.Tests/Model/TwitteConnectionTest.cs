@@ -2,8 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using Twitterizer;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ComplexHelpers.Twitter;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
 using vlko.BlogModule.Implementation.OtherTech.Action;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;

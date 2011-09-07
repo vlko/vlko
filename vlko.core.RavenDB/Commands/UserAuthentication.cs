@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
-using vlko.core.Action;
+using vlko.core.Commands;
 using vlko.core.RavenDB.Indexes;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.core.Roots;
 
-namespace vlko.core.RavenDB.Action
+namespace vlko.core.RavenDB.Commands
 {
 	public class UserAuthentication : CommandGroup<User>, IUserAuthentication
 	{

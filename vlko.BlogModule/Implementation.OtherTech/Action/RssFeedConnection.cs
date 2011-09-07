@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.ServiceModel.Syndication;
 using System.Xml;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ComplexHelpers.Rss;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ComplexHelpers.Rss;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 

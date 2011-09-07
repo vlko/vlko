@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
-using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Commands.ViewModel;
 
-namespace vlko.BlogModule.Action
+namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
     public interface IFileBrowserAction

@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.BlogModule.RavenDB.Action;
 using vlko.BlogModule.Tests.Model;
-using vlko.core.Action;
 using vlko.core.InversionOfControl;
-using vlko.core.RavenDB.Action;
 using vlko.core.RavenDB.Testing;
 using vlko.core.Repository;
 using vlko.core.Roots;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
-using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.Roots;
 
 namespace vlko.BlogModule.RavenDB.Tests.Model

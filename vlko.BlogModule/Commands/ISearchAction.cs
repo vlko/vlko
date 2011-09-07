@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.Composition;
-using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Commands.CRUDModel;
 using vlko.BlogModule.Roots;
 using vlko.BlogModule.Search;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Action
+namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
 	public interface ISearchCommands : ICommandGroup<SearchRoot>

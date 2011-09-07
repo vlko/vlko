@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using vlko.BlogModule;
-using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Commands.ViewModel;
 
 namespace vlko.web.Areas.Admin.ViewModel.FileBrowser
 {

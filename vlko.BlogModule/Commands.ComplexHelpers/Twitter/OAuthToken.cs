@@ -1,4 +1,4 @@
-﻿namespace vlko.BlogModule.Action.ComplexHelpers.Twitter
+﻿namespace vlko.BlogModule.Commands.ComplexHelpers.Twitter
 {
 	
 	public class OAuthToken : ConsumerAppIdent

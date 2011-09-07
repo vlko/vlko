@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ComplexHelpers.Twitter;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
 using vlko.BlogModule.Roots;
 using vlko.BlogModule.Search;
 using vlko.core.Base.Scheduler;

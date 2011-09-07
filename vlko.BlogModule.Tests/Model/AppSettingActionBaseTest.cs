@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core.Action;
-using vlko.core.Action.Model;
+using vlko.core.Commands;
+using vlko.core.Commands.Model;
 using vlko.core.Repository;
 using vlko.core.Roots;
 using vlko.core.Testing;

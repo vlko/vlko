@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using vlko.core.Roots;
 using vlko.core.ValidationAtribute;
 
-namespace vlko.BlogModule.Action.CRUDModel
+namespace vlko.BlogModule.Commands.CRUDModel
 {
 	public class StaticTextCRUDModel
 	{

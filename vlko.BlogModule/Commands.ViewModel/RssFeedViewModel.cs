@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace vlko.BlogModule.Action.ViewModel
+namespace vlko.BlogModule.Commands.ViewModel
 {
 	public class RssFeedViewModel
 	{

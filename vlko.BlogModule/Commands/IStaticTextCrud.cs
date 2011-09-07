@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Commands.CRUDModel;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
 
-namespace vlko.BlogModule.Action
+namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
     public interface IStaticTextCrud : ICommandGroup<StaticText>

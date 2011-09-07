@@ -2,12 +2,12 @@
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
-using vlko.core.Action;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.CRUDModel;
+using vlko.BlogModule.Commands.ViewModel;
+using vlko.core.Commands;
 using vlko.core.Components;
 using vlko.core.Repository;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
-using vlko.BlogModule.Action.ViewModel;
 using vlko.web.Controllers;
 using vlko.web.ViewModel.Page;
 

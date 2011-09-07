@@ -2,7 +2,7 @@
 using vlko.core.Repository;
 using vlko.core.Roots;
 
-namespace vlko.core.Action
+namespace vlko.core.Commands
 {
 	[InheritedExport]
 	public interface IUserCommands : ICommandGroup<User>

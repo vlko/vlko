@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ViewModel;
 using vlko.core.Base;
 using vlko.core.InversionOfControl;
 using vlko.core.ValidationAtribute;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ViewModel;
 using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 
 namespace vlko.web.Areas.Admin.Controllers

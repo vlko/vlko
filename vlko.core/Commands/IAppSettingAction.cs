@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.Composition;
+using vlko.core.Commands.Model;
 using vlko.core.Repository;
 using vlko.core.Roots;
-using vlko.core.Action.Model;
 
-namespace vlko.core.Action
+namespace vlko.core.Commands
 {
 	[InheritedExport]
 	public interface IAppSettingCommands : ICommandGroup<AppSetting>

@@ -4,7 +4,7 @@ using System.ComponentModel.Composition;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Action
+namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
 	public interface ITwitterStatusCommands : ICommandGroup<TwitterStatus>

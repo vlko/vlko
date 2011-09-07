@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using vlko.core.Action;
 using vlko.core.Authentication;
 using vlko.core.Base;
+using vlko.core.Commands;
 using vlko.core.InversionOfControl;
-using vlko.BlogModule.Action;
 using vlko.web.ViewModel.Account;
 using ChangePasswordModel = vlko.web.ViewModel.Account.ChangePasswordModel;
 using LogOnModel = vlko.web.ViewModel.Account.LogOnModel;

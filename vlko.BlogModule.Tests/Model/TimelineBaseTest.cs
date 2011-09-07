@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core.Action;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.CRUDModel;
+using vlko.BlogModule.Commands.ViewModel;
+using vlko.core.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.core.Roots;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
-using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.Roots;
 using vlko.core.Testing;
 

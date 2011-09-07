@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using vlko.BlogModule.Commands;
 using vlko.core.Base;
 using vlko.core.Repository;
-using vlko.BlogModule.Action;
 
 namespace vlko.web.Controllers
 {

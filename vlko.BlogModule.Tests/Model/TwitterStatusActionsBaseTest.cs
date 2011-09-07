@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using vlko.BlogModule.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
-using vlko.BlogModule.Action;
 using vlko.BlogModule.Roots;
 using vlko.core.Roots;
 using vlko.core.Testing;

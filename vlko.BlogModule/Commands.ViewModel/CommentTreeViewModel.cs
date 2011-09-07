@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace vlko.BlogModule.Action.ViewModel
+namespace vlko.BlogModule.Commands.ViewModel
 {
 	public class CommentTreeViewModel : CommentViewModel
 	{

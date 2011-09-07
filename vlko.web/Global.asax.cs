@@ -9,14 +9,14 @@ using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NLog;
 using Raven.Client.Embedded;
-using vlko.core.Action;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.CRUDModel;
 using vlko.core.Base.Scheduler.Setting;
+using vlko.core.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.BlogModule;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
 using vlko.BlogModule.Search;
 using Settings = vlko.BlogModule.Settings;
 

@@ -5,14 +5,10 @@ using System.Reflection;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using vlko.BlogModule.Tests.Model;
-using vlko.core.Action;
 using vlko.core.InversionOfControl;
 using vlko.core.NH.Testing;
 using vlko.core.Repository;
 using vlko.core.Roots;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
-using vlko.BlogModule.Action.ViewModel;
 using vlko.BlogModule.Roots;
 using vlko.BlogModule.Search;
 

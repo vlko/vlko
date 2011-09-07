@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.InversionOfControl;
@@ -10,8 +12,6 @@ using vlko.core.Repository;
 using vlko.core.Services;
 using vlko.core.ValidationAtribute;
 using vlko.BlogModule;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ComplexHelpers.Twitter;
 
 namespace vlko.web.Areas.Admin.Controllers
 {

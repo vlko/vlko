@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using NLog;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ViewModel;
 using vlko.core.Services;
 using System.ComponentModel.Composition;
 
-namespace vlko.BlogModule.RavenDB.Action
+namespace vlko.BlogModule.RavenDB.Commands
 {
     public class FileBrowserAction : IFileBrowserAction
     {

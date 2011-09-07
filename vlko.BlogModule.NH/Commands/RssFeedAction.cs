@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
-using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.CRUDModel;
+using vlko.BlogModule.Commands.ViewModel;
 using vlko.BlogModule.Roots;
 using vlko.core.NH.Repository;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
 
-namespace vlko.BlogModule.NH.Action
+namespace vlko.BlogModule.NH.Commands
 {
 	public class RssFeedCommands : CommandGroup<RssFeed>, IRssFeedCommands
 	{

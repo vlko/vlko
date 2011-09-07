@@ -5,7 +5,6 @@ using vlko.core.InversionOfControl;
 using vlko.core.NH.Repository;
 using vlko.core.NH.Testing;
 using vlko.core.Repository;
-using vlko.BlogModule.Action;
 using vlko.BlogModule.Roots;
 using vlko.BlogModule.Tests.Model;
 

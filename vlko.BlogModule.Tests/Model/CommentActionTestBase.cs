@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.CRUDModel;
 using vlko.core.Repository;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
 using vlko.BlogModule.Roots;
 using vlko.core.Roots;
 using vlko.core.Testing;

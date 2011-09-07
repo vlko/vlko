@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core.Action;
 using vlko.core.Authentication;
+using vlko.core.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 using vlko.BlogModule.Roots;

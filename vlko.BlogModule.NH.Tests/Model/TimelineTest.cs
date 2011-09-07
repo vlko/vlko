@@ -6,12 +6,7 @@ using vlko.core.InversionOfControl;
 using vlko.core.NH.Testing;
 using vlko.core.Repository;
 using vlko.core.Roots;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
-using vlko.BlogModule.Action.ViewModel;
-using vlko.BlogModule.NH.Action;
 using vlko.BlogModule.Roots;
-using vlko.core.Action;
 
 namespace vlko.BlogModule.NH.Tests.Model
 {

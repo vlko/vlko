@@ -1,10 +1,10 @@
 ﻿using System;
-using vlko.BlogModule.Action;
+using vlko.BlogModule.Commands;
 using vlko.BlogModule.Roots;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.RavenDB.Action
+namespace vlko.BlogModule.RavenDB.Commands
 {
 	public class SystemMessageCommands : CommandGroup<SystemMessage>, ISystemMessageCommands
 	{

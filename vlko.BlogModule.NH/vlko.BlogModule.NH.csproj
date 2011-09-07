@@ -72,16 +72,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Query\CommentCrud.cs" />
-    <Compile Include="Query\CommentData.cs" />
-    <Compile Include="Query\FileBrowserAction.cs" />
-    <Compile Include="Query\RssFeedAction.cs" />
-    <Compile Include="Query\RssItemAction.cs" />
-    <Compile Include="Query\StaticTextCrud.cs" />
-    <Compile Include="Query\StaticTextData.cs" />
-    <Compile Include="Query\SystemMessageAction.cs" />
-    <Compile Include="Query\Timeline.cs" />
-    <Compile Include="Query\TwitterStatusAction.cs" />
+    <Compile Include="Commands\CommentCrud.cs" />
+    <Compile Include="Commands\CommentData.cs" />
+    <Compile Include="Commands\FileBrowserAction.cs" />
+    <Compile Include="Commands\RssFeedAction.cs" />
+    <Compile Include="Commands\RssItemAction.cs" />
+    <Compile Include="Commands\StaticTextCrud.cs" />
+    <Compile Include="Commands\StaticTextData.cs" />
+    <Compile Include="Commands\SystemMessageAction.cs" />
+    <Compile Include="Commands\Timeline.cs" />
+    <Compile Include="Commands\TwitterStatusAction.cs" />
     <Compile Include="ApplicationInit.cs" />
     <Compile Include="ComponentDbInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

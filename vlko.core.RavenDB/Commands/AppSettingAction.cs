@@ -1,10 +1,10 @@
-﻿using vlko.core.Action;
-using vlko.core.Action.Model;
+﻿using vlko.core.Commands;
+using vlko.core.Commands.Model;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Roots;
 using vlko.core.Repository;
 
-namespace vlko.core.RavenDB.Action
+namespace vlko.core.RavenDB.Commands
 {
 	public class AppSettingCommands : CommandGroup<AppSetting>, IAppSettingCommands
 	{

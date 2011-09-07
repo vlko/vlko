@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.CRUDModel;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.CRUDModel;
 using vlko.BlogModule.Roots;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
 using vlko.core.Roots;
 
-namespace vlko.BlogModule.RavenDB.Action
+namespace vlko.BlogModule.RavenDB.Commands
 {
 	public class CommentCrud : CommandGroup<Comment>, ICommentCrud
 	{

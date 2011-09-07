@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Principal;
-using vlko.core.Action;
 using vlko.core.Roots;
 
 namespace vlko.core.Authentication

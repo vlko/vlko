@@ -1,7 +1,7 @@
 ﻿using System;
 using vlko.BlogModule.Roots;
 
-namespace vlko.BlogModule.Action.ViewModel
+namespace vlko.BlogModule.Commands.ViewModel
 {
 	public class CommentForAdminViewModel : CommentViewModel
 	{

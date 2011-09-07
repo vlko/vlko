@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using vlko.BlogModule.Roots;
 using vlko.core.Roots;
 
-namespace vlko.BlogModule.Action.ViewModel
+namespace vlko.BlogModule.Commands.ViewModel
 {
 	public class StaticTextViewModel
 	{

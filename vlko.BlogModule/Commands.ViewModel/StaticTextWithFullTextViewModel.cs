@@ -1,4 +1,4 @@
-﻿namespace vlko.BlogModule.Action.ViewModel
+﻿namespace vlko.BlogModule.Commands.ViewModel
 {
 	public class StaticTextWithFullTextViewModel : StaticTextViewModel
 	{

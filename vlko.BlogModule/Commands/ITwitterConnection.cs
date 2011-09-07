@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.Composition;
-using vlko.BlogModule.Action.ComplexHelpers.Twitter;
+using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Action
+namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
 	public interface ITwitterConnection : ICommandGroup<TwitterStatus>

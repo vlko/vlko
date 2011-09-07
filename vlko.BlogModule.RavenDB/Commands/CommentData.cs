@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using vlko.BlogModule.Action;
-using vlko.BlogModule.Action.ViewModel;
+using vlko.BlogModule.Commands;
+using vlko.BlogModule.Commands.ViewModel;
 using vlko.BlogModule.RavenDB.Indexes;
 using vlko.BlogModule.Roots;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.RavenDB.Action
+namespace vlko.BlogModule.RavenDB.Commands
 {
 	public class CommentData : CommandGroup<Comment>, ICommentData
 	{

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.Composition;
-using vlko.BlogModule.Action.ComplexHelpers.Rss;
+using vlko.BlogModule.Commands.ComplexHelpers.Rss;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Action
+namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
 	public interface IRssFeedConnection : ICommandGroup<RssFeed>

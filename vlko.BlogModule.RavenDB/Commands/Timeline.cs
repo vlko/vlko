@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Raven.Client.Linq;
-using vlko.BlogModule.Action;
+using vlko.BlogModule.Commands;
 using vlko.BlogModule.RavenDB.Indexes;
 using vlko.BlogModule.Roots;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 
-
-namespace vlko.BlogModule.RavenDB.Action
+namespace vlko.BlogModule.RavenDB.Commands
 {
 	public class Timeline : CommandGroup<Content>, ITimeline
 	{

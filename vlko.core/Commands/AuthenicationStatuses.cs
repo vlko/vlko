@@ -1,4 +1,4 @@
-﻿namespace vlko.core.Action
+﻿namespace vlko.core.Commands
 {
     public enum CreateUserStatus
     {
