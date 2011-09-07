@@ -11,7 +11,7 @@ using vlko.core.Services;
 
 namespace vlko.BlogModule.NH.Commands
 {
-	public class FileBrowserAction : IFileBrowserAction
+	public class FileBrowserCommands : IFileBrowserCommands
 	{
 		private readonly IAppInfoService _appInfo;
 		public readonly string UserDirectoryName = "user_content";
@@ -43,11 +43,11 @@ namespace vlko.BlogModule.NH.Commands
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="FileBrowserAction"/> class.
+		/// Initializes a new instance of the <see cref="FileBrowserCommands"/> class.
 		/// </summary>
 		/// <param name="appInfo">The app info.</param>
 		[ImportingConstructor]
-		public FileBrowserAction(IAppInfoService appInfo)
+		public FileBrowserCommands(IAppInfoService appInfo)
 		{
 			_appInfo = appInfo;
 		}

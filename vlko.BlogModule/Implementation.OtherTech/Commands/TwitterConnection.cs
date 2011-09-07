@@ -9,7 +9,7 @@ using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
 using vlko.core.Repository;
 using TwitterStatus = vlko.BlogModule.Roots.TwitterStatus;
 
-namespace vlko.BlogModule.Implementation.OtherTech.Action
+namespace vlko.BlogModule.Implementation.OtherTech.Commands
 {
 	public class TwitterConnection : CommandGroup<TwitterStatus>, ITwitterConnection
 	{

@@ -70,10 +70,10 @@ namespace vlko.web.Tests.Controllers.Admin
 				                            	});
 				tran.Commit();
 			}
-			IoC.AddRerouting<IFileBrowserAction>(() =>
+			IoC.AddRerouting<IFileBrowserCommands>(() =>
 			{
 				var appInfo = IoC.Resolve<IAppInfoService>();
-				return new FileBrowserAction(appInfo);
+				return new FileBrowserCommands(appInfo);
 			});
 			IoC.AddRerouting<IAppInfoService>(() => new AppInfoServiceMock());
 		}

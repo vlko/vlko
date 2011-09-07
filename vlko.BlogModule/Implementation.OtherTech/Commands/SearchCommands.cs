@@ -10,7 +10,7 @@ using vlko.BlogModule.Roots;
 using vlko.BlogModule.Search;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Implementation.OtherTech.Action
+namespace vlko.BlogModule.Implementation.OtherTech.Commands
 {
 	public class SearchCommands :  CommandGroup<SearchRoot>, ISearchCommands
 	{

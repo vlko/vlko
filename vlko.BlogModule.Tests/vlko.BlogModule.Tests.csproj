@@ -63,17 +63,17 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\AppSettingActionBaseTest.cs" />
-    <Compile Include="Model\CommentActionTestBase.cs" />
-    <Compile Include="Model\RssFeedActionBaseTest.cs" />
-    <Compile Include="Model\RssItemActionBaseTest.cs" />
-    <Compile Include="Model\SearchActionsBaseTest.cs" />
-    <Compile Include="Model\StaticTextBaseActions.cs" />
-    <Compile Include="Model\SystemMessageActionBaseTest.cs" />
+    <Compile Include="Model\AppSettingCommandsBaseTest.cs" />
+    <Compile Include="Model\CommentCommandsBaseTest.cs" />
+    <Compile Include="Model\RssFeedCommandsBaseTest.cs" />
+    <Compile Include="Model\RssItemCommandsBaseTest.cs" />
+    <Compile Include="Model\SearchCommandsBaseTest.cs" />
+    <Compile Include="Model\StaticTextCommandsBaseTest.cs" />
+    <Compile Include="Model\SystemMessageCommandsBaseTest.cs" />
     <Compile Include="Model\TimelineBaseTest.cs" />
     <Compile Include="Model\TwitteConnectionTest.cs" />
-    <Compile Include="Model\TwitterStatusActionsBaseTest.cs" />
-    <Compile Include="Model\UserAuthenticationActions.cs" />
+    <Compile Include="Model\TwitterStatusCommandsBaseTest.cs" />
+    <Compile Include="Model\UserAuthenticationBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

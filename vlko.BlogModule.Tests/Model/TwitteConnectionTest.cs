@@ -4,7 +4,7 @@ using Rhino.Mocks;
 using Twitterizer;
 using vlko.BlogModule.Commands;
 using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
-using vlko.BlogModule.Implementation.OtherTech.command;
+using vlko.BlogModule.Implementation.OtherTech.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 

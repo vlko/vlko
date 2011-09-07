@@ -110,16 +110,16 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\CommentActionTest.cs" />
-    <Compile Include="Model\AppSettingActionTest.cs" />
-    <Compile Include="Model\RssFeedActionTest.cs" />
-    <Compile Include="Model\RssItemActionTest.cs" />
-    <Compile Include="Model\SearchActionsTest.cs" />
-    <Compile Include="Model\StaticTextActions.cs" />
-    <Compile Include="Model\SystemMessageActionTest.cs" />
+    <Compile Include="Model\CommentCommandsTest.cs" />
+    <Compile Include="Model\AppSettingCommandsTest.cs" />
+    <Compile Include="Model\RssFeedCommandsTest.cs" />
+    <Compile Include="Model\RssItemCommandsTest.cs" />
+    <Compile Include="Model\SearchCommandsTest.cs" />
+    <Compile Include="Model\StaticTextCommandsTest.cs" />
+    <Compile Include="Model\SystemMessageCommandsTest.cs" />
     <Compile Include="Model\TimelineTest.cs" />
-    <Compile Include="Model\TwitterStatusActionsTest.cs" />
-    <Compile Include="Model\UserAuthenticationActions.cs" />
+    <Compile Include="Model\TwitterStatusCommandsTest.cs" />
+    <Compile Include="Model\UserAuthenticationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProveThingsWorks.cs" />
     <Compile Include="QueryTest.cs" />

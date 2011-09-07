@@ -94,7 +94,7 @@
     <Compile Include="Implementation.OtherTech\Commands\SearchCommands.cs" />
     <Compile Include="Commands\ICommentCrud.cs" />
     <Compile Include="Commands\ICommentData.cs" />
-    <Compile Include="Commands\IFileBrowserAction.cs" />
+    <Compile Include="Commands\IFileBrowserCommands.cs" />
     <Compile Include="Commands\ISearchCommands.cs" />
     <Compile Include="Commands\IStaticTextCrud.cs" />
     <Compile Include="Commands\IStaticTextData.cs" />

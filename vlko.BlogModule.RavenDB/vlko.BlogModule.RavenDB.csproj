@@ -107,7 +107,7 @@
   <ItemGroup>
     <Compile Include="Commands\CommentCrud.cs" />
     <Compile Include="Commands\CommentData.cs" />
-    <Compile Include="Commands\FileBrowserAction.cs">
+    <Compile Include="Commands\FileBrowserCommands.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\RssFeedCommands.cs" />

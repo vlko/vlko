@@ -9,7 +9,7 @@ using vlko.BlogModule.Commands.ComplexHelpers.Rss;
 using vlko.BlogModule.Roots;
 using vlko.core.Repository;
 
-namespace vlko.BlogModule.Implementation.OtherTech.Action
+namespace vlko.BlogModule.Implementation.OtherTech.Commands
 {
 	public class RssFeedConnection : CommandGroup<RssFeed>, IRssFeedConnection
 	{

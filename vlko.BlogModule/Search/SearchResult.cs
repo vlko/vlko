@@ -4,8 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using Lucene.Net.Search;
 using vlko.BlogModule.Commands;
+using vlko.BlogModule.Implementation.OtherTech.Commands;
 using vlko.core.Repository;
-using vlko.BlogModule.Implementation.OtherTech.Action;
 
 namespace vlko.BlogModule.Search
 {

@@ -20,7 +20,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Index()
 		{
-			var files = IoC.Resolve<IFileBrowserAction>().GetAllUserFileInfos(User.Identity.Name);
+			var files = IoC.Resolve<IFileBrowserCommands>().GetAllUserFileInfos(User.Identity.Name);
 			return ViewWithAjax(new FileBrowserViewModel
 							{
 								UserFiles = files
@@ -35,7 +35,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		public ActionResult Delete(string ident)
 		{
 			return ViewWithAjax(
-				IoC.Resolve<IFileBrowserAction>()
+				IoC.Resolve<IFileBrowserCommands>()
 					.GetFileInfo(User.Identity.Name, ident));
 		}
 
@@ -47,7 +47,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		[HttpPost]
 		public ActionResult Delete(FileViewModel model)
 		{
-			if (!IoC.Resolve<IFileBrowserAction>()
+			if (!IoC.Resolve<IFileBrowserCommands>()
 				.DeleteFile(User.Identity.Name, model.Ident))
 			{
 				ModelState.AddModelError(string.Empty, vlko.BlogModule.ModelResources.FileDeleteFailedError);
@@ -63,7 +63,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		[HttpPost]
 		public ActionResult Upload(HttpPostedFileBase file)
 		{
-			var fileBrowserActions = IoC.Resolve<IFileBrowserAction>();
+			var fileBrowserActions = IoC.Resolve<IFileBrowserCommands>();
 
 			var model = new FileBrowserViewModel
 							{

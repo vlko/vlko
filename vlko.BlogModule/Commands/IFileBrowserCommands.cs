@@ -6,7 +6,7 @@ using vlko.BlogModule.Commands.ViewModel;
 namespace vlko.BlogModule.Commands
 {
 	[InheritedExport]
-    public interface IFileBrowserAction
+    public interface IFileBrowserCommands
     {
         /// <summary>
         /// Gets all user files.
