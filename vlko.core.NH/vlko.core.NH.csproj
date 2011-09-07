@@ -66,9 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action\AppSettingAction.cs" />
-    <Compile Include="Action\UserAction.cs" />
-    <Compile Include="Action\UserAuthentication.cs" />
+    <Compile Include="Query\AppSettingAction.cs" />
+    <Compile Include="Query\UserAction.cs" />
+    <Compile Include="Query\UserAuthentication.cs" />
     <Compile Include="ComponentDbInit.cs" />
     <Compile Include="DBInit.cs" />
     <Compile Include="IComponentDbInit.cs" />

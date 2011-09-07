@@ -95,11 +95,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action\AuthenicationStatuses.cs" />
-    <Compile Include="Action\IAppSettingAction.cs" />
-    <Compile Include="Action\IUserAction.cs" />
-    <Compile Include="Action\IUserAuthentication.cs" />
-    <Compile Include="Action\Model\AppSettingModel.cs" />
+    <Compile Include="Query\AuthenicationStatuses.cs" />
+    <Compile Include="Query\IAppSettingAction.cs" />
+    <Compile Include="Query\IUserAction.cs" />
+    <Compile Include="Query\IUserAuthentication.cs" />
+    <Compile Include="Query\Model\AppSettingModel.cs" />
     <Compile Include="Authentication\AuthorizeRolesAttribute.cs" />
     <Compile Include="Authentication\ConditionalAuthorizeAttribute.cs" />
     <Compile Include="Authentication\Implementation\UserAuthenticationService.cs" />

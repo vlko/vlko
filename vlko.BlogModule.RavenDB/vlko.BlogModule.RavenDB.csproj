@@ -105,30 +105,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action\CommentCrud.cs" />
-    <Compile Include="Action\CommentData.cs" />
-    <Compile Include="Action\FileBrowserAction.cs">
+    <Compile Include="Query\CommentCrud.cs" />
+    <Compile Include="Query\CommentData.cs" />
+    <Compile Include="Query\FileBrowserAction.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Action\RssFeedAction.cs" />
-    <Compile Include="Action\RssItemAction.cs" />
-    <Compile Include="Action\StaticTextCrud.cs" />
-    <Compile Include="Action\StaticTextData.cs" />
-    <Compile Include="Action\SystemMessageAction.cs" />
-    <Compile Include="Action\Timeline.cs" />
-    <Compile Include="Action\TwitterStatusAction.cs" />
+    <Compile Include="Query\RssFeedAction.cs" />
+    <Compile Include="Query\RssItemAction.cs" />
+    <Compile Include="Query\StaticTextCrud.cs" />
+    <Compile Include="Query\StaticTextData.cs" />
+    <Compile Include="Query\SystemMessageAction.cs" />
+    <Compile Include="Query\Timeline.cs" />
+    <Compile Include="Query\TwitterStatusAction.cs" />
     <Compile Include="ApplicationInit.cs" />
     <Compile Include="ComponentDbInit.cs" />
-    <Compile Include="Indexes\CommentSortIndex.cs" />
-    <Compile Include="Indexes\TimelineIndex.cs" />
-    <Compile Include="Indexes\ContentWithCommentsCount.cs" />
-    <Compile Include="Indexes\ReduceModelView\CommentCount.cs" />
-    <Compile Include="Indexes\StaticTextSortIndex.cs" />
-    <Compile Include="Indexes\TwitterStatusSortIndex.cs" />
-    <Compile Include="Indexes\RssItemSortIndex.cs" />
-    <Compile Include="Indexes\RssFeedSortIndex.cs" />
-    <Compile Include="Indexes\ReduceModelView\RssFeedCount.cs" />
-    <Compile Include="Indexes\RssFeedsWithItemsCount.cs" />
+    <Compile Include="Index\CommentSortIndex.cs" />
+    <Compile Include="Index\TimelineIndex.cs" />
+    <Compile Include="Index\ContentWithCommentsCount.cs" />
+    <Compile Include="Index\ReduceModelView\CommentCount.cs" />
+    <Compile Include="Index\StaticTextSortIndex.cs" />
+    <Compile Include="Index\TwitterStatusSortIndex.cs" />
+    <Compile Include="Index\RssItemSortIndex.cs" />
+    <Compile Include="Index\RssFeedSortIndex.cs" />
+    <Compile Include="Index\ReduceModelView\RssFeedCount.cs" />
+    <Compile Include="Index\RssFeedsWithItemsCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

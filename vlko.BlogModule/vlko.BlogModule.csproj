@@ -70,34 +70,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action.ComplexHelpers\Rss\RssItemRawData.cs" />
-    <Compile Include="Action.ComplexHelpers\Twitter\ConsumerAppIdent.cs" />
-    <Compile Include="Action.CRUDModel\CommentCRUDModel.cs" />
-    <Compile Include="Action.CRUDModel\RssItemCRUDModel.cs" />
-    <Compile Include="Action.CRUDModel\StaticTextCRUDModel.cs" />
-    <Compile Include="Action.ComplexHelpers\Twitter\OAuthToken.cs" />
-    <Compile Include="Action.ViewModel\RssFeedViewModel.cs" />
-    <Compile Include="Action.ViewModel\RssItemViewModel.cs" />
-    <Compile Include="Action.ViewModel\RssItemViewModelWithId.cs" />
-    <Compile Include="Action\IRssFeedAction.cs" />
-    <Compile Include="Action\IRssFeedConnection.cs" />
-    <Compile Include="Action\IRssItemAction.cs" />
-    <Compile Include="Action\ITimeline.cs" />
-    <Compile Include="Action\ITwitterConnection.cs" />
-    <Compile Include="Action\ITwitterStatusAction.cs" />
-    <Compile Include="Action.CRUDModel\RssFeedCRUDModel.cs" />
+    <Compile Include="Query.ComplexHelpers\Rss\RssItemRawData.cs" />
+    <Compile Include="Query.ComplexHelpers\Twitter\ConsumerAppIdent.cs" />
+    <Compile Include="Query.CRUDModel\CommentCRUDModel.cs" />
+    <Compile Include="Query.CRUDModel\RssItemCRUDModel.cs" />
+    <Compile Include="Query.CRUDModel\StaticTextCRUDModel.cs" />
+    <Compile Include="Query.ComplexHelpers\Twitter\OAuthToken.cs" />
+    <Compile Include="Query.ViewModel\RssFeedViewModel.cs" />
+    <Compile Include="Query.ViewModel\RssItemViewModel.cs" />
+    <Compile Include="Query.ViewModel\RssItemViewModelWithId.cs" />
+    <Compile Include="Query\IRssFeedAction.cs" />
+    <Compile Include="Query\IRssFeedConnection.cs" />
+    <Compile Include="Query\IRssItemAction.cs" />
+    <Compile Include="Query\ITimeline.cs" />
+    <Compile Include="Query\ITwitterConnection.cs" />
+    <Compile Include="Query\ITwitterStatusAction.cs" />
+    <Compile Include="Query.CRUDModel\RssFeedCRUDModel.cs" />
     <Compile Include="Base\Scheduler\UpdateRssFeedsTask.cs" />
     <Compile Include="Base\Scheduler\UpdateTwitterTask.cs" />
     <Compile Include="Implementation.OtherTech\Action\RssFeedConnection.cs" />
     <Compile Include="Implementation.OtherTech\Action\TwitterConnection.cs" />
-    <Compile Include="Action\ISystemMessageAction.cs" />
+    <Compile Include="Query\ISystemMessageAction.cs" />
     <Compile Include="Implementation.OtherTech\Action\SearchAction.cs" />
-    <Compile Include="Action\ICommentCrud.cs" />
-    <Compile Include="Action\ICommentData.cs" />
-    <Compile Include="Action\IFileBrowserAction.cs" />
-    <Compile Include="Action\ISearchAction.cs" />
-    <Compile Include="Action\IStaticTextCrud.cs" />
-    <Compile Include="Action\IStaticTextData.cs" />
+    <Compile Include="Query\ICommentCrud.cs" />
+    <Compile Include="Query\ICommentData.cs" />
+    <Compile Include="Query\IFileBrowserAction.cs" />
+    <Compile Include="Query\ISearchAction.cs" />
+    <Compile Include="Query\IStaticTextCrud.cs" />
+    <Compile Include="Query\IStaticTextData.cs" />
     <Compile Include="ModelConstants.cs" />
     <Compile Include="ModelResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -122,13 +122,13 @@
     <Compile Include="Search\SearchResult.cs" />
     <Compile Include="Search\SearchUpdateContext.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Action.ViewModel\CommentForAdminViewModel.cs" />
-    <Compile Include="Action.ViewModel\CommentSearchViewModel.cs" />
-    <Compile Include="Action.ViewModel\CommentTreeViewModel.cs" />
-    <Compile Include="Action.ViewModel\CommentViewModel.cs" />
-    <Compile Include="Action.ViewModel\FileViewModel.cs" />
-    <Compile Include="Action.ViewModel\StaticTextViewModel.cs" />
-    <Compile Include="Action.ViewModel\StaticTextWithFullTextViewModel.cs" />
+    <Compile Include="Query.ViewModel\CommentForAdminViewModel.cs" />
+    <Compile Include="Query.ViewModel\CommentSearchViewModel.cs" />
+    <Compile Include="Query.ViewModel\CommentTreeViewModel.cs" />
+    <Compile Include="Query.ViewModel\CommentViewModel.cs" />
+    <Compile Include="Query.ViewModel\FileViewModel.cs" />
+    <Compile Include="Query.ViewModel\StaticTextViewModel.cs" />
+    <Compile Include="Query.ViewModel\StaticTextWithFullTextViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
