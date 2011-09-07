@@ -110,13 +110,15 @@
     <Compile Include="Commands\FileBrowserAction.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\RssFeedAction.cs" />
-    <Compile Include="Commands\RssItemAction.cs" />
+    <Compile Include="Commands\RssFeedCommands.cs" />
+    <Compile Include="Commands\RssItemCommands.cs" />
     <Compile Include="Commands\StaticTextCrud.cs" />
     <Compile Include="Commands\StaticTextData.cs" />
-    <Compile Include="Commands\SystemMessageAction.cs" />
+    <Compile Include="Commands\SystemMessageCommands.cs" />
     <Compile Include="Commands\Timeline.cs" />
-    <Compile Include="Commands\TwitterStatusAction.cs" />
+    <Compile Include="Commands\QueryHelpers\TimelineData.cs" />
+    <Compile Include="Commands\QueryHelpers\TimelineResult.cs" />
+    <Compile Include="Commands\TwitterStatusCommandGroup.cs" />
     <Compile Include="ApplicationInit.cs" />
     <Compile Include="ComponentDbInit.cs" />
     <Compile Include="Indexes\CommentSortIndex.cs" />

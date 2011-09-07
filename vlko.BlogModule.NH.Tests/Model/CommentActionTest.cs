@@ -5,9 +5,9 @@ using vlko.core.NH.Testing;
 namespace vlko.BlogModule.NH.Tests.Model
 {
 	[TestClass]
-	public class CommentActionTest : CommentActionTestBase
+	public class CommentCommandsTest : CommentCommandsBaseTest
 	{
-		public CommentActionTest() : base(new NHTestProvider())
+		public CommentCommandsTest() : base(new NHTestProvider())
 		{
 		}
 

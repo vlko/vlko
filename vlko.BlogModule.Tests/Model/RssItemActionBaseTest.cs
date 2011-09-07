@@ -11,14 +11,14 @@ using vlko.core.Testing;
 
 namespace vlko.BlogModule.Tests.Model
 {
-	public abstract class RssItemActionBaseTest : LocalTest
+	public abstract class RssItemCommandsBaseTest : LocalTest
 	{
 		private RssItem[] _rssItems;
 
 		private RssFeed _feed;
 
 
-		public RssItemActionBaseTest(ITestProvider testProvider) : base(testProvider)
+		public RssItemCommandsBaseTest(ITestProvider testProvider) : base(testProvider)
 		{
 		}
 
@@ -119,11 +119,11 @@ namespace vlko.BlogModule.Tests.Model
 								Published = DateTime.Now
 				           	};
 
-				var action = RepositoryFactory.Command<IRssItemCommands>();
+				var command = RepositoryFactory.Command<IRssItemCommands>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					item = action.Save(item);
+					item = command.Save(item);
 					tran.Commit();
 				}
 
@@ -158,7 +158,7 @@ namespace vlko.BlogModule.Tests.Model
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					item = action.Save(item);
+					item = command.Save(item);
 					tran.Commit();
 				}
 
@@ -202,11 +202,11 @@ namespace vlko.BlogModule.Tests.Model
 								Published = DateTime.Now
 				           	};
 
-				var action = RepositoryFactory.Command<IRssItemCommands>();
+				var command = RepositoryFactory.Command<IRssItemCommands>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					item = action.Save(item);
+					item = command.Save(item);
 					tran.Commit();
 				}
 
@@ -216,13 +216,13 @@ namespace vlko.BlogModule.Tests.Model
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					action.Delete(item);
+					command.Delete(item);
 					tran.Commit();
 				}
 
 				TestProvider.WaitForIndexing();
 
-				var items = action.GetAll().ToArray();
+				var items = command.GetAll().ToArray();
 				Assert.AreEqual(2, items.Count());
 				Assert.IsFalse(items.Any(rssItem => rssItem.FeedItemId == item.FeedItemId));
 			}
@@ -232,8 +232,8 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<IRssItemCommands>();
-				var result = action.GetByIds(new[] { _rssItems[0].FeedItemId, _rssItems[1].FeedItemId })
+				var command = RepositoryFactory.Command<IRssItemCommands>();
+				var result = command.GetByIds(new[] { _rssItems[0].FeedItemId, _rssItems[1].FeedItemId })
 								.ToArray();
 				
 				Assert.AreEqual(2, result.Length);
@@ -246,8 +246,8 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<IRssItemCommands>();
-				var result = action.GetByFeedIds(new[] { _rssItems[0].FeedItemId, _rssItems[1].FeedItemId })
+				var command = RepositoryFactory.Command<IRssItemCommands>();
+				var result = command.GetByFeedIds(new[] { _rssItems[0].FeedItemId, _rssItems[1].FeedItemId })
 								.ToArray();
 
 				Assert.AreEqual(2, result.Length);
@@ -260,8 +260,8 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<IRssItemCommands>();
-				var result = action.GetAll().OrderBy(item => item.Published).ToArray();
+				var command = RepositoryFactory.Command<IRssItemCommands>();
+				var result = command.GetAll().OrderBy(item => item.Published).ToArray();
 
 				Assert.AreEqual(2, result.Length);
 				Assert.AreEqual(_rssItems[0].FeedItemId, result[0].FeedItemId);

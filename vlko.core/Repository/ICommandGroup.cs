@@ -1,4 +1,4 @@
-﻿namespace vlko.core.Repository
+namespace vlko.core.Repository
 {
 	public interface ICommandGroup
 	{
@@ -17,7 +17,7 @@
 	public interface ICommandGroup<in T> : ICommandGroup where T : class
 	{
 		/// <summary>
-		/// Initializes action with the specified repository.
+		/// Initializes command group with the specified repository.
 		/// </summary>
 		/// <param name="initializeContext">The initialize context.</param>
 		void Initialize(IInitializeContext<T> initializeContext);

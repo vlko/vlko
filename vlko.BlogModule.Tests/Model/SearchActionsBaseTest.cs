@@ -17,12 +17,12 @@ using vlko.core.Testing;
 
 namespace vlko.BlogModule.Tests.Model
 {
-	public abstract class SearchActionsBaseTest : LocalTest
+	public abstract class SearchCommandsBaseTest : LocalTest
 	{
 
 		private User _user;
 
-		public SearchActionsBaseTest(ITestProvider testProvider) : base(testProvider)
+		public SearchCommandsBaseTest(ITestProvider testProvider) : base(testProvider)
 		{
 		}
 

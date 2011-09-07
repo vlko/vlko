@@ -12,11 +12,11 @@ using vlko.core.Testing;
 
 namespace vlko.BlogModule.Tests.Model
 {
-	public abstract class RssFeedActionBaseTest : LocalTest
+	public abstract class RssFeedCommandsBaseTest : LocalTest
 	{
 		private RssFeed[] _testData;
 
-		public RssFeedActionBaseTest(ITestProvider testProvider)
+		public RssFeedCommandsBaseTest(ITestProvider testProvider)
 			: base(testProvider)
 		{
 		}

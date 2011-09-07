@@ -11,13 +11,13 @@ using vlko.core.Testing;
 
 namespace vlko.BlogModule.Tests.Model
 {
-	public abstract class CommentActionTestBase : LocalTest
+	public abstract class CommentCommandsBaseTest : LocalTest
 	{
 		private StaticText _testText;
 
 		private User _user;
 
-		protected CommentActionTestBase(ITestProvider testProvider) : base(testProvider)
+		protected CommentCommandsBaseTest(ITestProvider testProvider) : base(testProvider)
 		{
 		}
 

@@ -15,10 +15,10 @@ using vlko.BlogModule.Search;
 namespace vlko.BlogModule.NH.Tests.Model
 {
 	[TestClass]
-	public class SearchActionsTest : SearchActionsBaseTest
+	public class SearchCommandsTest : SearchCommandsBaseTest
 	{
 
-		public SearchActionsTest()
+		public SearchCommandsTest()
 			: base(new NHTestProvider())
 		{
 		}

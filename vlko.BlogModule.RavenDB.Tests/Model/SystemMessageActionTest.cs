@@ -11,9 +11,9 @@ using vlko.BlogModule.Roots;
 namespace vlko.BlogModule.RavenDB.Tests.Model
 {
 	[TestClass]
-	public class SystemMessageActionTest : SystemMessageActionBaseTest
+	public class SystemMessageCommandsTest : SystemMessageCommandsBaseTest
 	{
-		public SystemMessageActionTest()
+		public SystemMessageCommandsTest()
 			: base(new RavenDBTestProvider())
 		{
 		}

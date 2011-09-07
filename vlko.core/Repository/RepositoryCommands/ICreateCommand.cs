@@ -1,16 +1,16 @@
 ﻿namespace vlko.core.Repository.RepositoryAction
 {
     /// <summary>
-    /// Update action interface.
+    /// Create command interface.
     /// </summary>
     /// <typeparam name="T">Generic type.</typeparam>
-    public interface IUpdateCommand<T> : ICommandGroup<T> where T : class
+    public interface ICreateCommand<T>: ICommandGroup<T> where T : class
     {
         /// <summary>
-        /// Update the specified item.
+        /// Creates the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns>Update item.</returns>
-        T Update(T item);
+        /// <returns>Created item.</returns>
+        T Create(T item);
     }
 }

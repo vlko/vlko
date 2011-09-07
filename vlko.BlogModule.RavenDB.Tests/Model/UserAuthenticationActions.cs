@@ -15,9 +15,9 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 {
 
 	[TestClass]
-	public class UserAuthenticationActions : UserAuthenticationBaseActions
+	public class UserAuthenticationTest : UserAuthenticationBaseTest
 	{
-		public UserAuthenticationActions()
+		public UserAuthenticationTest()
 			: base(new RavenDBTestProvider())
 		{
 		}

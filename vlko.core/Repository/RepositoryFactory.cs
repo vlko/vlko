@@ -98,7 +98,7 @@ namespace vlko.core.Repository
 		/// <typeparam name="TRepository">The type of the repository.</typeparam>
 		/// <typeparam name="TCommandGroup">The type of the command group.</typeparam>
 		/// <returns>Command group.</returns>
-		[Obsolete("Should use Action to get action without repository type specify.")]
+		[Obsolete("Should use Command to get command group without repository type specify.")]
 		public static TCommandGroup GetCommand<TRepository, TCommandGroup>()
 			where TRepository : class
 			where TCommandGroup : class, ICommandGroup<TRepository>
@@ -109,7 +109,7 @@ namespace vlko.core.Repository
 		/// <summary>
 		/// Gets the command group.
 		/// </summary>
-		/// <typeparam name="T">Type of action</typeparam>
+		/// <typeparam name="T">Type of command group</typeparam>
 		/// <returns>Resolved command group.</returns>
 		public static T Command<T>() where T : class, ICommandGroup
 		{

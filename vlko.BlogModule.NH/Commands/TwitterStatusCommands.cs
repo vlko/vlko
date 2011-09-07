@@ -8,7 +8,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Commands
 {
-	public class TwitterStatusCommandGroup : CommandGroup<TwitterStatus>, ITwitterStatusCommands
+	public class TwitterStatusCommands : CommandGroup<TwitterStatus>, ITwitterStatusCommands
 	{
 
 		/// <summary>

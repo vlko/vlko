@@ -5,18 +5,18 @@ namespace vlko.core.Repository.Exceptions
     /// <summary>
     /// Action not registered exception.
     /// </summary>
-    public class ActionNotRegisteredException : Exception
+    public class CommandGroupNotRegisteredException : Exception
     {
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ActionNotRegisteredException"/> class.
+		/// Initializes a new instance of the <see cref="CommandGroupNotRegisteredException"/> class.
 		/// </summary>
-		/// <param name="actionType">Type of the action.</param>
+		/// <param name="commandGroupType">Type of the command group.</param>
 		/// <param name="repositoryType">Type of the repository.</param>
 		/// <param name="repositoryGenericsType">Type of the repository generics.</param>
 		/// <param name="innerException">The inner exception.</param>
-        public ActionNotRegisteredException(Type actionType, Type repositoryType, Type repositoryGenericsType, Exception innerException)
+        public CommandGroupNotRegisteredException(Type commandGroupType, Type repositoryType, Type repositoryGenericsType, Exception innerException)
             : base(string.Format("Unable to find action type '{0}' for repository type '{1}' handling generic type '{2}'",
-                                 actionType, repositoryType, repositoryGenericsType), innerException)
+                                 commandGroupType, repositoryType, repositoryGenericsType), innerException)
         {
         }
     }

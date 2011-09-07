@@ -13,13 +13,13 @@ using vlko.core.Testing;
 namespace vlko.BlogModule.Tests.Model
 {
 
-	public abstract class UserAuthenticationBaseActions : LocalTest
+	public abstract class UserAuthenticationBaseTest : LocalTest
 	{
 		private StaticText[] _testData;
 
 		private User _user;
 
-		public UserAuthenticationBaseActions(ITestProvider testProvider) : base(testProvider)
+		public UserAuthenticationBaseTest(ITestProvider testProvider) : base(testProvider)
 		{
 		}
 

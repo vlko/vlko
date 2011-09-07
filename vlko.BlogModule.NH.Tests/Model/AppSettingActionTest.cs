@@ -5,9 +5,9 @@ using vlko.core.NH.Testing;
 namespace vlko.BlogModule.NH.Tests.Model
 {
 	[TestClass]
-	public class AppSettingActionTest : AppSettingActionBaseTest
+	public class AppSettingCommandsTest : AppSettingCommandsBaseTest
 	{
-		public AppSettingActionTest()
+		public AppSettingCommandsTest()
 			: base(new NHTestProvider())
 		{
 		}

@@ -1,15 +1,16 @@
 ﻿namespace vlko.core.Repository.RepositoryAction
 {
     /// <summary>
-    /// Delete action interface.
+    /// Update command interface.
     /// </summary>
     /// <typeparam name="T">Generic type.</typeparam>
-    public interface IDeleteCommand<T> : ICommandGroup<T> where T : class
+    public interface IUpdateCommand<T> : ICommandGroup<T> where T : class
     {
         /// <summary>
-        /// Deletes the specified item.
+        /// Update the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        void Delete(T item);
+        /// <returns>Update item.</returns>
+        T Update(T item);
     }
 }

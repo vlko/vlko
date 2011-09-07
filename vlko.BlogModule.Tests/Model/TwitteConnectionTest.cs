@@ -4,7 +4,7 @@ using Rhino.Mocks;
 using Twitterizer;
 using vlko.BlogModule.Commands;
 using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
-using vlko.BlogModule.Implementation.OtherTech.Action;
+using vlko.BlogModule.Implementation.OtherTech.command;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 
@@ -31,9 +31,9 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			const string returnUrl = "http://localhost/returnurl";
 
-			var action = RepositoryFactory.Command<ITwitterConnection>();
+			var command = RepositoryFactory.Command<ITwitterConnection>();
 
-			var authorizeUrl = action.GetAuthorizeUrl(new ConsumerAppIdent {ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret}, returnUrl);
+			var authorizeUrl = command.GetAuthorizeUrl(new ConsumerAppIdent {ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret}, returnUrl);
 
 			Assert.IsNotNull(authorizeUrl);
 			Assert.IsTrue(authorizeUrl.StartsWith("https://twitter.com/oauth/authorize?oauth_token="));
@@ -45,17 +45,17 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			const string returnUrl = "http://localhost/returnurl";
 
-			var action = RepositoryFactory.Command<ITwitterConnection>();
+			var command = RepositoryFactory.Command<ITwitterConnection>();
 
-			var authorizeUrl = action.GetAuthorizeUrl(new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret + "_to_fail"}, returnUrl);
+			var authorizeUrl = command.GetAuthorizeUrl(new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret + "_to_fail"}, returnUrl);
 		}
 
 		[TestMethod]
 		public void Test_get_o_auth_token()
 		{
-			var action = RepositoryFactory.Command<ITwitterConnection>();
+			var command = RepositoryFactory.Command<ITwitterConnection>();
 
-			var oAuthToken = action.GetOAuthToken(
+			var oAuthToken = command.GetOAuthToken(
 					new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret },
 					null, null);
 
@@ -65,9 +65,9 @@ namespace vlko.BlogModule.Tests.Model
 		[TestMethod]
 		public void Test_is_token_valid()
 		{
-			var action = RepositoryFactory.Command<ITwitterConnection>();
+			var command = RepositoryFactory.Command<ITwitterConnection>();
 
-			var valid = action.IsTokenValid(new OAuthToken
+			var valid = command.IsTokenValid(new OAuthToken
 			                    	{
 			                    		ConsumerKey = ConsumerKey,
 			                    		ConsumerSecret = ConsumerSecret,
@@ -81,9 +81,9 @@ namespace vlko.BlogModule.Tests.Model
 		[TestMethod]
 		public void Test_is_token_not_valid()
 		{
-			var action = RepositoryFactory.Command<ITwitterConnection>();
+			var command = RepositoryFactory.Command<ITwitterConnection>();
 
-			var valid = action.IsTokenValid(new OAuthToken
+			var valid = command.IsTokenValid(new OAuthToken
 			{
 				ConsumerKey = ConsumerKey,
 				ConsumerSecret = ConsumerSecret,
@@ -97,9 +97,9 @@ namespace vlko.BlogModule.Tests.Model
 		[TestMethod]
 		public void Test_get_user_data()
 		{
-			var action = RepositoryFactory.Command<ITwitterConnection>();
+			var command = RepositoryFactory.Command<ITwitterConnection>();
 			// with default 20 item
-			var timeLine = action.GetStatusesForUser(
+			var timeLine = command.GetStatusesForUser(
 				new OAuthToken
 					{
 						ConsumerKey = ConsumerKey,
@@ -117,9 +117,9 @@ namespace vlko.BlogModule.Tests.Model
 		[TestMethod]
 		public void Test_get_user_data_paging()
 		{
-			var action = RepositoryFactory.Command<ITwitterConnection>();
+			var command = RepositoryFactory.Command<ITwitterConnection>();
 			// with default 20 item
-			var timeLine = action.GetStatusesForUser(
+			var timeLine = command.GetStatusesForUser(
 				new OAuthToken
 				{
 					ConsumerKey = ConsumerKey,

@@ -5,9 +5,9 @@ using vlko.core.NH.Testing;
 namespace vlko.BlogModule.NH.Tests.Model
 {
 	[TestClass]
-	public class RssFeedActionTest : RssFeedActionBaseTest
+	public class RssFeedCommandsTest : RssFeedCommandsBaseTest
 	{
-		public RssFeedActionTest()
+		public RssFeedCommandsTest()
 			: base(new NHTestProvider())
 		{
 		}

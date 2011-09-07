@@ -10,11 +10,11 @@ using vlko.core.Testing;
 namespace vlko.BlogModule.Tests.Model
 {
 	[TestClass]
-	public abstract class SystemMessageActionBaseTest : LocalTest
+	public abstract class SystemMessageCommandsBaseTest : LocalTest
 	{
 		private SystemMessage[] _messages;
 
-		public SystemMessageActionBaseTest(ITestProvider testProvider) : base(testProvider)
+		public SystemMessageCommandsBaseTest(ITestProvider testProvider) : base(testProvider)
 		{
 		}
 
@@ -69,9 +69,9 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<ISystemMessageCommands>();
+				var command = RepositoryFactory.Command<ISystemMessageCommands>();
 
-				var items = action.GetAll().OrderByDescending(item => item.CreatedDate).ToArray();
+				var items = command.GetAll().OrderByDescending(item => item.CreatedDate).ToArray();
 
 				Assert.AreEqual(_messages.Length, items.Length);
 				// compare items to _));
@@ -92,7 +92,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<ISystemMessageCommands>();
+				var command = RepositoryFactory.Command<ISystemMessageCommands>();
 
 				var newItem = new SystemMessage
 								{
@@ -103,11 +103,11 @@ namespace vlko.BlogModule.Tests.Model
 								};
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					newItem = action.Create(newItem);
+					newItem = command.Create(newItem);
 					tran.Commit();
 				}
 				
-				var items = action.GetAll().OrderByDescending(item => item.CreatedDate).ToPage(0, 1);
+				var items = command.GetAll().OrderByDescending(item => item.CreatedDate).ToPage(0, 1);
 
 				Assert.AreEqual(1, items.Length);
 

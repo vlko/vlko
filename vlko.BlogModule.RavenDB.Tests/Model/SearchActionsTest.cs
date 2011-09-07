@@ -16,10 +16,10 @@ using vlko.BlogModule.Search;
 namespace vlko.BlogModule.RavenDB.Tests.Model
 {
 	[TestClass]
-	public class SearchActionsTest : SearchActionsBaseTest
+	public class SearchCommandsTest : SearchCommandsBaseTest
 	{
 
-		public SearchActionsTest()
+		public SearchCommandsTest()
 			: base(new RavenDBTestProvider())
 		{
 		}

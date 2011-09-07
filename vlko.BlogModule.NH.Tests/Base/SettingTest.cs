@@ -35,7 +35,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 		[TestMethod]
 		public void Get_setting_from_db_fallback_to_default()
 		{
-			var action = RepositoryFactory.Command<IAppSettingCommands>();
+			var command = RepositoryFactory.Command<IAppSettingCommands>();
 			const int defaultInt = 245;
 			const string defaultString = "defaultValue";
 
@@ -46,8 +46,8 @@ namespace vlko.BlogModule.NH.Tests.Base
 			Assert.AreEqual(defaultString, stringSetting.Value);
 
 			// check if db is really empty
-			Assert.IsNull(action.Get(intSetting.Name));
-			Assert.IsNull(action.Get(stringSetting.Name));
+			Assert.IsNull(command.Get(intSetting.Name));
+			Assert.IsNull(command.Get(stringSetting.Name));
 		}
 
 		[TestMethod]
@@ -66,7 +66,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 		[TestMethod]
 		public void Save_setting_to_db()
 		{
-			var action = RepositoryFactory.Command<IAppSettingCommands>();
+			var command = RepositoryFactory.Command<IAppSettingCommands>();
 			const int newValueInt = 2;
 			const string newValueString = "newValue";
 
@@ -80,8 +80,8 @@ namespace vlko.BlogModule.NH.Tests.Base
 			Assert.AreEqual(newValueString, stringSetting.Value);
 
 			// check if db is contain values
-			Assert.AreEqual(newValueInt.ToString(CultureInfo.InvariantCulture), action.Get(intSetting.Name).Value);
-			Assert.AreEqual(newValueString, action.Get(stringSetting.Name).Value); ;
+			Assert.AreEqual(newValueInt.ToString(CultureInfo.InvariantCulture), command.Get(intSetting.Name).Value);
+			Assert.AreEqual(newValueString, command.Get(stringSetting.Name).Value); ;
 		}
 
 		[TestMethod]
@@ -95,7 +95,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 		[TestMethod]
 		public void Change_setting_to_db()
 		{
-			var action = RepositoryFactory.Command<IAppSettingCommands>();
+			var command = RepositoryFactory.Command<IAppSettingCommands>();
 			const int newValueInt = 2;
 			const string newValueString = "newValue";
 			const int changeValueInt = 4;
@@ -112,8 +112,8 @@ namespace vlko.BlogModule.NH.Tests.Base
 			Assert.AreEqual(newValueString, stringSetting.Value);
 
 			// check if db is really empty
-			Assert.AreEqual(newValueInt.ToString(CultureInfo.InvariantCulture), action.Get(intSetting.Name).Value);
-			Assert.AreEqual(newValueString, action.Get(stringSetting.Name).Value); 
+			Assert.AreEqual(newValueInt.ToString(CultureInfo.InvariantCulture), command.Get(intSetting.Name).Value);
+			Assert.AreEqual(newValueString, command.Get(stringSetting.Name).Value); 
 
 			// change 
 			intSetting.SaveValue(changeValueInt);
@@ -123,14 +123,14 @@ namespace vlko.BlogModule.NH.Tests.Base
 			Assert.AreEqual(changeValueString, stringSetting.Value);
 
 			// check if db is really empty
-			Assert.AreEqual(changeValueInt.ToString(CultureInfo.InvariantCulture), action.Get(intSetting.Name).Value);
-			Assert.AreEqual(changeValueString, action.Get(stringSetting.Name).Value);
+			Assert.AreEqual(changeValueInt.ToString(CultureInfo.InvariantCulture), command.Get(intSetting.Name).Value);
+			Assert.AreEqual(changeValueString, command.Get(stringSetting.Name).Value);
 		}
 
 		[TestMethod]
 		public void Change_setting_to_db_check_string_null()
 		{
-			var action = RepositoryFactory.Command<IAppSettingCommands>();
+			var command = RepositoryFactory.Command<IAppSettingCommands>();
 			const string newValueString = "newValue";
 
 			var stringSetting = new SettingValue<string>("changeStringVal", "defaultValue", new DatabaseSettingProvider());
@@ -141,7 +141,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 			Assert.AreEqual(newValueString, stringSetting.Value);
 
 			// check if db is really empty
-			Assert.AreEqual(newValueString, action.Get(stringSetting.Name).Value);
+			Assert.AreEqual(newValueString, command.Get(stringSetting.Name).Value);
 
 			// change 
 			stringSetting.SaveValue(null);
@@ -149,7 +149,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 			Assert.AreEqual(null, stringSetting.Value);
 
 			// check if db is really empty
-			Assert.AreEqual(null, action.Get(stringSetting.Name).Value);
+			Assert.AreEqual(null, command.Get(stringSetting.Name).Value);
 		}
 	}
 }

@@ -10,9 +10,9 @@ using vlko.core.RavenDB.Testing;
 namespace vlko.BlogModule.RavenDB.Tests.Model
 {
 	[TestClass]
-	public class CommentActionTest : CommentActionTestBase
+	public class CommentCommandsTest : CommentCommandsBaseTest
 	{
-		public CommentActionTest() : base(new RavenDBTestProvider())
+		public CommentCommandsTest() : base(new RavenDBTestProvider())
 		{
 		}
 

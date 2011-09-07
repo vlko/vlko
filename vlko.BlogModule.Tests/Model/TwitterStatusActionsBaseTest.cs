@@ -11,13 +11,13 @@ using vlko.core.Testing;
 
 namespace vlko.BlogModule.Tests.Model
 {
-	public abstract class TwitterStatusActionsBaseTest : LocalTest
+	public abstract class TwitterStatusCommandsBaseTest : LocalTest
 	{
 		private TwitterStatus[] _statuses;
 
 		private User _user;
 
-		public TwitterStatusActionsBaseTest(ITestProvider testProvider) : base(testProvider)
+		public TwitterStatusCommandsBaseTest(ITestProvider testProvider) : base(testProvider)
 		{
 		}
 
@@ -108,11 +108,11 @@ namespace vlko.BlogModule.Tests.Model
 				           		AreCommentAllowed = false
 				           	};
 
-				var action = RepositoryFactory.Command<ITwitterStatusCommands>();
+				var command = RepositoryFactory.Command<ITwitterStatusCommands>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					item = action.CreateStatus(item);
+					item = command.CreateStatus(item);
 					tran.Commit();
 				}
 
@@ -134,8 +134,8 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<ITwitterStatusCommands>();
-				var result = action.GetByIds(new[] {_statuses[0].Id, _statuses[1].Id})
+				var command = RepositoryFactory.Command<ITwitterStatusCommands>();
+				var result = command.GetByIds(new[] {_statuses[0].Id, _statuses[1].Id})
 								.ToArray();
 				
 				Assert.AreEqual(2, result.Length);
@@ -149,8 +149,8 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<ITwitterStatusCommands>();
-				var result = action.GetByTwitterIds(new[] { _statuses[0].TwitterId, _statuses[1].TwitterId })
+				var command = RepositoryFactory.Command<ITwitterStatusCommands>();
+				var result = command.GetByTwitterIds(new[] { _statuses[0].TwitterId, _statuses[1].TwitterId })
 								.ToArray();
 
 				Assert.AreEqual(2, result.Length);
@@ -164,8 +164,8 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<ITwitterStatusCommands>();
-				var result = action.GetAll().OrderBy(item => item.CreatedDate).ToArray();
+				var command = RepositoryFactory.Command<ITwitterStatusCommands>();
+				var result = command.GetAll().OrderBy(item => item.CreatedDate).ToArray();
 
 				Assert.AreEqual(3, result.Length);
 				Assert.AreEqual(_statuses[0].Id, result[0].Id);

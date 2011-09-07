@@ -13,9 +13,9 @@ using vlko.BlogModule.Roots;
 namespace vlko.BlogModule.RavenDB.Tests.Model
 {
 	[TestClass]
-	public class RssFeedActionTest : RssFeedActionBaseTest
+	public class RssFeedCommandsTest : RssFeedCommandsBaseTest
 	{
-		public RssFeedActionTest()
+		public RssFeedCommandsTest()
 			: base(new RavenDBTestProvider())
 		{
 		}

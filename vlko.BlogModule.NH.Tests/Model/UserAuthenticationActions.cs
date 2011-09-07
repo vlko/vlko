@@ -14,9 +14,9 @@ using vlko.core.Roots;
 namespace vlko.BlogModule.NH.Tests.Model
 {
 	[TestClass]
-	public class UserAuthenticationActions : UserAuthenticationBaseActions
+	public class UserAuthenticationTest : UserAuthenticationBaseTest
 	{
-		public UserAuthenticationActions()
+		public UserAuthenticationTest()
 			: base(new NHTestProvider())
 		{
 		}

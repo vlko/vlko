@@ -3,7 +3,7 @@
 namespace vlko.core.Repository.RepositoryAction
 {
     /// <summary>
-    /// Find by Primary Key action interface.
+    /// Find by Primary Key command interface.
     /// </summary>
     /// <typeparam name="T">Generic type.</typeparam>
     public interface IFindByPkCommand<T> : ICommandGroup<T> where T : class

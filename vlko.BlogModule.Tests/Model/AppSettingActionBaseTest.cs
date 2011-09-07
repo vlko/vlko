@@ -7,14 +7,14 @@ using vlko.core.Testing;
 
 namespace vlko.BlogModule.Tests.Model
 {
-	public abstract class AppSettingActionBaseTest : LocalTest
+	public abstract class AppSettingCommandsBaseTest : LocalTest
 	{
 		private AppSetting _setting1;
 		private AppSetting _setting2;
 		private AppSetting _emptySetting;
 
 
-		public AppSettingActionBaseTest(ITestProvider testProvider) : base(testProvider)
+		public AppSettingCommandsBaseTest(ITestProvider testProvider) : base(testProvider)
 		{
 		}
 
@@ -57,24 +57,24 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<IAppSettingCommands>();
+				var command = RepositoryFactory.Command<IAppSettingCommands>();
 
-				var item = action.Get(_setting1.Id);
+				var item = command.Get(_setting1.Id);
 
 				Assert.AreEqual(_setting1.Id, item.Name);
 				Assert.AreEqual(_setting1.Value, item.Value);
 
-				item = action.Get(_setting2.Id);
+				item = command.Get(_setting2.Id);
 
 				Assert.AreEqual(_setting2.Id, item.Name);
 				Assert.AreEqual(_setting2.Value, item.Value);
 
-				var empty = action.Get(_emptySetting.Id);
+				var empty = command.Get(_emptySetting.Id);
 
 				Assert.AreEqual(_emptySetting.Id, empty.Name);
 				Assert.AreEqual(null, empty.Value);
 
-				var notExisted = action.Get("not_existed");
+				var notExisted = command.Get("not_existed");
 
 				Assert.AreEqual(null, notExisted);
 			}
@@ -84,18 +84,18 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Command<IAppSettingCommands>();
+				var command = RepositoryFactory.Command<IAppSettingCommands>();
 
-				var item = action.Get(_setting1.Id);
+				var item = command.Get(_setting1.Id);
 				item.Value = "changed_value";
 				// try to update value
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					action.Save(item);
+					command.Save(item);
 					tran.Commit();
 				}
 
-				var dbItem = action.Get(_setting1.Id);
+				var dbItem = command.Get(_setting1.Id);
 
 				Assert.AreEqual(item.Name, dbItem.Name);
 				Assert.AreEqual(item.Value, dbItem.Value);
@@ -108,11 +108,11 @@ namespace vlko.BlogModule.Tests.Model
 				// try to update value
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					action.Save(newItem);
+					command.Save(newItem);
 					tran.Commit();
 				}
 
-				dbItem = action.Get(newItem.Name);
+				dbItem = command.Get(newItem.Name);
 
 				Assert.AreEqual(newItem.Name, dbItem.Name);
 				Assert.AreEqual(newItem.Value, dbItem.Value);

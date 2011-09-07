@@ -93,7 +93,7 @@ namespace vlko.BlogModule.RavenDB.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ActionNotRegisteredException))]
+        [ExpectedException(typeof(CommandGroupNotRegisteredException))]
         public void Test_get_query_with_not_registered_exception()
         {
 			var query = _mocker.StrictMock<ICommandGroup<object>>();
@@ -115,7 +115,7 @@ namespace vlko.BlogModule.RavenDB.Tests
 
 
         [TestMethod]
-        [ExpectedException(typeof(ActionNotRegisteredException))]
+        [ExpectedException(typeof(CommandGroupNotRegisteredException))]
         public void Test_get_query_with_RepositoryIoC_not_initialized_exception()
         {
             RepositoryFactory.IntitializeWith(null);

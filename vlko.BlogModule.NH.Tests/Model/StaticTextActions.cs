@@ -14,9 +14,9 @@ using vlko.core.Roots;
 namespace vlko.BlogModule.NH.Tests.Model
 {
 	[TestClass]
-	public class StaticTextActions : StaticTextBaseActions
+	public class StaticTextCommandsTest : StaticTextCommandsBaseTest
 	{
-		public StaticTextActions()
+		public StaticTextCommandsTest()
 			: base(new NHTestProvider())
 		{
 		}

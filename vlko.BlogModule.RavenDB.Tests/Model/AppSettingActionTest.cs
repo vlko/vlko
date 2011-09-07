@@ -10,9 +10,9 @@ using vlko.core.Roots;
 namespace vlko.BlogModule.RavenDB.Tests.Model
 {
 	[TestClass]
-	public class AppSettingActionTest : AppSettingActionBaseTest
+	public class AppSettingCommandsTest : AppSettingCommandsBaseTest
 	{
-		public AppSettingActionTest()
+		public AppSettingCommandsTest()
 			: base(new RavenDBTestProvider())
 		{
 		}

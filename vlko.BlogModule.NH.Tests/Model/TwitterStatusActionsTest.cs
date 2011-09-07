@@ -13,9 +13,9 @@ using vlko.core.Roots;
 namespace vlko.BlogModule.NH.Tests.Model
 {
 	[TestClass]
-	public class TwitterStatusActionsTest : TwitterStatusActionsBaseTest
+	public class TwitterStatusCommandsTest : TwitterStatusCommandsBaseTest
 	{
-		public TwitterStatusActionsTest()
+		public TwitterStatusCommandsTest()
 			: base(new NHTestProvider())
 		{
 		}

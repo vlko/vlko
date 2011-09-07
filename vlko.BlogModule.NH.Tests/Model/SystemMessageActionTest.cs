@@ -11,9 +11,9 @@ using vlko.BlogModule.Tests.Model;
 namespace vlko.BlogModule.NH.Tests.Model
 {
 	[TestClass]
-	public class SystemMessageActionTest : SystemMessageActionBaseTest
+	public class SystemMessageCommandsTest : SystemMessageCommandsBaseTest
 	{
-		public SystemMessageActionTest()
+		public SystemMessageCommandsTest()
 			: base(new NHTestProvider())
 		{
 		}
