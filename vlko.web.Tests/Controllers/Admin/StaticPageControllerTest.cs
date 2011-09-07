@@ -32,11 +32,13 @@ namespace vlko.web.Tests.Controllers.Admin
 				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
 				SessionFactory<User>.Create(new User
 				                            	{
+													Id = Guid.NewGuid(),
 				                            		Name = "test",
 													Email = "test"
 				                            	});
 				SessionFactory<User>.Create(new User
 				                            	{
+													Id = Guid.NewGuid(),
 				                            		Name = "other",
 													Email = "other"
 				                            	});

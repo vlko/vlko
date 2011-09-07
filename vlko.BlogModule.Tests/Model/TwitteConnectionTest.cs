@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rhino.Mocks;
 using Twitterizer;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.ComplexHelpers.Twitter;
+using vlko.BlogModule.Implementation.OtherTech.Action;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 
@@ -20,9 +22,8 @@ namespace vlko.BlogModule.Tests.Model
 		[TestInitialize]
 		public void Init()
 		{
-			IoC.AddCatalogAssembly(Assembly.Load("vlko.Core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
-			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
+			IoC.AddRerouting<IRepositoryFactoryResolver>(() => new RepositoryFactoryResolver());
 		}
 
 		[TestMethod]
@@ -131,6 +132,33 @@ namespace vlko.BlogModule.Tests.Model
 
 			Assert.IsNotNull(timeLine);
 			Assert.AreEqual(25, timeLine.Length);
+		}
+
+		public class RepositoryFactoryResolver : IRepositoryFactoryResolver
+		{
+			public IRepository<T> GetRepository<T>() where T : class
+			{
+				throw new System.NotImplementedException();
+			}
+
+			public T ResolveAction<T>() where T : class, IAction
+			{
+				if (typeof(T) == typeof(ITwitterConnection))
+				{
+					return new TwitterConnection() as T;
+				}
+					throw new System.NotImplementedException();
+			}
+
+			public IUnitOfWork GetUnitOfWork()
+			{
+				throw new System.NotImplementedException();
+			}
+
+			public ITransaction GetTransaction()
+			{
+				throw new System.NotImplementedException();
+			}
 		}
 	}
 }

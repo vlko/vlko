@@ -7,8 +7,11 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcContrib.TestHelper;
 using vlko.BlogModule.NH.Action;
+using vlko.core.Action;
 using vlko.core.InversionOfControl;
+using vlko.core.NH.Repository;
 using vlko.core.Repository;
+using vlko.core.Roots;
 using vlko.core.Services;
 using vlko.BlogModule.Action;
 using vlko.BlogModule.Action.ViewModel;
@@ -18,20 +21,60 @@ using vlko.web.Areas.Admin.ViewModel.FileBrowser;
 namespace vlko.web.Tests.Controllers.Admin
 {
 	[TestClass]
-	public class FileBrowserControllerTest
+	public class FileBrowserControllerTest : BaseControllerTest
 	{
 		public static int NumberOfGeneratedItems = 100;
-		private IUnitOfWork session;
-		[TestInitialize]
-		public void Init()
+
+		protected override void FillDbWithData()
 		{
-			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
-			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
+			using (var tran = RepositoryFactory.StartTransaction())
+			{
+
+				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
+				SessionFactory<User>.Create(new User
+				                            	{
+				                            		Id = Guid.NewGuid(),
+				                            		Name = "empty",
+													Email = "empty"
+				                            	});
+				SessionFactory<User>.Create(new User
+				                            	{
+				                            		Id = Guid.NewGuid(),
+				                            		Name = "upload",
+				                            		Email = "upload"
+				                            	});
+				SessionFactory<User>.Create(new User
+				                            	{
+				                            		Id = Guid.NewGuid(),
+													Name = "upload_ok",
+													Email = "upload_ok"
+				                            	});
+				SessionFactory<User>.Create(new User
+				                            	{
+				                            		Id = Guid.NewGuid(),
+				                            		Name = "..\\upload_ok",
+				                            		Email = "..\\upload_ok"
+				                            	});
+				SessionFactory<User>.Create(new User
+				                            	{
+				                            		Id = Guid.NewGuid(),
+				                            		Name = "delete",
+													Email = "delete"
+				                            	});
+				SessionFactory<User>.Create(new User
+				                            	{
+				                            		Id = Guid.NewGuid(),
+				                            		Name = "delete_ok",
+				                            		Email = "delete_ok"
+				                            	});
+				tran.Commit();
+			}
 			IoC.AddRerouting<IFileBrowserAction>(() =>
-			                                     	{
-			                                     		var appInfo = IoC.Resolve<IAppInfoService>();
-														return new FileBrowserAction(appInfo);
-			                                     	});
+			{
+				var appInfo = IoC.Resolve<IAppInfoService>();
+				return new FileBrowserAction(appInfo);
+			});
 			IoC.AddRerouting<IAppInfoService>(() => new AppInfoServiceMock());
 		}
 
@@ -119,7 +162,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 			builder.Form["Ident"] = "some_name";
-			controller.MockUser("Upload_file_too_big");
+			controller.MockUser("upload");
 
 			// Act
 			ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", FileBrowserViewModel.MaxFileSize + 1));
@@ -142,7 +185,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 			builder.Form["Ident"] = string.Empty;
-			controller.MockUser("Upload_file_empty_ident");
+			controller.MockUser("upload");
 
 			// Act
 			ActionResult result = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
@@ -165,7 +208,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 			builder.Form["Ident"] = "some_name";
-			controller.MockUser("Upload_ident_exists");
+			controller.MockUser("upload");
 
 			// Act
 			ActionResult previousResult = controller.Upload(new HttpPostedFileMock("test.jpg", 40));
