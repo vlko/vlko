@@ -21,7 +21,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
 		[TestMethod]
 		public void Test_Query_1_count_and_toArray()
 		{
-			var items = BaseRepository.GetAction<NFilterCriterion>()
+			var items = BaseRepository.GetCommand<NFilterCriterion>()
 				.WhereType(TypeEnum.SomeFirstType)
 				.Result();
 
@@ -32,7 +32,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
 		[TestMethod]
 		public void Test_Query_2_count_and_toArray()
 		{
-			var items = BaseRepository.GetAction<NFilterCriterion>()
+			var items = BaseRepository.GetCommand<NFilterCriterion>()
 				.WhereType(TypeEnum.SomeOtherType)
 				.Result();
 
@@ -47,7 +47,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
 		[TestMethod]
 		public void Test_Query_2_count_and_toArray_ordered()
 		{
-			var items = BaseRepository.GetAction<NFilterCriterion>()
+			var items = BaseRepository.GetCommand<NFilterCriterion>()
 				.WhereType(TypeEnum.SomeOtherType)
 				.Result();
 
@@ -65,7 +65,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
 		[TestMethod]
 		public void Test_Query_3_extended_filter_count_and_toArray()
 		{
-			var items = BaseRepository.GetAction<NFilterCriterion>()
+			var items = BaseRepository.GetCommand<NFilterCriterion>()
 				.WhereType(TypeEnum.SomeOtherType)
 				.WhereTextStart("test")
 				.Result();
@@ -79,7 +79,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
 		[TestMethod]
 		public void Test_Query_3_paged_result()
 		{
-			var items = BaseRepository.GetAction<NFilterCriterion>()
+			var items = BaseRepository.GetCommand<NFilterCriterion>()
 				.WhereType(TypeEnum.SomeOtherType)
 				.Result();
 

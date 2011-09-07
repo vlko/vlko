@@ -6,7 +6,7 @@ namespace vlko.core.Repository.RepositoryAction
     /// Find by Primary Key action interface.
     /// </summary>
     /// <typeparam name="T">Generic type.</typeparam>
-    public interface IFindByPkAction<T> : IAction<T> where T : class
+    public interface IFindByPkCommand<T> : ICommandGroup<T> where T : class
     {
         /// <summary>
         /// Finds the by PK.

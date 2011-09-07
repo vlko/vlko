@@ -44,7 +44,7 @@ namespace vlko.core.Base
 			// if user is authenticated then set custom user principal
 			if (filterContext.HttpContext.User.Identity.IsAuthenticated)
 			{
-				var user = InversionOfControl.IoC.Resolve<IUserAction>().GetByName(filterContext.HttpContext.User.Identity.Name);
+				var user = InversionOfControl.IoC.Resolve<IUserCommands>().GetByName(filterContext.HttpContext.User.Identity.Name);
 				filterContext.HttpContext.User = new UserPrincipal(user);
 			}
 		}

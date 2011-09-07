@@ -27,11 +27,11 @@ namespace vlko.web.Tests.Controllers.Admin
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 
-				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
-				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
+				RepositoryFactory.Command<IUserCommands>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				var admin = RepositoryFactory.Command<IUserCommands>().GetByName("vlko");
 				for (int i = 0; i < NumberOfGeneratedItems; i++)
 				{
-					var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
+					var text = RepositoryFactory.Command<IStaticTextCrud>().Create(
 						new StaticTextCRUDModel
 						{
 							AllowComments = false,
@@ -42,7 +42,7 @@ namespace vlko.web.Tests.Controllers.Admin
 							PublishDate = DateTime.Now.AddDays(-i),
 							Text = "Static page" + i
 						});
-					RepositoryFactory.Action<ICommentCrud>().Create(
+					RepositoryFactory.Command<ICommentCrud>().Create(
 						new CommentCRUDModel()
 						{
 							AnonymousName = "User",
@@ -95,7 +95,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 
-			var id = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
+			var id = RepositoryFactory.Command<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name)
 				.ToPage(1, 1).First().Id;
 
@@ -117,7 +117,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 
-			var id = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
+			var id = RepositoryFactory.Command<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name)
 				.ToPage(1, 1).First().Id;
 
@@ -139,11 +139,11 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 
-			var data = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
+			var data = RepositoryFactory.Command<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name);
 			var count = data.Count();
 				
-			var dataModel = RepositoryFactory.Action<ICommentCrud>().FindByPk(data.ToPage(1, 1).First().Id);
+			var dataModel = RepositoryFactory.Command<ICommentCrud>().FindByPk(data.ToPage(1, 1).First().Id);
 
 			// Act
 			ActionResult result = controller.Delete(dataModel);
@@ -163,7 +163,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 
-			var id = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
+			var id = RepositoryFactory.Command<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name)
 				.ToPage(1, 1).First().Id;
 
@@ -185,11 +185,11 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 
-			var id = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
+			var id = RepositoryFactory.Command<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name)
 				.ToPage(1, 1).First().Id;
 
-			var dataModel = RepositoryFactory.Action<ICommentCrud>().FindByPk(id);
+			var dataModel = RepositoryFactory.Command<ICommentCrud>().FindByPk(id);
 
 			dataModel.Name = "changed comment";
 			dataModel.Text = "changed text";
@@ -199,7 +199,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			// Assert
 			result.AssertActionRedirect().ToAction("Index");
 
-			var changedItem = RepositoryFactory.Action<ICommentCrud>().FindByPk(id);
+			var changedItem = RepositoryFactory.Command<ICommentCrud>().FindByPk(id);
 			Assert.IsNotNull(changedItem);
 			Assert.AreEqual(dataModel.Id, changedItem.Id);
 			Assert.AreEqual("changed comment", changedItem.Name);

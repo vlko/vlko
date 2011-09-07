@@ -30,9 +30,9 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
                 Type = TypeEnum.Ignore
             };
 
-            BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(testObj);
+            BaseRepository.GetCommand<ICreateCommand<NTestObject>>().Create(testObj);
 
-            var check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(100);
+            var check = BaseRepository.GetCommand<IFindByPkCommand<NTestObject>>().FindByPk(100);
 
             Assert.AreEqual(testObj, check);
         }
@@ -47,9 +47,9 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
                 Type = TypeEnum.Ignore
             };
 
-            BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(testObj);
+            BaseRepository.GetCommand<ICreateCommand<NTestObject>>().Create(testObj);
 
-            var check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(200);
+            var check = BaseRepository.GetCommand<IFindByPkCommand<NTestObject>>().FindByPk(200);
 
             Assert.AreEqual(testObj, check);
 
@@ -58,9 +58,9 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
         	updateObj.Text = "updateSave";
         	updateObj.Type = TypeEnum.Ignore;
 
-            BaseRepository.GetAction<IUpdateAction<NTestObject>>().Update(updateObj);
+            BaseRepository.GetCommand<IUpdateCommand<NTestObject>>().Update(updateObj);
 
-            check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(200);
+            check = BaseRepository.GetCommand<IFindByPkCommand<NTestObject>>().FindByPk(200);
 
             Assert.AreEqual(updateObj, check);
 
@@ -77,15 +77,15 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
                 Type = TypeEnum.Ignore
             };
 
-            BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(testObj);
+            BaseRepository.GetCommand<ICreateCommand<NTestObject>>().Create(testObj);
 
-            var check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(300);
+            var check = BaseRepository.GetCommand<IFindByPkCommand<NTestObject>>().FindByPk(300);
 
             Assert.AreEqual(testObj, check);
 
-            BaseRepository.GetAction<IDeleteAction<NTestObject>>().Delete(testObj);
+            BaseRepository.GetCommand<IDeleteCommand<NTestObject>>().Delete(testObj);
 
-            check = BaseRepository.GetAction<IFindByPkAction<NTestObject>>().FindByPk(300);
+            check = BaseRepository.GetCommand<IFindByPkCommand<NTestObject>>().FindByPk(300);
         }
     }
 }

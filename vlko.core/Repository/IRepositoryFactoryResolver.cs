@@ -13,11 +13,11 @@ namespace vlko.core.Repository
 		IRepository<T> GetRepository<T>() where T : class; 
 
 		/// <summary>
-		/// Resolves the action or query.
+		/// Resolves the command group.
 		/// </summary>
 		/// <typeparam name="T">Generic type.</typeparam>
-		/// <returns>Resolved action or query.</returns>
-		T ResolveAction<T>() where T : class, IAction;
+		/// <returns>Resolved command group.</returns>
+		T ResolveCommand<T>() where T : class, ICommandGroup;
 
 		/// <summary>
 		/// Gets the unit of work.

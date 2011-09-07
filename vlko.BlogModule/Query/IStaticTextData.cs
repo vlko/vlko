@@ -8,7 +8,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface IStaticTextData : IAction<StaticText>
+	public interface IStaticTextData : ICommandGroup<StaticText>
 	{
 		/// <summary>
 		/// Gets all.

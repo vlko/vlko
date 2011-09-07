@@ -26,7 +26,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		[HttpGet]
 		public ActionResult Index(PagedModel<CommentForAdminViewModel> pageModel)
 		{
-			var data = RepositoryFactory.Action<ICommentData>().GetAllForAdmin()
+			var data = RepositoryFactory.Command<ICommentData>().GetAllForAdmin()
 				.OrderByDescending(comment => comment.CreatedDate);
 			pageModel.LoadData(data);
 			return ViewWithAjax(pageModel);
@@ -39,7 +39,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Details(Guid id)
 		{
-			var item = RepositoryFactory.Action<ICommentCrud>().FindByPk(id);
+			var item = RepositoryFactory.Command<ICommentCrud>().FindByPk(id);
 			return ViewWithAjax(item);
 		}
 
@@ -50,7 +50,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Delete(Guid id)
 		{
-			return ViewWithAjax(RepositoryFactory.Action<ICommentCrud>().FindByPk(id));
+			return ViewWithAjax(RepositoryFactory.Command<ICommentCrud>().FindByPk(id));
 		}
 
 		/// <summary>
@@ -61,12 +61,12 @@ namespace vlko.web.Areas.Admin.Controllers
 		[HttpPost]
 		public ActionResult Delete(CommentCRUDModel model)
 		{
-			var item = RepositoryFactory.Action<ICommentCrud>().FindByPk(model.Id);
+			var item = RepositoryFactory.Command<ICommentCrud>().FindByPk(model.Id);
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ICommentCrud>().Delete(item);
+				RepositoryFactory.Command<ICommentCrud>().Delete(item);
 				tran.Commit();
-				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, item.Id.ToString());
+				RepositoryFactory.Command<ISearchCommands>().DeleteFromIndex(tran, item.Id.ToString());
 			}
 			return RedirectToActionWithAjax("Index");
 		}
@@ -78,7 +78,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Edit(Guid id)
 		{
-			return ViewWithAjax(RepositoryFactory.Action<ICommentCrud>().FindByPk(id));
+			return ViewWithAjax(RepositoryFactory.Command<ICommentCrud>().FindByPk(id));
 		}
 
 		[HttpPost]
@@ -87,7 +87,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var crudOperations = RepositoryFactory.Action<ICommentCrud>();
+				var crudOperations = RepositoryFactory.Command<ICommentCrud>();
 
 				// get original item to test change permissions
 				var originalItem = crudOperations.FindByPk(model.Id);
@@ -101,8 +101,8 @@ namespace vlko.web.Areas.Admin.Controllers
 					{
 						crudOperations.Update(originalItem);
 						tran.Commit();
-						RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, originalItem.Id.ToString());
-						RepositoryFactory.Action<ISearchAction>().IndexComment(tran, originalItem);
+						RepositoryFactory.Command<ISearchCommands>().DeleteFromIndex(tran, originalItem.Id.ToString());
+						RepositoryFactory.Command<ISearchCommands>().IndexComment(tran, originalItem);
 					}
 					return RedirectToActionWithAjax("Index");
 

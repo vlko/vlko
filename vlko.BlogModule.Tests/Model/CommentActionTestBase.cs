@@ -151,7 +151,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var crudActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentCrud>();
+				var crudActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentCrud>();
 
 				// get first
 				var first = crudActions.FindByPk(_testText.Comments[0].Id);
@@ -190,7 +190,7 @@ namespace vlko.BlogModule.Tests.Model
 								   UserAgent = "ie6"
 							   };
 
-				var crudActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentCrud>();
+				var crudActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentCrud>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -265,7 +265,7 @@ namespace vlko.BlogModule.Tests.Model
 					UserAgent = "ie6"
 				};
 
-				var crudActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentCrud>();
+				var crudActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentCrud>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -326,8 +326,8 @@ namespace vlko.BlogModule.Tests.Model
 					UserAgent = "ie6"
 				};
 
-				var crudActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentCrud>();
-				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var crudActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentCrud>();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentData>();
 
 				var initialCommentCount = dataActions.GetAllForAdmin().Count();
 
@@ -372,7 +372,7 @@ namespace vlko.BlogModule.Tests.Model
 			{
 				const int numberOfItems = 3;
 				CreateCommentTree();
-				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentData>();
 				var testData = dataActions.GetAllForAdmin()
 					.OrderBy(comment => comment.Level).OrderBy(comment => comment.CreatedDate)
 					.ToPage(0, numberOfItems);
@@ -395,7 +395,7 @@ namespace vlko.BlogModule.Tests.Model
 			using (RepositoryFactory.StartUnitOfWork())
 			{
 				CreateCommentTree();
-				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentData>();
 				var data = dataActions.GetAllByDate(_testText.Id).ToArray();
 
 				Assert.AreEqual("first_comment", data[0].Name);
@@ -425,7 +425,7 @@ namespace vlko.BlogModule.Tests.Model
 			using (RepositoryFactory.StartUnitOfWork())
 			{
 				CreateCommentTree();
-				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentData>();
 				var data = dataActions.GetAllByDateDesc(_testText.Id).ToArray();
 				// 2003, 1, 4
 				Assert.AreEqual("item03", data[0].Name);
@@ -455,7 +455,7 @@ namespace vlko.BlogModule.Tests.Model
 			using (RepositoryFactory.StartUnitOfWork())
 			{
 				CreateCommentTree();
-				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentData>();
 				var data = dataActions.GetCommentTree(_testText.Id).ToArray();
 
 				
@@ -487,7 +487,7 @@ namespace vlko.BlogModule.Tests.Model
 			using (RepositoryFactory.StartUnitOfWork())
 			{
 				CreateCommentTree();
-				var dataActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentData>();
+				var dataActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentData>();
 				var data = dataActions.GetAllForAdmin()
 					.OrderBy(comment => comment.CreatedDate)
 					.OrderBy(comment => comment.Level)
@@ -531,7 +531,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				var crudActions = RepositoryFactory.GetRepository<Comment>().GetAction<ICommentCrud>();
+				var crudActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentCrud>();
 				var item0 = crudActions.Create(new CommentCRUDModel()
 												{
 													Name = "item0",

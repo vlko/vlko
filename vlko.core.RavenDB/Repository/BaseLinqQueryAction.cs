@@ -4,7 +4,7 @@ using vlko.core.Repository;
 namespace vlko.core.RavenDB.Repository
 {
 
-	public class BaseLinqQueryAction<T> : BaseAction<T>, IAction<T> where T : class
+	public class LinqQuery<T> : CommandGroup<T>, ICommandGroup<T> where T : class
 	{
 		/// <summary>
 		/// Gets the queryable.

@@ -69,7 +69,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Action<ISystemMessageAction>();
+				var action = RepositoryFactory.Command<ISystemMessageCommands>();
 
 				var items = action.GetAll().OrderByDescending(item => item.CreatedDate).ToArray();
 
@@ -92,7 +92,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Action<ISystemMessageAction>();
+				var action = RepositoryFactory.Command<ISystemMessageCommands>();
 
 				var newItem = new SystemMessage
 								{

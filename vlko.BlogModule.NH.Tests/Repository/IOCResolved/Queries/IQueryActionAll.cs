@@ -2,7 +2,7 @@
 
 namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
-    public interface IQueryActionAll<T> : IAction<T> where T : class
+    public interface IAllQuery<T> : ICommandGroup<T> where T : class
     {
         /// <summary>
         /// Executes queryAction.

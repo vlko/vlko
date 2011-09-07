@@ -6,7 +6,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface ITwitterConnection : IAction<TwitterStatus>
+	public interface ITwitterConnection : ICommandGroup<TwitterStatus>
 	{
 		/// <summary>
 		/// Gets the authorize URL.

@@ -28,8 +28,8 @@ namespace vlko.web.Tests.Controllers.Admin
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 
-				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
-				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
+				RepositoryFactory.Command<IUserCommands>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				var admin = RepositoryFactory.Command<IUserCommands>().GetByName("vlko");
 				SessionFactory<User>.Create(new User
 				                            	{
 													Id = Guid.NewGuid(),
@@ -44,7 +44,7 @@ namespace vlko.web.Tests.Controllers.Admin
 				                            	});
 				for (int i = 0; i < NumberOfGeneratedItems; i++)
 				{
-					RepositoryFactory.Action<IStaticTextCrud>().Create(
+					RepositoryFactory.Command<IStaticTextCrud>().Create(
 						new StaticTextCRUDModel
 							{
 								AllowComments = false,
@@ -97,7 +97,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 
-			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
+			var id = RepositoryFactory.Command<IStaticTextData>().Get("staticpage0").Id;
 
 			// Act
 			ActionResult result = controller.Details(id);
@@ -117,7 +117,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 
-			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
+			var id = RepositoryFactory.Command<IStaticTextData>().Get("staticpage0").Id;
 
 			// Act
 			ActionResult result = controller.Delete(id);
@@ -138,8 +138,8 @@ namespace vlko.web.Tests.Controllers.Admin
 			builder.InitializeController(controller);
 			controller.MockUser("vlko");
 
-			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
-			var dataModel = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id);
+			var id = RepositoryFactory.Command<IStaticTextData>().Get("staticpage0").Id;
+			var dataModel = RepositoryFactory.Command<IStaticTextCrud>().FindByPk(id);
 
 			// Act
 			ActionResult result = controller.Delete(dataModel);
@@ -147,7 +147,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			// Assert
 			result.AssertActionRedirect().ToAction("Index");
 
-			var deletedItems = RepositoryFactory.Action<IStaticTextData>().GetDeleted();
+			var deletedItems = RepositoryFactory.Command<IStaticTextData>().GetDeleted();
 			Assert.AreEqual(1, deletedItems.Count());
 			Assert.AreEqual(id, deletedItems.ToArray()[0].Id);
 		}
@@ -162,8 +162,8 @@ namespace vlko.web.Tests.Controllers.Admin
 			builder.InitializeController(controller);
 			controller.MockUser("test");
 
-			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
-			var dataModel = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id);
+			var id = RepositoryFactory.Command<IStaticTextData>().Get("staticpage0").Id;
+			var dataModel = RepositoryFactory.Command<IStaticTextCrud>().FindByPk(id);
 
 			// Act
 			ActionResult result = controller.Delete(dataModel);
@@ -173,7 +173,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			Assert.AreEqual(id, model.Id);
 			Assert.IsFalse(controller.ModelState.IsValid);
 
-			var deletedItems = RepositoryFactory.Action<IStaticTextData>().GetDeleted();
+			var deletedItems = RepositoryFactory.Command<IStaticTextData>().GetDeleted();
 			Assert.AreEqual(0, deletedItems.Count());
 		}
 
@@ -219,7 +219,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			// Assert
 			result.AssertActionRedirect().ToAction("Index");
 
-			var newItemByUniqueFriendlyUrl = RepositoryFactory.Action<IStaticTextData>().Get("staticpage99");
+			var newItemByUniqueFriendlyUrl = RepositoryFactory.Command<IStaticTextData>().Get("staticpage99");
 			Assert.IsNotNull(newItemByUniqueFriendlyUrl);
 			Assert.AreEqual("vlko", newItemByUniqueFriendlyUrl.Creator.Name);
 			Assert.AreEqual(DateTime.Now.Date, newItemByUniqueFriendlyUrl.ChangeDate.Date);
@@ -254,7 +254,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			TestControllerBuilder builder = new TestControllerBuilder();
 			builder.InitializeController(controller);
 
-			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
+			var id = RepositoryFactory.Command<IStaticTextData>().Get("staticpage0").Id;
 
 			// Act
 			ActionResult result = controller.Edit(id);
@@ -275,8 +275,8 @@ namespace vlko.web.Tests.Controllers.Admin
 			builder.InitializeController(controller);
 			controller.MockUser("vlko");
 
-			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
-			var dataModel = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id);
+			var id = RepositoryFactory.Command<IStaticTextData>().Get("staticpage0").Id;
+			var dataModel = RepositoryFactory.Command<IStaticTextCrud>().FindByPk(id);
 			dataModel.FriendlyUrl = "changed-friendly-url";
 			dataModel.Title = "changed title";
 			dataModel.Text = "<p>changed text</p>";
@@ -287,7 +287,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			// Assert
 			result.AssertActionRedirect().ToAction("Index");
 
-			var changedItemByUniqueFriendlyUrl = RepositoryFactory.Action<IStaticTextData>().Get("changed-friendly-url");
+			var changedItemByUniqueFriendlyUrl = RepositoryFactory.Command<IStaticTextData>().Get("changed-friendly-url");
 			Assert.IsNotNull(changedItemByUniqueFriendlyUrl);
 			Assert.AreEqual(dataModel.Id, changedItemByUniqueFriendlyUrl.Id);
 			Assert.AreEqual("changed title", changedItemByUniqueFriendlyUrl.Title);
@@ -305,8 +305,8 @@ namespace vlko.web.Tests.Controllers.Admin
 			builder.InitializeController(controller);
 			controller.MockUser("other");
 
-			var id = RepositoryFactory.Action<IStaticTextData>().Get("staticpage0").Id;
-			var dataModel = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id);
+			var id = RepositoryFactory.Command<IStaticTextData>().Get("staticpage0").Id;
+			var dataModel = RepositoryFactory.Command<IStaticTextCrud>().FindByPk(id);
 			dataModel.FriendlyUrl = "changed-friendly-url";
 
 			// Act

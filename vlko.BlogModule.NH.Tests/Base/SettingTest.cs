@@ -35,7 +35,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 		[TestMethod]
 		public void Get_setting_from_db_fallback_to_default()
 		{
-			var action = RepositoryFactory.Action<IAppSettingAction>();
+			var action = RepositoryFactory.Command<IAppSettingCommands>();
 			const int defaultInt = 245;
 			const string defaultString = "defaultValue";
 
@@ -66,7 +66,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 		[TestMethod]
 		public void Save_setting_to_db()
 		{
-			var action = RepositoryFactory.Action<IAppSettingAction>();
+			var action = RepositoryFactory.Command<IAppSettingCommands>();
 			const int newValueInt = 2;
 			const string newValueString = "newValue";
 
@@ -95,7 +95,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 		[TestMethod]
 		public void Change_setting_to_db()
 		{
-			var action = RepositoryFactory.Action<IAppSettingAction>();
+			var action = RepositoryFactory.Command<IAppSettingCommands>();
 			const int newValueInt = 2;
 			const string newValueString = "newValue";
 			const int changeValueInt = 4;
@@ -130,7 +130,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 		[TestMethod]
 		public void Change_setting_to_db_check_string_null()
 		{
-			var action = RepositoryFactory.Action<IAppSettingAction>();
+			var action = RepositoryFactory.Command<IAppSettingCommands>();
 			const string newValueString = "newValue";
 
 			var stringSetting = new SettingValue<string>("changeStringVal", "defaultValue", new DatabaseSettingProvider());

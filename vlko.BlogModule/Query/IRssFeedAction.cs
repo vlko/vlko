@@ -9,7 +9,7 @@ using vlko.core.Repository.Exceptions;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface IRssFeedAction : IAction<RssFeed>
+	public interface IRssFeedCommands : ICommandGroup<RssFeed>
 	{
 		/// <summary>
 		/// Creates the specified item.

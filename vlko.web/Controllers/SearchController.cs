@@ -23,7 +23,7 @@ namespace vlko.web.Controllers
 				using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 				{
 					// test search for user name
-					var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, searchQuery);
+					var searchResult = RepositoryFactory.Command<ISearchCommands>().Search(session, searchQuery);
 					pageModel.LoadData(searchResult);
 				}
 			}
@@ -49,7 +49,7 @@ namespace vlko.web.Controllers
 				using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 				{
 					// test search for user name
-					var searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, query);
+					var searchResult = RepositoryFactory.Command<ISearchCommands>().SearchByDate(session, query);
 					pageModel.LoadData(searchResult);
 				}
 			}

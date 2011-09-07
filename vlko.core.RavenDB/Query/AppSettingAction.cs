@@ -6,7 +6,7 @@ using vlko.core.Repository;
 
 namespace vlko.core.RavenDB.Action
 {
-	public class AppSettingAction : BaseAction<AppSetting>, IAppSettingAction
+	public class AppSettingCommands : CommandGroup<AppSetting>, IAppSettingCommands
 	{
 		/// <summary>
 		/// Saves the specified item (create or update).

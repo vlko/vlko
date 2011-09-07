@@ -8,41 +8,41 @@ namespace vlko.core.Repository
 	public interface IRepository<out T> where T : class
 	{
 		/// <summary>
-		/// Gets the action.
+		/// Gets the command group.
 		/// </summary>
-		/// <typeparam name="TAType">The type of the action.</typeparam>
+		/// <typeparam name="TCommangGroup">The type of the command group.</typeparam>
 		/// <returns>Query.</returns>
 		/// <exception cref="RepositoryFactoryNotInitializeException">BaseRepository not initialized.</exception>
-		/// <exception cref="ActionNotRegisteredException">If type TAType not registered in BaseRepository.</exception>
-		TAType GetAction<TAType>() where TAType : class, IAction<T>;
+		/// <exception cref="ActionNotRegisteredException">If type TCommangGroup not registered in BaseRepository.</exception>
+		TCommangGroup GetCommand<TCommangGroup>() where TCommangGroup : class, ICommandGroup<T>;
 
 		/// <summary>
-		/// Initalizes the queryAction.
+		/// Initalizes the command group.
 		/// </summary>
-		/// <param name="action">The action.</param>
-		void InitalizeAction(IAction<T> action);
+		/// <param name="commandGroup">The command group.</param>
+		void InitalizeAction(ICommandGroup<T> commandGroup);
 	}
 
 	public abstract class BaseRepository<T> : IRepository<T> where T : class
 	{
 		/// <summary>
-		/// Gets the action.
+		/// Gets the command group.
 		/// </summary>
-		/// <typeparam name="TAType">The type of the action.</typeparam>
+		/// <typeparam name="TCommangGroup">The type of the command group.</typeparam>
 		/// <returns>Query.</returns>
 		/// <exception cref="RepositoryFactoryNotInitializeException">BaseRepository not initialized.</exception>
-		/// <exception cref="ActionNotRegisteredException">If type TAType not registered in BaseRepository.</exception>
-		public TAType GetAction<TAType>() where TAType : class, IAction<T>
+		/// <exception cref="ActionNotRegisteredException">If type TCommangGroup not registered in BaseRepository.</exception>
+		public TCommandGroup GetCommand<TCommandGroup>() where TCommandGroup : class, ICommandGroup<T>
 		{
-			TAType action = null;
+			TCommandGroup action = null;
 
 			try
 			{
-				action = RepositoryFactory.FactoryResolver.ResolveAction<TAType>();
+				action = RepositoryFactory.FactoryResolver.ResolveCommand<TCommandGroup>();
 			}
 			catch (Exception innerException)
 			{
-				throw new ActionNotRegisteredException(typeof(TAType), this.GetType(), typeof(T), innerException);
+				throw new ActionNotRegisteredException(typeof(TCommandGroup), this.GetType(), typeof(T), innerException);
 			}
 
 			if (action != null)
@@ -54,19 +54,19 @@ namespace vlko.core.Repository
 			}
 			else
 			{
-				throw new ActionNotRegisteredException(typeof(TAType), this.GetType(), typeof(T), null);
+				throw new ActionNotRegisteredException(typeof(TCommandGroup), this.GetType(), typeof(T), null);
 			}
 
 			return action;
 		}
 
 		/// <summary>
-		/// Initalizes the queryAction.
+		/// Initalizes the command group.
 		/// </summary>
-		/// <param name="action">The action.</param>
-		public virtual void InitalizeAction(IAction<T> action)
+		/// <param name="commandGroup">The command group.</param>
+		public virtual void InitalizeAction(ICommandGroup<T> commandGroup)
 		{
-			action.Initialize(new InitializeContext<T>(this));
+			commandGroup.Initialize(new InitializeContext<T>(this));
 		}
 	}
 }

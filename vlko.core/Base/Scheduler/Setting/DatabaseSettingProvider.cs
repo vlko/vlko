@@ -17,7 +17,7 @@ namespace vlko.core.Base.Scheduler.Setting
 		{
 			using (var session = RepositoryFactory.StartUnitOfWork())
 			{
-				var dbValue = RepositoryFactory.Action<IAppSettingAction>().Get(name);
+				var dbValue = RepositoryFactory.Command<IAppSettingCommands>().Get(name);
 
 				if (dbValue != null)
 				{
@@ -37,7 +37,7 @@ namespace vlko.core.Base.Scheduler.Setting
 		{
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				RepositoryFactory.Action<IAppSettingAction>().Save(
+				RepositoryFactory.Command<IAppSettingCommands>().Save(
 					new AppSettingModel
 						{
 							Name = name,

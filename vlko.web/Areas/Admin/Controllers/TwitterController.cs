@@ -27,7 +27,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		{
 			try
 			{
-				var twitterConnection = RepositoryFactory.Action<ITwitterConnection>();
+				var twitterConnection = RepositoryFactory.Command<ITwitterConnection>();
 
 				if (!IsCurrentTokenValid(twitterConnection))
 				{
@@ -79,7 +79,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		{
 			try
 			{
-				var twitterConnection = RepositoryFactory.Action<ITwitterConnection>();
+				var twitterConnection = RepositoryFactory.Command<ITwitterConnection>();
 
 				var token = twitterConnection.GetOAuthToken(
 					new ConsumerAppIdent

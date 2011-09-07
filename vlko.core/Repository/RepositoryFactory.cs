@@ -93,33 +93,33 @@ namespace vlko.core.Repository
 		}
 
 		/// <summary>
-		/// Gets the action.
+		/// Gets the command group.
 		/// </summary>
 		/// <typeparam name="TRepository">The type of the repository.</typeparam>
-		/// <typeparam name="TAction">The type of the action.</typeparam>
-		/// <returns>Action.</returns>
+		/// <typeparam name="TCommandGroup">The type of the command group.</typeparam>
+		/// <returns>Command group.</returns>
 		[Obsolete("Should use Action to get action without repository type specify.")]
-		public static TAction GetAction<TRepository, TAction>()
+		public static TCommandGroup GetCommand<TRepository, TCommandGroup>()
 			where TRepository : class
-			where TAction : class, IAction<TRepository>
+			where TCommandGroup : class, ICommandGroup<TRepository>
 		{
-			return GetRepository<TRepository>().GetAction<TAction>();
+			return GetRepository<TRepository>().GetCommand<TCommandGroup>();
 		}
 
 		/// <summary>
-		/// Gets the action (initialize on action is called).
+		/// Gets the command group.
 		/// </summary>
 		/// <typeparam name="T">Type of action</typeparam>
-		/// <returns></returns>
-		public static T Action<T>() where T : class, IAction
+		/// <returns>Resolved command group.</returns>
+		public static T Command<T>() where T : class, ICommandGroup
 		{
-			var action = FactoryResolver.ResolveAction<T>();
+			var commandGroup = FactoryResolver.ResolveCommand<T>();
 			// initialize if not yet done
-			if (!action.Initialized)
+			if (!commandGroup.Initialized)
 			{
-				action.Initialize();
+				commandGroup.Initialize();
 			}
-			return action;
+			return commandGroup;
 		}
 	}
 }

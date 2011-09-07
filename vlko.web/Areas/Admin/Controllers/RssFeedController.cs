@@ -30,7 +30,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Index(PagedModel<RssFeedViewModel> pageModel)
 		{
-			pageModel.LoadData(RepositoryFactory.Action<IRssFeedAction>().GetAll().OrderByDescending(item => item.Name));
+			pageModel.LoadData(RepositoryFactory.Command<IRssFeedCommands>().GetAll().OrderByDescending(item => item.Name));
 			return ViewWithAjax(pageModel);
 		}
 
@@ -41,7 +41,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Details(Guid id)
 		{
-			var item = RepositoryFactory.Action<IRssFeedAction>().FindByPk(id);
+			var item = RepositoryFactory.Command<IRssFeedCommands>().FindByPk(id);
 			return ViewWithAjax(item);
 		}
 
@@ -52,7 +52,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Delete(Guid id)
 		{
-			return ViewWithAjax(RepositoryFactory.Action<IRssFeedAction>().FindByPk(id));
+			return ViewWithAjax(RepositoryFactory.Command<IRssFeedCommands>().FindByPk(id));
 		}
 
 		/// <summary>
@@ -63,10 +63,10 @@ namespace vlko.web.Areas.Admin.Controllers
 		[HttpPost]
 		public ActionResult Delete(RssFeedCRUDModel model)
 		{
-			var item = RepositoryFactory.Action<IRssFeedAction>().FindByPk(model.Id);
+			var item = RepositoryFactory.Command<IRssFeedCommands>().FindByPk(model.Id);
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				RepositoryFactory.Action<IRssFeedAction>().Delete(model);
+				RepositoryFactory.Command<IRssFeedCommands>().Delete(model);
 				tran.Commit();
 			}
 			return RedirectToActionWithAjax("Index");
@@ -79,7 +79,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Edit(Guid id)
 		{
-			return ViewWithAjax(RepositoryFactory.Action<IRssFeedAction>().FindByPk(id));
+			return ViewWithAjax(RepositoryFactory.Command<IRssFeedCommands>().FindByPk(id));
 		}
 
 		/// <summary>
@@ -92,7 +92,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var crudOperations = RepositoryFactory.Action<IRssFeedAction>();
+				var crudOperations = RepositoryFactory.Command<IRssFeedCommands>();
 
 				// get original item to test change permissions
 				var originalItem = crudOperations.FindByPk(model.Id);
@@ -123,7 +123,7 @@ namespace vlko.web.Areas.Admin.Controllers
 			var feedItems = new List<RssItemCRUDModel>();
 			try
 			{
-				var connectionAction = RepositoryFactory.Action<IRssFeedConnection>();
+				var connectionAction = RepositoryFactory.Command<IRssFeedConnection>();
 				var rssItems = connectionAction.GetFeedUrlItems(model.Url);
 				foreach (var rssItem in rssItems)
 				{
@@ -160,7 +160,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var crudOperations = RepositoryFactory.Action<IRssFeedAction>();
+				var crudOperations = RepositoryFactory.Command<IRssFeedCommands>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{

@@ -5,7 +5,7 @@ using vlko.core.Roots;
 namespace vlko.core.Action
 {
 	[InheritedExport]
-	public interface IUserAuthentication : IAction<User>
+	public interface IUserAuthentication : ICommandGroup<User>
     {
         /// <summary>
         /// Creates the user.

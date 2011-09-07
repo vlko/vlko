@@ -11,7 +11,7 @@ using vlko.core.Roots;
 
 namespace vlko.BlogModule.NH.Action
 {
-	public class CommentCrud : BaseAction<Comment>, ICommentCrud
+	public class CommentCrud : CommandGroup<Comment>, ICommentCrud
 	{
 		/// <summary>
 		/// Creates the specified item.

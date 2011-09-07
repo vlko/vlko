@@ -57,7 +57,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Action<IAppSettingAction>();
+				var action = RepositoryFactory.Command<IAppSettingCommands>();
 
 				var item = action.Get(_setting1.Id);
 
@@ -84,7 +84,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Action<IAppSettingAction>();
+				var action = RepositoryFactory.Command<IAppSettingCommands>();
 
 				var item = action.Get(_setting1.Id);
 				item.Value = "changed_value";

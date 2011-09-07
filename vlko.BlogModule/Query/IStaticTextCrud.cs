@@ -8,7 +8,7 @@ using vlko.core.Repository.Exceptions;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-    public interface IStaticTextCrud : IAction<StaticText>
+    public interface IStaticTextCrud : ICommandGroup<StaticText>
     {
 
         /// <summary>

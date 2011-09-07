@@ -6,7 +6,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface IRssFeedConnection : IAction<RssFeed>
+	public interface IRssFeedConnection : ICommandGroup<RssFeed>
 	{
 		/// <summary>
 		/// Gets the feed URL items.

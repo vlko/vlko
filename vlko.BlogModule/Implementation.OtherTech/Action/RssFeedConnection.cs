@@ -11,7 +11,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.Implementation.OtherTech.Action
 {
-	public class RssFeedConnection : BaseAction<RssFeed>, IRssFeedConnection
+	public class RssFeedConnection : CommandGroup<RssFeed>, IRssFeedConnection
 	{
 		/// <summary>
 		/// Gets the feed URL items.

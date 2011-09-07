@@ -15,7 +15,7 @@ using vlko.core.Repository.Exceptions;
 
 namespace vlko.BlogModule.RavenDB.Action
 {
-	public class RssFeedAction : BaseAction<RssFeed>, IRssFeedAction
+	public class RssFeedCommands : CommandGroup<RssFeed>, IRssFeedCommands
 	{
 		/// <summary>
 		/// Creates the specified item.

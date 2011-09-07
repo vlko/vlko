@@ -8,7 +8,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface ICommentData : IAction<Comment>
+	public interface ICommentData : ICommandGroup<Comment>
 	{
 		/// <summary>
 		/// Gets the comment tree.

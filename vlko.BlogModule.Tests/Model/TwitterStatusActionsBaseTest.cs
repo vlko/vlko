@@ -108,7 +108,7 @@ namespace vlko.BlogModule.Tests.Model
 				           		AreCommentAllowed = false
 				           	};
 
-				var action = RepositoryFactory.Action<ITwitterStatusAction>();
+				var action = RepositoryFactory.Command<ITwitterStatusCommands>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -134,7 +134,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Action<ITwitterStatusAction>();
+				var action = RepositoryFactory.Command<ITwitterStatusCommands>();
 				var result = action.GetByIds(new[] {_statuses[0].Id, _statuses[1].Id})
 								.ToArray();
 				
@@ -149,7 +149,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Action<ITwitterStatusAction>();
+				var action = RepositoryFactory.Command<ITwitterStatusCommands>();
 				var result = action.GetByTwitterIds(new[] { _statuses[0].TwitterId, _statuses[1].TwitterId })
 								.ToArray();
 
@@ -164,7 +164,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var action = RepositoryFactory.Action<ITwitterStatusAction>();
+				var action = RepositoryFactory.Command<ITwitterStatusCommands>();
 				var result = action.GetAll().OrderBy(item => item.CreatedDate).ToArray();
 
 				Assert.AreEqual(3, result.Length);

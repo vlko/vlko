@@ -5,7 +5,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface ISystemMessageAction : IAction<SystemMessage>
+	public interface ISystemMessageCommands : ICommandGroup<SystemMessage>
 	{
 		/// <summary>
 		/// Gets all system messages.

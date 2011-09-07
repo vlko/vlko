@@ -5,7 +5,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
-    public class QueryActionHotelRoomsLinq : BaseLinqQueryAction<Room>, IQueryActionHotelRooms
+    public class HotelRoomsLinqQuery : LinqQuery<Room>, IHotelRoomsQuery
     {
         /// <summary>
         /// Wheres the name of the hotel.

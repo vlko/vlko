@@ -1,6 +1,6 @@
 ﻿namespace vlko.core.Repository
 {
-	public class BaseAction<T> : IAction<T> where T : class
+	public class CommandGroup<T> : ICommandGroup<T> where T : class
 	{
 
 		/// <summary>
@@ -12,7 +12,7 @@
 		}
 
 		/// <summary>
-		/// Gets or sets a value indicating whether this <see cref="BaseAction&lt;T&gt;"/> is initialized.
+		/// Gets or sets a value indicating whether this <see cref="CommandGroup{T}"/> is initialized.
 		/// </summary>
 		/// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
 		public bool Initialized { get; private set; }

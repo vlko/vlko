@@ -6,7 +6,7 @@ using vlko.core.Action.Model;
 namespace vlko.core.Action
 {
 	[InheritedExport]
-	public interface IAppSettingAction : IAction<AppSetting>
+	public interface IAppSettingCommands : ICommandGroup<AppSetting>
 	{
 		/// <summary>
 		/// Saves the specified item (create or update).

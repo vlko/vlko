@@ -37,7 +37,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var authentication = RepositoryFactory.Action<IUserAuthentication>();
+				var authentication = RepositoryFactory.Command<IUserAuthentication>();
 
 				// test success
 				string token;
@@ -63,7 +63,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var authentication = RepositoryFactory.Action<IUserAuthentication>();
+				var authentication = RepositoryFactory.Command<IUserAuthentication>();
 
 				string userName = "resolve_token";
 
@@ -84,7 +84,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var authentication = RepositoryFactory.Action<IUserAuthentication>();
+				var authentication = RepositoryFactory.Command<IUserAuthentication>();
 
 				string userName = "register_user";
 
@@ -120,7 +120,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var authentication = RepositoryFactory.Action<IUserAuthentication>();
+				var authentication = RepositoryFactory.Command<IUserAuthentication>();
 
 				string userName = "register_user";
 				string password = "some_password";
@@ -158,7 +158,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var authentication = RepositoryFactory.Action<IUserAuthentication>();
+				var authentication = RepositoryFactory.Command<IUserAuthentication>();
 
 				string userName = "reset_user";
 				string password = "some_password";
@@ -219,7 +219,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var authentication = RepositoryFactory.Action<IUserAuthentication>();
+				var authentication = RepositoryFactory.Command<IUserAuthentication>();
 
 				string userName = "reset_user";
 				string password = "some_password";
@@ -261,7 +261,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var authentication = RepositoryFactory.Action<IUserAuthentication>();
+				var authentication = RepositoryFactory.Command<IUserAuthentication>();
 
 				string userName = "reset_user";
 				string password = "some_password";
@@ -329,7 +329,7 @@ namespace vlko.BlogModule.Tests.Model
 				}
 				TestProvider.WaitForIndexing();
 
-				var user = IoC.Resolve<IUserAction>().GetByName(username);
+				var user = IoC.Resolve<IUserCommands>().GetByName(username);
 				var authentication = new UserPrincipal(user);
 
 				// valid user and roles

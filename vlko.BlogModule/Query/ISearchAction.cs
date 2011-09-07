@@ -7,7 +7,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface ISearchAction : IAction<SearchRoot>
+	public interface ISearchCommands : ICommandGroup<SearchRoot>
 	{
 		/// <summary>
 		/// Indexes the comment.

@@ -5,7 +5,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
-	public class QueryActionReservationForDayCriterion : BaseCriterionQueryAction<Reservation>, IQueryActionReservationForDay
+	public class ReservationForDayCriterionQuery : CriterionQuery<Reservation>, IReservationForDayQuery
 	{
 
 		/// <summary>

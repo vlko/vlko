@@ -9,7 +9,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Action
 {
-	public class CommentData : BaseAction<Comment>, ICommentData
+	public class CommentData : CommandGroup<Comment>, ICommentData
 	{
 		/// <summary>
 		/// Gets the comment tree.

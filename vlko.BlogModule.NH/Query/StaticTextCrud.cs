@@ -11,7 +11,7 @@ using vlko.core.Roots;
 
 namespace vlko.BlogModule.NH.Action
 {
-	public class StaticTextCrud : BaseAction<StaticText>, IStaticTextCrud
+	public class StaticTextCrud : CommandGroup<StaticText>, IStaticTextCrud
 	{
 		/// <summary>
 		/// Creates the specified item.

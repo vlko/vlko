@@ -29,9 +29,9 @@ namespace vlko.BlogModule.Base.Scheduler
 		protected override void DoJob()
 		{
 			// actions declaration
-			var twitterConnection = RepositoryFactory.Action<ITwitterConnection>();
-			var twitterData = RepositoryFactory.Action<ITwitterStatusAction>();
-			var searchAction = RepositoryFactory.Action<ISearchAction>();
+			var twitterConnection = RepositoryFactory.Command<ITwitterConnection>();
+			var twitterData = RepositoryFactory.Command<ITwitterStatusCommands>();
+			var searchAction = RepositoryFactory.Command<ISearchCommands>();
 
 			// token declaration
 			var oAuthToken = new OAuthToken

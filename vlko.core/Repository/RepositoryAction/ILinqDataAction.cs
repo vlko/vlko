@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace vlko.core.Repository.RepositoryAction
 {
-	public interface ILinqDataAction<T> : IAction<T> where T : class
+	public interface ILinqQueries<T> : ICommandGroup<T> where T : class
 	{
 		/// <summary>
 		/// Gets all.

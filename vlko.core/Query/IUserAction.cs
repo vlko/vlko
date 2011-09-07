@@ -5,7 +5,7 @@ using vlko.core.Roots;
 namespace vlko.core.Action
 {
 	[InheritedExport]
-	public interface IUserAction : IAction<User>
+	public interface IUserCommands : ICommandGroup<User>
 	{
 		/// <summary>
 		/// Creates the admin.

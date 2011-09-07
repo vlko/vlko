@@ -8,7 +8,7 @@ using vlko.core.Roots;
 
 namespace vlko.core.NH.Action
 {
-	public class UserAuthentication : BaseAction<User>, IUserAuthentication
+	public class UserAuthentication : CommandGroup<User>, IUserAuthentication
 	{
 		/// <summary>
 		/// Generates the verify token.

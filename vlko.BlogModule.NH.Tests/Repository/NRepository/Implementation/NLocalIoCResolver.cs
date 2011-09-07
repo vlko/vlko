@@ -17,23 +17,23 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation
 			_sessionFactory = sessionFactory;
 		}
 
-    	public T ResolveAction<T>() where T : class, IAction
+    	public T ResolveCommand<T>() where T : class, ICommandGroup
         {
             Type type = typeof (T);
-            if (type == typeof(NFilterLinqQueryAction))
+            if (type == typeof(NFilterLinqQuery))
             {
-                return new NFilterLinqQueryAction() as T;
+                return new NFilterLinqQuery() as T;
             }
             if (type == typeof(NFilterCriterion))
             {
                 return new NFilterCriterion() as T;
             }
-            if ((type == typeof(IUpdateAction<NTestObject>))
-                || (type == typeof(ICreateAction<NTestObject>))
-                || (type == typeof(IFindByPkAction<NTestObject>))
-                || (type == typeof(IDeleteAction<NTestObject>)))
+            if ((type == typeof(IUpdateCommand<NTestObject>))
+                || (type == typeof(ICreateCommand<NTestObject>))
+                || (type == typeof(IFindByPkCommand<NTestObject>))
+                || (type == typeof(IDeleteCommand<NTestObject>)))
             {
-                return new CRUDActions<NTestObject>() as T;
+                return new CrudCommands<NTestObject>() as T;
             }
             return null;
         }

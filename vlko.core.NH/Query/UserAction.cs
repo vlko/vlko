@@ -7,7 +7,7 @@ using vlko.core.Roots;
 
 namespace vlko.core.NH.Action
 {
-	public class UserAction : BaseAction<User>, IUserAction
+	public class UserCommands : CommandGroup<User>, IUserCommands
 	{
 		/// <summary>
 		/// Creates the admin.

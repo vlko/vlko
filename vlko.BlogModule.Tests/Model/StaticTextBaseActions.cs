@@ -225,7 +225,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var crudActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextCrud>();
+				var crudActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextCrud>();
 
 				// get first
 				var first = crudActions.FindByPk(_testData[0].Id);
@@ -266,7 +266,7 @@ namespace vlko.BlogModule.Tests.Model
 								   Text = "create new content"
 							   };
 
-				var crudActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextCrud>();
+				var crudActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextCrud>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -306,7 +306,7 @@ namespace vlko.BlogModule.Tests.Model
 					Description = "description update"
 				};
 
-				var crudActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextCrud>();
+				var crudActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextCrud>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -400,8 +400,8 @@ namespace vlko.BlogModule.Tests.Model
 								   Text = "updateable new content"
 							   };
 
-				var crudActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextCrud>();
-				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+				var crudActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextCrud>();
+				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextData>();
 				var initialStaticTextCount = dataActions.GetAll().Count();
 
 				using (var tran = RepositoryFactory.StartTransaction())
@@ -441,7 +441,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextData>();
 
 				// check existing
 				foreach (StaticText staticText in _testData)
@@ -464,7 +464,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextData>();
 
 				// check existing
 				foreach (StaticText staticText in _testData)
@@ -488,7 +488,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextData>();
 
 				var dataItems = dataActions.GetAll().OrderBy(item => item.FriendlyUrl).ToArray();
 				var originalItems = _testData.OrderBy(item => item.FriendlyUrl).ToArray();
@@ -511,7 +511,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextData>();
 
 				var testData = dataActions.GetAll().OrderBy(item => item.FriendlyUrl).ToArray();
 				var data = dataActions.GetByIds(testData.Select(item => item.Id)).OrderBy(item => item.FriendlyUrl).ToArray();
@@ -530,7 +530,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextData>();
+				var dataActions = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextData>();
 
 				var dataItems = dataActions.GetAll(new DateTime(2002, 2, 1)).OrderBy(item => item.PublishDate).ToArray();
 
@@ -546,7 +546,7 @@ namespace vlko.BlogModule.Tests.Model
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
-					var crudAction = RepositoryFactory.GetRepository<StaticText>().GetAction<IStaticTextCrud>();
+					var crudAction = RepositoryFactory.GetRepository<StaticText>().GetCommand<IStaticTextCrud>();
 					var itemToDelete = crudAction.FindByPk(_testData[1].Id);
 					crudAction.Delete(itemToDelete);
 					tran.Commit();

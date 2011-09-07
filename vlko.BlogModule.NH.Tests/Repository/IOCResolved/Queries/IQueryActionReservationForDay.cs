@@ -4,7 +4,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
-	public interface IQueryActionReservationForDay : IAction<Reservation>
+	public interface IReservationForDayQuery : ICommandGroup<Reservation>
     {
         /// <summary>
         /// Wheres the date.

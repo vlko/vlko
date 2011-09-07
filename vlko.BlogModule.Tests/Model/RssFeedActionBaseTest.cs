@@ -98,7 +98,7 @@ namespace vlko.BlogModule.Tests.Model
 			{
 				var items = TestProvider.FindAll<RssFeed>();
 
-				var crudActions = RepositoryFactory.Action<IRssFeedAction>();
+				var crudActions = RepositoryFactory.Command<IRssFeedCommands>();
 
 				// get first
 				var first = crudActions.FindByPk(_testData[0].Id);
@@ -147,7 +147,7 @@ namespace vlko.BlogModule.Tests.Model
 								   DisplayFullContent = false
 							   };
 
-				var crudActions = RepositoryFactory.Action<IRssFeedAction>();
+				var crudActions = RepositoryFactory.Command<IRssFeedCommands>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -182,7 +182,7 @@ namespace vlko.BlogModule.Tests.Model
 					DisplayFullContent = false
 				};
 
-				var crudActions = RepositoryFactory.Action<IRssFeedAction>();
+				var crudActions = RepositoryFactory.Command<IRssFeedCommands>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -245,7 +245,7 @@ namespace vlko.BlogModule.Tests.Model
 					DisplayFullContent = false
 				};
 
-				var crudActions = RepositoryFactory.Action<IRssFeedAction>();
+				var crudActions = RepositoryFactory.Command<IRssFeedCommands>();
 
 				using (var tran = RepositoryFactory.StartTransaction())
 				{
@@ -271,7 +271,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var dataActions = RepositoryFactory.Action<IRssFeedAction>();
+				var dataActions = RepositoryFactory.Command<IRssFeedCommands>();
 
 				var dataItems = dataActions.GetAll().OrderBy(item => item.Name).ToArray();
 				var originalItems = _testData.OrderBy(item => item.Name).ToArray();
@@ -294,7 +294,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var dataActions = RepositoryFactory.Action<IRssFeedAction>();
+				var dataActions = RepositoryFactory.Command<IRssFeedCommands>();
 
 				var dataItems = dataActions.GetFeedToProcess().OrderBy(item => item.Name).ToArray();
 				var originalItems = _testData.OrderBy(item => item.Name).ToArray();

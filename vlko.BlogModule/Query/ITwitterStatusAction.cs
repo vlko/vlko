@@ -7,7 +7,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface ITwitterStatusAction : IAction<TwitterStatus>
+	public interface ITwitterStatusCommands : ICommandGroup<TwitterStatus>
 	{
 
 		/// <summary>

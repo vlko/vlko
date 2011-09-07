@@ -11,7 +11,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.RavenDB.Action
 {
-	public class StaticTextData : BaseAction<StaticText>, IStaticTextData
+	public class StaticTextData : CommandGroup<StaticText>, IStaticTextData
 	{
 
 		/// <summary>

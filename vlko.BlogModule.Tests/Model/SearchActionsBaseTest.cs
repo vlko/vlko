@@ -32,13 +32,13 @@ namespace vlko.BlogModule.Tests.Model
 
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				RepositoryFactory.Action<IUserAction>().CreateAdmin("user", "user@user.sk", "test");
+				RepositoryFactory.Command<IUserCommands>().CreateAdmin("user", "user@user.sk", "test");
 				tran.Commit();
 			}
 			TestProvider.WaitForIndexing();
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				_user = RepositoryFactory.Action<IUserAction>().GetByName("user");
+				_user = RepositoryFactory.Command<IUserCommands>().GetByName("user");
 			}
 		}
 
@@ -52,7 +52,7 @@ namespace vlko.BlogModule.Tests.Model
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, new StaticTextCRUDModel()
+				RepositoryFactory.Command<ISearchCommands>().IndexStaticText(tran, new StaticTextCRUDModel()
 				{
 					Id = Guid.NewGuid(),
 					PublishDate = DateTime.Now,
@@ -70,7 +70,7 @@ namespace vlko.BlogModule.Tests.Model
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentCRUDModel()
+				RepositoryFactory.Command<ISearchCommands>().IndexComment(tran, new CommentCRUDModel()
 				{
 					Id = Guid.NewGuid(),
 					ChangeDate = DateTime.Now,
@@ -87,7 +87,7 @@ namespace vlko.BlogModule.Tests.Model
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().IndexTwitterStatus(tran, new TwitterStatus()
+				RepositoryFactory.Command<ISearchCommands>().IndexTwitterStatus(tran, new TwitterStatus()
 				{
 					Id = Guid.NewGuid(),
 					CreatedDate = DateTime.Now,
@@ -103,7 +103,7 @@ namespace vlko.BlogModule.Tests.Model
 			IoC.Resolve<ISearchProvider>().Initialize(Directory.GetCurrentDirectory());
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().IndexRssItem(tran, new RssItemCRUDModel()
+				RepositoryFactory.Command<ISearchCommands>().IndexRssItem(tran, new RssItemCRUDModel()
 				{
 					FeedItemId = "feed_id",
 					Title = "title",
@@ -127,7 +127,7 @@ namespace vlko.BlogModule.Tests.Model
 			// put one item just to get some result
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentCRUDModel()
+				RepositoryFactory.Command<ISearchCommands>().IndexComment(tran, new CommentCRUDModel()
 				                                                	{
 				                                                		Id = Guid.NewGuid(),
 				                                                		ChangeDate = DateTime.Now,
@@ -149,7 +149,7 @@ namespace vlko.BlogModule.Tests.Model
 				                    	{
 											using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 											{
-												RepositoryFactory.Action<ISearchAction>().IndexComment(tran, new CommentCRUDModel()
+												RepositoryFactory.Command<ISearchCommands>().IndexComment(tran, new CommentCRUDModel()
 				                             						{
 				                             							Id = Guid.NewGuid(),
 				                             							ChangeDate = DateTime.Now,
@@ -157,7 +157,7 @@ namespace vlko.BlogModule.Tests.Model
 				                             							Text = "very long test",
 				                             							ChangeUser = _user
 				                             						});
-												RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, new StaticTextCRUDModel()
+												RepositoryFactory.Command<ISearchCommands>().IndexStaticText(tran, new StaticTextCRUDModel()
 				                             						{
 				                             							Id = Guid.NewGuid(),
 				                             							PublishDate = DateTime.Now,
@@ -172,7 +172,7 @@ namespace vlko.BlogModule.Tests.Model
 											using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 											{
 												// test search for user name
-												var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "test");
+												var searchResult = RepositoryFactory.Command<ISearchCommands>().Search(session, "test");
 												Assert.AreNotEqual(0, searchResult.Count());
 											}
 											Interlocked.Decrement(ref threadToFinish);
@@ -204,7 +204,7 @@ namespace vlko.BlogModule.Tests.Model
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
 				var startDate = DateTime.Now;
-				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
+				var home = RepositoryFactory.Command<IStaticTextCrud>().Create(
 					new StaticTextCRUDModel
 						{
 							AllowComments = false,
@@ -217,24 +217,24 @@ namespace vlko.BlogModule.Tests.Model
 							Description = "delete me"
 						});
 				idToDelete = home.Id;
-				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, home);
+				RepositoryFactory.Command<ISearchCommands>().IndexStaticText(tran, home);
 				tran.Commit();
 			}
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "delete");
+				var searchResult = RepositoryFactory.Command<ISearchCommands>().Search(session, "delete");
 				Assert.AreEqual(1, searchResult.Count());
 			}
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, idToDelete.ToString());
+				RepositoryFactory.Command<ISearchCommands>().DeleteFromIndex(tran, idToDelete.ToString());
 				tran.Commit();
 			}
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "delete");
+				var searchResult = RepositoryFactory.Command<ISearchCommands>().Search(session, "delete");
 				Assert.AreEqual(0, searchResult.Count());
 			}
 		}
@@ -246,7 +246,7 @@ namespace vlko.BlogModule.Tests.Model
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
 				var startDate = DateTime.Now;
-				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
+				var home = RepositoryFactory.Command<IStaticTextCrud>().Create(
 					new StaticTextCRUDModel
 					{
 						AllowComments = false,
@@ -259,28 +259,28 @@ namespace vlko.BlogModule.Tests.Model
 						Description = "delete me"
 					});
 				idToUpdate = home.Id;
-				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, home);
+				RepositoryFactory.Command<ISearchCommands>().IndexStaticText(tran, home);
 				tran.Commit();
 			}
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "delete");
+				var searchResult = RepositoryFactory.Command<ISearchCommands>().Search(session, "delete");
 				Assert.AreEqual(1, searchResult.Count());
 			}
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
-				RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, idToUpdate.ToString());
-				var home = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(idToUpdate);
+				RepositoryFactory.Command<ISearchCommands>().DeleteFromIndex(tran, idToUpdate.ToString());
+				var home = RepositoryFactory.Command<IStaticTextCrud>().FindByPk(idToUpdate);
 				home.Text = "nodelete me";
-				RepositoryFactory.Action<IStaticTextCrud>().Update(home);
-				RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, home);
+				RepositoryFactory.Command<IStaticTextCrud>().Update(home);
+				RepositoryFactory.Command<ISearchCommands>().IndexStaticText(tran, home);
 				tran.Commit();
 			}
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "nodelete");
+				var searchResult = RepositoryFactory.Command<ISearchCommands>().Search(session, "nodelete");
 				Assert.AreEqual(1, searchResult.Count());
 			}
 		}
@@ -292,14 +292,14 @@ namespace vlko.BlogModule.Tests.Model
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "user");
+				var searchResult = RepositoryFactory.Command<ISearchCommands>().Search(session, "user");
 				Assert.AreEqual(332 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
 				Assert.IsTrue(SearchResult.MaximumRawResults >= searchResult.ToArray().Length);
 
 				// test search for text
-				searchResult = RepositoryFactory.Action<ISearchAction>().Search(session, "home");
+				searchResult = RepositoryFactory.Command<ISearchCommands>().Search(session, "home");
 				Assert.AreEqual(33 , searchResult.Count());
 
 				data = searchResult.ToPage(0, 4);
@@ -320,14 +320,14 @@ namespace vlko.BlogModule.Tests.Model
 			using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 			{
 				// test search for user name
-				var searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, "user");
+				var searchResult = RepositoryFactory.Command<ISearchCommands>().SearchByDate(session, "user");
 				Assert.AreEqual(332 - 2 /* two items are out of date range */, searchResult.Count());
 
 				var data = searchResult.ToArray();
 				Assert.IsTrue(SearchResult.MaximumRawResults >= searchResult.ToArray().Length);
 
 				// test search for text
-				searchResult = RepositoryFactory.Action<ISearchAction>().SearchByDate(session, "home");
+				searchResult = RepositoryFactory.Command<ISearchCommands>().SearchByDate(session, "home");
 				Assert.AreEqual(33, searchResult.Count());
 
 				data = searchResult.ToArray();
@@ -350,15 +350,15 @@ namespace vlko.BlogModule.Tests.Model
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{
 				var startDate = DateTime.Now;
-				var searchAction = RepositoryFactory.Action<ISearchAction>();
+				var searchAction = RepositoryFactory.Command<ISearchCommands>();
 
 				// add feed item
-				var feed = RepositoryFactory.Action<IRssFeedAction>().Create(new RssFeedCRUDModel()
+				var feed = RepositoryFactory.Command<IRssFeedCommands>().Create(new RssFeedCRUDModel()
 				                                                             	{
 				                                                             		Name = "feed",
 				                                                             		Url = "url"
 				                                                             	});
-				var feedItem = RepositoryFactory.Action<IRssItemAction>().Save(new RssItemCRUDModel()
+				var feedItem = RepositoryFactory.Command<IRssItemCommands>().Save(new RssItemCRUDModel()
 				           	{
 				           		FeedItemId = "new",
 				           		Title = "home",
@@ -373,7 +373,7 @@ namespace vlko.BlogModule.Tests.Model
 
 
 				// add to index some static text
-				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
+				var home = RepositoryFactory.Command<IStaticTextCrud>().Create(
 					new StaticTextCRUDModel
 						{
 							AllowComments = false,
@@ -389,7 +389,7 @@ namespace vlko.BlogModule.Tests.Model
 				for (int i = 0; i < 30; i++)
 				{
 					searchAction.IndexComment(tran,
-					                          RepositoryFactory.Action<ICommentCrud>().Create(
+					                          RepositoryFactory.Command<ICommentCrud>().Create(
 					                          	new CommentCRUDModel()
 					                          		{
 					                          			AnonymousName = "User",
@@ -402,7 +402,7 @@ namespace vlko.BlogModule.Tests.Model
 					                          		}));
 				}
 				searchAction.IndexTwitterStatus(tran,
-													RepositoryFactory.Action<ITwitterStatusAction>().CreateStatus(
+													RepositoryFactory.Command<ITwitterStatusCommands>().CreateStatus(
 														new TwitterStatus()
 														{
 															TwitterId = 0,
@@ -417,7 +417,7 @@ namespace vlko.BlogModule.Tests.Model
 				startDate = startDate.AddDays(1);
 				for (int i = 0; i < 100; i++)
 				{
-					var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
+					var text = RepositoryFactory.Command<IStaticTextCrud>().Create(
 						new StaticTextCRUDModel
 							{
 								AllowComments = true,
@@ -432,7 +432,7 @@ namespace vlko.BlogModule.Tests.Model
 					searchAction.IndexStaticText(tran, text);
 					// add some comments
 					searchAction.IndexComment(tran,
-					                          RepositoryFactory.Action<ICommentCrud>().Create(
+					                          RepositoryFactory.Command<ICommentCrud>().Create(
 					                          	new CommentCRUDModel()
 					                          		{
 					                          			ChangeDate = startDate.AddDays(-i),
@@ -446,7 +446,7 @@ namespace vlko.BlogModule.Tests.Model
 
 					// add some twitter status
 					searchAction.IndexTwitterStatus(tran,
-													RepositoryFactory.Action<ITwitterStatusAction>().CreateStatus(
+													RepositoryFactory.Command<ITwitterStatusCommands>().CreateStatus(
 														new TwitterStatus()
 														{
 															TwitterId = i + 1,

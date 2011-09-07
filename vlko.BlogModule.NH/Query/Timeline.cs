@@ -9,7 +9,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Action
 {
-	public class Timeline : BaseAction<Content>, ITimeline
+	public class Timeline : CommandGroup<Content>, ITimeline
 	{
 
 		/// <summary>
@@ -140,9 +140,9 @@ namespace vlko.BlogModule.NH.Action
 				}
 			}
 			// get real data from db
-			var staticTexts = RepositoryFactory.Action<IStaticTextData>().GetByIds(staticTextIds).ToArray().ToDictionary(staticText => staticText.Id);
-			var twitterStatuses = RepositoryFactory.Action<ITwitterStatusAction>().GetByIds(twitterStatusIds).ToArray().ToDictionary(twitterStatus => twitterStatus.Id);
-			var rssItems = RepositoryFactory.Action<IRssItemAction>().GetByIds(rssItemIdents).ToArray().ToDictionary(rssItem => rssItem.Id);
+			var staticTexts = RepositoryFactory.Command<IStaticTextData>().GetByIds(staticTextIds).ToArray().ToDictionary(staticText => staticText.Id);
+			var twitterStatuses = RepositoryFactory.Command<ITwitterStatusCommands>().GetByIds(twitterStatusIds).ToArray().ToDictionary(twitterStatus => twitterStatus.Id);
+			var rssItems = RepositoryFactory.Command<IRssItemCommands>().GetByIds(rssItemIdents).ToArray().ToDictionary(rssItem => rssItem.Id);
 
 			// compute result
 			var result = new List<object>();

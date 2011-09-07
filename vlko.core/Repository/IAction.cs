@@ -1,9 +1,9 @@
 ﻿namespace vlko.core.Repository
 {
-	public interface IAction
+	public interface ICommandGroup
 	{
 		/// <summary>
-		/// Gets a value indicating whether this <see cref="IAction&lt;T&gt;"/> is initialized.
+		/// Gets a value indicating whether this <see cref="ICommandGroup{T}"/> is initialized.
 		/// </summary>
 		/// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
 		bool Initialized { get; }
@@ -14,7 +14,7 @@
 		void Initialize();
 	}
 
-	public interface IAction<in T> : IAction where T : class
+	public interface ICommandGroup<in T> : ICommandGroup where T : class
 	{
 		/// <summary>
 		/// Initializes action with the specified repository.

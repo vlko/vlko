@@ -32,16 +32,16 @@ namespace vlko.BlogModule.Base.Scheduler
 		/// </summary>
 		protected override void DoJob()
 		{
-			var feedItemAction = RepositoryFactory.Action<IRssItemAction>();
-			var connectionAction = RepositoryFactory.Action<IRssFeedConnection>();
-			var searchAction = RepositoryFactory.Action<ISearchAction>();
+			var feedItemAction = RepositoryFactory.Command<IRssItemCommands>();
+			var connectionAction = RepositoryFactory.Command<IRssFeedConnection>();
+			var searchAction = RepositoryFactory.Command<ISearchCommands>();
 
 			RssFeedCRUDModel[] rssFeeds = null;
 
 			// get feeds
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				rssFeeds = RepositoryFactory.Action<IRssFeedAction>().GetFeedToProcess();
+				rssFeeds = RepositoryFactory.Command<IRssFeedCommands>().GetFeedToProcess();
 			}
 
 			foreach (var feed in rssFeeds)
@@ -91,7 +91,7 @@ namespace vlko.BlogModule.Base.Scheduler
 		public static RssItemCRUDModel GetFeedItem(RssItemRawData rssItemRawData, RssFeedCRUDModel feed)
 		{
 
-			var connectionAction = RepositoryFactory.Action<IRssFeedConnection>();
+			var connectionAction = RepositoryFactory.Command<IRssFeedConnection>();
 
 			// if no author regex or author regex match
 			if (string.IsNullOrEmpty(feed.AuthorRegex)

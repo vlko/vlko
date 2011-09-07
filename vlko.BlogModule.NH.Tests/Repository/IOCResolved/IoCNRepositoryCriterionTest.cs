@@ -30,13 +30,13 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
 			//doc.Load("log4net.config");
 			//log4net.Config.XmlConfigurator.Configure(doc.DocumentElement);
 
-			IoC.AddRerouting<ICreateAction<Hotel>>(() => new CRUDActions<Hotel>());
-			IoC.AddRerouting<ICreateAction<Room>>(() => new CRUDActions<Room>());
-			IoC.AddRerouting<ICreateAction<Reservation>>(() => new CRUDActions<Reservation>());
-			IoC.AddRerouting<IQueryActionAll<Hotel>>(() => new QueryActionAllCriterion<Hotel>());
-			IoC.AddRerouting<IQueryActionHotelRooms>(() => new QueryActionHotelRoomsCriterion());
-			IoC.AddRerouting<IQueryActionReservationForDay>(() => new QueryActionReservationForDayCriterion());
-			IoC.AddRerouting<IQueryActionProjection>(() => new QueryActionProjectionCriterion());
+			IoC.AddRerouting<ICreateCommand<Hotel>>(() => new CrudCommands<Hotel>());
+			IoC.AddRerouting<ICreateCommand<Room>>(() => new CrudCommands<Room>());
+			IoC.AddRerouting<ICreateCommand<Reservation>>(() => new CrudCommands<Reservation>());
+			IoC.AddRerouting<IAllQuery<Hotel>>(() => new AllCriterionQuery<Hotel>());
+			IoC.AddRerouting<IHotelRoomsQuery>(() => new HotelRoomsCriterionQuery());
+			IoC.AddRerouting<IReservationForDayQuery>(() => new ReservationForDayCriterionQuery());
+			IoC.AddRerouting<IProjectionQuery>(() => new ProjectionCriterionQuery());
 
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.Core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));

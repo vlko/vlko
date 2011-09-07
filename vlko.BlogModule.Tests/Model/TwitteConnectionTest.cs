@@ -31,7 +31,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			const string returnUrl = "http://localhost/returnurl";
 
-			var action = RepositoryFactory.Action<ITwitterConnection>();
+			var action = RepositoryFactory.Command<ITwitterConnection>();
 
 			var authorizeUrl = action.GetAuthorizeUrl(new ConsumerAppIdent {ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret}, returnUrl);
 
@@ -45,7 +45,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			const string returnUrl = "http://localhost/returnurl";
 
-			var action = RepositoryFactory.Action<ITwitterConnection>();
+			var action = RepositoryFactory.Command<ITwitterConnection>();
 
 			var authorizeUrl = action.GetAuthorizeUrl(new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret + "_to_fail"}, returnUrl);
 		}
@@ -53,7 +53,7 @@ namespace vlko.BlogModule.Tests.Model
 		[TestMethod]
 		public void Test_get_o_auth_token()
 		{
-			var action = RepositoryFactory.Action<ITwitterConnection>();
+			var action = RepositoryFactory.Command<ITwitterConnection>();
 
 			var oAuthToken = action.GetOAuthToken(
 					new ConsumerAppIdent { ConsumerKey = ConsumerKey, ConsumerSecret = ConsumerSecret },
@@ -65,7 +65,7 @@ namespace vlko.BlogModule.Tests.Model
 		[TestMethod]
 		public void Test_is_token_valid()
 		{
-			var action = RepositoryFactory.Action<ITwitterConnection>();
+			var action = RepositoryFactory.Command<ITwitterConnection>();
 
 			var valid = action.IsTokenValid(new OAuthToken
 			                    	{
@@ -81,7 +81,7 @@ namespace vlko.BlogModule.Tests.Model
 		[TestMethod]
 		public void Test_is_token_not_valid()
 		{
-			var action = RepositoryFactory.Action<ITwitterConnection>();
+			var action = RepositoryFactory.Command<ITwitterConnection>();
 
 			var valid = action.IsTokenValid(new OAuthToken
 			{
@@ -97,7 +97,7 @@ namespace vlko.BlogModule.Tests.Model
 		[TestMethod]
 		public void Test_get_user_data()
 		{
-			var action = RepositoryFactory.Action<ITwitterConnection>();
+			var action = RepositoryFactory.Command<ITwitterConnection>();
 			// with default 20 item
 			var timeLine = action.GetStatusesForUser(
 				new OAuthToken
@@ -117,7 +117,7 @@ namespace vlko.BlogModule.Tests.Model
 		[TestMethod]
 		public void Test_get_user_data_paging()
 		{
-			var action = RepositoryFactory.Action<ITwitterConnection>();
+			var action = RepositoryFactory.Command<ITwitterConnection>();
 			// with default 20 item
 			var timeLine = action.GetStatusesForUser(
 				new OAuthToken
@@ -141,7 +141,7 @@ namespace vlko.BlogModule.Tests.Model
 				throw new System.NotImplementedException();
 			}
 
-			public T ResolveAction<T>() where T : class, IAction
+			public T ResolveCommand<T>() where T : class, ICommandGroup
 			{
 				if (typeof(T) == typeof(ITwitterConnection))
 				{

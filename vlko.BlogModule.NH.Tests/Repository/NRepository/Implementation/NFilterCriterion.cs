@@ -3,7 +3,7 @@ using vlko.core.NH.Repository;
 
 namespace vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation
 {
-    public class NFilterCriterion : BaseCriterionQueryAction<NTestObject>
+    public class NFilterCriterion : CriterionQuery<NTestObject>
     {
         /// <summary>
         /// Adds the type filter.

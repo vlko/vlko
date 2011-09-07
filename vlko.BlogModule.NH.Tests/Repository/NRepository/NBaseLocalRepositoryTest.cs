@@ -62,25 +62,25 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
 			BaseRepository = RepositoryFactory.GetRepository<NTestObject>();
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(new NTestObject
+				BaseRepository.GetCommand<ICreateCommand<NTestObject>>().Create(new NTestObject
 				{
 					ID = 1,
 					Text = "testFirst",
 					Type = TypeEnum.SomeFirstType
 				});
-				BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(new NTestObject
+				BaseRepository.GetCommand<ICreateCommand<NTestObject>>().Create(new NTestObject
 				{
 					ID = 2,
 					Text = "testSecond",
 					Type = TypeEnum.SomeOtherType
 				});
-				BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(new NTestObject
+				BaseRepository.GetCommand<ICreateCommand<NTestObject>>().Create(new NTestObject
 				{
 					ID = 3,
 					Text = "testThird",
 					Type = TypeEnum.SomeOtherType
 				});
-				BaseRepository.GetAction<ICreateAction<NTestObject>>().Create(new NTestObject
+				BaseRepository.GetCommand<ICreateCommand<NTestObject>>().Create(new NTestObject
 				{
 					ID = 4,
 					Text = "Four",

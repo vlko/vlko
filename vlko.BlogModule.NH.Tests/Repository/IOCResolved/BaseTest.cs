@@ -19,10 +19,10 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
             using (var tran = RepositoryFactory.StartTransaction())
             {
                 var hotel1 = new Hotel { Id = Guid.NewGuid(), Name = "Hotel1" };
-                _hotelBaseRepository.GetAction<ICreateAction<Hotel>>().Create(hotel1);
+                _hotelBaseRepository.GetCommand<ICreateCommand<Hotel>>().Create(hotel1);
                 var hotel2 = new Hotel { Id = Guid.NewGuid(), Name = "Hotel2" };
 
-                _hotelBaseRepository.GetAction<ICreateAction<Hotel>>().Create(hotel2);
+                _hotelBaseRepository.GetCommand<ICreateCommand<Hotel>>().Create(hotel2);
                 var rooms = new Room[] { 
                     new Room { Id = Guid.NewGuid(), Name = "101",
                         HasBathroom = false, HasToilet = false, Beds = 2,
@@ -59,7 +59,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
                 };
                 foreach (var room in rooms)
                 {
-                    _roomBaseRepository.GetAction<ICreateAction<Room>>().Create(room);
+                    _roomBaseRepository.GetCommand<ICreateCommand<Room>>().Create(room);
                 }
 
                 var reservations = new Reservation[] { 
@@ -86,7 +86,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
                 };
                 foreach (var reservation in reservations)
                 {
-                    _reservationBaseRepository.GetAction<ICreateAction<Reservation>>().Create(reservation);
+                    _reservationBaseRepository.GetCommand<ICreateCommand<Reservation>>().Create(reservation);
                 }
 
                 tran.Commit();
@@ -101,7 +101,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
         {
             using (var session = RepositoryFactory.StartUnitOfWork())
             {
-				var query = _hotelBaseRepository.GetAction<IQueryActionAll<Hotel>>()
+				var query = _hotelBaseRepository.GetCommand<IAllQuery<Hotel>>()
                     .Execute()
                     .OrderBy(room => room.Name);
 
@@ -120,7 +120,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
         {
             using (var session = RepositoryFactory.StartUnitOfWork())
             {
-				var query = _roomBaseRepository.GetAction<IQueryActionHotelRooms>()
+				var query = _roomBaseRepository.GetCommand<IHotelRoomsQuery>()
                     .WhereHotelName("Hotel1")
                     .OrderBy(room => room.Name);
 
@@ -142,7 +142,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
         {
             using (var session = RepositoryFactory.StartUnitOfWork())
             {
-				var query = _reservationBaseRepository.GetAction<IQueryActionReservationForDay>()
+				var query = _reservationBaseRepository.GetCommand<IReservationForDayQuery>()
                     .WhereDate(new DateTime(2009, 1, 2))
                     .OrderBy(reserv => reserv.Room.Name);
 
@@ -161,7 +161,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
         {
             using (var session = RepositoryFactory.StartUnitOfWork())
             {
-				var query = _roomBaseRepository.GetAction<IQueryActionProjection>()
+				var query = _roomBaseRepository.GetCommand<IProjectionQuery>()
                     .DoProjection()
                     .OrderBy(proj => proj.HotelName)
                     .OrderBy(proj => proj.RoomName);

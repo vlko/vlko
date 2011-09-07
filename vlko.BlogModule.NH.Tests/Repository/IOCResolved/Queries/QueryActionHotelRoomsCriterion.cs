@@ -4,7 +4,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
-	public class QueryActionHotelRoomsCriterion : BaseCriterionQueryAction<Room>, IQueryActionHotelRooms
+	public class HotelRoomsCriterionQuery : CriterionQuery<Room>, IHotelRoomsQuery
 	{
 		/// <summary>
 		/// Wheres the name of the hotel.

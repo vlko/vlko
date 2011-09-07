@@ -6,7 +6,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
-    public class QueryActionReservationForDayLinq : BaseLinqQueryAction<Reservation>, IQueryActionReservationForDay
+    public class ReservationForDayLinqQuery : LinqQuery<Reservation>, IReservationForDayQuery
     {
         /// <summary>
         /// Wheres the date.

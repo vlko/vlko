@@ -5,12 +5,13 @@ namespace vlko.core.NH.Repository
 {
 	public class RepositoryFactoryResolver : IRepositoryFactoryResolver
 	{
+
 		/// <summary>
-		/// Resolves the action or query.
+		/// Resolves the command group.
 		/// </summary>
 		/// <typeparam name="T">Generic type.</typeparam>
-		/// <returns>Resolved action or query.</returns>
-		public T ResolveAction<T>() where T : class, IAction
+		/// <returns>Resolved command group.</returns>
+		public T ResolveCommand<T>() where T : class, ICommandGroup
 		{
 			return IoC.Resolve<T>();
 		}

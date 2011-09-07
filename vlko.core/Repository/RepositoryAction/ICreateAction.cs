@@ -4,7 +4,7 @@
     /// Create action interface.
     /// </summary>
     /// <typeparam name="T">Generic type.</typeparam>
-    public interface ICreateAction<T>: IAction<T> where T : class
+    public interface ICreateCommand<T>: ICommandGroup<T> where T : class
     {
         /// <summary>
         /// Creates the specified item.

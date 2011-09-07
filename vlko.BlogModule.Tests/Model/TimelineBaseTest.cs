@@ -28,13 +28,13 @@ namespace vlko.BlogModule.Tests.Model
 
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				RepositoryFactory.Action<IUserAction>().CreateAdmin("user", "user@user.sk", "test");
+				RepositoryFactory.Command<IUserCommands>().CreateAdmin("user", "user@user.sk", "test");
 				tran.Commit();
 			}
 			TestProvider.WaitForIndexing();
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				_user = RepositoryFactory.Action<IUserAction>().GetByName("user");
+				_user = RepositoryFactory.Command<IUserCommands>().GetByName("user");
 				CreateTestData();
 			}
 			TestProvider.WaitForIndexing();
@@ -49,7 +49,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var timeline = RepositoryFactory.Action<ITimeline>().GetAll(DateTime.Now);
+				var timeline = RepositoryFactory.Command<ITimeline>().GetAll(DateTime.Now);
 				Assert.AreEqual(203 - 2 /* two items are out of date range */, timeline.Count());
 				var data = timeline.ToArray();
 				Assert.AreNotEqual(timeline.Count(), data.Length);
@@ -63,7 +63,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var timeline = RepositoryFactory.Action<ITimeline>().GetAll(DateTime.Now);
+				var timeline = RepositoryFactory.Command<ITimeline>().GetAll(DateTime.Now);
 				Assert.AreEqual(203 - 2 /* two items are out of date range */, timeline.Count());
 				var data = timeline.ToPage(0, 20);
 				Assert.AreEqual(20, data.Length);
@@ -77,16 +77,16 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				var feeds = RepositoryFactory.Action<IRssFeedAction>().GetAll();
+				var feeds = RepositoryFactory.Command<IRssFeedCommands>().GetAll();
 				Assert.AreEqual(1, feeds.Count());
 
-				var feedItems = RepositoryFactory.Action<IRssItemAction>().GetAll();
+				var feedItems = RepositoryFactory.Command<IRssItemCommands>().GetAll();
 				Assert.AreEqual(1, feedItems.Count());
 
-				var staticTexts = RepositoryFactory.Action<IStaticTextData>().GetAll();
+				var staticTexts = RepositoryFactory.Command<IStaticTextData>().GetAll();
 				Assert.AreEqual(101, staticTexts.Count());
 
-				var twitterStatuses = RepositoryFactory.Action<ITwitterStatusAction>().GetAll();
+				var twitterStatuses = RepositoryFactory.Command<ITwitterStatusCommands>().GetAll();
 				Assert.AreEqual(101, staticTexts.Count());
 			}
 		}
@@ -98,12 +98,12 @@ namespace vlko.BlogModule.Tests.Model
 				var startDate = DateTime.Now;
 
 				// add feed item
-				var feed = RepositoryFactory.Action<IRssFeedAction>().Create(new RssFeedCRUDModel()
+				var feed = RepositoryFactory.Command<IRssFeedCommands>().Create(new RssFeedCRUDModel()
 				                                                             	{
 				                                                             		Name = "feed",
 				                                                             		Url = "url",
 				                                                             	});
-				var feedItem = RepositoryFactory.Action<IRssItemAction>().Save(new RssItemCRUDModel()
+				var feedItem = RepositoryFactory.Command<IRssItemCommands>().Save(new RssItemCRUDModel()
 				                                                               	{
 				                                                               		FeedItemId = "new",
 				                                                               		Title = "home",
@@ -117,7 +117,7 @@ namespace vlko.BlogModule.Tests.Model
 
 
 				// add to index some static text
-				var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
+				var home = RepositoryFactory.Command<IStaticTextCrud>().Create(
 					new StaticTextCRUDModel
 						{
 							AllowComments = false,
@@ -130,7 +130,7 @@ namespace vlko.BlogModule.Tests.Model
 							Description = "Welcome to vlko",
 						});
 
-				RepositoryFactory.Action<ITwitterStatusAction>().CreateStatus(
+				RepositoryFactory.Command<ITwitterStatusCommands>().CreateStatus(
 					new TwitterStatus()
 						{
 							TwitterId = 0,
@@ -145,7 +145,7 @@ namespace vlko.BlogModule.Tests.Model
 				startDate = startDate.AddDays(1);
 				for (int i = 0; i < 100; i++)
 				{
-					var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
+					var text = RepositoryFactory.Command<IStaticTextCrud>().Create(
 						new StaticTextCRUDModel
 							{
 								AllowComments = true,
@@ -159,7 +159,7 @@ namespace vlko.BlogModule.Tests.Model
 							});
 
 					// add some twitter status
-					RepositoryFactory.Action<ITwitterStatusAction>().CreateStatus(
+					RepositoryFactory.Command<ITwitterStatusCommands>().CreateStatus(
 						new TwitterStatus()
 							{
 								TwitterId = i + 1,

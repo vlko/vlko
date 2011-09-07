@@ -1,6 +1,6 @@
 ﻿namespace vlko.core.Repository.RepositoryAction
 {
-	public interface ICRUDActions<T> : IFindByPkAction<T>, ICreateAction<T>, IUpdateAction<T>, IDeleteAction<T> where T : class
+	public interface ICrudCommands<T> : IFindByPkCommand<T>, ICreateCommand<T>, IUpdateCommand<T>, IDeleteCommand<T> where T : class
 	{
 	}
 }

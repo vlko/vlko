@@ -8,7 +8,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-    public interface ICommentCrud : IAction<Comment>
+    public interface ICommentCrud : ICommandGroup<Comment>
     {
         /// <summary>
         /// Creates the specified item.

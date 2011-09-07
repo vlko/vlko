@@ -6,7 +6,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.RavenDB.Action
 {
-	public class SystemMessageAction : BaseAction<SystemMessage>, ISystemMessageAction
+	public class SystemMessageCommands : CommandGroup<SystemMessage>, ISystemMessageCommands
 	{
 		/// <summary>
 		/// Gets all system messages.

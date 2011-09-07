@@ -6,7 +6,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface ITimeline : IAction<Content>
+	public interface ITimeline : ICommandGroup<Content>
 	{
 		/// <summary>
 		/// Gets all items in timeline.

@@ -28,7 +28,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		[HttpGet]
 		public ActionResult Index(PagedModel<StaticTextViewModel> pageModel)
 		{
-			pageModel.LoadData(RepositoryFactory.Action<IStaticTextData>().GetAll().OrderByDescending(item => item.PublishDate));
+			pageModel.LoadData(RepositoryFactory.Command<IStaticTextData>().GetAll().OrderByDescending(item => item.PublishDate));
 			return ViewWithAjax(pageModel);
 		}
 
@@ -41,7 +41,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		[AuthorizeRoles(Settings.AdminRole)]
 		public ActionResult Deleted(PagedModel<StaticTextViewModel> pageModel)
 		{
-			pageModel.LoadData(RepositoryFactory.Action<IStaticTextData>().GetDeleted().OrderByDescending(item => item.PublishDate));
+			pageModel.LoadData(RepositoryFactory.Command<IStaticTextData>().GetDeleted().OrderByDescending(item => item.PublishDate));
 			return ViewWithAjax("Index", pageModel);
 		}
 
@@ -52,7 +52,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Details(Guid id)
 		{
-			var item = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id);
+			var item = RepositoryFactory.Command<IStaticTextCrud>().FindByPk(id);
 			return ViewWithAjax(item);
 		}
 
@@ -63,7 +63,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Delete(Guid id)
 		{
-			return ViewWithAjax(RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id));
+			return ViewWithAjax(RepositoryFactory.Command<IStaticTextCrud>().FindByPk(id));
 		}
 
 		/// <summary>
@@ -74,15 +74,15 @@ namespace vlko.web.Areas.Admin.Controllers
 		[HttpPost]
 		public ActionResult Delete(StaticTextCRUDModel model)
 		{
-			var item = RepositoryFactory.Action<IStaticTextCrud>().FindByPk(model.Id);
+			var item = RepositoryFactory.Command<IStaticTextCrud>().FindByPk(model.Id);
 			if (item.Creator.Name == CurrentUser.Name
 				|| ((UserPrincipal)User).IsAdmin())
 			{
 				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 				{
-					RepositoryFactory.Action<IStaticTextCrud>().Delete(model);
+					RepositoryFactory.Command<IStaticTextCrud>().Delete(model);
 					tran.Commit();
-					RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, model.Id.ToString());
+					RepositoryFactory.Command<ISearchCommands>().DeleteFromIndex(tran, model.Id.ToString());
 				}
 				return RedirectToActionWithAjax("Index");
 			}
@@ -98,7 +98,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Edit(Guid id)
 		{
-			return ViewWithAjax(RepositoryFactory.Action<IStaticTextCrud>().FindByPk(id));
+			return ViewWithAjax(RepositoryFactory.Command<IStaticTextCrud>().FindByPk(id));
 		}
 
 		/// <summary>
@@ -112,7 +112,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var crudOperations = RepositoryFactory.Action<IStaticTextCrud>();
+				var crudOperations = RepositoryFactory.Command<IStaticTextCrud>();
 				
 				// get original item to test change permissions
 				var originalItem = crudOperations.FindByPk(model.Id);
@@ -135,10 +135,10 @@ namespace vlko.web.Areas.Admin.Controllers
 
 						using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 						{
-							RepositoryFactory.Action<IStaticTextCrud>().Update(model);
+							RepositoryFactory.Command<IStaticTextCrud>().Update(model);
 							tran.Commit();
-							RepositoryFactory.Action<ISearchAction>().DeleteFromIndex(tran, model.Id.ToString());
-							RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, model);
+							RepositoryFactory.Command<ISearchCommands>().DeleteFromIndex(tran, model.Id.ToString());
+							RepositoryFactory.Command<ISearchCommands>().IndexStaticText(tran, model);
 						}
 						return RedirectToActionWithAjax("Index");
 					}
@@ -178,7 +178,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var crudOperations = RepositoryFactory.Action<IStaticTextCrud>();
+				var crudOperations = RepositoryFactory.Command<IStaticTextCrud>();
 
 				if (string.IsNullOrWhiteSpace(model.FriendlyUrl))
 				{
@@ -192,9 +192,9 @@ namespace vlko.web.Areas.Admin.Controllers
 
 				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 				{
-					RepositoryFactory.Action<IStaticTextCrud>().Create(model);
+					RepositoryFactory.Command<IStaticTextCrud>().Create(model);
 					tran.Commit();
-					RepositoryFactory.Action<ISearchAction>().IndexStaticText(tran, model);
+					RepositoryFactory.Command<ISearchCommands>().IndexStaticText(tran, model);
 				}
 				return RedirectToActionWithAjax("Index");
 
@@ -211,7 +211,7 @@ namespace vlko.web.Areas.Admin.Controllers
 		private static string GenerateUniqueFriendlyUrl(string friendlyUrl, Guid id)
 		{
 			friendlyUrl = FriendlyUrlGenerator.Generate(friendlyUrl);
-			var dataOperations = RepositoryFactory.Action<IStaticTextData>();
+			var dataOperations = RepositoryFactory.Command<IStaticTextData>();
 			int i = 1;
 			string currentFriendlyUrl = friendlyUrl;
 			StaticTextViewModel equalItem = null;

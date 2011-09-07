@@ -9,7 +9,7 @@ using vlko.core.Repository;
 namespace vlko.BlogModule.Action
 {
 	[InheritedExport]
-	public interface IRssItemAction : IAction<RssItem>
+	public interface IRssItemCommands : ICommandGroup<RssItem>
 	{
 
 		/// <summary>

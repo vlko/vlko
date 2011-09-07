@@ -17,7 +17,7 @@ namespace vlko.web.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Index()
 		{
-			var staticText = RepositoryFactory.Action<IStaticTextData>().Get("about");
+			var staticText = RepositoryFactory.Command<IStaticTextData>().Get("about");
 
 			if (staticText != null)
 			{

@@ -6,7 +6,7 @@ using vlko.core.Repository.RepositoryAction;
 
 namespace vlko.core.RavenDB.Repository.RepositoryAction
 {
-	public class LinqDataAction<T> : BaseLinqQueryAction<T>, ILinqDataAction<T> where T : class
+	public class LinqQueries<T> : LinqQuery<T>, ILinqQueries<T> where T : class
 	{
 		/// <summary>
 		/// Gets all.

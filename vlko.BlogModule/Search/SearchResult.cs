@@ -59,7 +59,7 @@ namespace vlko.BlogModule.Search
 		/// <returns>Counts of items in query.</returns>
 		public int Count()
 		{
-			return Math.Min(_topDocs.totalHits, SearchAction.MaximalSearchDepthConst);
+			return Math.Min(_topDocs.totalHits, SearchCommands.MaximalSearchDepthConst);
 		}
 
 		/// <summary>
@@ -119,10 +119,10 @@ namespace vlko.BlogModule.Search
 			}
 
 			// get real data from db
-			var comments = RepositoryFactory.Action<ICommentData>().GetByIds(commentIds).ToArray().ToDictionary(comment => comment.Id);
-			var staticTexts = RepositoryFactory.Action<IStaticTextData>().GetByIds(staticTextIds).ToArray().ToDictionary(staticText => staticText.Id);
-			var twitterStatuses = RepositoryFactory.Action<ITwitterStatusAction>().GetByIds(twitterStatusIds).ToArray().ToDictionary(twitterStatus => twitterStatus.Id);
-			var rssItems = RepositoryFactory.Action<IRssItemAction>().GetByIds(rssItemIdents).ToArray().ToDictionary(rssItem => rssItem.FeedItemId);
+			var comments = RepositoryFactory.Command<ICommentData>().GetByIds(commentIds).ToArray().ToDictionary(comment => comment.Id);
+			var staticTexts = RepositoryFactory.Command<IStaticTextData>().GetByIds(staticTextIds).ToArray().ToDictionary(staticText => staticText.Id);
+			var twitterStatuses = RepositoryFactory.Command<ITwitterStatusCommands>().GetByIds(twitterStatusIds).ToArray().ToDictionary(twitterStatus => twitterStatus.Id);
+			var rssItems = RepositoryFactory.Command<IRssItemCommands>().GetByIds(rssItemIdents).ToArray().ToDictionary(rssItem => rssItem.FeedItemId);
 
 			// compute result
 			var result = new List<object>();

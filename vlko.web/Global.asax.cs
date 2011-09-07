@@ -125,7 +125,7 @@ namespace vlko.web
 
 			if (!dataExists)
 			{
-				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				RepositoryFactory.Command<IUserCommands>().CreateAdmin("vlko", "vlko@zilina.net", "test");
 				SessionFactory.WaitForStaleIndexes();
 				CreateSomeData();
 			}
@@ -153,7 +153,7 @@ namespace vlko.web
 				var schema = new SchemaExport(config);
 				schema.Create(false, true);
 
-				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				RepositoryFactory.Command<IUserCommands>().CreateAdmin("vlko", "vlko@zilina.net", "test");
 				CreateSomeData();
 			}
 
@@ -212,9 +212,9 @@ namespace vlko.web
 			{
 				using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 				{
-					var searchAction = RepositoryFactory.Action<ISearchAction>();
-					var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
-					var home = RepositoryFactory.Action<IStaticTextCrud>().Create(
+					var searchAction = RepositoryFactory.Command<ISearchCommands>();
+					var admin = RepositoryFactory.Command<IUserCommands>().GetByName("vlko");
+					var home = RepositoryFactory.Command<IStaticTextCrud>().Create(
 						new StaticTextCRUDModel
 							{
 								AllowComments = false,
@@ -232,7 +232,7 @@ namespace vlko.web
 						for (int i = 0; i < 30; i++)
 						{
 							searchAction.IndexComment(tran,
-							                          RepositoryFactory.Action<ICommentCrud>().Create(
+							                          RepositoryFactory.Command<ICommentCrud>().Create(
 							                          	new CommentCRUDModel()
 							                          		{
 							                          			AnonymousName = "User",
@@ -246,7 +246,7 @@ namespace vlko.web
 						}
 						for (int i = 0; i < 1000; i++)
 						{
-							var text = RepositoryFactory.Action<IStaticTextCrud>().Create(
+							var text = RepositoryFactory.Command<IStaticTextCrud>().Create(
 								new StaticTextCRUDModel
 									{
 										AllowComments = true,
@@ -260,7 +260,7 @@ namespace vlko.web
 									});
 							searchAction.IndexStaticText(tran, text);
 							searchAction.IndexComment(tran,
-							                          RepositoryFactory.Action<ICommentCrud>().Create(
+							                          RepositoryFactory.Command<ICommentCrud>().Create(
 							                          	new CommentCRUDModel()
 							                          		{
 							                          			AnonymousName = "User",

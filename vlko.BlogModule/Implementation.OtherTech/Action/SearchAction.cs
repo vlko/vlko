@@ -12,7 +12,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.Implementation.OtherTech.Action
 {
-	public class SearchAction :  BaseAction<SearchRoot>, ISearchAction
+	public class SearchCommands :  CommandGroup<SearchRoot>, ISearchCommands
 	{
 		public const int MaximalSearchDepthConst = 2000;
 		/// <summary>

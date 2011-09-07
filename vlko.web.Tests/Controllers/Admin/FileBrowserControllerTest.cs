@@ -30,8 +30,8 @@ namespace vlko.web.Tests.Controllers.Admin
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
 
-				RepositoryFactory.Action<IUserAction>().CreateAdmin("vlko", "vlko@zilina.net", "test");
-				var admin = RepositoryFactory.Action<IUserAction>().GetByName("vlko");
+				RepositoryFactory.Command<IUserCommands>().CreateAdmin("vlko", "vlko@zilina.net", "test");
+				var admin = RepositoryFactory.Command<IUserCommands>().GetByName("vlko");
 				SessionFactory<User>.Create(new User
 				                            	{
 				                            		Id = Guid.NewGuid(),

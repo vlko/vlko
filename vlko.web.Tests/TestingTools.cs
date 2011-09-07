@@ -41,7 +41,7 @@ namespace vlko.web.Tests
 		public static void MockUser(this BaseController controller, string userName)
 		{
 			IoC.AddRerouting<IUserAuthenticationService>(() => new StaticPageControllerTest.UserAuthenticationServiceMock());
-			var user = IoC.Resolve<IUserAction>().GetByName(userName);
+			var user = IoC.Resolve<IUserCommands>().GetByName(userName);
 			controller.HttpContext.User = new UserPrincipal(user);
 		}
 

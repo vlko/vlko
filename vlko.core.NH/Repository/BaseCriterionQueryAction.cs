@@ -3,7 +3,7 @@ using vlko.core.Repository;
 
 namespace vlko.core.NH.Repository
 {
-	public class BaseCriterionQueryAction<T> : BaseAction<T>, IAction<T> where T : class
+	public class CriterionQuery<T> : CommandGroup<T>, ICommandGroup<T> where T : class
 	{
 
 		/// <summary>

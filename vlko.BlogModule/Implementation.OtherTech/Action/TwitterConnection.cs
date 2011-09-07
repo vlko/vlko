@@ -11,7 +11,7 @@ using TwitterStatus = vlko.BlogModule.Roots.TwitterStatus;
 
 namespace vlko.BlogModule.Implementation.OtherTech.Action
 {
-	public class TwitterConnection : BaseAction<TwitterStatus>, ITwitterConnection
+	public class TwitterConnection : CommandGroup<TwitterStatus>, ITwitterConnection
 	{
 		/// <summary>
 		/// Gets the authorize URL.

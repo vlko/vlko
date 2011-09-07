@@ -4,7 +4,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation
 {
-	public class NFilterLinqQueryAction : BaseLinqQueryAction<NTestObject>
+	public class NFilterLinqQuery : LinqQuery<NTestObject>
 	{
 		/// <summary>
 		/// Adds the type filter.

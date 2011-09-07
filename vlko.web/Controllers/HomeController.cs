@@ -19,7 +19,7 @@ namespace vlko.web.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Index(PagedModel<object> pageModel)
 		{
-			pageModel.LoadData(RepositoryFactory.Action<ITimeline>().GetAll(DateTime.Now));
+			pageModel.LoadData(RepositoryFactory.Command<ITimeline>().GetAll(DateTime.Now));
 			return ViewWithAjax(pageModel);
 		}
 

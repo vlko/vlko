@@ -5,7 +5,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries
 {
-    public class QueryActionProjectionLinq : BaseLinqQueryAction<Room>, IQueryActionProjection
+    public class ProjectionLinqQuery : LinqQuery<Room>, IProjectionQuery
     {
         public IQueryResult<RoomWithHotelProjection> DoProjection()
         {

@@ -11,7 +11,7 @@ using vlko.core.Repository;
 
 namespace vlko.BlogModule.RavenDB.Action
 {
-	public class RssItemAction : BaseAction<RssItem>, IRssItemAction
+	public class RssItemCommands : CommandGroup<RssItem>, IRssItemCommands
 	{
 		/// <summary>
 		/// Gets by the feed ids.
