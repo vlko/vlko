@@ -58,15 +58,20 @@ function closeLoading() {
 // handle ajax exception
 function ajaxException(xhr, ajaxOptions, thrownError) {
 	closeLoading();
-	$('<div></div>')
-		.html(xhr.responseText)
-		.dialog({
+	var popup = $('<div><iframe class="dialogIFrame" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%"></iframe></div>');
+	popup.dialog({
 			autoOpen: true,
 			width: $("#content").width(),
+			height: 500,
 			modal: true,
 			title: "Error:" + thrownError
 		});
-	alert(thrownError);
+	setTimeout(function() {
+		var doc = $("iframe", popup)[0].contentWindow.document;
+		var $body = $('body', doc);
+		$body.html(xhr.responseText);
+	}, 10);
+	//alert(thrownError);
 }
 
 // create content dialog
