@@ -5,20 +5,32 @@
 }
 <h2 id="timeline">Moja časová os</h2>
 <section id="search_results">
-	@foreach (var item in Model) 
+	@if (Model.CurrentPage == 1)
 	{
-		if (item is StaticTextViewModel)
-		{
-			@Html.Partial("~/Views/Content/StaticText.cshtml", item as StaticTextViewModel)
-		}
-		if (item is vlko.BlogModule.Roots.TwitterStatus)
-		{
-			@Html.Partial("~/Views/Content/TwitterStatus.cshtml", item as vlko.BlogModule.Roots.TwitterStatus)
-		}
-		if (item is RssItemViewModel)
-		{
-			@Html.Partial("~/Views/Content/RssItem.cshtml", item as RssItemViewModel)
-		}
+		@Html.Partial("~/Views/Content/AboutTile.cshtml")
 	}
-<div>@Pager.Render(Html, Model)</div>
+	else
+	{
+		@Html.Partial("~/Views/Content/PagingTile.cshtml", Tuple.Create(Model.CurrentPage - 1, "previous"))
+	}
+	@foreach (var item in Model)
+ {
+	 if (item is StaticTextViewModel)
+	 {
+				@Html.Partial("~/Views/Content/StaticText.cshtml", item as StaticTextViewModel)
+	 }
+	 if (item is vlko.BlogModule.Roots.TwitterStatus)
+	 {
+				@Html.Partial("~/Views/Content/TwitterStatus.cshtml", item as vlko.BlogModule.Roots.TwitterStatus)
+	 }
+	 if (item is RssItemViewModel)
+	 {
+				@Html.Partial("~/Views/Content/RssItem.cshtml", item as RssItemViewModel)
+	 }
+ }
+	@if (Model.CurrentPage != Model.PagesNumber)
+	{
+		@Html.Partial("~/Views/Content/PagingTile.cshtml", Tuple.Create(Model.CurrentPage + 1, "next"))
+	}
+
 </section>

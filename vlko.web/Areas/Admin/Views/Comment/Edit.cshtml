@@ -5,33 +5,33 @@
 
 	Script.RegisterValidationJs(Html);
 }
+<div class="ajax_ignore">
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+</div>
+
 <h2>Edit</h2>
 	
 @using (Html.BeginForm()) {
-<div>
-	@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" }) 
+	<div>
+		@Html.ValidationSummary(true) 
 		
-	<fieldset>
-		<legend>Fields</legend>
+		<fieldset>
+			<legend>Fields</legend>
 			
-		@Html.HiddenFor(model => model.Id) 	     
-		@Html.DisplayFor(model => model.ContentId) 	     
-		@Html.EditorFor(model => model.Name) 
-		@Html.EditorFor(model => model.Text)	
-		@Html.DisplayFor(model => model.AnonymousName)				     
-		@Html.DisplayFor(model => model.ChangeDate)	     
-		@Html.DisplayFor(model => model.ParentId)	     
-		@Html.DisplayFor(model => model.ChangeUser.Name)     
-		@Html.DisplayFor(model => model.ClientIp)	     
-		@Html.DisplayFor(model => model.UserAgent)	     
+			@Html.HiddenFor(model => model.Id) 	     
+			@Html.DisplayFor(model => model.ContentId) 	     
+			@Html.EditorFor(model => model.Name) 
+			@Html.EditorFor(model => model.Text)	
+			@Html.DisplayFor(model => model.AnonymousName)				     
+			@Html.DisplayFor(model => model.ChangeDate)	     
+			@Html.DisplayFor(model => model.ParentId)	     
+			@Html.DisplayFor(model => model.ChangeUser.Name)     
+			@Html.DisplayFor(model => model.ClientIp)	     
+			@Html.DisplayFor(model => model.UserAgent)	     
 
-	</fieldset>
-</div>
-<div class="ajax_ignore">
-	<input type="submit" value="Save" />
-</div>
+		</fieldset>
+	</div>
+	<div class="actions">
+		<input type="submit" class="btn primary" value="Save" />
+	</div>
 } 
-
-<div class="ajax_ignore">
-	@Html.ActionLink("Back to List", "Index") 
-</div>

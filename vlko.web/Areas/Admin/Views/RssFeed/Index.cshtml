@@ -10,6 +10,10 @@
 }
 <h2>Index</h2>
 
+<div>
+	@Html.Link("create", "Create new", (object)Routes.CreateOfThisFromThis())
+</div>
+
 <table>
 	<tr>
 		<th></th>
@@ -21,9 +25,9 @@
 @foreach (var item in Model) { 
 	<tr>
 		<td>
-			@Html.Link("Edit", (object)Routes.EditOfThisFromThis(item.Id), cssClass: "grid_edit")&nbsp;
-			@Html.Link("Details", (object)Routes.DetailsOfThisFromThis(item.Id), cssClass: "grid_details")&nbsp;
-			@Html.Link("Delete", (object)Routes.DeleteOfThisFromThis(item.Id), cssClass: "grid_delete")
+			@Html.Link("edit", "Edit", (object)Routes.EditOfThisFromThis(item.Id))
+			@Html.Link("detail", "Details", (object)Routes.DetailsOfThisFromThis(item.Id))
+			@Html.Link("delete", "Delete", (object)Routes.DeleteOfThisFromThis(item.Id))
 		</td>
 		<td>@item.Name</td>
 		<td>@item.FeedUrl</td>
@@ -34,9 +38,6 @@
 
 </table>
 <div>@Pager.Render(Html, Model)</div>
-<div>
-	@Html.Link("Create new", (object)Routes.CreateOfThisFromThis(), cssClass: "grid_create", title : "Create new")
-</div>
 @{ Html.ScriptInlineInclude(
 @<script type="text/javascript">
 	$(function () {

@@ -5,6 +5,10 @@
 @{
 	ViewBag.Title = "Details";
 }
+<div class="ajax_ignore">
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+</div>
+
 <h2>Details</h2>
 
 <div>
@@ -23,7 +27,6 @@
 	</fieldset>
 </div>
 <div class="ajax_ignore">
-	@(Html.Link("Edit", (object)Routes.EditOfThisFromThis(Model.Id))) |
-	@Html.ActionLink("Back to List", "Index") 
+	@(Html.Link("Edit", (object)Routes.EditOfThisFromThis(Model.Id)))
 </div>
 

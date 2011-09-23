@@ -3,22 +3,22 @@
 @using vlko.web.Controllers;
 @using vlko.core.Components;
 @{
-	ViewBag.Title = "Pages";
+	ViewBag.Title = "Blog na netechnické témy";
 	
 	Html.ScriptInclude("~/Scripts/Grid.js");
 }
-<h2 class="note-main">Pages list</h2>
+<h2 class="note-main">Blog na netechnické témy</h2>
 @foreach (var item in Model) { 
 	@Html.Partial("~/Views/Content/StaticText.cshtml", item)
 }
-<div>@Pager.Render(Html, Model)</div>
+<div class="cleaner">@Pager.Render(Html, Model)</div>
 @{ Html.ScriptInlineInclude(
 @<script type="text/javascript">
 	$(function () {
 		$("#content").ajaxGrid();
 
 		// links
-		$("#content h3 a")
+		$("#content .note a")
 			.click(function () {
 				createLoading();
 				var nextUrl = $(this).attr("href");

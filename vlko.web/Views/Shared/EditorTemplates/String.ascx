@@ -1,14 +1,14 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 <%@ Import Namespace="Microsoft.Web.Mvc.Html" %>
-<div class="editor-label">
+<div class="clearfix<%= !Html.IsValid(model => model) ? " error" : string.Empty %>">
 	<%: Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model)%>
-</div>
-<div class="editor-field">
-	<%= Html.TextBoxFor(m => m, cssClass: "text-box single-line", maxLength: Html.MaxLength(m => m))%>
-	<%: Html.ValidationMessageFor(model => model)%>
-	<% if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
-	<span class="editor-hint">
-		<%= ViewData.ModelMetadata.Description%>
-	</span>
-	<% } %>
+	<div class="input">
+		<%= Html.TextBoxFor(m => m, cssClass: "xlarge", maxLength: Html.MaxLength(m => m))%>
+		<%: Html.ValidationMessageFor(model => model, null, new {@class = "help-inline"})%>
+		<% if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
+		<span class="help-block">
+			<%= ViewData.ModelMetadata.Description%>
+		</span>
+		<% } %>
+	</div>
 </div>

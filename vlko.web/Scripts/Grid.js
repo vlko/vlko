@@ -37,7 +37,7 @@
 
 		this.each(function () {
 			// edit buttons
-			$(".grid_edit:visible")
+			$(".action:.edit:visible")
 				.click(function () {
 					createLoading();
 					var nextUrl = $(this).attr("href");
@@ -46,19 +46,11 @@
 						success: function (data) {
 							var edit = createContentDialog({
 								data: data,
-								buttons: {
-									"Save": {
-										text: "Save",
-										"class": "f_right",
-										click: function () {
-											var form = $("form", this.inner);
+								submit: function (form) {
 											if (form.valid()) {
 												showForm(edit, form);
 											}
-										}
-									},
-									"Back": function () { this.close(); }
-								},
+										},
 								prevUrl: getCurrentHistoryUrl()
 							});
 							closeLoading();
@@ -67,16 +59,10 @@
 						error: ajaxException
 					});
 					return false;
-				})
-				.button({
-					icons: {
-						primary: 'ui-icon-pencil'
-					},
-					text: false
 				});
 
 			// detail buttons
-			$(".grid_details:visible")
+			$(".action.detail:visible")
 				.click(function () {
 					createLoading();
 					var nextUrl = $(this).attr("href");
@@ -93,16 +79,10 @@
 						error: ajaxException
 					});
 					return false;
-				})
-				.button({
-					icons: {
-						primary: 'ui-icon-note'
-					},
-					text: false
 				});
 
 			// delete buttons
-			$(".grid_delete:visible")
+				$(".action.delete:visible")
 				.click(function () {
 					createLoading();
 					var nextUrl = $(this).attr("href");
@@ -111,18 +91,9 @@
 						success: function (data) {
 							var edit = createContentDialog({
 								data: data,
-								buttons:
-								{
-									"Delete": {
-										text: "Delete",
-										"class": "f_right",
-										click: function () {
-											var form = $("form", this.inner);
+								submit: function (form) {
 											showForm(edit, form);
-										}
-									},
-									"Back": function () { this.close(); }
-								},
+										},
 								prevUrl: getCurrentHistoryUrl()
 							});
 							closeLoading();
@@ -131,15 +102,9 @@
 						error: ajaxException
 					});
 					return false;
-				})
-				.button({
-					icons: {
-						primary: 'ui-icon-trash'
-					},
-					text: false
 				});
 			// create buttons
-			$(".grid_create:visible")
+			$(".action.create:visible")
 			.click(function () {
 				createLoading();
 				var nextUrl = $(this).attr("href");
@@ -148,20 +113,11 @@
 					success: function (data) {
 						var edit = createContentDialog({
 							data: data,
-							buttons:
-							{
-								"Create": {
-									text: "Create",
-									"class": "f_right",
-									click: function () {
-										var form = $("form", this.inner);
+							submit: function (form) {
 										if (form.valid()) {
 											showForm(edit, form);
 										}
-									}
-								},
-								"Back": function () { this.close(); }
-							},
+									},
 							prevUrl: getCurrentHistoryUrl()
 						});
 						closeLoading();

@@ -36,6 +36,9 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 
 	Script.RegisterValidationJs(Html);
 }
+<div class="ajax_ignore">
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+</div>
 
 <h2><#= mvcHost.ViewName#></h2>
 
@@ -68,7 +71,7 @@ if (mvcHost.ReferenceScriptLibraries) {
 #>
 @using (Html.BeginForm()) {
 	<div>
-		@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" })
+		@Html.ValidationSummary(true)
 
 		<fieldset>
 			<legend>Fields</legend>
@@ -78,12 +81,12 @@ foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
 	if (!property.IsPrimaryKey && !property.IsReadOnly && property.Scaffold) {
 		if (property.IsForeignKey) {
 #>
-			<div class="editor-label">
-				Html.LabelFor(model => model.<#= property.Name #>, "<#= property.AssociationName #>")
-			</div>
-			<div class="editor-field">
-				@Html.DropDownList("<#= property.Name #>", String.Empty)
-				@Html.ValidationMessageFor(model => model.<#= property.Name #>)
+			<div class="clearfix@(!Html.IsValid(model => model.<#= property.Name #>) ? " error" : string.Empty)">
+				@Html.LabelFor(m => m.<#= property.Name #>, "<#= property.AssociationName #>") 
+				<div class="input">
+					@Html.DropDownList(m => m.<#= property.Name #>, new { @class = "xlarge" }) 
+					@Html.ValidationMessageFor(m => m.<#= property.Name #>, null, new { @class = "help-inline" }) 
+				</div>
 			</div>
 <#
 		} else {
@@ -96,14 +99,10 @@ foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
 #>
 		</fieldset>
 	</div>
-	<div class="ajax_ignore">
-		<input type="submit" value="Create" />
+	<div class="actions">
+		<input type="submit" class="btn primary" value="Create" />
 	</div>
 }
-
-<div class="ajax_ignore">
-	@Html.ActionLink("Back to List", "Index")
-</div>
 <#
 // The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
 #>

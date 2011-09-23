@@ -1,28 +1,37 @@
 ﻿@using vlko.web.Areas.Admin.Controllers;
 @using vlko.web.Controllers;
-<div class="editor-label">
+<div class="clearfix@(!Html.IsValid(model => model) ? " error" : string.Empty)">
 	@Html.LabelFor(model => model)
-</div>
-<div class="editor-field">
+
+	<div class="input">
 @{
 	Html.ScriptInclude("~/Scripts/tiny_mce/jquery.tinymce.js");
 	
 }
+	<ul class="inputs-list">
 	@if (Request.IsAuthenticated) {
-		<div>@(Html.ActionLink<FileBrowserController>(c => c.Index(), "Browse user files", new { id = "FileBrowserLink" + Html.IdForModel(), target="FileBrowser" }))</div>
+		<li>@(Html.ActionLink<FileBrowserController>(c => c.Index(), "Browse user files", new { id = "FileBrowserLink" + Html.IdForModel(), target="FileBrowser" }))</li>
 	}
 	
-	@Html.TextArea("", (string)ViewData.Model, new { @class = "text-box multi-line" })
-	@Html.ValidationMessageFor(model => model)
+		<li>@Html.TextArea("", (string)ViewData.Model, new { @class = "xxlarge" })</li>
+	</ul>
+	@Html.ValidationMessageFor(model => model, null, new { @class = "ignore" })
 
 	@if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description))	{
-	<span class="editor-hint">
+	<span class="help-block">
 		@Html.Raw(ViewData.ModelMetadata.Description)
 	</span>
 	}
+	</div>
 </div>
 @{ Html.ScriptInlineInclude(
 @<script type="text/javascript">
+	function @(item.ViewData.ModelMetadata.PropertyName)ChangeHandler(inst) {
+		var text = inst.getBody().innerHTML;
+		$("#@item.ViewData.ModelMetadata.PropertyName")[0].value = text;
+		$("#@item.ViewData.ModelMetadata.PropertyName")[0].innerHTML = text;
+	}
+	
 	$(function () {
 		var editorId = "@item.ViewData.ModelMetadata.PropertyName";
 		
@@ -45,7 +54,8 @@
 			theme_advanced_resizing : true,
 
 			// Example content CSS (should be your site CSS)
-			content_css : "@Url.Content("~/Content/Site.css")"
+			content_css : "@Url.Content("~/Content/Site.css")",
+			onchange_callback : "@(item.ViewData.ModelMetadata.PropertyName)ChangeHandler"
 		});
 		
 		setTimeout(function() {

@@ -2,11 +2,12 @@
 @using vlko.BlogModule.Commands.ViewModel
 @using vlko.core.Tools
 <article class="note">
-	<span class="date">@String.Format("{0:g}", Model.ChangeDate)</span>	
-	<a class="icon-link" href="@Url.Action(Model.FriendlyUrl, "Page")"><img src="@Url.Content("~/Content/images/note.gif")" alt="Note link" /></a>
-	<h3 class="title">@Html.ActionLink(Model.Title, Model.FriendlyUrl, "Page")</h3>
-	<div class="comments">@Model.CommentCounts</div>
-	<div class="text">@Html.Raw(Model.Description.Shorten(250, "..."))</div>
+	<a href="@Url.Action(Model.FriendlyUrl, "Page")"><img src="@Url.Content("~/Content/images/note.png")" alt="Note link" class="icon-link" />
+		<span class="date">@String.Format("{0:g}", Model.ChangeDate)</span>	
+		<h3 class="title">@Model.Title</h3>
+		<div class="comments">@Model.CommentCounts</div>
+		<div class="text">@Html.Raw(Model.Description.Shorten(250, "..."))</div>
+	</a>
 </article>
 
 

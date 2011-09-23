@@ -35,6 +35,9 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 }
 #>
 }
+<div class="ajax_ignore">
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+</div>
 
 <h2><#= mvcHost.ViewName#></h2>
 
@@ -75,15 +78,14 @@ foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
 string pkName = GetPrimaryKeyName(mvcHost.ViewDataType);
 if (pkName != null) {
 #>
-	@(Html.Link("Edit", (object)Routes.EditOfThisFromThis(Model.<#= pkName #>))) |
+	@(Html.Link("Edit", (object)Routes.EditOfThisFromThis(Model.<#= pkName #>)))
 <#
 } else {
 #>
-	@(Html.Link("Edit", (object)Routes.EditOfThisFromThis(Model.Id))) |
+	@(Html.Link("Edit", (object)Routes.EditOfThisFromThis(Model.Id)))
 <#
 }
 #>
-	@Html.ActionLink("Back to List", "Index") 
 </div>
 <#
 if(!mvcHost.IsPartialView && !mvcHost.IsContentPage) {

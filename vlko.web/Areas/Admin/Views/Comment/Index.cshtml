@@ -23,9 +23,9 @@
 @foreach (var item in Model) { 
 	<tr>
 		<td rowspan="2">
-			@Html.Link("Edit", (object)Routes.EditOfThisFromThis(item.Id), cssClass: "grid_edit")&nbsp;
-			@Html.Link("Details", (object)Routes.DetailsOfThisFromThis(item.Id), cssClass: "grid_details")&nbsp;
-			@Html.Link("Delete", (object)Routes.DeleteOfThisFromThis(item.Id), cssClass: "grid_delete")
+			@Html.Link("edit", "Edit", (object)Routes.EditOfThisFromThis(item.Id))
+			@Html.Link("detail", "Details", (object)Routes.DetailsOfThisFromThis(item.Id))
+			@Html.Link("delete", "Delete", (object)Routes.DeleteOfThisFromThis(item.Id))
 		</td>
 		<td>@item.Name</td>
 		<td>@String.Format("{0:g}", item.CreatedDate) </td>

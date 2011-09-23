@@ -1,14 +1,35 @@
 ﻿// script cache handling
 (function (scriptCache, $, undefined) {
 	var loadedScripts = [];
+	var syncScriptsQueue = [];
+
 	$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
 		if (options.dataType == 'script' || originalOptions.dataType == 'script') {
 			options.cache = true;
 		}
 	});
 
-	scriptCache.load = function (scriptUrl, fallbackFile) {
+	scriptCache.loadSync = function (scriptUrl, fallbackFile) {
+		syncScriptsQueue.push({ scriptUrl: scriptUrl, fallbackFile: fallbackFile });
+		loadSync();
+	};
 
+	function loadSync(completeCall) {
+		// if not complete call and not just one item in queue, then stop
+		if (!completeCall && syncScriptsQueue.length != 1) {
+			return;
+		}
+		// if complete call we can remove script
+		if (completeCall) {
+			syncScriptsQueue.splice(0, 1);
+		}
+		if (syncScriptsQueue.length == 0) {
+			return;
+		}
+		scriptCache.load(syncScriptsQueue[0].scriptUrl, syncScriptsQueue[0].fallbackFile, loadSync);
+	};
+
+	scriptCache.load = function (scriptUrl, fallbackFile, loaded) {
 		// if script is not yet loaded
 		if (!loadedScripts[scriptUrl]) {
 			$.ajax({
@@ -20,17 +41,28 @@
 					// if empty response 
 					if (!jqXHR.responseText && fallbackFile) {
 						$.ajax({
-								url: fallbackFile,
-								dataType: "script",
-								cache: true,
-								async: false
-							});
+							url: fallbackFile,
+							dataType: "script",
+							cache: true,
+							async: false,
+							complete: loaded
+						});
+					}
+					else {
+						if (loaded) {
+							loaded(true);
+						}
 					}
 				}
 			});
 			loadedScripts[scriptUrl] = true;
 		}
-	}
+		else {
+			if (loaded) {
+				loaded(true);
+			}
+		}
+	};
 } (window.scriptCache = window.scriptCache || {}, jQuery)); 
 
 var $loadingDialog;
@@ -77,38 +109,34 @@ function ajaxException(xhr, ajaxOptions, thrownError) {
 // create content dialog
 function createContentDialog(settings) {
 	var config = {
-		buttons: { "Back": function () { this.close(); } },
 		dialogName: "content_dialog",
 		contentId: "content"
-	}
+	};
 	$.extend(config, settings);
 
 	var dialog = (function (dialog, config, $, undefined) {
 
 		var content = $("#" + config.contentId);
 
-		// create buttons
-		var createButtons = function (buttons) {
-			var buttonPanel = $('<div class="buttons"></div>');
+		// crate back panel
+		var createBackPanel = function (buttons) {
+			var backPanel = $('<div></div>');
 
 			$.each(buttons, function (name, props) {
 				var self = dialog;
 
 				props = $.isFunction(props) ? { click: props, text: name} : props;
-				var button = $('<button type="button"></button>')
+				var button = $('<a>')
 					.attr(props, true)
 					.unbind('click')
 					.click(function () {
 						props.click.apply(self, arguments);
 					})
-					.appendTo(buttonPanel);
-				if ($.fn.button) {
-					button.button();
-				}
+					.appendTo(backPanel);
 			});
 
-			return buttonPanel;
-		}
+			return backPanel;
+		};
 
 		// load all current visible items and hide them
 		var visibleItems = $(">:visible", content).hide().toArray();
@@ -119,19 +147,26 @@ function createContentDialog(settings) {
 		// create dialog wrapper
 		var contentDialog = $('<div class="' + config.dialogName + '"></div>');
 		content.append(contentDialog);
-		contentDialog.append(createButtons(config.buttons));
+		contentDialog.append(createBackPanel(
+			{ "Back": {
+				"class": "action back",
+				html: '<span class="icon"></span><span class="caption">Back</span>',
+				title: "Back",
+				click: function () { this.close(); }
+			}
+			}));
 		contentDialog.append(dialog.inner);
-		contentDialog.append(createButtons(config.buttons));
-
 
 		// fill content
 		fillContentWithData(dialog.inner, config.data);
+		$("form :submit", dialog.inner).click(function(event) {
+			event.preventDefault();
+			settings.submit($("form", dialog.inner));
+		});
 
 		dialog.inner.hide().css("overflow", "none").height("auto");
 
-		dialog.inner.show("slide", { "direction": "right" })
-
-		// close dialog
+		dialog.inner.show("slide", { "direction": "right" }); // close dialog
 		dialog.close = function (action) {
 			$(contentDialog).remove();
 			$(visibleItems).show("slide");
@@ -157,7 +192,13 @@ function fillContentWithData(content, data) {
 }
 
 function updateEffect(content, callback) {
-	content.effect("slide", { direction: "up" }, 300, callback);
+	content.effect("slide", { direction: "up" }, 300,
+		function() {
+			$('html, body').animate({
+					scrollTop: $(content).offset().top
+				}, 300);
+			callback && callback();
+		});
 }
 
 var current_url = undefined;
@@ -245,5 +286,5 @@ window.innerShiv = (function () {
 		var f = r.cloneNode(true), i = e.childNodes.length;
 		while (i--) f.appendChild(e.firstChild);
 		return f;
-	}
+	};
 } ());

@@ -5,10 +5,15 @@
 
 	Script.RegisterValidationJs(Html);
 }
+<div class="ajax_ignore">
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+</div>
+
 <h2>Create</h2>
+
 @using (Html.BeginForm()) {
 	<div>
-		@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" }) 
+		@Html.ValidationSummary(true)
 
 		<fieldset>
 			<legend>Fields</legend>
@@ -21,12 +26,8 @@
 
 		</fieldset>
 	</div>
-	<div class="ajax_ignore">
-		<input type="submit" value="Create" />
+	<div class="actions">
+		<input type="submit" class="btn primary" value="Create" />
 	</div>
-} 
-
-<div class="ajax_ignore">
-	@Html.ActionLink("Back to List", "Index") 
-</div>
+}
 

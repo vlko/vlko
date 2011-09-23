@@ -5,12 +5,11 @@
 	ViewBag.Title = "About us";
 }
 <h2 class="note-main">@Model.Title</h2>
-<article class="one-note">
+<article id="page_view_content" class="note-content">
 	<div class="info">
-		<div class="last-change-date" title="Last change date">@String.Format("{0:g}", Model.ChangeDate)</div>
+		<div class="date" title="Last change date">@String.Format("{0:g}", Model.ChangeDate)</div>
 	</div>
 	<div class="text">
 		@Html.Raw(Model.Text)
 	</div> 
 </article>
-

@@ -15,7 +15,7 @@
 		var fileInput = $("#File");
 		var form = fileInput.parents("form");
 		$("input[type=submit]", form).hide();
-		new AjaxUpload(fileInput, {
+		var upload = new AjaxUpload(fileInput, {
 			action: form.attr("action"),
 			name: 'File',
 			onSubmit: function () {
@@ -35,7 +35,7 @@
 				var html = $("#FileBrowser", responseDoc).html();
 				$("script:not(:empty)", responseDoc).each(function () {
 					debugger;
-					html += "<" + this.tagName + ' type="text/javascript">' + $(this).html() + "</" + this.tagName + ">";
+					html += '<' + this.tagName + ' type="text/javascript">' + $(this).html() + '</' + this.tagName + '>';
 				});
 				content.html(html);
 				closeLoading();
@@ -49,20 +49,23 @@
 <h2>User uploaded files</h2>
 
 <div id="FileBrowser" class="ajax_content">
-	@using (Html.BeginForm((object)Routes.UploadOfThisForThis, encType: "multipart/form-data")) {
+	@using (Html.BeginForm((object)Routes.UploadOfThisFromThis, encType: "multipart/form-data")) {
 		@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" })
 		<fieldset>
 			<legend>Upload new file</legend>
 			@Html.EditorFor(model => model.Ident) 
-			<div class="editor-label">
-				<label  for="file">Filename:</label>
+			<div class="clearfix">
+				<label  for="file">Filename:</label> 
+				<div class="input">
+					<input  type="file" name="File" id="File"  />
+				</div>
 			</div>
-			<div class="editor-field">
-				<input  type="file" name="File" id="File"  />
+			<div class="actions">
+				<input type="submit" value="Upload" class="btn primary"/>
 			</div>
-			<input type="submit" value="Upload" />
+			
 		</fieldset>
-	} 
+ } 
 	<table>
 		<tr>
 			<th></th>
@@ -70,7 +73,8 @@
 			<th>@vlko.BlogModule.ModelResources.Size</th>
 		</tr>
 
-	@foreach (var item in Model.UserFiles) { 
+	@foreach (var item in Model.UserFiles)
+ { 
 	
 		<tr>
 			<td>@Html.Link("Delete", (object)Routes.DeleteOfThisFromThis(ident: item.Ident), cssClass: "grid_delete", title: "Delete")</td>
@@ -78,7 +82,7 @@
 			<td>@item.Size</td>
 		</tr>
 	
-	} 
+ } 
 
 	</table>
 </div>

@@ -1,16 +1,17 @@
 ﻿@model DateTime
 @using System.Globalization;
-<div class="editor-label">
-	@Html.LabelFor(model => model)
-</div>
-<div class="editor-field">
-	@Html.TextBox("", Html.FormatDateValue(ViewData.Model), new { @class = "text-box single-line" })
-	@Html.ValidationMessageFor(model => model)
-	@if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {
-	<span class="editor-hint">
-		@Html.Raw(ViewData.ModelMetadata.Description)
-	</span>
-	} 
+@using Microsoft.Web.Mvc.Html
+<div class="clearfix@(!Html.IsValid(model => model) ? " error" : string.Empty)">
+	@Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model)
+	<div class="input">
+		@Html.TextBox("", Html.FormatDateValue(ViewData.Model), new { @class = "large" })
+		@Html.ValidationMessageFor(model => model, null, new {@class = "error"})
+		@if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {
+		<span class="help-block">
+			@Html.Raw(ViewData.ModelMetadata.Description)
+		</span>
+		} 
+	</div>
 </div>
 @{ Html.ScriptInlineInclude(
 @<script type="text/javascript">

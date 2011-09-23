@@ -2,8 +2,10 @@
 @using vlko.BlogModule.Commands.ViewModel
 @using vlko.core.Tools
 <article class="rss_item">
-	<span class="date">@String.Format("{0:g}", Model.Published)</span>
-	<a class="icon-link" href="@Model.Url"><img src="@Url.Content("~/Content/images/rss.gif")" alt="Note link" /></a>
-	<h3 class="title"><a href="@Model.Url">@Model.Title</a></h3>
-	<div class="text">@Html.Raw(Model.Description.Shorten(250, "..."))</div>
+	<a href="@Model.Url">
+		<img src="@Url.Content("~/Content/images/rss.png")" alt="Note link"  class="icon-link"/>
+		<span class="date">@String.Format("{0:g}", Model.Published)</span>
+		<h3 class="title">@Model.Title</h3>
+		<div class="text">@Html.Raw(Model.Description.Shorten(250, "..."))</div>
+	</a>
 </article>

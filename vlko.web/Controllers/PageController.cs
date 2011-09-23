@@ -22,6 +22,7 @@ namespace vlko.web.Controllers
 		[HttpGet]
 		public ActionResult Index(PagedModel<StaticTextViewModel> pageModel)
 		{
+			pageModel.PageItems = 16;
 			pageModel.LoadData(RepositoryFactory.Command<IStaticTextData>()
 				.GetAll(DateTime.Now)
 				.OrderByDescending(item => item.PublishDate));

@@ -8,6 +8,10 @@
 }
 <h2>Index</h2>
 
+<div>
+	@Html.Link("create", "Create new", (object)Routes.CreateOfThisFromThis(), title : "Create new")
+</div>
+
 <table>
 	<thead>
 		<th></th>
@@ -24,9 +28,11 @@
 	
 	<tr>
 		<td class="no_wrap">
-			@Html.Link("Edit", (object)Routes.EditOfThisFromThis(item.Id), cssClass: "grid_edit")&nbsp;
-			@Html.Link("Details", (object)Routes.DetailsOfThisFromThis(item.Id), cssClass: "grid_details")&nbsp;
-			@Html.Link("Delete", (object)Routes.DeleteOfThisFromThis(item.Id), cssClass: "grid_delete")
+			<span class="action_bar">
+			@Html.Link("edit", "Edit", (object)Routes.EditOfThisFromThis(item.Id))
+			@Html.Link("detail", "Details", (object)Routes.DetailsOfThisFromThis(item.Id))
+			@Html.Link("delete", "Delete", (object)Routes.DeleteOfThisFromThis(item.Id))
+			</span>
 		</td>
 		<td>@item.Id</td>
 		<td>@item.FriendlyUrl</td>
@@ -39,9 +45,7 @@
 } 
 </table>
 <div>@Pager.Render(Html, Model)</div>
-<p>
-	@Html.Link("Create new", (object)Routes.CreateOfThisFromThis(), cssClass: "grid_create", title : "Create new")
-</p>
+
 @{ Html.ScriptInlineInclude(
 @<script type="text/javascript">
 	$(function () {

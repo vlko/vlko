@@ -3,17 +3,16 @@
 @using vlko.BlogModule.Roots; 
 @using vlko.core.Tools;   
 <article class="comment">
-	<div class="author" title="Author">@((Model.Owner == null) ? "anonymous-" + Model.AnonymousName : Model.Owner.Name)</div>
-	<div class="last-change-date" title="Date">@String.Format("{0:g}", Model.CreatedDate)@(Model.Changed ? " ver. " + Model.Version : string.Empty)</div>
-	<a class="icon-link" title="Reply" rel="@Model.Id.ToString()" href="@Url.RouteUrl("PageView", routeValues: new
+	<a title="Comment" rel="@Model.Id.ToString()" href="@Url.RouteUrl("PageView", routeValues: new
 																		{
 																			friendlyUrl = ((StaticText)Model.Content).FriendlyUrl,
 																			sort = "tree"
-																		})"><img src="@Url.Content("~/Content/images/comment.gif")" alt="Comment"/></a>
-	<div class="title">@Html.RouteLink(Model.Name, "PageView", 
-									 routeValues: new {
-														friendlyUrl = ((StaticText)Model.Content).FriendlyUrl,
-														sort = "tree"
-													})</div>
-	<div class="text">@Model.Text.RemoveTags().Shorten(200, "...")</div>
+																		})">
+		<img src="@Url.Content("~/Content/images/comment.png")" alt="Comment" class="icon-link"/>
+		<div class="author" title="Author">@((Model.Owner == null) ? "anonymous-" + Model.AnonymousName : Model.Owner.Name)</div>
+		<div class="date" title="Date">@String.Format("{0:g}", Model.CreatedDate)@(Model.Changed ? " ver. " + Model.Version : string.Empty)</div>
+	
+		<h3 class="title">@Model.Name</h3>
+		<div class="text">@Model.Text.RemoveTags().Shorten(200, "...")</div>
+	</a>
 </article>

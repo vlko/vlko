@@ -5,9 +5,14 @@
 	
 	Html.ScriptInclude("~/Scripts/Grid.js");
 }
+<div class="ajax_ignore">
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+</div>
+
 <h2>File delete</h2>
+
 <div>
-	@Html.ValidationSummary(true, string.Empty, new { @class = "ui-state-error ui-corner-all" })
+	@Html.ValidationSummary(true)
 
 	<h3>Are you sure you want to delete this?</h3>
 <fieldset>
@@ -18,10 +23,9 @@
 	</fieldset>
 </div>
 @using (Html.BeginForm()) { 
-	<div  class="ajax_ignore">
+	<div class="actions">
 		@Html.HiddenFor(model => Model.Ident)	
-		<input type="submit" value="Delete" /> |
-		@Html.ActionLink("Back to List", "Index") 
+		<input type="submit" class="btn primary" value="Delete" />
 	</div>
 } 
 

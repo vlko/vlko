@@ -4,7 +4,9 @@
 @using vlko.web.ViewModel.Page;
 @using Microsoft.Web.Mvc.Html;
 
-@Script.RegisterValidationJs(Html)
+@{
+	Script.RegisterValidationJs(Html);
+}
 	
 @using (Html.BeginForm((object)Routes.PageComment(
 										friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
@@ -19,37 +21,51 @@
 		@Html.HiddenFor(model => model.ContentId)
 		@Html.HiddenFor(model => model.ParentId) 
 		@if (Model.ChangeUser == null) {  
-			<div class="editor-label">Anonymous name</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.AnonymousName, cssClass: "text-box single-line", maxLength: Html.MaxLength(model => model.AnonymousName))
-				@Html.ValidationMessageFor(model => model.AnonymousName)
+			<div class="clearfix@(!Html.IsValid(model => model.AnonymousName) ? " error" : string.Empty)">
+				@Html.LabelFor(model => model.AnonymousName, "Anonymous name")
+				<div class="input">
+					@Html.TextBoxFor(model => model.AnonymousName, cssClass: "xlarge", maxLength: Html.MaxLength(model => model.AnonymousName))
+					@Html.ValidationMessageFor(model => model.AnonymousName, null, new { @class = "help-inline" })
+				</div>
 			</div>
 		}     	     
 		else { 
-			<div class="editor-label">User</div>
-			<div class="editor-field">@Model.ChangeUser.Name</div>
+			<div class="clearfix">
+				@Html.LabelFor(model => model.ChangeUser.Name, "User")
+				<div class="input"><ul class="inputs-list"><li>@Model.ChangeUser.Name</li></ul></div>
+			</div>
 		} 
-		<div class="editor-label">Title</div>
-		<div class="editor-field">
-			@Html.TextBoxFor(model => model.Name, cssClass: "text-box single-line", maxLength: Html.MaxLength(model => model.Name))
-			@Html.ValidationMessageFor(model => model.Name)
+		<div class="clearfix@(!Html.IsValid(model => model.Name) ? " error" : string.Empty)">
+			@Html.LabelFor(model => model.Name, "Title")
+			<div class="input">
+				@Html.TextBoxFor(model => model.Name, cssClass: "xlarge", maxLength: Html.MaxLength(model => model.Name))
+				@Html.ValidationMessageFor(model => model.Name, null, new { @class = "help-inline" })
+			</div>
 		</div>
 		@if (Model.ChangeUser == null) {  
-			<div class="editor-label">@Model.ExpressionText</div>
-			<div class="editor-field">
+		<div class="clearfix@(!Html.IsValid(model => model.RoboCheck) ? " error" : string.Empty)">
+			@Html.LabelFor(model => model.RoboCheck, Model.ExpressionText)
+			<div class="input">
 				@Html.TextBoxFor(model => model.RoboCheck, cssClass: "text-box single-line")
-				@Html.ValidationMessageFor(model => model.RoboCheck)
+				@Html.ValidationMessageFor(model => model.RoboCheck, null, new { @class = "help-inline" })
 			</div>
+		</div>
 		}
-		<div class="editor-label">Text</div>
-		<div class="editor-field">
-			@Html.TextAreaFor(model => model.Text, cssClass: "text-box multi-line")
+		<div class="clearfix@(!Html.IsValid(model => model.Text) ? " error" : string.Empty)">
+			@Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model.Text)
+			<div class="input">
+			@Html.TextAreaFor(model => model.Text, cssClass: "xxlarge")
 			@{if (Model.ChangeUser != null) {
 
 				Html.ScriptInclude("~/Scripts/tiny_mce/jquery.tinymce.js");
 
 				 Html.ScriptInlineInclude(
 				 @<script type="text/javascript">
+					function @(item.Html.NameFor(model => model.Text))ChangeHandler(inst) {
+						var text = inst.getBody().innerHTML;
+						$("#@item.Html.NameFor(model => model.Text)")[0].value = text;
+						$("#@item.Html.NameFor(model => model.Text)")[0].innerHTML = text;
+					}
 				  	$(function () {
 				  		var editorId = "@item.Html.NameFor(model => model.Text)";
 		
@@ -72,7 +88,8 @@
 							theme_advanced_resizing : true,
 
 							// Example content CSS (should be your site CSS)
-							content_css : "@Url.Content("~/Content/Site.css")"
+							content_css : "@Url.Content("~/Content/Site.css")",
+							onchange_callback : "@(item.Html.NameFor(model => model.Text))ChangeHandler"
 						});
 		
 						setTimeout(function() {
@@ -82,9 +99,10 @@
 					</script>);
 			 }
 			}
-			@Html.ValidationMessageFor(model => model.Text)
-		</div>          
-		<div class="editor-submit"><input type="submit" value="Add" /></div>
+			@Html.ValidationMessageFor(model => model.Text, null, new { @class = "help-inline" })
+			</div>    
+		</div>      
+		<div class="editor-submit actions"><input type="submit" class="btn primary" value="Add" /></div>
 	</fieldset>
 }
 

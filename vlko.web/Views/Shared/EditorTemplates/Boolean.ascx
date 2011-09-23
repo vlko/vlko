@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
-<%@ Import Namespace="Microsoft.Web.Mvc.Html" %>
 <script runat="server">
 	private List<SelectListItem> TriStateValues {
 		get {
@@ -19,18 +18,25 @@
 		}
 	}
 </script>
-<div class="editor-label">
-	<%: Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model)%>
-</div>
-<div class="editor-field">
-<% if (ViewData.ModelMetadata.IsNullableValueType) { %>
-	<%= Html.DropDownList("", TriStateValues, cssClass: "list-box tri-state") %>
-<% } else { %>
-	<%= Html.CheckBox("", Value ?? false, cssClass: "check-box") %>
-<% } %>
-	<% if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
-	<span class="editor-hint">
-		<%= ViewData.ModelMetadata.Description%>
-	</span>
+<div class="clearfix">
+	<% if (ViewData.ModelMetadata.IsNullableValueType) { %>
+		<%: Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model)%>
 	<% } %>
+	<div class="input">
+		<% if (ViewData.ModelMetadata.IsNullableValueType) { %>
+			<%= Html.DropDownList("", TriStateValues, new { @class = "large" })%>
+		<% } else { %>
+		<ul class="inputs-list">
+			<li><label>
+				<%= Html.CheckBox("", Value ?? false) %>
+				<span><%: ViewData.ModelMetadata.DisplayName ?? ViewData.ModelMetadata.PropertyName%></span>
+			</label></li>
+		</ul>
+		<% } %>
+		<% if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
+		<span class="help-block">
+			<%= ViewData.ModelMetadata.Description%>
+		</span>
+		<% } %>
+	</div>
 </div>

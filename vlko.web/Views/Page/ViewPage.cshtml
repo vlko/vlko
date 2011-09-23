@@ -6,47 +6,54 @@
 }
 <div id="page_view_content" class="ajax_container">
 	<h2 class="note-main">@Model.StaticText.Title</h2>
-	<article class="one-note">
+	<article class="note-content">
 		<div class="info">
 			<div class="author" title="Author">@Model.StaticText.Creator.Name</div>
 			<div class="publish-date" title="Publish date">@String.Format("{0:g}", Model.StaticText.PublishDate)</div>
-			<div class="last-change-date" title="Last change date">@String.Format("{0:g}", Model.StaticText.ChangeDate)</div>
+			<div class="date" title="Last change date">@String.Format("{0:g}", Model.StaticText.ChangeDate)</div>
 		</div>
 		<div class="text">
 			@Html.Raw(Model.StaticText.Text)
 		</div> 
 	</article>
 	@if (Model.StaticText.AllowComments || Model.StaticText.CommentCounts > 0) { 
-		<div class="comments cleaner">@Model.StaticText.CommentCounts</div>
+		
+		
+		<h4 class="cleaner">Komentáre (@Model.StaticText.CommentCounts):</h4>
 		<div class="comment-sort cleaner">
 		
 			<a class="comment_sort flat" href="@Routes.PageView(
-										   friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
-										   sort : "flat"
+										   friendlyUrl: Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+										   sort: "flat"
 										 )" title="Sort by date"><img src="@Url.Content("~/Content/images/sort-az.gif")" alt="flat" /></a>
 			<a class="comment_sort desc" href="@Routes.PageView(
-										   friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
-										   sort : "desc"
+										   friendlyUrl: Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+										   sort: "desc"
 										 )" title="Sort by date desc"><img src="@Url.Content("~/Content/images/sort-za.gif")" alt="flat desc" /></a>
 			<a class="comment_sort tree" href="@Routes.PageView(
-										   friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
-										   sort : "tree"
+										   friendlyUrl: Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
+										   sort: "tree"
 										 )" title="Sort as tree"><img src="@Url.Content("~/Content/images/sort-tree.gif")" alt="tree" /></a>
 		</div>
-	 }
-	@if (Model.CommentViewType == CommentViewTypeEnum.FlatDesc && Model.StaticText.AllowComments) {
+ }
+	@if (Model.CommentViewType == CommentViewTypeEnum.FlatDesc && Model.StaticText.AllowComments)
+ {
 		@Html.Partial("NewComment", Model.NewComment)
-	}
+ }
 
-	@if (Model.CommentViewType != CommentViewTypeEnum.Tree) {
+	@if (Model.CommentViewType != CommentViewTypeEnum.Tree)
+ {
 		@Html.Partial("CommentsFlat", Model.FlatComments)
-	} else {
+ }
+ else
+ {
 		@Html.Partial("CommentsTree", Model.TreeComments)
-	}
+ }
 
-	@if (Model.CommentViewType != CommentViewTypeEnum.FlatDesc && Model.StaticText.AllowComments) {
+	@if (Model.CommentViewType != CommentViewTypeEnum.FlatDesc && Model.StaticText.AllowComments)
+ {
 		@Html.Partial("NewComment", Model.NewComment)
-	}
+ }
 </div>
 @{ Html.ScriptInlineInclude(
 @<script type="text/javascript">
@@ -73,7 +80,7 @@
 					var form = $("#page_view_content form");
 
 					$("#ParentId").val($(this).attr("rel"));
-					$("#Name").val("Re: " + $(this).closest(".comment").find(".title").text());
+					$("#Name").val("Re: " + $(this).closest(".page_comment").find(".title").text());
 
 					return false;
 				});
@@ -104,7 +111,7 @@
 									var content = $("#page_view_content");
 									fillContentWithData(content, data);
 									closeLoading();
-									updateEffect(content);
+									//updateEffect(content);
 								}
 							},
 							error: ajaxException

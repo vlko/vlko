@@ -16,10 +16,14 @@
         <% if (prop.HideSurroundingHtml) { %>
             <%= Html.Display(prop.PropertyName) %>
         <% } else { %>
-            <% if (!String.IsNullOrEmpty(prop.GetDisplayName())) { %>
-                <div class="display-label"><%= prop.GetDisplayName() %></div>
-            <% } %>
-            <div class="display-field"><%= Html.Display(prop.PropertyName) %></div>
+			<div class="clearfix">
+				<% if (!String.IsNullOrEmpty(prop.GetDisplayName())) { %>
+					<label><%= prop.GetDisplayName() %></label>
+				<% } %>
+				<div class="input">
+					<ul class="inputs-list"><li><%= Html.Display(prop.PropertyName) %></li></ul>
+				</div>
+			</div>
         <% } %>
     <% } %>
 <% } %>

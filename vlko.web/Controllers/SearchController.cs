@@ -17,6 +17,7 @@ namespace vlko.web.Controllers
 		[AntiXss]
 		public ActionResult Index(string query, PagedModel<object> pageModel)
 		{
+			pageModel.PageItems = 20;
 			if (!string.IsNullOrEmpty(query))
 			{
 				var searchQuery = HttpContext.Request.QueryString["query"];
@@ -44,6 +45,7 @@ namespace vlko.web.Controllers
 		[AntiXss]
 		public ActionResult Date(string query, PagedModel<object> pageModel)
 		{
+			pageModel.PageItems = 20;
 			if (!string.IsNullOrEmpty(query))
 			{
 				using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))

@@ -217,96 +217,75 @@
     <Content Include="Areas\Admin\Views\RssFeed\Index.cshtml" />
     <Content Include="Areas\Admin\Views\RssFeed\TestFeed.cshtml" />
     <Content Include="Areas\Admin\Views\Twitter\AuthorizeResult.cshtml" />
+    <None Include="Content\_pattern_pagging.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_pattern_pagging.css</LastGenOutput>
+    </None>
+    <None Include="Content\_pattern_buttons.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_pattern_buttons.css</LastGenOutput>
+    </None>
+    <None Include="Content\_pattern_overlays.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_pattern_overlays.css</LastGenOutput>
+    </None>
+    <None Include="Content\_pattern_tabs_pills.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_pattern_tabs_pills.css</LastGenOutput>
+    </None>
+    <None Include="Content\_pattern_topbar.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_pattern_topbar.css</LastGenOutput>
+    </None>
+    <None Include="Content\_scaffolding.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_scaffolding.css</LastGenOutput>
+    </None>
+    <None Include="Content\_colors_mixins.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_colors_mixins.css</LastGenOutput>
+    </None>
+    <None Include="Content\_forms.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_forms.css</LastGenOutput>
+    </None>
+    <Content Include="Content\images\action.png" />
     <Content Include="Content\images\author.gif" />
-    <Content Include="Content\images\change.gif" />
+    <Content Include="Content\images\change.png" />
     <Content Include="Content\images\comment.gif" />
-    <Content Include="Content\images\comments.gif" />
+    <Content Include="Content\images\comment.png" />
+    <Content Include="Content\images\comments.png" />
     <Content Include="Content\images\note-main.gif" />
-    <Content Include="Content\images\note.gif" />
+    <Content Include="Content\images\note.png" />
     <Content Include="Content\images\publish.gif" />
     <Content Include="Content\images\reply.gif" />
-    <Content Include="Content\images\rss.gif" />
+    <Content Include="Content\images\rss.png" />
     <Content Include="Content\images\sort-az.gif" />
     <Content Include="Content\images\sort-tree.gif" />
     <Content Include="Content\images\sort-za.gif" />
     <Content Include="Content\images\timeline.gif" />
-    <Content Include="Content\images\twitter.gif" />
+    <Content Include="Content\images\twitter.png" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\images\ui-bg_flat_100_1ba1e2_40x100.png" />
-    <Content Include="Content\images\ui-bg_flat_55_8cbf26_40x100.png" />
-    <Content Include="Content\images\ui-bg_flat_65_8cbf26_40x100.png" />
-    <Content Include="Content\images\ui-bg_flat_75_1ba1e2_40x100.png" />
-    <Content Include="Content\images\ui-bg_flat_75_309b46_40x100.png" />
-    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\images\ui-bg_flat_95_cd0a0a_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_100_3a85aa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_100_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
     <Content Include="Content\images\ui-icons_000000_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\images\vlko-logo.gif" />
-    <Content Include="Content\jquery-ui-1.8.7.custom.css" />
+    <Content Include="Content\images\vlko-logo.png" />
+    <Content Include="Content\jquery-ui.custom.css" />
     <Content Include="Content\Site.css">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Site.scss</DependentUpon>
     </Content>
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.all.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.base.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.custom.js" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
@@ -647,6 +626,20 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
+    <None Include="Content\_reset.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_reset.css</LastGenOutput>
+    </None>
+    <None Include="Content\_tables.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_tables.css</LastGenOutput>
+    </None>
+    <None Include="Content\_type.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_type.css</LastGenOutput>
+    </None>
+    <Content Include="Views\Content\AboutTile.cshtml" />
+    <Content Include="Views\Content\PagingTile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vlko.BlogModule.NH\vlko.BlogModule.NH.csproj">

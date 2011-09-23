@@ -5,6 +5,10 @@
 	var routeValuesDictionary = new System.Web.Routing.RouteValueDictionary(routeValues);
 	routeValuesDictionary.Add("Page", 0);
 
+	Func<int, IHtmlString> activeClass = (pageNumber) => html.Raw(pageNumber == pageModel.CurrentPage ? " class='active'" : string.Empty);
+	
+	Func<int, string> active = (pageNumber) => pageNumber == pageModel.CurrentPage ? " active" : string.Empty; 
+
 	Func<int, System.Web.Routing.RouteValueDictionary> pageRoutes = (pageNumber) =>
 	                                                                	{
 																			routeValuesDictionary["Page"] = pageNumber;
@@ -30,71 +34,67 @@
 	}
 
 	
-	const int pagerRange = 4;
+	const int pagerRange = 2;
 	int pagesNumber = pageModel.PagesNumber;
 	int currentPage = pageModel.CurrentPage;
-	int lowestPage = currentPage - pagerRange;
-	int highestPage = currentPage + pagerRange;
+	int lowestPage = Math.Min(currentPage - pagerRange, pagesNumber - (pagerRange +1) * 2);
+	int highestPage = Math.Max(currentPage + pagerRange, (pagerRange + 1) * 2 + 1);
 	bool lowestRangeDelimiterDisplayed = false;
 	bool highesRangeDelimiterDisplayed = false;
 	
-	<text><div class="pager"></text>
-	 
-	if (currentPage > 1)
+	<div class="pagination well"><ul>
+	@if (currentPage > 1)
 	{
-		@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, "<<", routeName, pageRoutes(currentPage - 1), new System.Web.Routing.RouteValueDictionary(new { @class = "pager_prev" })))
+		<li class="first prev">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, "<<", routeName, pageRoutes(currentPage - 1), new System.Web.Routing.RouteValueDictionary(new { @class = "prev" })))</li>
 	}
 	else
 	{
-		<span class="pager_prev">&lt;&lt;</span><text>&nbsp;</text>		
+		<li class="first prev disabled"><a>&lt;&lt;</a></li>	
 	}
-	<text>&nbsp;</text>
-		if (currentPage < pageModel.PagesNumber)
+	@if (currentPage < pageModel.PagesNumber)
 	{
-		@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, ">>", routeName, pageRoutes(currentPage + 1), new System.Web.Routing.RouteValueDictionary(new { @class = "pager_next" })))
+		<li class="last next">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, ">>", routeName, pageRoutes(currentPage + 1), new System.Web.Routing.RouteValueDictionary(new { @class = "next" })))</li>
 	}
 	else
 	{
-		<span class="pager_next">&gt;&gt;</span><text>&nbsp;</text>
+		<li class="last next disabled"><a>&gt;&gt;</a></li>
 	}                                                                                              	
-	<text>&nbsp;</text>
-	@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, "1", routeName, pageRoutes(1), null))<text>&nbsp;</text>
+	<li class="first@(active(1))">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, "1", routeName, pageRoutes(1), null))</li>
 
-		for (int i = 2; i < pagesNumber; i++)
+	@for (int i = 2; i < pagesNumber; i++)
+	{
+		if (i < lowestPage)
 		{
-			if (i < lowestPage)
+			if (!lowestRangeDelimiterDisplayed)
 			{
-				if (!lowestRangeDelimiterDisplayed)
-				{
-				<text>...&nbsp;</text>
-					lowestRangeDelimiterDisplayed = true;
-				}
+				<li class="disabled"><a>...</a></li>
+				lowestRangeDelimiterDisplayed = true;
 			}
-			if (i >= lowestPage && i <= highestPage)
-			{
-				@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, i.ToString(), routeName, pageRoutes(i), null))<text>&nbsp;</text>
-			}
+		}
+		if (i >= lowestPage && i <= highestPage)
+		{
+			<li@activeClass(i)>@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, i.ToString(), routeName, pageRoutes(i), null))</li>
+		}
 		if (i > highestPage)
 		{
 			if (!highesRangeDelimiterDisplayed)
 			{
-			<text>...&nbsp;</text>
+				<li class="disabled"><a>...</a></li>
 				highesRangeDelimiterDisplayed = true;
 			}
 		}
 	}
-	if (pagesNumber > 1)
+	@if (pagesNumber > 1)
 	{
-		@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, pagesNumber.ToString(), routeName, pageRoutes(pagesNumber), null))
+		<li class="last@(active(pagesNumber))">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, pagesNumber.ToString(), routeName, pageRoutes(pagesNumber), null))</li>
 	}
- 
-	<span class="pager_info">@string.Format("{0} - {1} of {2}", startItemNumber, endItemNumber, pageModel.Count)</span>
-	@html.Raw("</div>")
+	<li class="info disabled"><a>@string.Format("{0} - {1} of {2}", startItemNumber, endItemNumber, pageModel.Count)</a></li>
+	</ul></div>
 
-	vlko.core.HtmlExtender.ScriptManager.ScriptInclude(html, "~/Scripts/Pager.js");
-	
-	vlko.core.HtmlExtender.ScriptManager.ScriptInlineInclude(html,
-		@<script type="text/javascript">
+		vlko.core.HtmlExtender.ScriptManager.ScriptInclude(html, "~/Scripts/Pager.js");
+
+		vlko.core.HtmlExtender.ScriptManager.ScriptInlineInclude(html,
+			@<script type="text/javascript">
 		$(function () {
 			@{
 				var contentId = (string)item.ViewData["content"];

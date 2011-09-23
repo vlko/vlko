@@ -9,7 +9,7 @@
 	<![endif]-->
 	@{ 
 		Html.CssInclude("~/Content/Site.css");
-		Html.CssInclude("~/Content/jquery-ui-1.8.7.custom.css");
+		Html.CssInclude("~/Content/jquery-ui.custom.css");
 		
 		Html.ScriptRootDebugInclude("http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js", "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.js", 
 				fallbackTypeCheck: "jQuery", fallbackFile: "~/Scripts/jquery-1.6.2.min.js");
@@ -26,18 +26,19 @@
 <body>
 	<div class="page">
 		<div id="header">
-			<img id="logo" src="@Url.Content("~/Content/images/vlko-logo.gif")" alt="logo" />
+			
 			<div id="title">
 				<h1><span class="name">vlko</span> - one coder of many</h1>
-			</div>
-			<div id="logindisplay">
-				@Html.Partial("LogOnUserControl")
 			</div>
 			<div id="search">
 				@using (Html.BeginForm((object)Routes.IndexOfSearch(), FormMethod.Get)) {
 				@*	@Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"]);*@
-					@Html.TextBox("Query", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Query"]);
-					<input type="submit" value="Search" />
+					<div class="input-append">
+						@Html.TextBox("Query", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Query"], new { @class="large" })
+						<label class="add-on active">
+							<input type="submit" value="Search" class="btn"/>
+						</label>
+					</div>
 				} 
 			</div>
 			<div id="menucontainer">
@@ -45,7 +46,7 @@
 				<ul id="menu">              
 					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.HomeController ? " class=\"selected\"" : string.Empty)>@Html.Link("Home", (object)Routes.IndexOfHome())</li>
 					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.AboutController ? " class=\"selected\"" : string.Empty)>@Html.Link("About", (object)Routes.IndexOfAbout())</li>
-					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.PageController ? " class=\"selected\"" : string.Empty)>@Html.Link("Pages", (object)Routes.IndexOfPage())</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.PageController ? " class=\"selected\"" : string.Empty)>@Html.Link("Blog", (object)Routes.IndexOfPage())</li>
 					@if (Request.IsAuthenticated) {
 						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.StaticPageController ? " class=\"selected\"" : string.Empty)>@Html.Link("Static text", (object)Routes.IndexOfStaticPageFromAdmin())</li>
 						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.CommentController ? " class=\"selected\"" : string.Empty)>@Html.Link("Comments", (object)Routes.IndexOfCommentFromAdmin())</li>
@@ -58,7 +59,10 @@
 			<div id="content">
 			@RenderBody()
 			</div>
-			<div id="footer">
+			<div id="footer" class="cleaner">
+				<div id="logindisplay">
+					@Html.Partial("LogOnUserControl")
+				</div>
 			</div>
 		</div>
 	</div>

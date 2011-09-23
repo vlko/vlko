@@ -59,8 +59,9 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 }
 #>
 <div>
-	@Html.Link("Create new", (object)Routes.CreateOfThisFromThis(), cssClass: "grid_create", title : "Create new")
+	@Html.Link("create", "Create new", (object)Routes.CreateOfThisFromThis())
 </div>
+
 <table>
 	<thead>
 		<th></th>
@@ -83,17 +84,17 @@ string pkName = GetPrimaryKeyName(mvcHost.ViewDataType);
 if (pkName != null) {
 #>
 		<td class="no_wrap">
-			@Html.Link("Edit", (object)Routes.EditOfThisFromThis(item.<#= pkName #>), cssClass: "grid_edit")&nbsp;
-			@Html.Link("Details", (object)Routes.DetailsOfThisFromThis(item.<#= pkName #>), cssClass: "grid_details")&nbsp;
-			@Html.Link("Delete", (object)Routes.DeleteOfThisFromThis(item.<#= pkName #>), cssClass: "grid_delete")
+			@Html.Link("edit", "Edit", (object)Routes.EditOfThisFromThis(item.<#= pkName #>))
+			@Html.Link("detail", "Details", (object)Routes.DetailsOfThisFromThis(item.<#= pkName #>))
+			@Html.Link("delete", "Delete", (object)Routes.DeleteOfThisFromThis(item.<#= pkName #>))
 		</td>
 <#
 } else {
 #>
 		<td class="no_wrap">
-			@Html.Link("Edit", (object)Routes.EditOfThisFromThis(item.Id), cssClass: "grid_edit")&nbsp;
-			@Html.Link("Details", (object)Routes.DetailsOfThisFromThis(item.Id), cssClass: "grid_details")&nbsp;
-			@Html.Link("Delete", (object)Routes.DeleteOfThisFromThis(item.Id), cssClass: "grid_delete")
+			@Html.Link("edit", "Edit", (object)Routes.EditOfThisFromThis(item.Id))
+			@Html.Link("detail", "Details", (object)Routes.DetailsOfThisFromThis(item.Id))
+			@Html.Link("delete", "Delete", (object)Routes.DeleteOfThisFromThis(item.Id))
 		</td>
 <#
 }

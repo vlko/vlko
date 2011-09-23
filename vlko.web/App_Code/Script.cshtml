@@ -1,9 +1,12 @@
-﻿@helper RegisterValidationJs(System.Web.Mvc.HtmlHelper html)
-{
-	vlko.core.HtmlExtender.ScriptManager.ScriptInclude(html, 
-		"http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js",
-		fallbackFile: "~/Scripts/jquery.validate.js");
-	vlko.core.HtmlExtender.ScriptManager.ScriptInclude(html, 
-		"http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.validate.unobtrusive.min.js",
-		fallbackFile: "~/Scripts/jquery.validate.unobtrusive.js");
+﻿@functions {
+
+	public static void RegisterValidationJs(System.Web.Mvc.HtmlHelper html)
+	{
+		vlko.core.HtmlExtender.ScriptManager.ScriptInclude(html,
+														   "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js",
+														   fallbackFile: "~/Scripts/jquery.validate.js", async: false);
+		vlko.core.HtmlExtender.ScriptManager.ScriptInclude(html,
+														   "~/Scripts/jquery.validate.unobtrusive.custom.js", async: false);
+	}
+
 }

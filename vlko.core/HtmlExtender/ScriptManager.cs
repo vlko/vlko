@@ -110,9 +110,10 @@ if (typeof({0}) == 'undefined')
 		/// <param name="htmlHelper">The HTML helper.</param>
 		/// <param name="releaseFile">The release file.</param>
 		/// <param name="fallbackFile">The fallback file.</param>
-		public static void ScriptInclude(this HtmlHelper htmlHelper, string releaseFile, string fallbackFile = null)
+		/// <param name="async">if set to <c>true</c> [async] (default true).</param>
+		public static void ScriptInclude(this HtmlHelper htmlHelper, string releaseFile, string fallbackFile = null, bool async = true)
 		{
-			ScriptDebugInclude(htmlHelper, releaseFile, releaseFile, fallbackFile);
+			ScriptDebugInclude(htmlHelper, releaseFile, releaseFile, fallbackFile, async);
 		}
 
 
@@ -123,16 +124,17 @@ if (typeof({0}) == 'undefined')
 		/// <param name="releaseFile">The release file.</param>
 		/// <param name="debugFile">The debug file.</param>
 		/// <param name="fallbackFile">The fallback file.</param>
-		public static void ScriptDebugInclude(this HtmlHelper htmlHelper, string releaseFile, string debugFile, string fallbackFile = null)
+		/// <param name="async">if set to <c>true</c> [async] (default true).</param>
+		public static void ScriptDebugInclude(this HtmlHelper htmlHelper, string releaseFile, string debugFile, string fallbackFile = null, bool async = true)
 		{
 			string file = htmlHelper.ViewContext.HttpContext.IsDebuggingEnabled ? debugFile : releaseFile;
 
-			var script = string.Format("scriptCache.load(\"{0}\");", GenerateContentUrl(htmlHelper, file));
+			var script = string.Format("scriptCache.{1}(\"{0}\");", GenerateContentUrl(htmlHelper, file), async ? "load" : "loadSync");
 
 			if (!string.IsNullOrEmpty(fallbackFile))
 			{
-				script = string.Format("scriptCache.load(\"{0}\", \"{1}\");",
-					GenerateContentUrl(htmlHelper, file), GenerateContentUrl(htmlHelper, fallbackFile));
+				script = string.Format("scriptCache.{1}(\"{0}\", \"{2}\");",
+					GenerateContentUrl(htmlHelper, file), async ? "load" : "loadSync", GenerateContentUrl(htmlHelper, fallbackFile));
 			}
 
 			var getRegisteredScriptIncludes = GetRegisteredScriptIncludes();

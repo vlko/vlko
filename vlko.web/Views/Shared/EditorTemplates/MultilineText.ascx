@@ -1,13 +1,14 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
-<div class="editor-label">
-	<%: Html.LabelFor(model => model)%>
-</div>
-<div class="editor-field">
-	<%= Html.TextArea("", (string)ViewData.Model, new { @class = "text-box multi-line" })%>
-	<%: Html.ValidationMessageFor(model => model)%>
-	<% if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
-	<span class="editor-hint">
-		<%= ViewData.ModelMetadata.Description%>
-	</span>
-	<% } %>
+<%@ Import Namespace="Microsoft.Web.Mvc.Html" %>
+<div class="clearfix<%= !Html.IsValid(model => model) ? " error" : string.Empty %>">
+	<%: Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model)%>
+	<div class="input">
+		<%= Html.TextAreaFor(m => m, cssClass: "xxlarge")%>
+		<%: Html.ValidationMessageFor(model => model, null, new {@class = "error"})%>
+		<% if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
+		<span class="help-block">
+			<%= ViewData.ModelMetadata.Description%>
+		</span>
+		<% } %>
+	</div>
 </div>

@@ -13,11 +13,12 @@
 		@Html.TextBoxFor(model => model.Query)
 		<input type="submit" value="Search" />
 	}
+	@Html.ActionLink("sort by relevance", "Index", new { Model.Query })
+	@Html.ActionLink("sort by date", "Date", new { Model.Query })
 </section>
 @if (Model.SearchResults != null) { 
 <section id="search_results">
-	@Html.ActionLink("sort by relevance", "Index", new { Model.Query })
-	@Html.ActionLink("sort by date", "Date", new { Model.Query })
+
 	@foreach (var searchResult in Model.SearchResults)
 	{
 		if (searchResult is CommentSearchViewModel 
@@ -39,7 +40,7 @@
 		}
 	}
 
-<div>@Pager.Render(Html, Model.SearchResults, routeValues: new { Model.Query })</div>
+<div class="cleaner">@Pager.Render(Html, Model.SearchResults, routeValues: new { Model.Query })</div>
 </section>
 } 
 

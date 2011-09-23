@@ -19,13 +19,20 @@
 		}
 	}
 </script>
-<div class="display-label">
-	<%: ViewData.ModelMetadata.GetDisplayName()%>
-</div>
-<div class="display-field">
-<% if (ViewData.ModelMetadata.IsNullableValueType) { %>
-	<%= Html.DropDownList("", TriStateValues, cssClass: "list-box tri-state", disabled:true) %>
-<% } else { %>
-	<%= Html.CheckBox("", Value ?? false, cssClass: "check-box", disabled: true)%>
-<% } %>
+<div class="clearfix">
+	<% if (ViewData.ModelMetadata.IsNullableValueType) { %>
+		<%: Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model)%>
+	<% } %>
+	<div class="input">
+		<% if (ViewData.ModelMetadata.IsNullableValueType) { %>
+			<ul class="inputs-list"><li><%= Html.DropDownList("", TriStateValues, new { @class = "large", @disabled = "disabled" })%></li></ul>
+		<% } else { %>
+		<ul class="inputs-list">
+			<li><label>
+				<%= Html.CheckBox("", Value ?? false, new { @disabled = "disabled" })%>
+				<span><%: ViewData.ModelMetadata.DisplayName ?? ViewData.ModelMetadata.PropertyName%></span>
+			</label></li>
+		</ul>
+		<% } %>
+	</div>
 </div>
