@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using ConfOrm;
-using ConfOrm.Mappers;
 using ConfOrm.NH;
 using ConfOrm.Patterns;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
 using vlko.BlogModule.Roots;
 using vlko.core.NH;

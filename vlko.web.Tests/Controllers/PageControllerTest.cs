@@ -70,7 +70,7 @@ namespace vlko.web.Tests.Controllers
 				Assert.AreEqual("staticpage" + i, staticText.FriendlyUrl);
 				++i;
 			}
-			Assert.AreEqual(PagedModel<StaticTextViewModel>.DefaultPageItems, i);
+			Assert.AreEqual(16, i);
 		}
 
 		[TestMethod]

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 using ConfOrm;
-using ConfOrm.Mappers;
 using ConfOrm.NH;
 using ConfOrm.Patterns;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate.Cfg.MappingSchema;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
 using vlko.BlogModule.NH.Tests.Repository.IOCResolved.Model;
 using vlko.BlogModule.NH.Tests.Repository.IOCResolved.Queries;
@@ -15,6 +15,7 @@ using vlko.core.NH.Repository;
 using vlko.core.NH.Repository.RepositoryAction;
 using vlko.core.NH.Testing;
 using vlko.core.Repository.RepositoryAction;
+using TypeExtensions = ConfOrm.TypeExtensions;
 
 namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
 {
@@ -61,7 +62,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
 			var orm = new ObjectRelationalMapper();
 			var mapper = new Mapper(orm);
 
-			mapper.AddPropertyPattern(mi => mi.GetPropertyOrFieldType() == typeof(string), pm => pm.Length(50));
+			mapper.AddPropertyPattern(mi => TypeExtensions.GetPropertyOrFieldType(mi) == typeof(string), pm => pm.Length(50));
 			orm.Patterns.PoidStrategies.Add(new NativePoidPattern());
 			orm.Patterns.PoidStrategies.Add(new GuidOptimizedPoidPattern());
 			// define the mapping shape

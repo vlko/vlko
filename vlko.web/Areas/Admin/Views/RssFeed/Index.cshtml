@@ -24,7 +24,7 @@
 	</tr>
 @foreach (var item in Model) { 
 	<tr>
-		<td>
+		<td class="no_wrap">
 			@Html.Link("edit", "Edit", (object)Routes.EditOfThisFromThis(item.Id))
 			@Html.Link("detail", "Details", (object)Routes.DetailsOfThisFromThis(item.Id))
 			@Html.Link("delete", "Delete", (object)Routes.DeleteOfThisFromThis(item.Id))

@@ -27,8 +27,8 @@ namespace vlko.core.NH.Testing
 				//.SetProperty("connection.driver_class", "NHibernate.Driver.SqlClientDriver")
 				//.SetProperty("connection.connection_string", @"Data Source=.\SQL2008;Initial Catalog=test;Integrated Security=True;Pooling=False")
 				.SetProperty("connection.provider", typeof(InMemoryConnectionProvider).AssemblyQualifiedName)
-				.SetProperty("use_proxy_validator", "false")
-				.SetProperty("proxyfactory.factory_class", "NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle");
+				.SetProperty("use_proxy_validator", "false");
+				//.SetProperty("proxyfactory.factory_class", "NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle");
 
 			ConfigureMapping(Configuration);
 
