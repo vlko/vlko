@@ -9,7 +9,7 @@ namespace vlko.core.Repository
 		bool Initialized { get; }
 		/// <summary>
 		/// Initializes this instance.
-		/// Should contain such as code: RepositoryFactory.GetRepository<T>().InitalizeAction(this); 
+		/// Should contain such as code: RepositoryFactory.GetRepository<T>().InitalizeAction(this);
 		/// </summary>
 		void Initialize();
 	}

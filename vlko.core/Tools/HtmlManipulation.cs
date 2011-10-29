@@ -35,8 +35,8 @@ namespace vlko.core.Tools
 			}
 			if (input.Length > shortenLength)
 			{
-				return input.Substring(0, shortenLength) 
-					+ (string.IsNullOrEmpty(additionalShortenText) 
+				return input.Substring(0, shortenLength)
+					+ (string.IsNullOrEmpty(additionalShortenText)
 						? string.Empty
 						: additionalShortenText);
 			}

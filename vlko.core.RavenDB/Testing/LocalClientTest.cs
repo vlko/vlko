@@ -18,7 +18,7 @@ namespace vlko.core.RavenDB.Testing
 		public void SetUp()
 		{
 			RepositoryFactory.IntitializeWith(null);
-			Store = 
+			Store =
 				NewEmbedableDocumentStore();
 				//NewRemoteDocumentStore();
 			CustomizeStore(Store);
@@ -28,7 +28,7 @@ namespace vlko.core.RavenDB.Testing
 
 		protected virtual void CustomizeStore(IDocumentStore store)
 		{
-			
+
 		}
 
 		public void TearDown()
@@ -62,7 +62,7 @@ namespace vlko.core.RavenDB.Testing
 				Configuration =
 				{
 					DataDirectory = path,
-					
+
 					RunInMemory = true,
 					RunInUnreliableYetFastModeThatIsNotSuitableForProduction = true
 				},

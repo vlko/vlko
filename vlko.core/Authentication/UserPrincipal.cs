@@ -54,7 +54,7 @@ namespace vlko.core.Authentication
 		/// </summary>
 		/// <value>The user.</value>
 		public User User
-		{ 
+		{
 			get { return _user; }
 		}
 	}

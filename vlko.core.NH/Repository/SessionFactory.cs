@@ -35,7 +35,7 @@ namespace vlko.core.NH.Repository
 
 		[ThreadStatic]
 		static StackInfo _stack;
-		
+
 		/// <summary>
 		/// Gets the current session.
 		/// </summary>
@@ -208,7 +208,7 @@ namespace vlko.core.NH.Repository
 			{
 				stack.Session.Flush();
 			}
-			
+
 		}
 
 		/// <summary>

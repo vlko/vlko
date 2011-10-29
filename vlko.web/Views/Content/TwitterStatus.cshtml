@@ -6,7 +6,7 @@
 		<span class="date">@String.Format("{0:g}", Model.CreatedDate)</span>
 	</a>
 	<div class="title">
-			@if (string.IsNullOrEmpty(Model.RetweetUser)) { <a href="http://twitter.com/@Model.User" class="twitter_user">@@@Model.User</a>} 
+			@if (string.IsNullOrEmpty(Model.RetweetUser)) { <a href="http://twitter.com/@Model.User" class="twitter_user">@@@Model.User</a>}
 		else { <a href="http://twitter.com/@Model.RetweetUser" class="twitter_user twitter_retweet ">RT @@@Model.RetweetUser</a>}:
 		@Html.Raw(Sanitizer.GetSafeHtmlFragment(Model.Text))
 	</div>

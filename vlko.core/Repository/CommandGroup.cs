@@ -8,7 +8,7 @@
 		/// </summary>
 		public void Initialize()
 		{
-			
+
 		}
 
 		/// <summary>

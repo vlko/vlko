@@ -83,7 +83,7 @@ namespace vlko.BlogModule.Search
 				{
 					_searchProvider.CloseIndexWriter(_indexWriter);
 				}
-			}   
+			}
 		}
 	}
 }

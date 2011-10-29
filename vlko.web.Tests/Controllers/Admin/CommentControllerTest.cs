@@ -142,7 +142,7 @@ namespace vlko.web.Tests.Controllers.Admin
 			var data = RepositoryFactory.Command<ICommentData>().GetAllForAdmin()
 				.OrderBy(item => item.Name);
 			var count = data.Count();
-				
+
 			var dataModel = RepositoryFactory.Command<ICommentCrud>().FindByPk(data.ToPage(1, 1).First().Id);
 
 			// Act

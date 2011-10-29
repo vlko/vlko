@@ -24,7 +24,7 @@
         new MvcCoreAssemblyInfo() { Version = "1.0.40128.0", Name = "ASP.NET MVC 1.0 RC 1 Refresh" },
         new MvcCoreAssemblyInfo() { Version = "1.0.40216.0", Name = "ASP.NET MVC 1.0 RC 2" },
         new MvcCoreAssemblyInfo() { Version = "1.0.40310.0", Name = "ASP.NET MVC 1.0 RTM", FuturesVersion = "1.0.40310.0" },
-        
+
         // v2
         new MvcCoreAssemblyInfo() { Version = "1.1.40430.0", Name = "ASP.NET MVC 1.1 Preview 0" },
         new MvcCoreAssemblyInfo() { Version = "2.0.40724.0", Name = "ASP.NET MVC 2 Preview 1", FuturesVersion = "2.0.40724.0" },
@@ -38,7 +38,7 @@
     private static readonly MvcFuturesAssemblyInfo[] _mvcFuturesAssemblyHistory = new MvcFuturesAssemblyInfo[] {
         // v1
         new MvcFuturesAssemblyInfo() { Version = "1.0.40310.0", Name = "ASP.NET MVC 1.0 RTM Futures", DownloadUrl = "http://aspnet.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=24471#DownloadId=61773" },
-        
+
         // v2
         new MvcFuturesAssemblyInfo() { Version = "2.0.40724.0", Name = "ASP.NET MVC 2 Preview 1 Futures", DownloadUrl = "http://aspnet.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=30886#DownloadId=77345" },
         new MvcFuturesAssemblyInfo() { Version = "2.0.41001.0", Name = "ASP.NET MVC 2 Preview 2 Futures", DownloadUrl = "http://aspnet.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=33836#DownloadId=85929" },
@@ -220,27 +220,27 @@
 <head runat="server">
     <title>ASP.NET MVC Diagnostics Utility</title>
     <style type="text/css">
-        .error 
+        .error
         {
             font-weight: bold;
             color: Red;
         }
-        
-        .box 
+
+        .box
         {
             border-width: thin;
             border-style: solid;
             padding: .2em 1em .2em 1em;
             background-color: #dddddd;
         }
-        
+
         .errorInset
         {
             padding: 1em;
             background-color: #ffbbbb;
         }
-        
-        body 
+
+        body
         {
             font-family: Calibri, Helvetica;
         }

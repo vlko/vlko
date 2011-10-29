@@ -5,7 +5,7 @@ using System.Security.Principal;
 namespace vlko.core.Roots
 {
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	public class User : IIdentity
 	{

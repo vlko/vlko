@@ -33,7 +33,7 @@ namespace vlko.core.NH
 			orm.TablePerClass(baseEntities);
 
 			orm.Poid<AppSetting>(item => item.Id);
-			
+
 
 			mapper.Customize<AppSetting>(mapping => mapping.Property(item => item.Value, pm => pm.Length(255)));
 

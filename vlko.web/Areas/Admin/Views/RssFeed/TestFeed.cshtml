@@ -5,7 +5,7 @@
 }
 <h2>Test results:</h2>
 
-@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" }) 
+@Html.ValidationSummary(string.Empty, new { @class = "ui-state-error ui-corner-all" })
 @if (Model != null)
 {
 	<table>
@@ -19,7 +19,7 @@
 		<tr>
 			<th colspan="5">Text</th>
 		</tr>
-	@foreach (var item in Model) { 
+	@foreach (var item in Model) {
 		<tr>
 			<td>@item.FeedItemId</td>
 			<td>@String.Format("{0:g}", item.Published)</td>

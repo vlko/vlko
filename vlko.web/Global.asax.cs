@@ -22,7 +22,7 @@ using Settings = vlko.BlogModule.Settings;
 
 namespace vlko.web
 {
-	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+	// Note: For instructions on enabling IIS6 or IIS7 classic mode,
 	// visit http://go.microsoft.com/?LinkId=9394801
 
 	public class MvcApplication : System.Web.HttpApplication
@@ -140,12 +140,12 @@ namespace vlko.web
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.NH"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule"));
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
-			
+
 			BlogModule.NH.ApplicationInit.FullInit();
 			var config = new Configuration();
 			config.Configure();
 			core.NH.DbInit.InitMappings(config);
-			
+
 			ConfigureSearchProvider(dataExists);
 
 			if (!dataExists)
@@ -287,7 +287,7 @@ namespace vlko.web
 		{
 			var exception = Server.GetLastError();
 			// if 404 stop logging
-			if (exception is HttpException 
+			if (exception is HttpException
 				&& ((HttpException)exception).GetHttpCode() == 404)
 			{
 				return;

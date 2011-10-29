@@ -4,37 +4,37 @@
 }
 <h2>Create a New Account</h2>
 <p>
-	Use the form below to create a new account. 
+	Use the form below to create a new account.
 </p>
 <p>
 	Passwords are required to be a minimum of @ViewData["PasswordLength"]  characters in length.
 </p>
 
-@using (Html.BeginForm()) { 
-	@Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.") 
+@using (Html.BeginForm()) {
+	@Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
 	<div>
 		<fieldset>
 			<legend>Account Information</legend>
-				
+
 				@Html.EditorFor(m => m.UserName)
 				@Html.EditorFor(m => m.Email)
-				
+
 				<div class="clearfix@(!Html.IsValid(model => model.Password) ? " error" : string.Empty)">
-					@Html.LabelFor(m => m.Password) 
+					@Html.LabelFor(m => m.Password)
 					<div class="input">
-						@Html.PasswordFor(m => m.Password, new { @class = "xlarge" }) 
-						@Html.ValidationMessageFor(m => m.Password, null, new { @class = "help-inline" }) 
+						@Html.PasswordFor(m => m.Password, new { @class = "xlarge" })
+						@Html.ValidationMessageFor(m => m.Password, null, new { @class = "help-inline" })
 					</div>
 				</div>
 
 				<div class="clearfix@(!Html.IsValid(model => model.ConfirmPassword) ? " error" : string.Empty)">
-					@Html.LabelFor(m => m.ConfirmPassword) 
+					@Html.LabelFor(m => m.ConfirmPassword)
 					<div class="input">
-						@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "xlarge" }) 
-						@Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "help-inline" }) 
+						@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "xlarge" })
+						@Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "help-inline" })
 					</div>
 				</div>
-			
+
 			<div class="actions">
 				<input type="submit" value="Register" class="btn primary"/>
 			</div>

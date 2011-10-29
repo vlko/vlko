@@ -1,7 +1,7 @@
 ﻿@model CommentSearchViewModel
 @using vlko.BlogModule.Commands.ViewModel
-@using vlko.BlogModule.Roots; 
-@using vlko.core.Tools;   
+@using vlko.BlogModule.Roots;
+@using vlko.core.Tools;
 <article class="comment">
 	<a title="Comment" rel="@Model.Id.ToString()" href="@Url.RouteUrl("PageView", routeValues: new
 																		{
@@ -11,7 +11,7 @@
 		<img src="@Url.Content("~/Content/images/comment.png")" alt="Comment" class="icon-link"/>
 		<div class="author" title="Author">@((Model.Owner == null) ? "anonymous-" + Model.AnonymousName : Model.Owner.Name)</div>
 		<div class="date" title="Date">@String.Format("{0:g}", Model.CreatedDate)@(Model.Changed ? " ver. " + Model.Version : string.Empty)</div>
-	
+
 		<h3 class="title">@Model.Name</h3>
 		<div class="text">@Model.Text.RemoveTags().Shorten(200, "...")</div>
 	</a>

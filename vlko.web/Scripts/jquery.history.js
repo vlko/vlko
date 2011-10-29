@@ -1,6 +1,6 @@
 /*
  * jQuery history plugin
- * 
+ *
  * sample page: http://www.serpere.info/jquery-history-plugin/samples/
  *
  * Copyright (c) 2006-2009 Taku Sano (Mikage Sawatari)

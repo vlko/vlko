@@ -27,7 +27,7 @@ namespace vlko.core.RavenDB
 				result.AddRange(componentDbInit.ListOfModelTypes());
 			}
 			return result.ToArray();
-			
+
 		}
 
 		/// <summary>
@@ -36,7 +36,7 @@ namespace vlko.core.RavenDB
 		/// <param name="documentStore">The document store.</param>
 		private static void RegisterIndexes(IDocumentStore documentStore)
 		{
-			
+
 		}
 
 		/// <summary>

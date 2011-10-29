@@ -76,7 +76,7 @@ namespace vlko.BlogModule.NH.Tests
                 Assert.AreEqual(query, resultQuery);
             }
         }
-        
+
         [TestMethod]
         public void Test_get_interface_implemented_query()
         {
@@ -104,7 +104,7 @@ namespace vlko.BlogModule.NH.Tests
         {
 			var query = _mocker.StrictMock<ICommandGroup<object>>();
             var repository = _mocker.PartialMock<BaseRepository<object>>();
-            
+
             using (_mocker.Record())
             {
                 Expect.Call(_factoryResolver.ResolveCommand<ITestQuery>())
@@ -169,7 +169,7 @@ namespace vlko.BlogModule.NH.Tests
 
     	public void Initialize()
     	{
-    		
+
     	}
     }
 }

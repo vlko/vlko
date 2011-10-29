@@ -22,7 +22,7 @@ namespace vlko.BlogModule.Base.Scheduler
 		/// </summary>
 		/// <param name="callIntervalInMinutes">The call interval in minutes.</param>
 		/// <param name="startImmediately">if set to <c>true</c> [start immediately].</param>
-		public UpdateRssFeedsTask(int callIntervalInMinutes, bool startImmediately) 
+		public UpdateRssFeedsTask(int callIntervalInMinutes, bool startImmediately)
 			: base(callIntervalInMinutes, startImmediately)
 		{
 		}
@@ -69,7 +69,7 @@ namespace vlko.BlogModule.Base.Scheduler
 								}
 							}
 
-							
+
 						}
 						tran.Commit();
 						Logger.Debug("There were '{0}' new rss feeds in feed {1}.", storedItemsCount, feed.Name);

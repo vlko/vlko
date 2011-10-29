@@ -12,7 +12,7 @@
 	<% } else { %>
 		<%= ViewData.ModelMetadata.SimpleDisplayText %>
 	<% } %>
-<% } else { %>    
+<% } else { %>
 	<% foreach (var prop in ViewData.ModelMetadata.Properties.Where(pm => ShouldShow(pm))) { %>
 		<% if (prop.HideSurroundingHtml) { %>
 			<%= Html.Editor(prop.PropertyName) %>
@@ -22,7 +22,7 @@
 					<%= Html.Label(prop.PropertyName) %>
 				<% } %>
 				<div class="input">
-					<%= Html.Editor(prop.PropertyName) %> 
+					<%= Html.Editor(prop.PropertyName) %>
 					<%= Html.ValidationMessage(prop.PropertyName, "*", new {@class = "error"}) %>
 					<% if (!string.IsNullOrWhiteSpace(ViewData.ModelMetadata.Description)) {%>
 						<span class="help-block">

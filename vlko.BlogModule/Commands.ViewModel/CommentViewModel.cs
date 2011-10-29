@@ -40,11 +40,11 @@ namespace vlko.BlogModule.Commands.ViewModel
 		/// Gets a value indicating whether this <see cref="CommentViewModel"/> is changed.
 		/// </summary>
 		/// <value><c>true</c> if changed; otherwise, <c>false</c>.</value>
-		public bool Changed { 
+		public bool Changed {
 			get
 			{
-				return Version != 0;	
-			} 
+				return Version != 0;
+			}
 		}
 
 		/// <summary>

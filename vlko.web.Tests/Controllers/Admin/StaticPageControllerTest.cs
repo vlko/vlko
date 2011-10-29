@@ -341,7 +341,7 @@ namespace vlko.web.Tests.Controllers.Admin
 		}
 
 
-		
+
 
 		public class UserAuthenticationServiceMock : IUserAuthenticationService
 		{

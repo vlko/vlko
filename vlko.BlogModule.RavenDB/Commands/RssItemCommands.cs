@@ -108,7 +108,7 @@ namespace vlko.BlogModule.RavenDB.Commands
 		{
 			var dbItem = SessionFactory<RssItem>.IndexQuery<RssItemSortIndex>()
 				.Where(rssItem => rssItem.FeedItemId == item.FeedItemId).FirstOrDefault();
-			
+
 
 			if (dbItem == null)
 			{

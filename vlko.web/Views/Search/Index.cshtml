@@ -8,7 +8,7 @@
 }
 <h2>Search</h2>
 <section id="search_from">
-	@using (Html.BeginForm(ViewContext.RouteData.GetRequiredString("action"), "Search", method: FormMethod.Get)) { 
+	@using (Html.BeginForm(ViewContext.RouteData.GetRequiredString("action"), "Search", method: FormMethod.Get)) {
 		@Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"])
 		@Html.TextBoxFor(model => model.Query)
 		<input type="submit" value="Search" />
@@ -16,12 +16,12 @@
 	@Html.ActionLink("sort by relevance", "Index", new { Model.Query })
 	@Html.ActionLink("sort by date", "Date", new { Model.Query })
 </section>
-@if (Model.SearchResults != null) { 
+@if (Model.SearchResults != null) {
 <section id="search_results">
 
 	@foreach (var searchResult in Model.SearchResults)
 	{
-		if (searchResult is CommentSearchViewModel 
+		if (searchResult is CommentSearchViewModel
 			&& ((CommentSearchViewModel)searchResult).Content is StaticText)
 		{
 			@Html.Partial("~/Views/Content/Comment.cshtml", searchResult as CommentViewModel)
@@ -42,5 +42,5 @@
 
 <div class="cleaner">@Pager.Render(Html, Model.SearchResults, routeValues: new { Model.Query })</div>
 </section>
-} 
+}
 

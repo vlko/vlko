@@ -38,7 +38,7 @@
 				cache: true,
 				async: false,
 				complete: function (jqXHR, textStatus) {
-					// if empty response 
+					// if empty response
 					if (!jqXHR.responseText && fallbackFile) {
 						$.ajax({
 							url: fallbackFile,
@@ -63,7 +63,7 @@
 			}
 		}
 	};
-} (window.scriptCache = window.scriptCache || {}, jQuery)); 
+} (window.scriptCache = window.scriptCache || {}, jQuery));
 
 var $loadingDialog;
 
@@ -206,11 +206,11 @@ var current_url = undefined;
 // ajax history function
 function addToHistory(url) {
 	current_url = url;
-	$.bbq.pushState({ url: url }); 
+	$.bbq.pushState({ url: url });
 }
 // get current ajax url
 function getCurrentHistoryUrl() {
-	$.bbq.getState("url"); 
+	$.bbq.getState("url");
 }
 
 // initialize ajax history plugin

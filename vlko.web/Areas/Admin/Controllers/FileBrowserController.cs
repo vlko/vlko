@@ -53,7 +53,7 @@ namespace vlko.web.Areas.Admin.Controllers
 				ModelState.AddModelError(string.Empty, vlko.BlogModule.ModelResources.FileDeleteFailedError);
 				return ViewWithAjax(model);
 			}
-			return RedirectToActionWithAjax("Index");   
+			return RedirectToActionWithAjax("Index");
 		}
 
 		/// <summary>

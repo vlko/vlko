@@ -112,14 +112,14 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 										TwitterId = Convert.ToInt64(status.Id),
 										CreatedDate = status.CreatedDate.ToLocalTime(),
 										User = status.User.ScreenName,
-										Text = status.RetweetedStatus == null 
-											? ParseStatusTextToHtml(status.Text) 
+										Text = status.RetweetedStatus == null
+											? ParseStatusTextToHtml(status.Text)
 											: ParseStatusTextToHtml(status.RetweetedStatus.Text),
 										Reply = status.InReplyToStatusId.HasValue,
 										RetweetUser = status.RetweetedStatus != null ? status.RetweetedStatus.User.ScreenName : null,
 										Hidden = status.InReplyToStatusId.HasValue
 									};
-			return result.ToArray();			
+			return result.ToArray();
 		}
 
 		/********************************************

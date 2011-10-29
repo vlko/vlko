@@ -9,7 +9,7 @@ $origVsDocParaPath = Join-Path $toolsPath jquery-1.6.4-vsdoc-para.js
 
 function Get-Checksum($file) {
     $cryptoProvider = New-Object "System.Security.Cryptography.MD5CryptoServiceProvider"
-	
+
     $fileInfo = Get-Item "$file"
 	trap { ;
 	continue } $stream = $fileInfo.OpenRead()
@@ -17,28 +17,28 @@ function Get-Checksum($file) {
 		#Write-Host "Couldn't open file for reading"
         return $null
 	}
-    
+
     $bytes = $cryptoProvider.ComputeHash($stream)
     $checksum = ''
 	foreach ($byte in $bytes) {
 		$checksum += $byte.ToString('x2')
 	}
-    
+
 	$stream.Close() | Out-Null
-    
+
     return $checksum
 }
 
 if (Test-Path $projVsDocPath) {
     #Copy the original -vsdoc file over the -vsdoc file modified during install
     #Normal uninstall logic will then kick in
-    
+
     if ((Get-Checksum $projVsDocPath) -eq (Get-Checksum $origVsDocParaPath)) {
         #Write-Host "Copying orig vsdoc file over"
         Copy-Item $origVsDocPath $projVsDocPath -Force
     }
     else {
-        #Write-Host "vsdoc file has changed"   
+        #Write-Host "vsdoc file has changed"
     }
 }
 else {

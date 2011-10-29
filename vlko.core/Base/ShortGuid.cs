@@ -3,7 +3,7 @@
 namespace vlko.core.Base
 {
 	/// <summary>
-	/// Represents a globally unique identifier (GUID) with a 
+	/// Represents a globally unique identifier (GUID) with a
 	/// shorter string value. Sguid
 	/// (c) http://www.singular.co.nz/blog/archive/2007/12/20/shortguid-a-shorter-and-url-friendly-guid-in-c-sharp.aspx
 	/// </summary>
@@ -12,8 +12,8 @@ namespace vlko.core.Base
 		#region Static
 
 		/// <summary>
-		/// A read-only instance of the ShortGuid class whose value 
-		/// is guaranteed to be all zeroes. 
+		/// A read-only instance of the ShortGuid class whose value
+		/// is guaranteed to be all zeroes.
 		/// </summary>
 		public static readonly ShortGuid Empty = new ShortGuid(Guid.Empty);
 
@@ -31,7 +31,7 @@ namespace vlko.core.Base
 		/// <summary>
 		/// Creates a ShortGuid from a base64 encoded string
 		/// </summary>
-		/// <param name="value">The encoded guid as a 
+		/// <param name="value">The encoded guid as a
 		/// base64 string</param>
 		public ShortGuid(string value)
 		{
@@ -103,7 +103,7 @@ namespace vlko.core.Base
 		#region Equals
 
 		/// <summary>
-		/// Returns a value indicating whether this instance and a 
+		/// Returns a value indicating whether this instance and a
 		/// specified Object represent the same type and value.
 		/// </summary>
 		/// <param name="obj">The object to compare</param>
@@ -150,7 +150,7 @@ namespace vlko.core.Base
 		#region Encode
 
 		/// <summary>
-		/// Creates a new instance of a Guid using the string value, 
+		/// Creates a new instance of a Guid using the string value,
 		/// then returns the base64 encoded version of the Guid.
 		/// </summary>
 		/// <param name="value">An actual Guid string (i.e. not a ShortGuid)</param>
@@ -162,7 +162,7 @@ namespace vlko.core.Base
 		}
 
 		/// <summary>
-		/// Encodes the given Guid as a base64 string that is 22 
+		/// Encodes the given Guid as a base64 string that is 22
 		/// characters long.
 		/// </summary>
 		/// <param name="guid">The Guid to encode</param>
@@ -199,7 +199,7 @@ namespace vlko.core.Base
 		#region Operators
 
 		/// <summary>
-		/// Determines if both ShortGuids have the same underlying 
+		/// Determines if both ShortGuids have the same underlying
 		/// Guid value.
 		/// </summary>
 		/// <param name="x"></param>
@@ -212,7 +212,7 @@ namespace vlko.core.Base
 		}
 
 		/// <summary>
-		/// Determines if both ShortGuids do not have the 
+		/// Determines if both ShortGuids do not have the
 		/// same underlying Guid value.
 		/// </summary>
 		/// <param name="x"></param>
@@ -254,7 +254,7 @@ namespace vlko.core.Base
 		}
 
 		/// <summary>
-		/// Implicitly converts the Guid to a ShortGuid 
+		/// Implicitly converts the Guid to a ShortGuid
 		/// </summary>
 		/// <param name="guid"></param>
 		/// <returns></returns>

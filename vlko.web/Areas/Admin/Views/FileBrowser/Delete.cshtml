@@ -2,11 +2,11 @@
 @model FileViewModel
 @{
 	ViewBag.Title = "File delete";
-	
+
 	Html.ScriptInclude("~/Scripts/Grid.js");
 }
 <div class="ajax_ignore">
-	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis)
 </div>
 
 <h2>File delete</h2>
@@ -22,10 +22,10 @@
 		@Html.DisplayFor(model => model.Size)
 	</fieldset>
 </div>
-@using (Html.BeginForm()) { 
+@using (Html.BeginForm()) {
 	<div class="actions">
-		@Html.HiddenFor(model => Model.Ident)	
+		@Html.HiddenFor(model => Model.Ident)
 		<input type="submit" class="btn primary" value="Delete" />
 	</div>
-} 
+}
 

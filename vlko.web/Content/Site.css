@@ -92,7 +92,7 @@ textarea {
   overflow: auto;
   vertical-align: top; }
 
-/* Preboot.scss 
+/* Preboot.scss
  * Variables and mixins to pre-ignite any new web development project
  * ------------------------------------------------------------------ */
 .clearfix {
@@ -1442,7 +1442,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   color: #fff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25); }
 
-/* COMMON STYLES   
+/* COMMON STYLES
 ----------------------------------------------------------*/
 .f_right {
   float: right; }
@@ -1453,7 +1453,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .cleaner {
   clear: both; }
 
-/* PRIMARY LAYOUT ELEMENTS   
+/* PRIMARY LAYOUT ELEMENTS
 ----------------------------------------------------------*/
 .page {
   width: 960px;
@@ -1539,7 +1539,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     color: black;
     text-decoration: none; }
 
-/* TAB MENU   
+/* TAB MENU
 ----------------------------------------------------------*/
 #menucontainer {
   position: absolute;

@@ -446,7 +446,7 @@ namespace vlko.BlogModule.Tests.Model
 				Assert.AreEqual("item0", data[12].Name);
 
 				Assert.AreEqual("second_comment", data[13].Name);
-				Assert.AreEqual("first_comment", data[14].Name);				
+				Assert.AreEqual("first_comment", data[14].Name);
 			}
 		}
 
@@ -458,7 +458,7 @@ namespace vlko.BlogModule.Tests.Model
 				var dataActions = RepositoryFactory.GetRepository<Comment>().GetCommand<ICommentData>();
 				var data = dataActions.GetCommentTree(_testText.Id).ToArray();
 
-				
+
 				Assert.AreEqual("first_comment", data[0].Name);
 				Assert.AreEqual("second_comment", data[1].Name);
 
@@ -474,7 +474,7 @@ namespace vlko.BlogModule.Tests.Model
 
 				Assert.AreEqual("item1", data[3].Name);
 				Assert.AreEqual("item2", data[4].Name);
-				
+
 				Assert.AreEqual("item20", data[4].ChildNodes.ToArray()[0].Name);
 				Assert.AreEqual("item200", data[4].ChildNodes.ToArray()[0].ChildNodes.ToArray()[0].Name);
 				Assert.AreEqual("item2000", data[4].ChildNodes.ToArray()[0].ChildNodes.ToArray()[0].ChildNodes.ToArray()[0].Name);
@@ -525,7 +525,7 @@ namespace vlko.BlogModule.Tests.Model
 		/// Creates the comment tree.
 		/// </summary>
 		/// <remarks>
-		/// 
+		///
 		/// </remarks>
 		private void CreateCommentTree()
 		{

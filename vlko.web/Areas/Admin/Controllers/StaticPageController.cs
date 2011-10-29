@@ -112,7 +112,7 @@ namespace vlko.web.Areas.Admin.Controllers
 			if (ModelState.IsValid)
 			{
 				var crudOperations = RepositoryFactory.Command<IStaticTextCrud>();
-				
+
 				// get original item to test change permissions
 				var originalItem = crudOperations.FindByPk(model.Id);
 

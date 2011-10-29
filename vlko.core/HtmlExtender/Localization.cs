@@ -17,7 +17,7 @@ namespace vlko.core.HtmlExtender
                     return "d. m. yy";
                 default:
                     return "yy-mm-dd";
-            } 
+            }
         }
         public static string FormatDateValue(this HtmlHelper htmlHelper, object value)
         {

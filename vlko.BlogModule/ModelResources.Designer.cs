@@ -10,8 +10,8 @@
 
 namespace vlko.BlogModule {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,15 +23,15 @@ namespace vlko.BlogModule {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ModelResources {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal ModelResources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace vlko.BlogModule {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace vlko.BlogModule {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Allow comments.
         /// </summary>
@@ -68,7 +68,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("AllowComments", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Name required..
         /// </summary>
@@ -77,7 +77,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("AnonymousRequireError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Author regex.
         /// </summary>
@@ -86,7 +86,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("AuthorRegex", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Changed.
         /// </summary>
@@ -95,7 +95,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("Changed", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Last change date.
         /// </summary>
@@ -104,7 +104,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("ChangeDate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ip of client.
         /// </summary>
@@ -113,7 +113,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("ClientIp", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Number of comments.
         /// </summary>
@@ -122,7 +122,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("CommentCounts", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Comment title empty..
         /// </summary>
@@ -131,7 +131,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("CommentNameRequireError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Comment text empty..
         /// </summary>
@@ -140,7 +140,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("CommentTextRequireError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Content parse regex.
         /// </summary>
@@ -149,7 +149,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("ContentParseRegex", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Date of creation.
         /// </summary>
@@ -158,7 +158,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("CreatedDate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Creator.
         /// </summary>
@@ -167,7 +167,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("Creator", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
@@ -176,7 +176,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("Description", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Description empty..
         /// </summary>
@@ -185,7 +185,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("DescriptionRequireError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Display full content instead of description.
         /// </summary>
@@ -194,7 +194,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("DisplayFullContent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Feed url.
         /// </summary>
@@ -203,7 +203,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("FeedUrl", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File deletion failed..
         /// </summary>
@@ -212,7 +212,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("FileDeleteFailedError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to New file name.
         /// </summary>
@@ -221,7 +221,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("FileIdent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File ident &apos;{0}&apos; already used..
         /// </summary>
@@ -230,7 +230,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("FileIdentExistsError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File ident (without extension) required..
         /// </summary>
@@ -239,7 +239,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("FileIdentRequireError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File too big (max size {0})..
         /// </summary>
@@ -248,7 +248,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("FileTooBigError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File upload failed..
         /// </summary>
@@ -257,7 +257,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("FileUploadFailedError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Friendly URL.
         /// </summary>
@@ -266,7 +266,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("FriendlyUrl", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Friendly URL longer like 80 characters..
         /// </summary>
@@ -275,7 +275,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("FriendlyURLError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Try to get content from url.
         /// </summary>
@@ -284,7 +284,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("GetDirectContent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ident.
         /// </summary>
@@ -293,7 +293,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("Id", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Item not exists..
         /// </summary>
@@ -302,7 +302,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("ItemNotExistsError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Exceed number of allowed characters..
         /// </summary>
@@ -311,7 +311,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("LengthError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
@@ -320,7 +320,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to You are not allowed to change this item..
         /// </summary>
@@ -329,7 +329,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("NotAllowedToChangeError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to You are not allowed to delete this item..
         /// </summary>
@@ -338,7 +338,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("NotAllowedToDeleteError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Publish date.
         /// </summary>
@@ -347,7 +347,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("PublishDate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Publish date empty..
         /// </summary>
@@ -356,7 +356,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("PublishDateRequireError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cannot be empty..
         /// </summary>
@@ -365,7 +365,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("RequireError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Please solve expression to post comment..
         /// </summary>
@@ -374,7 +374,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("RoboCheckError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File size.
         /// </summary>
@@ -383,7 +383,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("Size", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Text.
         /// </summary>
@@ -392,7 +392,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("Text", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Text empty..
         /// </summary>
@@ -401,7 +401,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("TextRequireError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
@@ -410,7 +410,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Title longer like 80 characters..
         /// </summary>
@@ -419,7 +419,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("TitleLengthError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Title empty..
         /// </summary>
@@ -428,7 +428,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("TitleRequireError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Url path.
         /// </summary>
@@ -437,7 +437,7 @@ namespace vlko.BlogModule {
                 return ResourceManager.GetString("Url", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Name of user.
         /// </summary>

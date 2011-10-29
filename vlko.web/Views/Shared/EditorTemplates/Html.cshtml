@@ -6,13 +6,13 @@
 	<div class="input">
 @{
 	Html.ScriptInclude("~/Scripts/tiny_mce/jquery.tinymce.js");
-	
+
 }
 	<ul class="inputs-list">
 	@if (Request.IsAuthenticated) {
 		<li>@(Html.ActionLink<FileBrowserController>(c => c.Index(), "Browse user files", new { id = "FileBrowserLink" + Html.IdForModel(), target="FileBrowser" }))</li>
 	}
-	
+
 		<li>@Html.TextArea("", (string)ViewData.Model, new { @class = "xxlarge" })</li>
 	</ul>
 	@Html.ValidationMessageFor(model => model, null, new { @class = "ignore" })
@@ -31,10 +31,10 @@
 		$("#@item.ViewData.ModelMetadata.PropertyName")[0].value = text;
 		$("#@item.ViewData.ModelMetadata.PropertyName")[0].innerHTML = text;
 	}
-	
+
 	$(function () {
 		var editorId = "@item.ViewData.ModelMetadata.PropertyName";
-		
+
 		$("#" + editorId).tinymce({
 			// Location of TinyMCE script
 			script_url : '@Url.Content("~/Scripts/tiny_mce/tiny_mce.js")',
@@ -57,7 +57,7 @@
 			content_css : "@Url.Content("~/Content/Site.css")",
 			onchange_callback : "@(item.ViewData.ModelMetadata.PropertyName)ChangeHandler"
 		});
-		
+
 		setTimeout(function() {
 			tinyMCE.execCommand('mceAddControl', false, editorId);
 		}, 1000);
@@ -79,5 +79,5 @@
 					return false;
 				}); ;
 	});
-</script>); 
-} 
+</script>);
+}

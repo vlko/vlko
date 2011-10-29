@@ -64,7 +64,7 @@ namespace vlko.core.NH.Repository
 				{
 					UnitOfWorkContext.Dispose();
 				}
-			}   
+			}
 		}
 	}
 }

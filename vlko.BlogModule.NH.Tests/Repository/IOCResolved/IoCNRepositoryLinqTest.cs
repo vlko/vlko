@@ -40,7 +40,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
 			IoC.AddRerouting<IProjectionQuery>(() => new ProjectionLinqQuery());
 
 			base.SetUp();
-	  
+
 			_Test = new BaseTest();
 			_Test.Intialize();
 		}

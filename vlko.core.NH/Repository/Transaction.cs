@@ -86,7 +86,7 @@ namespace vlko.core.NH.Repository
 			{
 				try
 				{
-					
+
 					SessionFactory.UnregisterTransaction(this);
 				}
 				finally
@@ -95,10 +95,10 @@ namespace vlko.core.NH.Repository
 					if (TransactionContext != null)
 					{
 						TransactionContext.Dispose();
-					}			
+					}
 				}
-			}   
-		}	
+			}
+		}
 	}
 }
 

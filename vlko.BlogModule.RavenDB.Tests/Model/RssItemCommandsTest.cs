@@ -63,5 +63,5 @@ namespace vlko.BlogModule.RavenDB.Tests.Model
 		}
 	}
 
-	
+
 }

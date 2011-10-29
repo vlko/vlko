@@ -5,7 +5,7 @@
 @using vlko.core.Components;
 @{
 	ViewBag.Title = "Rss feed index";
-	
+
 	Html.ScriptInclude("~/Scripts/Grid.js");
 }
 <h2>Index</h2>
@@ -22,7 +22,7 @@
 		<th>Show full content</th>
 		<th>Number of feed items</th>
 	</tr>
-@foreach (var item in Model) { 
+@foreach (var item in Model) {
 	<tr>
 		<td class="no_wrap">
 			@Html.Link("edit", "Edit", (object)Routes.EditOfThisFromThis(item.Id))
@@ -34,7 +34,7 @@
 		<td>@item.DisplayFullContent</td>
 		<td>@item.FeedItemCount</td>
 	</tr>
-} 
+}
 
 </table>
 <div>@Pager.Render(Html, Model)</div>
@@ -44,5 +44,5 @@
 		$("#content").ajaxGrid();
 	});
 </script>);
-}	
+}
 

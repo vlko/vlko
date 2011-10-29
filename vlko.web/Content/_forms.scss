@@ -69,7 +69,7 @@ input, textarea, select, .uneditable-input {
   height: $baseline;
   padding: 4px;
   font-size: $basefont;
-  line-height: $baseline; 
+  line-height: $baseline;
   @if $metroUI != true {
     color: $gray;
 	border: 1px solid #ccc;

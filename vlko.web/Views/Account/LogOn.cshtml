@@ -9,17 +9,17 @@
 	Or @Html.Link("reset password", (object)Routes.ResetPasswordOfThis)   if you cannot remember old one.
 </p>
 
-@using (Html.BeginForm()) { 
-	@Html.ValidationSummary(excludePropertyErrors: true, message:"Login was unsuccessful. Please correct the errors and try again.") 
+@using (Html.BeginForm()) {
+	@Html.ValidationSummary(excludePropertyErrors: true, message:"Login was unsuccessful. Please correct the errors and try again.")
 	<div>
 		<fieldset>
 			<legend>Account Information</legend>
-				
-			@Html.HiddenFor(m => m.ReturnUrl) 
+
+			@Html.HiddenFor(m => m.ReturnUrl)
 			@Html.EditorFor(m => m.UserName)
 			@Html.EditorFor(m => m.Password)
 			@Html.EditorFor(m => m.RememberMe)
-				
+
 			<div class="actions">
 				<input class="btn primary" type="submit" value="Log On" />
 			</div>
