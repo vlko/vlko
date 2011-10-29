@@ -8,7 +8,7 @@
 }
 <section class="flat_comments cleaner">
 @foreach (var item in Model)
-{ 
+{
 	<article class="page_comment cleaner">
 		<a class="icon-link reply_link" title="Reply" rel="@item.Id.ToString()" href="@Routes.PageCommentReply(
 																				  friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),

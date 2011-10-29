@@ -7,7 +7,7 @@
 @{
 	Script.RegisterValidationJs(Html);
 }
-	
+
 @using (Html.BeginForm((object)Routes.PageComment(
 										friendlyUrl : Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
 										sort : Html.ViewContext.RouteData.GetRequiredString("sort")
@@ -19,8 +19,8 @@
 
 		@Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"])
 		@Html.HiddenFor(model => model.ContentId)
-		@Html.HiddenFor(model => model.ParentId) 
-		@if (Model.ChangeUser == null) {  
+		@Html.HiddenFor(model => model.ParentId)
+		@if (Model.ChangeUser == null) {
 			<div class="clearfix@(!Html.IsValid(model => model.AnonymousName) ? " error" : string.Empty)">
 				@Html.LabelFor(model => model.AnonymousName, "Anonymous name")
 				<div class="input">
@@ -28,13 +28,13 @@
 					@Html.ValidationMessageFor(model => model.AnonymousName, null, new { @class = "help-inline" })
 				</div>
 			</div>
-		}     	     
-		else { 
+		}
+		else {
 			<div class="clearfix">
 				@Html.LabelFor(model => model.ChangeUser.Name, "User")
 				<div class="input"><ul class="inputs-list"><li>@Model.ChangeUser.Name</li></ul></div>
 			</div>
-		} 
+		}
 		<div class="clearfix@(!Html.IsValid(model => model.Name) ? " error" : string.Empty)">
 			@Html.LabelFor(model => model.Name, "Title")
 			<div class="input">
@@ -42,7 +42,7 @@
 				@Html.ValidationMessageFor(model => model.Name, null, new { @class = "help-inline" })
 			</div>
 		</div>
-		@if (Model.ChangeUser == null) {  
+		@if (Model.ChangeUser == null) {
 		<div class="clearfix@(!Html.IsValid(model => model.RoboCheck) ? " error" : string.Empty)">
 			@Html.LabelFor(model => model.RoboCheck, Model.ExpressionText)
 			<div class="input">
@@ -68,7 +68,7 @@
 					}
 				  	$(function () {
 				  		var editorId = "@item.Html.NameFor(model => model.Text)";
-		
+
 						$("#" + editorId).tinymce({
 							// Location of TinyMCE script
 							script_url : '@Url.Content("~/Scripts/tiny_mce/tiny_mce.js")',
@@ -91,7 +91,7 @@
 							content_css : "@Url.Content("~/Content/Site.css")",
 							onchange_callback : "@(item.Html.NameFor(model => model.Text))ChangeHandler"
 						});
-		
+
 						setTimeout(function() {
 							tinyMCE.execCommand('mceAddControl', false, editorId);
 						}, 1000);
@@ -100,8 +100,8 @@
 			 }
 			}
 			@Html.ValidationMessageFor(model => model.Text, null, new { @class = "help-inline" })
-			</div>    
-		</div>      
+			</div>
+		</div>
 		<div class="editor-submit actions"><input type="submit" class="btn primary" value="Add" /></div>
 	</fieldset>
 }

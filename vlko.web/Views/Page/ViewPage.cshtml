@@ -14,14 +14,14 @@
 		</div>
 		<div class="text">
 			@Html.Raw(Model.StaticText.Text)
-		</div> 
+		</div>
 	</article>
-	@if (Model.StaticText.AllowComments || Model.StaticText.CommentCounts > 0) { 
-		
-		
+	@if (Model.StaticText.AllowComments || Model.StaticText.CommentCounts > 0) {
+
+
 		<h4 class="cleaner">Komentáre (@Model.StaticText.CommentCounts):</h4>
 		<div class="comment-sort cleaner">
-		
+
 			<a class="comment_sort flat" href="@Routes.PageView(
 										   friendlyUrl: Html.ViewContext.RouteData.GetRequiredString("friendlyUrl"),
 										   sort: "flat"
@@ -121,6 +121,6 @@
 				}); ;
 	});
 </script>);
-} 
+}
 
 

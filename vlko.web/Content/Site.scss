@@ -60,7 +60,7 @@ $purple: #7a43b6;
 @import "pattern_topbar";
 @import "pattern_tabs_pills";
 
-/* COMMON STYLES   
+/* COMMON STYLES
 ----------------------------------------------------------*/
 .f_right {
 	float: right;
@@ -73,7 +73,7 @@ $purple: #7a43b6;
 .cleaner {
 	clear: both;
 }
-/* PRIMARY LAYOUT ELEMENTS   
+/* PRIMARY LAYOUT ELEMENTS
 ----------------------------------------------------------*/
 
 .page {
@@ -177,7 +177,7 @@ $purple: #7a43b6;
 		}
 	}
 }
-/* TAB MENU   
+/* TAB MENU
 ----------------------------------------------------------*/
 #menucontainer {
 	position: absolute;
@@ -254,7 +254,7 @@ $purple: #7a43b6;
 	float:left;
 	color: white;
 	position: relative;
-	
+
 	margin: 0 15px 15px 0;
 	background-color: $baseColor;
 	overflow: hidden;
@@ -269,7 +269,7 @@ $purple: #7a43b6;
 			color: white;
 			cursor: pointer;
 		}
-		
+
 	}
 	&>a, &>.title {
 		padding: 5px;
@@ -370,7 +370,7 @@ $purple: #7a43b6;
 	img {
 		border: 1px solid White;
 		&:hover {
-			border: 1px solid #309b46; 
+			border: 1px solid #309b46;
 		}
 	}
 }

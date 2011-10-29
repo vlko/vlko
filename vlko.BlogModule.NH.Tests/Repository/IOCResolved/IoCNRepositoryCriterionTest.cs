@@ -44,7 +44,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
 			IoC.AddCatalogAssembly(Assembly.Load("vlko.BlogModule.NH"));
 			base.SetUp();
 			log4net.LogManager.GetLogger("test").Debug("test");
-	  
+
 			_Test = new BaseTest();
 			_Test.Intialize();
 		}

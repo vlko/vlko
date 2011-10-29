@@ -55,7 +55,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation
                 return new Repository<T>();
             }
 
-            return null; 
+            return null;
         }
     }
 }

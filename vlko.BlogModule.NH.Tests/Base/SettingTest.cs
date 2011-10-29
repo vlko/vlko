@@ -104,7 +104,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 			var intSetting = new SettingValue<int>("changeIntVal", 245, new DatabaseSettingProvider());
 			var stringSetting = new SettingValue<string>("changeStringVal", "defaultValue", new DatabaseSettingProvider());
 
-			// create 
+			// create
 			intSetting.SaveValue(newValueInt);
 			stringSetting.SaveValue(newValueString);
 
@@ -113,9 +113,9 @@ namespace vlko.BlogModule.NH.Tests.Base
 
 			// check if db is really empty
 			Assert.AreEqual(newValueInt.ToString(CultureInfo.InvariantCulture), command.Get(intSetting.Name).Value);
-			Assert.AreEqual(newValueString, command.Get(stringSetting.Name).Value); 
+			Assert.AreEqual(newValueString, command.Get(stringSetting.Name).Value);
 
-			// change 
+			// change
 			intSetting.SaveValue(changeValueInt);
 			stringSetting.SaveValue(changeValueString);
 
@@ -135,7 +135,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 
 			var stringSetting = new SettingValue<string>("changeStringVal", "defaultValue", new DatabaseSettingProvider());
 
-			// create 
+			// create
 			stringSetting.SaveValue(newValueString);
 
 			Assert.AreEqual(newValueString, stringSetting.Value);
@@ -143,7 +143,7 @@ namespace vlko.BlogModule.NH.Tests.Base
 			// check if db is really empty
 			Assert.AreEqual(newValueString, command.Get(stringSetting.Name).Value);
 
-			// change 
+			// change
 			stringSetting.SaveValue(null);
 
 			Assert.AreEqual(null, stringSetting.Value);

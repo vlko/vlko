@@ -24,7 +24,7 @@ namespace vlko.BlogModule.Tests.Model
 
 			using (var tran = RepositoryFactory.StartTransaction())
 			{
-				// create items as they can 
+				// create items as they can
 				_messages = new[]
 				            	{
 				            		new SystemMessage
@@ -106,7 +106,7 @@ namespace vlko.BlogModule.Tests.Model
 					newItem = command.Create(newItem);
 					tran.Commit();
 				}
-				
+
 				var items = command.GetAll().OrderByDescending(item => item.CreatedDate).ToPage(0, 1);
 
 				Assert.AreEqual(1, items.Length);

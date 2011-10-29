@@ -61,7 +61,7 @@
 
 		init : function(ed, url) {
 			var t = this, s, v, o;
-	
+
 			t.editor = ed;
 			t.url = url;
 			t.onResolveName = new tinymce.util.Dispatcher(this);
@@ -251,7 +251,7 @@
 					// Toggle off the current format
 					matches = ed.formatter.matchAll(formatNames);
 					if (!name || matches[0] == name) {
-						if (matches[0]) 
+						if (matches[0])
 							ed.formatter.remove(matches[0]);
 					} else
 						ed.formatter.apply(name);
@@ -560,7 +560,7 @@
 			if (DOM.get(ed.id + '_path_row')) {
 				Event.add(ed.id + '_tbl', 'mouseover', function(e) {
 					var re;
-	
+
 					e = e.target;
 
 					if (e.nodeName == 'SPAN' && DOM.hasClass(e.parentNode, 'mceButton')) {
@@ -859,7 +859,7 @@
 			var n, t = this, ed = t.editor, s = t.settings, r, mf, me, td;
 
 			n = DOM.add(tb, 'tr');
-			n = td = DOM.add(n, 'td', {'class' : 'mceStatusbar'}); 
+			n = td = DOM.add(n, 'td', {'class' : 'mceStatusbar'});
 			n = DOM.add(n, 'div', {id : ed.id + '_path_row', 'role': 'group', 'aria-labelledby': ed.id + '_path_voice'});
 			if (s.theme_advanced_path) {
 				DOM.add(n, 'span', {id: ed.id + '_path_voice'}, ed.translate('advanced.path'));
@@ -867,7 +867,7 @@
 			} else {
 				DOM.add(n, 'span', {}, '&#160;');
 			}
-			
+
 
 			if (s.theme_advanced_resizing) {
 				DOM.add(td, 'a', {id : ed.id + '_resize', href : 'javascript:;', onclick : "return false;", 'class' : 'mceResize'});
@@ -1022,7 +1022,7 @@
 
 					if (!fn && n.style.fontFamily)
 						fn = n.style.fontFamily.replace(/[\"\']+/g, '').replace(/^([^,]+).*/, '$1').toLowerCase();
-					
+
 					if (!fc && n.style.color)
 						fc = n.style.color;
 
@@ -1053,7 +1053,7 @@
 						return true;
 				});
 			}
-			
+
 			if (s.theme_advanced_show_current_color) {
 				function updateColor(controlId, color) {
 					if (c = cm.get(controlId)) {

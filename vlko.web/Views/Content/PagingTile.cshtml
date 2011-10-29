@@ -1,7 +1,7 @@
 ﻿@model Tuple<int, string>
 @{
 	var routeValuesDictionary = new System.Web.Routing.RouteValueDictionary();
-	routeValuesDictionary.Add("Page", Model.Item1);		   	
+	routeValuesDictionary.Add("Page", Model.Item1);
 }
 <article class="note pagination">
 	<a class="fill" href="@Url.Action(null, null, routeValuesDictionary)">

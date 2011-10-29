@@ -389,7 +389,7 @@ namespace vlko.BlogModule.Tests.Model
 		{
 			using (RepositoryFactory.StartUnitOfWork())
 			{
-				
+
 				var item = new StaticTextCRUDModel()
 							   {
 								   Creator = _user,

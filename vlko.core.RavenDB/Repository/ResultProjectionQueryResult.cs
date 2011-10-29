@@ -27,7 +27,7 @@ namespace vlko.core.RavenDB.Repository
 		public ResultProjectionQueryResult(IQueryable<TRoot> query, Func<TRoot[], T[]> transformFunction)
 			:this(query, transformFunction, null)
 		{
-			
+
 		}
 
 		/// <summary>

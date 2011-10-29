@@ -54,7 +54,7 @@ namespace vlko.core.RavenDB.Repository
 				}
 				return queryable.Where(Expression.Lambda<Func<T, bool>>(current, parameter));
 			}
-			// add impossible condition as this is contains condition and we have nothing to contains 
+			// add impossible condition as this is contains condition and we have nothing to contains
 			return queryable.Where(item => 1 == 0);
 		}
 

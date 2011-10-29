@@ -23,7 +23,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
         [TestMethod]
         public void Test_create()
         {
-            var testObj = new NTestObject() 
+            var testObj = new NTestObject()
             {
                 ID = 100,
                 Text = "create",

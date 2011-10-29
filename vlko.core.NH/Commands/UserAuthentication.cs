@@ -99,7 +99,7 @@ namespace vlko.core.NH.Commands
 			{
 				return ValidateUserStatus.InvalidPassword;
 			}
-			
+
 			userToValidate.LastSeen = DateTime.Now;
 			using (var tran = RepositoryFactory.StartTransaction())
 			{

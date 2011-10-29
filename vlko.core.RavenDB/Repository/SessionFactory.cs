@@ -50,7 +50,7 @@ namespace vlko.core.RavenDB.Repository
 
 		[ThreadStatic]
 		static StackInfo _stack;
-		
+
 		/// <summary>
 		/// Gets the current session.
 		/// </summary>
@@ -245,7 +245,7 @@ namespace vlko.core.RavenDB.Repository
 			{
 				stack.Session.SaveChanges();
 			}
-			
+
 		}
 
 		/// <summary>

@@ -137,7 +137,7 @@ namespace vlko.BlogModule.Tests.Model
 				var command = RepositoryFactory.Command<ITwitterStatusCommands>();
 				var result = command.GetByIds(new[] {_statuses[0].Id, _statuses[1].Id})
 								.ToArray();
-				
+
 				Assert.AreEqual(2, result.Length);
 				Assert.AreEqual(_statuses[0].Id, result.First(item => item.Id == _statuses[0].Id).Id);
 				Assert.AreEqual(_statuses[1].Id, result.First(item => item.Id == _statuses[1].Id).Id);
@@ -175,5 +175,5 @@ namespace vlko.BlogModule.Tests.Model
 		}
 	}
 
-	
+
 }

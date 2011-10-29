@@ -18,7 +18,7 @@ namespace vlko.BlogModule.Base.Scheduler
 		/// </summary>
 		/// <param name="callIntervalInMinutes">The call interval in minutes.</param>
 		/// <param name="startImmediately">if set to <c>true</c> [start immediately].</param>
-		public UpdateTwitterTask(int callIntervalInMinutes, bool startImmediately) 
+		public UpdateTwitterTask(int callIntervalInMinutes, bool startImmediately)
 			: base(callIntervalInMinutes, startImmediately)
 		{
 		}
@@ -43,7 +43,7 @@ namespace vlko.BlogModule.Base.Scheduler
 			                 	};
 			var twitterUser = Settings.Twitter.TwitterAccount.Value;
 
-			// check if token is not valid log 
+			// check if token is not valid log
 			if (!twitterConnection.IsTokenValid(oAuthToken))
 			{
 				Logger.Fatal("Twitter OAuthToken is not valid go to /Admin/Twitter/Authorize to register new one!!");

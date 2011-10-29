@@ -1,7 +1,7 @@
 ﻿using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 
-namespace vlko.core.NH.Repository   
+namespace vlko.core.NH.Repository
 {
 	public class RepositoryFactoryResolver : IRepositoryFactoryResolver
 	{

@@ -26,7 +26,7 @@ namespace vlko.core.RavenDB.Repository
 		public ProjectionAsQueryResult(IQueryable<TRoot> query)
 			:this(query, null)
 		{
-			
+
 		}
 
 		/// <summary>

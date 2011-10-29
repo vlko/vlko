@@ -144,7 +144,7 @@ namespace vlko.BlogModule.Tests.Model
 				verifyStatus = authentication.ValidateUser(userName, password);
 				Assert.AreEqual(ValidateUserStatus.Success, verifyStatus);
 
-				// test not existing user 
+				// test not existing user
 				verifyStatus = authentication.ValidateUser(userName + "not_existing", password);
 				Assert.AreEqual(ValidateUserStatus.NotExists, verifyStatus);
 

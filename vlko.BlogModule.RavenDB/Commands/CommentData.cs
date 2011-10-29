@@ -40,7 +40,7 @@ namespace vlko.BlogModule.RavenDB.Commands
 				}
 				dictionary.Add(current.Id, current);
 			}
-			
+
 			dictionary.Clear();
 			return result.OrderBy(item => item.CreatedDate);
 		}
@@ -58,7 +58,7 @@ namespace vlko.BlogModule.RavenDB.Commands
 			{
 				if (currentNode.Id == current.ParentCommentId)
 				{
-					
+
 					return true;
 				}
 				return false;

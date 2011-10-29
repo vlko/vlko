@@ -6,7 +6,7 @@
 	Script.RegisterValidationJs(Html);
 }
 <div class="ajax_ignore">
-	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis)
 </div>
 
 <h2>Edit</h2>
@@ -14,21 +14,21 @@
 @using (Html.BeginForm()) {
 	<div>
 		@Html.ValidationSummary(true)
-		
+
 		<fieldset>
 			<legend>Fields</legend>
 
-			@Html.HiddenFor(model => model.Id) 			
-			@Html.EditorFor(model => model.FriendlyUrl) 
-			@Html.EditorFor(model => model.Title) 
-			@Html.EditorFor(model => model.Text) 
-			@Html.EditorFor(model => model.PublishDate) 
-			@Html.EditorFor(model => model.AllowComments) 
+			@Html.HiddenFor(model => model.Id)
+			@Html.EditorFor(model => model.FriendlyUrl)
+			@Html.EditorFor(model => model.Title)
+			@Html.EditorFor(model => model.Text)
+			@Html.EditorFor(model => model.PublishDate)
+			@Html.EditorFor(model => model.AllowComments)
 
 		</fieldset>
 	</div>
 	<div class="actions">
 		<input type="submit" class="btn primary" value="Save" />
 	</div>
-} 
+}
 

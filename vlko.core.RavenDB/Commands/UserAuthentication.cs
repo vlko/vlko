@@ -101,7 +101,7 @@ namespace vlko.core.RavenDB.Commands
 			{
 				return ValidateUserStatus.InvalidPassword;
 			}
-			
+
 			userToValidate.LastSeen = DateTime.Now;
 			using (var tran = RepositoryFactory.StartTransaction())
 			{

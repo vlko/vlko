@@ -64,7 +64,7 @@ namespace vlko.core.RavenDB.Repository
 				{
 					UnitOfWorkContext.Dispose();
 				}
-			}   
+			}
 		}
 	}
 }

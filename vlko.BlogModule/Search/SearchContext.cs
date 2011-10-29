@@ -80,7 +80,7 @@ namespace vlko.BlogModule.Search
 				{
 					_indexSearcher.Close();
 				}
-			}   
+			}
 		}
 	}
 }

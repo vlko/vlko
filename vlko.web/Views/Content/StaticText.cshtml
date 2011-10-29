@@ -3,7 +3,7 @@
 @using vlko.core.Tools
 <article class="note">
 	<a href="@Url.Action(Model.FriendlyUrl, "Page")"><img src="@Url.Content("~/Content/images/note.png")" alt="Note link" class="icon-link" />
-		<span class="date">@String.Format("{0:g}", Model.ChangeDate)</span>	
+		<span class="date">@String.Format("{0:g}", Model.ChangeDate)</span>
 		<h3 class="title">@Model.Title</h3>
 		<div class="comments">@Model.CommentCounts</div>
 		<div class="text">@Html.Raw(Model.Description.Shorten(250, "..."))</div>

@@ -10,7 +10,7 @@ namespace vlko.core.Repository
 		/// </summary>
 		/// <typeparam name="T">Generic type.</typeparam>
 		/// <returns>Registered BaseRepository for type.</returns>
-		IRepository<T> GetRepository<T>() where T : class; 
+		IRepository<T> GetRepository<T>() where T : class;
 
 		/// <summary>
 		/// Resolves the command group.

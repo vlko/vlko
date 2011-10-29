@@ -28,7 +28,7 @@ namespace vlko.core.RavenDB.Repository
 		public LiveProjectionQueryResult(IQueryable<TReduce> query)
 			:this(query, null)
 		{
-			
+
 		}
 
 		/// <summary>

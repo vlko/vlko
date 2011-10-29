@@ -52,8 +52,8 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 
 						item.Url = weburl;
 						item.Title = feedItem.Title.Text;
-						item.Text = feedItem.Content is TextSyndicationContent 
-										? ((TextSyndicationContent)feedItem.Content).Text 
+						item.Text = feedItem.Content is TextSyndicationContent
+										? ((TextSyndicationContent)feedItem.Content).Text
 										: feedItem.Summary != null
 											? feedItem.Summary.Text
 											: string.Empty;

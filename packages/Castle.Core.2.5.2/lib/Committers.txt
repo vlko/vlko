@@ -21,7 +21,7 @@ Committers
 - Ayende Rahien
 - G. Richard Bellamy
 - Roelof Blom
-- Ahmed Ghandour 
+- Ahmed Ghandour
 - Josh Robb
 - Ernst Naezer
 - Marc-Andre Cournoyer
@@ -37,7 +37,7 @@ Committers
 - Mauricio Scheffer
 - John Simons
 
-Managers 
+Managers
 ========
 
   Patch Manager
@@ -48,10 +48,10 @@ Managers
   Documentation Manager
   ---------------------
 
-  - 
+  -
 
 
-PMC Members 
+PMC Members
 ===========
 (ordered by the date when joined the PMC)
 
@@ -67,7 +67,7 @@ PMC Members
 - Josh Robb
 - Jonathon Rossi
 
-Emeritus 
+Emeritus
 ========
 (no longer active committers)
 
@@ -77,4 +77,4 @@ Emeritus
 - John Morales
 - CobraLord
 - Tatham Oddie
-- Ahmed Ghandour 
+- Ahmed Ghandour

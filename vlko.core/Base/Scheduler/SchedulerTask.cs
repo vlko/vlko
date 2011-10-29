@@ -10,7 +10,7 @@ namespace vlko.core.Base.Scheduler
 {
 	public abstract class SchedulerTask
 	{
-		
+
 		public DateTime NextRun { get; private set; }
 		public int CallIntervalInMinutes { get; private set; }
 

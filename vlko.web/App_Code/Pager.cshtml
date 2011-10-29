@@ -6,8 +6,8 @@
 	routeValuesDictionary.Add("Page", 0);
 
 	Func<int, IHtmlString> activeClass = (pageNumber) => html.Raw(pageNumber == pageModel.CurrentPage ? " class='active'" : string.Empty);
-	
-	Func<int, string> active = (pageNumber) => pageNumber == pageModel.CurrentPage ? " active" : string.Empty; 
+
+	Func<int, string> active = (pageNumber) => pageNumber == pageModel.CurrentPage ? " active" : string.Empty;
 
 	Func<int, System.Web.Routing.RouteValueDictionary> pageRoutes = (pageNumber) =>
 	                                                                	{
@@ -33,7 +33,7 @@
 		startItemNumber = endItemNumber;
 	}
 
-	
+
 	const int pagerRange = 2;
 	int pagesNumber = pageModel.PagesNumber;
 	int currentPage = pageModel.CurrentPage;
@@ -41,7 +41,7 @@
 	int highestPage = Math.Max(currentPage + pagerRange, (pagerRange + 1) * 2 + 1);
 	bool lowestRangeDelimiterDisplayed = false;
 	bool highesRangeDelimiterDisplayed = false;
-	
+
 	<div class="pagination well"><ul>
 	@if (currentPage > 1)
 	{
@@ -49,7 +49,7 @@
 	}
 	else
 	{
-		<li class="first prev disabled"><a>&lt;&lt;</a></li>	
+		<li class="first prev disabled"><a>&lt;&lt;</a></li>
 	}
 	@if (currentPage < pageModel.PagesNumber)
 	{
@@ -58,7 +58,7 @@
 	else
 	{
 		<li class="last next disabled"><a>&gt;&gt;</a></li>
-	}                                                                                              	
+	}
 	<li class="first@(active(1))">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, "1", routeName, pageRoutes(1), null))</li>
 
 	@for (int i = 2; i < pagesNumber; i++)
@@ -105,5 +105,5 @@
 			}
 			$("#@contentId").ajaxPager();
 		});
-		</script>);	
+		</script>);
 }

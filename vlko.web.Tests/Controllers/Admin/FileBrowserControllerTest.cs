@@ -150,7 +150,7 @@ namespace vlko.web.Tests.Controllers.Admin
 
 			FileViewModel savedFile = model.UserFiles.First();
 			Assert.AreEqual("..-some_name", savedFile.Ident);
-			Assert.AreEqual(40, savedFile.Size);          
+			Assert.AreEqual(40, savedFile.Size);
 		}
 
 		[TestMethod]
@@ -303,7 +303,7 @@ namespace vlko.web.Tests.Controllers.Admin
 
 			Assert.IsFalse(controller.ModelState.IsValid);
 		}
- 
+
 
 		public class AppInfoServiceMock : IAppInfoService
 		{
@@ -370,7 +370,7 @@ namespace vlko.web.Tests.Controllers.Admin
 				get
 				{
 					byte[] byteArray = Encoding.ASCII.GetBytes( string.Empty.PadLeft(_lenght) );
-					return new System.IO.MemoryStream( byteArray ); 
+					return new System.IO.MemoryStream( byteArray );
 				}
 			}
 			#endregion

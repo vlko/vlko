@@ -167,7 +167,7 @@ namespace vlko.BlogModule.Tests.Model
 				                             							Creator = _user
 				                             						});
 												tran.Commit();
-				                        		
+
 											}
 											using (var session = RepositoryFactory.StartUnitOfWork(IoC.Resolve<SearchContext>()))
 											{

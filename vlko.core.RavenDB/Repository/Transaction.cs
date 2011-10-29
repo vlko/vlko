@@ -81,7 +81,7 @@ namespace vlko.core.RavenDB.Repository
 			{
 				try
 				{
-					
+
 					SessionFactory.UnregisterTransaction(this);
 				}
 				finally
@@ -89,10 +89,10 @@ namespace vlko.core.RavenDB.Repository
 					if (TransactionContext != null)
 					{
 						TransactionContext.Dispose();
-					}			
+					}
 				}
-			}   
-		}	
+			}
+		}
 	}
 }
 

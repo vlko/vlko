@@ -37,7 +37,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 			doc.Add(new Field("Date", DateTools.DateToString(comment.ChangeDate, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.NOT_ANALYZED));
 			var user = comment.ChangeUser != null ? comment.ChangeUser.Name : comment.AnonymousName;
 			doc.Add(new Field("User", user, Field.Store.NO, Field.Index.ANALYZED));
-			
+
 			tranContext.IndexWriter.AddDocument(doc);
 		}
 

@@ -25,7 +25,7 @@ namespace vlko.core.Components
 		/// <param name="currentPage">The current page.</param>
 		public PagedModel(int currentPage)
 		{
-			CurrentPage = currentPage; 
+			CurrentPage = currentPage;
 		}
 
 		/// <summary>

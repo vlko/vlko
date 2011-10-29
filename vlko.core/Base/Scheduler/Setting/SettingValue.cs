@@ -19,7 +19,7 @@ namespace vlko.core.Base.Scheduler.Setting
 		/// <value>The Name.</value>
 		public string Name
 		{
-			get 
+			get
 			{
 				return _name;
 			}

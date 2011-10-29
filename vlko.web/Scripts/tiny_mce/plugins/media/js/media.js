@@ -239,7 +239,7 @@
 				}
 			} else {
 				src = getVal("src");
-	
+
 				// YouTube
 				if (src.match(/youtube.com(.+)v=([^&]+)/)) {
 					data.width = 425;

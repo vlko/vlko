@@ -21,8 +21,8 @@ namespace vlko.core.RavenDB.Repository.ReferenceProxy
 
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
-			var referenceType = value is IDynamicProxy 
-				? (value as IDynamicProxy).GetOriginalTypeBeforeDynamicProxy() 
+			var referenceType = value is IDynamicProxy
+				? (value as IDynamicProxy).GetOriginalTypeBeforeDynamicProxy()
 				: value.GetType();
 
 			var reference = new DenormalizedReference()

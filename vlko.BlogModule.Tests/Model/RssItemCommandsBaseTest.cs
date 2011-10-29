@@ -235,7 +235,7 @@ namespace vlko.BlogModule.Tests.Model
 				var command = RepositoryFactory.Command<IRssItemCommands>();
 				var result = command.GetByIds(new[] { _rssItems[0].FeedItemId, _rssItems[1].FeedItemId })
 								.ToArray();
-				
+
 				Assert.AreEqual(2, result.Length);
 				Assert.AreEqual(_rssItems[0].FeedItemId, result.First(item => item.FeedItemId == _rssItems[0].FeedItemId).FeedItemId);
 				Assert.AreEqual(_rssItems[1].FeedItemId, result.First(item => item.FeedItemId == _rssItems[1].FeedItemId).FeedItemId);
@@ -270,5 +270,5 @@ namespace vlko.BlogModule.Tests.Model
 		}
 	}
 
-	
+
 }

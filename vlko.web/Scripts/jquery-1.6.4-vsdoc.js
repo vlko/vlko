@@ -821,7 +821,7 @@ jQuery.ajaxTransport = function( dataTypeExpression, func ) {
 jQuery.attr = function( elem, name, value, pass ) {
 
 		var nType = elem.nodeType;
-		
+
 		// don't get/set attributes on text, comment and attribute nodes
 		if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
 			return undefined;
@@ -1651,24 +1651,24 @@ jQuery.find = function( query, context, extra, seed ) {
 			if ( !seed && !Sizzle.isXML(context) ) {
 				// See if we find a selector to speed up
 				var match = /^(\w+$)|^\.([\w\-]+$)|^#([\w\-]+$)/.exec( query );
-				
+
 				if ( match && (context.nodeType === 1 || context.nodeType === 9) ) {
 					// Speed-up: Sizzle("TAG")
 					if ( match[1] ) {
 						return makeArray( context.getElementsByTagName( query ), extra );
-					
+
 					// Speed-up: Sizzle(".CLASS")
 					} else if ( match[2] && Expr.find.CLASS && context.getElementsByClassName ) {
 						return makeArray( context.getElementsByClassName( match[2] ), extra );
 					}
 				}
-				
+
 				if ( context.nodeType === 9 ) {
 					// Speed-up: Sizzle("body")
 					// The body element only exists once, optimize finding it
 					if ( query === "body" && context.body ) {
 						return makeArray( [ context.body ], extra );
-						
+
 					// Speed-up: Sizzle("#ID")
 					} else if ( match && match[3] ) {
 						var elem = context.getElementById( match[3] );
@@ -1681,12 +1681,12 @@ jQuery.find = function( query, context, extra, seed ) {
 							if ( elem.id === match[3] ) {
 								return makeArray( [ elem ], extra );
 							}
-							
+
 						} else {
 							return makeArray( [], extra );
 						}
 					}
-					
+
 					try {
 						return makeArray( context.querySelectorAll(query), extra );
 					} catch(qsaError) {}
@@ -1724,7 +1724,7 @@ jQuery.find = function( query, context, extra, seed ) {
 					}
 				}
 			}
-		
+
 			return oldSizzle(query, context, extra, seed);
 		};
 jQuery.fn = { "selector": '',
@@ -1990,7 +1990,7 @@ jQuery.isXMLDoc = function( elem ) {
 /// <returns type="Boolean" />
 
 	// documentElement is verified for cases where it doesn't yet exist
-	// (such as loading iframes in IE - #4833) 
+	// (such as loading iframes in IE - #4833)
 	var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
 
 	return documentElement ? documentElement.nodeName !== "HTML" : false;
@@ -3564,7 +3564,7 @@ jQuery.prototype.closest = function( selectors, context ) {
 /// <returns type="jQuery" />
 
 		var ret = [], i, l, cur = this[0];
-		
+
 		// Array
 		if ( jQuery.isArray( selectors ) ) {
 			var match, selector,
@@ -6828,7 +6828,7 @@ jQuery.prototype.val = function( value ) {
 
 		var hooks, ret,
 			elem = this[0];
-		
+
 		if ( !arguments.length ) {
 			if ( elem ) {
 				hooks = jQuery.valHooks[ elem.nodeName.toLowerCase() ] || jQuery.valHooks[ elem.type ];
@@ -6839,9 +6839,9 @@ jQuery.prototype.val = function( value ) {
 
 				ret = elem.value;
 
-				return typeof ret === "string" ? 
+				return typeof ret === "string" ?
 					// handle most common string cases
-					ret.replace(rreturn, "") : 
+					ret.replace(rreturn, "") :
 					// handle cases where value is null/undef or number
 					ret == null ? "" : ret;
 			}

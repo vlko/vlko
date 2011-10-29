@@ -6,7 +6,7 @@
 	Script.RegisterValidationJs(Html);
 }
 <div class="ajax_ignore">
-	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis)
 </div>
 
 <h2>Create</h2>
@@ -17,12 +17,12 @@
 
 		<fieldset>
 			<legend>Fields</legend>
-			
-			@Html.EditorFor(model => model.FriendlyUrl) 
-			@Html.EditorFor(model => model.Title) 
-			@Html.EditorFor(model => model.Text) 
-			@Html.EditorFor(model => model.PublishDate) 
-			@Html.EditorFor(model => model.AllowComments) 
+
+			@Html.EditorFor(model => model.FriendlyUrl)
+			@Html.EditorFor(model => model.Title)
+			@Html.EditorFor(model => model.Text)
+			@Html.EditorFor(model => model.PublishDate)
+			@Html.EditorFor(model => model.AllowComments)
 
 		</fieldset>
 	</div>

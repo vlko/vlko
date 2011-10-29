@@ -31,7 +31,7 @@ namespace vlko.core.Tools
             // replace spaces with single dash
             title = Regex.Replace(title, @"\s+", "-");
 
-            // if we end up with multiple dashes, collapse to single dash            
+            // if we end up with multiple dashes, collapse to single dash
             title = Regex.Replace(title, @"\-{2,}", "-");
 
             // make it all lower case
@@ -66,6 +66,6 @@ namespace vlko.core.Tools
             }
 
             return stringBuilder.ToString();
-        } 
+        }
     }
 }

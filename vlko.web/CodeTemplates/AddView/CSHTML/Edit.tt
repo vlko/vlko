@@ -37,7 +37,7 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 	Script.RegisterValidationJs(Html);
 }
 <div class="ajax_ignore">
-	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis) 
+	@Html.Link("back", "Back to List", (object)Routes.IndexOfThisFromThis)
 </div>
 
 <h2><#= mvcHost.ViewName#></h2>
@@ -91,10 +91,10 @@ foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
 		if (property.IsForeignKey) {
 #>
 			<div class="clearfix@(!Html.IsValid(model => model.<#= property.Name #>) ? " error" : string.Empty)">
-				@Html.LabelFor(m => m.<#= property.Name #>, "<#= property.AssociationName #>") 
+				@Html.LabelFor(m => m.<#= property.Name #>, "<#= property.AssociationName #>")
 				<div class="input">
-					@Html.DropDownList(m => m.<#= property.Name #>, new { @class = "xlarge" }) 
-					@Html.ValidationMessageFor(m => m.<#= property.Name #>, null, new { @class = "help-inline" }) 
+					@Html.DropDownList(m => m.<#= property.Name #>, new { @class = "xlarge" })
+					@Html.ValidationMessageFor(m => m.<#= property.Name #>, null, new { @class = "help-inline" })
 				</div>
 			</div>
 <#
@@ -154,7 +154,7 @@ static Type[] bindableNonPrimitiveTypes = new[] {
 // own default formatting for display values.
 List<ModelProperty> GetModelProperties(Type type) {
 	List<ModelProperty> results = GetEligibleProperties(type);
-	
+
 	foreach (ModelProperty prop in results) {
 		if (prop.UnderlyingType == typeof(double) || prop.UnderlyingType == typeof(decimal)) {
 			prop.ModelValueExpression = "String.Format(\"{0:F}\", " + prop.ModelValueExpression + ")";
@@ -193,7 +193,7 @@ bool IsPrimaryKey(PropertyInfo property) {
 		if (attribute is KeyAttribute) {  // WCF RIA Services and EF Code First explicit
 			return true;
 		}
-		
+
 		var edmScalar = attribute as EdmScalarPropertyAttribute;
 		if (edmScalar != null && edmScalar.EntityKeyProperty) {  // EF traditional
 			return true;
@@ -204,7 +204,7 @@ bool IsPrimaryKey(PropertyInfo property) {
 			return true;
 		}
 	}
-	
+
 	return false;
 }
 

@@ -23,7 +23,7 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
                 var hotel2 = new Hotel { Id = Guid.NewGuid(), Name = "Hotel2" };
 
                 _hotelBaseRepository.GetCommand<ICreateCommand<Hotel>>().Create(hotel2);
-                var rooms = new Room[] { 
+                var rooms = new Room[] {
                     new Room { Id = Guid.NewGuid(), Name = "101",
                         HasBathroom = false, HasToilet = false, Beds = 2,
                         Hotel = hotel1
@@ -62,23 +62,23 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
                     _roomBaseRepository.GetCommand<ICreateCommand<Room>>().Create(room);
                 }
 
-                var reservations = new Reservation[] { 
-                    new Reservation { 
+                var reservations = new Reservation[] {
+                    new Reservation {
                         CompositeKey = new ReservationCompositeKey(hotel1.Id, rooms[0].Id, new DateTime(2009, 1, 2)),
                         Name = "jozo",
                         Room = rooms[0]
                     },
-                    new Reservation { 
+                    new Reservation {
                         CompositeKey = new ReservationCompositeKey(hotel1.Id, rooms[0].Id, new DateTime(2009, 1, 3)),
                         Name = "jozo",
                         Room = rooms[0]
                     },
-                    new Reservation { 
+                    new Reservation {
                         CompositeKey = new ReservationCompositeKey(hotel1.Id, rooms[1].Id, new DateTime(2009, 1, 2)),
                         Name = "fero",
                         Room = rooms[1]
                     },
-                    new Reservation { 
+                    new Reservation {
                         CompositeKey = new ReservationCompositeKey(hotel2.Id, rooms[5].Id, new DateTime(2009, 1, 2)),
                         Name = "gejza",
                         Room = rooms[5]

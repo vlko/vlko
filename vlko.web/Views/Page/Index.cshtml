@@ -4,11 +4,11 @@
 @using vlko.core.Components;
 @{
 	ViewBag.Title = "Blog na netechnické témy";
-	
+
 	Html.ScriptInclude("~/Scripts/Grid.js");
 }
 <h2 class="note-main">Blog na netechnické témy</h2>
-@foreach (var item in Model) { 
+@foreach (var item in Model) {
 	@Html.Partial("~/Views/Content/StaticText.cshtml", item)
 }
 <div class="cleaner">@Pager.Render(Html, Model)</div>
@@ -38,5 +38,5 @@
 			});
 	});
 </script>);
-}	
+}
 

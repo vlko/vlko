@@ -24,8 +24,8 @@
 		<th>@vlko.BlogModule.ModelResources.CommentCounts</th>
 	</thead>
 
-@foreach (var item in Model) { 
-	
+@foreach (var item in Model) {
+
 	<tr>
 		<td class="no_wrap">
 			<span class="action_bar">
@@ -42,7 +42,7 @@
 		<td>@item.AllowComments</td>
 		<td>@item.CommentCounts</td>
 	</tr>
-} 
+}
 </table>
 <div>@Pager.Render(Html, Model)</div>
 
@@ -51,6 +51,6 @@
 	$(function () {
 		$("#content").ajaxGrid();
 	});
-</script>); 
+</script>);
 }
 

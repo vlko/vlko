@@ -37,7 +37,7 @@ namespace vlko.web.Controllers
 			                    	{
 										Query = query,
 										SearchResults = pageModel
-			                    		
+
 			                    	});
 		}
 

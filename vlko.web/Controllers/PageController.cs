@@ -99,7 +99,7 @@ namespace vlko.web.Controllers
 						ContentId = staticText.Id,
 						ChangeUser = User is UserPrincipal ? ((UserPrincipal)User).User : null
 					}
-				});	
+				});
 		}
 
 		/// <summary>

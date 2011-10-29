@@ -7,7 +7,7 @@ namespace vlko.BlogModule
 		/// <summary>
 		/// Base url.
 		/// </summary>
-		public static readonly SettingValue<string> BaseUrl 
+		public static readonly SettingValue<string> BaseUrl
 			= new SettingValue<string>("BaseUrl", null, new ConfigSettingProvider());
 
 		/// <summary>
@@ -27,7 +27,7 @@ namespace vlko.BlogModule
 			/// <summary>
 			/// Consumer key.
 			/// </summary>
-			public static readonly SettingValue<string> ConsumerKey 
+			public static readonly SettingValue<string> ConsumerKey
 				= new SettingValue<string>("ConsumerKey", null, new ConfigSettingProvider());
 
 			/// <summary>

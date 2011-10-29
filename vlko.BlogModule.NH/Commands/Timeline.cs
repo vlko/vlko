@@ -24,7 +24,7 @@ namespace vlko.BlogModule.NH.Commands
 			{
 				timelineItems = timelineItems.Where(content => content.PublishDate <= pivotDate);
 			}
-			
+
 			// sort descending by publish date and transform just to id
 			return new TimelineResult(timelineItems
 			                          	.OrderByDescending(content => content.PublishDate)
