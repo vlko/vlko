@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
@@ -123,7 +124,39 @@ namespace vlko.core.InversionOfControl
 		{
 			return Container.GetExportedValues<T>();
 		}
+
+		/// <summary>
+		/// Resolves all implementations.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns>All instances registered for specified type.</returns>
+		public static IEnumerable<T> ResolveAllInstancesOrdered<T>()
+		{
+			return Container.GetExports<T, IOrderMetadata>()
+				.OrderBy(export => export.Metadata.Order)
+				.Select(export => export.Value);
+		}
 	}
+
+	public interface IOrderMetadata
+	{
+		[DefaultValue(Int32.MaxValue)]
+		int Order { get; }
+	}
+
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false), MetadataAttribute]
+	public class OrderAttribute : ExportAttribute, IOrderMetadata
+	{
+		public OrderAttribute(int order)
+			: base(typeof(IOrderMetadata))
+		{
+			Order = order;
+		}
+
+		public int Order { get; private set; }
+
+	}
+
 }
 
 
