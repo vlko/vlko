@@ -3,7 +3,7 @@ using vlko.BlogModule.Base.Scheduler;
 using vlko.core.Base.Scheduler;
 using vlko.core.Components;
 
-namespace vlko.BlogModule.NH
+namespace vlko.BlogModule
 {
 	public static class ApplicationInit
 	{

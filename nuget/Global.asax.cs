@@ -8,12 +8,12 @@ using NLog;
 using vlko.core;
 using vlko.core.InversionOfControl;
 
-namespace vlko.web
+namespace $safeprojectname$
 {
 	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
 	// visit http://go.microsoft.com/?LinkId=9394801
 
-	public class MvcApplication : System.Web.HttpApplication
+	public class $globalclassname$ : System.Web.HttpApplication
 	{
 		public const string IndexLocationConst = "~/App_Data/Index.Lucene";
 
@@ -31,7 +31,7 @@ namespace vlko.web
 			routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters
-				new {controller = "Home", action = "Index", id = UrlParameter.Optional} // Parameter defaults
+				new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
 				);
 
 		}
@@ -65,7 +65,7 @@ namespace vlko.web
 		{
 			var exception = Server.GetLastError();
 			// if 404 stop logging
-			if (exception is HttpException 
+			if (exception is HttpException
 				&& ((HttpException)exception).GetHttpCode() == 404)
 			{
 				return;

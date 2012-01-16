@@ -25,5 +25,11 @@ namespace vlko.core
 		/// </summary>
 		public static readonly SettingValue<string> StaticContentVersion
 			= new SettingValue<string>("StaticContentVersion", "0", new ConfigSettingProvider());
+
+		/// <summary>
+		/// Google Analytics token.
+		/// </summary>
+		public static readonly SettingValue<string> GAToken
+			= new SettingValue<string>("GAToken", null, new ConfigSettingProvider());
 	}
 }

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
+using System.IO;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +14,7 @@ using vlko.core.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
+using Settings = vlko.BlogModule.Settings;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(vlko.web.RegisterBlog), "Register", Order = 1)]
 
@@ -70,6 +70,10 @@ namespace vlko.web
 		/// <param name="registerNewDatabase">if set to <c>true</c> [register new database].</param>
 		public void ConfigureDb(bool registerNewDatabase)
 		{
+			ConfigureSearchProvider(!registerNewDatabase);
+
+			BlogModule.ApplicationInit.FullInit();
+
 			if (registerNewDatabase)
 			{
 				if (new SettingValue<bool>("UseRavenDB", false, new ConfigSettingProvider()).Value)
@@ -78,6 +82,31 @@ namespace vlko.web
 				}
 				CreateData();
 			}
+		}
+
+
+		/// <summary>
+		/// Configures the search provider.
+		/// </summary>
+		/// <param name="dataExists">if set to <c>true</c> [data exists].</param>
+		private static void ConfigureSearchProvider(bool dataExists)
+		{
+			// set search folder
+			var indexDirectory = HttpContext.Current.Server.MapPath("~/App_Data/Index.Lucene");
+
+			if (!dataExists)
+			{
+				// delete previous search index
+				if (Directory.Exists(indexDirectory))
+				{
+					Directory.Delete(indexDirectory, true);
+				}
+
+				// create if not exists
+				Directory.CreateDirectory(indexDirectory);
+			}
+
+			IoC.Resolve<ISearchProvider>().Initialize(indexDirectory);
 		}
 
 		/// <summary>
@@ -104,7 +133,7 @@ namespace vlko.web
 							Description = "Some about me text"
 						});
 					searchAction.IndexStaticText(tran, home);
-					if (vlko.BlogModule.Settings.CreateSampleData.Value)
+					if (Settings.CreateSampleData.Value)
 					{
 						for (int i = 0; i < 30; i++)
 						{

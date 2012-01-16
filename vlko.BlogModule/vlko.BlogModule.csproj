@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationInit.cs" />
     <Compile Include="Commands.ComplexHelpers\Rss\RssItemRawData.cs" />
     <Compile Include="Commands.ComplexHelpers\Twitter\ConsumerAppIdent.cs" />
     <Compile Include="Commands.CRUDModel\CommentCRUDModel.cs" />

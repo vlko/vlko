@@ -108,7 +108,6 @@
     <Compile Include="Commands\QueryHelpers\TimelineData.cs" />
     <Compile Include="Commands\QueryHelpers\TimelineResult.cs" />
     <Compile Include="Commands\TwitterStatusCommandGroup.cs" />
-    <Compile Include="ApplicationInit.cs" />
     <Compile Include="ComponentDbInit.cs" />
     <Compile Include="Indexes\CommentSortIndex.cs" />
     <Compile Include="Indexes\TimelineIndex.cs" />

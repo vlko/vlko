@@ -32,6 +32,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.RavenDB", "vlko.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.Tests", "vlko.BlogModule.Tests\vlko.BlogModule.Tests.csproj", "{82E23EFB-9E50-4276-81FB-501A373F50D9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{945D4521-B12E-4B54-9415-862C2D4E8588}"
+	ProjectSection(SolutionItems) = preProject
+		nuget\Global.asax.cs = nuget\Global.asax.cs
+		nuget\HomeController.cs = nuget\HomeController.cs
+		nuget\Index.cshtml = nuget\Index.cshtml
+		nuget\NH.web.config.transform = nuget\NH.web.config.transform
+		nuget\RegisterCoreNH.cs.pp = nuget\RegisterCoreNH.cs.pp
+		nuget\RegisterCoreRaven.cs.pp = nuget\RegisterCoreRaven.cs.pp
+		nuget\vlko base template.vsix = nuget\vlko base template.vsix
+		nuget\vlko.core.1.0.nupkg = nuget\vlko.core.1.0.nupkg
+		nuget\vlko.core.NH.1.0.nupkg = nuget\vlko.core.NH.1.0.nupkg
+		nuget\vlko.core.RavenDB.1.0.nupkg = nuget\vlko.core.RavenDB.1.0.nupkg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = vlko2.vsmdi

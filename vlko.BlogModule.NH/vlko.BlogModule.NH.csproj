@@ -75,7 +75,6 @@
     <Compile Include="Commands\QueryHelpers\TimelineData.cs" />
     <Compile Include="Commands\QueryHelpers\TimelineResult.cs" />
     <Compile Include="Commands\TwitterStatusCommands.cs" />
-    <Compile Include="ApplicationInit.cs" />
     <Compile Include="ComponentDbInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

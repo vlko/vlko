@@ -7,31 +7,23 @@ using System.Web.Routing;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NLog;
-using Raven.Client.Embedded;
 using vlko.core;
 using vlko.core.Base.Scheduler.Setting;
 using vlko.core.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(vlko.web.RegisterCore), "Register", Order = 1)]
+[assembly: WebActivator.PreApplicationStartMethod(typeof($rootnamespace$.RegisterCoreNH), "Register", Order = 1)]
 
-namespace vlko.web
+namespace $rootnamespace$
 {
 	[Export(typeof(IAppInit))]
 	[Order(1)]
-	public class RegisterCore : IAppInit
+	public class RegisterCoreNH : IAppInit
 	{
 		public static void Register()
 		{
-			if (new SettingValue<bool>("UseRavenDB", false, new ConfigSettingProvider()).Value)
-			{
-				IoC.AddCatalogAssembly(Assembly.Load("vlko.core.RavenDB"));
-			}
-			else
-			{
-				IoC.AddCatalogAssembly(Assembly.Load("vlko.core.NH"));
-			}
+			IoC.AddCatalogAssembly(Assembly.Load("vlko.core.NH"));
 		}
 
 		public void RegisterRoutes(RouteCollection routes)
@@ -51,39 +43,12 @@ namespace vlko.web
 
 		public void ConfigureDb(bool registerNewDatabase)
 		{
-			// check from settings if we should use ravendb
-			if (new SettingValue<bool>("UseRavenDB", false, new ConfigSettingProvider()).Value)
-			{
-				ConfigureForRavenDb(registerNewDatabase);
-			}
-			else
-			{
-				ConfigureForNHibernate(registerNewDatabase);
-			}
+			ConfigureForNHibernate(registerNewDatabase);
 
 			if (registerNewDatabase)
 			{
 				RepositoryFactory.Command<IUserCommands>().CreateAdmin("vlko", "vlko@zilina.net", "test");
 			}
-		}
-
-		/// <summary>
-		/// Configures for raven db.
-		/// </summary>
-		/// <param name="registerNewDatabase">if set to <c>true</c> [register new database].</param>
-		private void ConfigureForRavenDb(bool registerNewDatabase)
-		{
-			var documentStore = new EmbeddableDocumentStore()
-			{
-				Configuration =
-				{
-					DataDirectory = HttpContext.Current.Server.MapPath(MvcApplication.IndexLocationConst),
-				}
-			};
-
-			documentStore.Initialize();
-
-			core.RavenDB.DBInit.RegisterDocumentStore(documentStore);
 		}
 
 		/// <summary>
@@ -94,7 +59,7 @@ namespace vlko.web
 		{
 			var config = new Configuration();
 			config.Configure();
-			core.NH.DbInit.InitMappings(config);
+			vlko.core.NH.DbInit.InitMappings(config);
 
 			if (registerNewDatabase)
 			{
