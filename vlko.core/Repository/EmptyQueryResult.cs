@@ -53,5 +53,16 @@ namespace vlko.core.Repository
 		{
 			return new T[] { };
 		}
+
+        /// <summary>
+        /// To the custom page.
+        /// </summary>
+        /// <param name="skipItems">The skip items.</param>
+        /// <param name="numberOfItems">The number of items.</param>
+        /// <returns>Items after skiped number.</returns>
+	    public T[] ToCustomPage(int skipItems, int numberOfItems)
+	    {
+            return new T[] { };
+	    }
 	}
 }

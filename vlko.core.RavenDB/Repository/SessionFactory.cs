@@ -451,7 +451,7 @@ namespace vlko.core.RavenDB.Repository
 		/// <returns>Generate id based on </returns>
 		public static string GenerateId(T entity)
 		{
-			return Current.Advanced.Conventions.GenerateDocumentKey(entity).ToLower();
+            return Current.Advanced.DocumentStore.Conventions.GenerateDocumentKey(entity).ToLower();
 		}
 
 		/// <summary>
@@ -460,7 +460,7 @@ namespace vlko.core.RavenDB.Repository
 		/// <returns>Type ident for this session factory type.</returns>
 		public static string GetTypeIdent()
 		{
-			return Current.Advanced.Conventions.GetTypeTagName(typeof (T)).ToLower() + "/";
+			return Current.Advanced.DocumentStore.Conventions.GetTypeTagName(typeof (T)).ToLower() + "/";
 		}
 	}
 }

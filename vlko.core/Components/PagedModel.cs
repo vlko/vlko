@@ -52,6 +52,15 @@ namespace vlko.core.Components
 		/// <value>The pages number.</value>
 		public int PagesNumber { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether [prev as item].
+        /// This means, that PageItems is increased on first page, so this place can be used on all next pages.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [prev as item]; otherwise, <c>false</c>.
+        /// </value>
+	    public bool PrevAsItem { get; set; }
+
 		/// <summary>
 		/// Loads the data.
 		/// </summary>
@@ -74,7 +83,16 @@ namespace vlko.core.Components
 			}
 
 
-			_currentData = queryResult.ToPage(CurrentPage - 1, PageItems);
+            if (PrevAsItem)
+            {
+                _currentData = CurrentPage == 1 
+                    ? queryResult.ToPage(0, PageItems + 1) 
+                    : queryResult.ToCustomPage((CurrentPage - 1) * PageItems  + 1, PageItems);
+            }
+            else
+            {
+                _currentData = queryResult.ToPage(CurrentPage - 1, PageItems);
+            }
 
 			return this;
 		}

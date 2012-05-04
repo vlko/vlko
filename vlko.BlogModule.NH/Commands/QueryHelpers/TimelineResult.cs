@@ -140,5 +140,10 @@ namespace vlko.BlogModule.NH.Commands.QueryHelpers
 
 			return result.ToArray();
 		}
+
+	    public object[] ToCustomPage(int skipItems, int numberOfItems)
+	    {
+	        throw new NotImplementedException();
+	    }
 	}
 }

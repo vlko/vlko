@@ -19,7 +19,7 @@ namespace vlko.BlogModule.RavenDB.Indexes
 							   group item by item.FeedId into g
 							   select new { FeedId = g.Key, Count = g.Sum(item => item.Count) };
 
-			SortOptions.Add(x => x.Count, Raven.Abstractions.Indexing.SortOptions.Int);
+            Sort(x => x.Count, Raven.Abstractions.Indexing.SortOptions.Int);
 		}
 	}
 }

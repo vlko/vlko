@@ -124,6 +124,21 @@ namespace vlko.core.NH.Repository
 				.ToArray();
 		}
 
+        /// <summary>
+        /// To the custom page.
+        /// </summary>
+        /// <param name="skipItems">The skip items.</param>
+        /// <param name="numberOfItems">The number of items.</param>
+        /// <returns>Items after skiped number.</returns>
+        public T[] ToCustomPage(int skipItems, int numberOfItems)
+        {
+            return _criteria.Clone()
+                .Select(_projectionList)
+                .TransformUsing(Transformers.AliasToBean<T>())
+                .Skip(skipItems).Take(numberOfItems)
+                .List<T>()
+                .ToArray();
+        }
 	}
 }
 

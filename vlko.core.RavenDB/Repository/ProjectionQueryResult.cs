@@ -156,5 +156,16 @@ namespace vlko.core.RavenDB.Repository
 		{
 			return _query.Skip(startIndex * itemsPerPage).Take(itemsPerPage).AsEnumerable().Select(_transformFunction).ToArray();
 		}
+
+        /// <summary>
+        /// To the custom page.
+        /// </summary>
+        /// <param name="skipItems">The skip items.</param>
+        /// <param name="numberOfItems">The number of items.</param>
+        /// <returns>Items after skiped number.</returns>
+        public T[] ToCustomPage(int skipItems, int numberOfItems)
+        {
+            return _query.Skip(skipItems).Take(numberOfItems).AsEnumerable().Select(_transformFunction).ToArray();
+        }
 	}
 }

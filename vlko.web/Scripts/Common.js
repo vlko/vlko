@@ -86,7 +86,6 @@ function closeLoading() {
 	}
 	$loadingDialog = null;
 }
-
 // handle ajax exception
 function ajaxException(xhr, ajaxOptions, thrownError) {
 	closeLoading();
@@ -166,7 +165,10 @@ function createContentDialog(settings) {
 
 		dialog.inner.hide().css("overflow", "none").height("auto");
 
-		dialog.inner.show("slide", { "direction": "right" }); // close dialog
+		dialog.inner.show("slide", { "direction": "right" }, function () {
+			$(":focusable:first", dialog.inner).click().focus();
+		}); // close dialog
+		
 		dialog.close = function (action) {
 			$(contentDialog).remove();
 			$(visibleItems).show("slide");
@@ -189,6 +191,7 @@ function fillContentWithData(content, data) {
 		&& jQuery.validator && jQuery.validator.unobtrusive) {
 		jQuery.validator.unobtrusive.parse(content);
 	}
+	$(":focusable:first", form).click().focus();
 }
 
 function updateEffect(content, callback) {
@@ -201,6 +204,8 @@ function updateEffect(content, callback) {
 		});
 }
 
+
+
 var current_url = undefined;
 
 // ajax history function
@@ -210,7 +215,11 @@ function addToHistory(url) {
 }
 // get current ajax url
 function getCurrentHistoryUrl() {
-	$.bbq.getState("url"); 
+	var url = $.bbq.getState("url"); 
+	if (!url) {
+		url = window.location.pathname;
+	}
+	return url;
 }
 
 // initialize ajax history plugin
@@ -288,3 +297,66 @@ window.innerShiv = (function () {
 		return f;
 	};
 } ());
+
+(function ($) {
+	$.fn.ajaxClick = function(settings) {
+
+		if (typeof content === 'undefined') {
+			content = "#content";
+		}
+
+		var config = $.extend({ }, $.fn.ajaxClick.defaults, settings);
+
+		return this.each(function() {
+			var $this = $(this);
+
+			$this.click(function() {
+				createLoading();
+				var nextUrl = $(this).attr("href");
+				$.ajax({
+					type: "POST",
+					url: nextUrl + (nextUrl.indexOf("?") > 0 ? "&" : "?") + "ajaxTime=" + new Date().getTime(),
+					success: function(data) {
+						var content = $(config.content);
+						content.html(data);
+						closeLoading();
+						updateEffect(content);
+					},
+					error: ajaxException
+				});
+				return false;
+			});
+		});
+	};
+
+	$.fn.ajaxClick.defaults = {
+		content: '#content'
+	};
+	
+	$.fn.ajaxRequest = function(link, settings) {
+
+		var config = $.extend({ }, $.fn.ajaxRequest.defaults, settings);
+
+		return this.each(function() {
+			var $this = $(this);
+
+			var nextUrl = link;
+
+			createLoading();
+			$.ajax({
+				type: "POST",
+				url: nextUrl + (nextUrl.indexOf("?") > 0 ? "&" : "?") + "ajaxTime=" + new Date().getTime(),
+				success: function(data) {
+					$this.html(data);
+					closeLoading();
+					updateEffect($this);
+				},
+				error: ajaxException
+			});
+			return false;
+		});
+	};
+
+	$.fn.ajaxRequest.defaults = {
+	};
+})(jQuery);

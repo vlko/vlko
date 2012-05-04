@@ -76,5 +76,16 @@ namespace vlko.core.Repository
         {
             return _queryable.Skip(startIndex * itemsPerPage).Take(itemsPerPage).ToArray();
         }
+
+        /// <summary>
+        /// To the custom page.
+        /// </summary>
+        /// <param name="skipItems">The skip items.</param>
+        /// <param name="numberOfItems">The number of items.</param>
+        /// <returns>Items after skiped number.</returns>
+        public T[] ToCustomPage(int skipItems, int numberOfItems)
+        {
+            return _queryable.Skip(skipItems).Take(numberOfItems).ToArray();
+        }
     }
 }

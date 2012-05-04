@@ -38,5 +38,13 @@ namespace vlko.core.Repository
         /// <param name="itemsPerPage">The items per page.</param>
         /// <returns>All items in the specified page.</returns>
         T[] ToPage(int startIndex, int itemsPerPage);
+
+        /// <summary>
+        /// To the custom page.
+        /// </summary>
+        /// <param name="skipItems">The skip items.</param>
+        /// <param name="numberOfItems">The number of items.</param>
+        /// <returns>Items after skiped number.</returns>
+        T[] ToCustomPage(int skipItems, int numberOfItems);
     }
 }

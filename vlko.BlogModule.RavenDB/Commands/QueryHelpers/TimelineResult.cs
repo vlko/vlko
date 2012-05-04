@@ -141,5 +141,10 @@ namespace vlko.BlogModule.RavenDB.Commands.QueryHelpers
 
 			return result.ToArray();
 		}
+
+	    public object[] ToCustomPage(int skipItems, int numberOfItems)
+	    {
+	        throw new NotImplementedException();
+	    }
 	}
 }

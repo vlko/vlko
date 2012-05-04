@@ -1,7 +1,10 @@
 ﻿(function ($) {
 
 	$.fn.ajaxGrid = function (settings) {
-		var config = { content: this };
+		var config = {
+			content: this, 
+			prevUrl: getCurrentHistoryUrl()
+		};
 
 		if (settings) $.extend(config, settings);
 
@@ -51,7 +54,7 @@
 												showForm(edit, form);
 											}
 										},
-								prevUrl: getCurrentHistoryUrl()
+								prevUrl: config.prevUrl
 							});
 							closeLoading();
 							addToHistory(nextUrl);
@@ -71,7 +74,7 @@
 						success: function (data) {
 							var edit = createContentDialog({
 								data: data,
-								prevUrl: getCurrentHistoryUrl()
+								prevUrl: config.prevUrl
 							});
 							closeLoading();
 							addToHistory(nextUrl);
@@ -94,7 +97,7 @@
 								submit: function (form) {
 											showForm(edit, form);
 										},
-								prevUrl: getCurrentHistoryUrl()
+								prevUrl: config.prevUrl
 							});
 							closeLoading();
 							addToHistory(nextUrl);
@@ -118,7 +121,7 @@
 											showForm(edit, form);
 										}
 									},
-							prevUrl: getCurrentHistoryUrl()
+							prevUrl: config.prevUrl
 						});
 						closeLoading();
 						addToHistory(nextUrl);

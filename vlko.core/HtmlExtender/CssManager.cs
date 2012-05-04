@@ -26,6 +26,19 @@ namespace vlko.core.HtmlExtender
 		}
 
 		/// <summary>
+		///Registers the css include for asp.net.
+		/// </summary>
+		/// <param name="cssLink">The CSS link.</param>
+		public static void CssAspNetInclude(string cssLink)
+		{
+			var registeredCssIncludes = GetRegisteredCssIncludes();
+			if (!registeredCssIncludes.ContainsValue(cssLink))
+			{
+				registeredCssIncludes.Add(registeredCssIncludes.Count, cssLink);
+			}
+		}
+
+		/// <summary>
 		/// Registers the css include.
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>

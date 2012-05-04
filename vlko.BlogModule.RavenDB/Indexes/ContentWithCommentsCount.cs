@@ -18,7 +18,7 @@ namespace vlko.BlogModule.RavenDB.Indexes
 							   group item by item.ContentId into g
 							   select new { ContentId = g.Key, Count = g.Sum(item => item.Count) };
 
-			SortOptions.Add(x => x.Count, Raven.Abstractions.Indexing.SortOptions.Int);
+			Sort(x => x.Count, Raven.Abstractions.Indexing.SortOptions.Int);
 		}
 	}
 }

@@ -159,5 +159,10 @@ namespace vlko.BlogModule.Search
 
 			return result.ToArray();
 		}
+
+	    public object[] ToCustomPage(int skipItems, int numberOfItems)
+	    {
+	        throw new NotImplementedException();
+	    }
 	}
 }

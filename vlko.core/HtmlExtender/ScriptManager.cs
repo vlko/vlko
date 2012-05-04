@@ -145,6 +145,22 @@ if (typeof({0}) == 'undefined')
 		}
 
 		/// <summary>
+		/// Include asp.net script (loaded only once in ajax).
+		/// </summary>
+		/// <param name="jsFile">The js file.</param>
+		/// <param name="async">if set to <c>true</c> [async] (default true).</param>
+		public static void ScriptAspNetInclude(string jsFile, bool async = true)
+		{
+			var script = string.Format("scriptCache.{1}(\"{0}\");", jsFile, async ? "load" : "loadSync");
+
+			var getRegisteredScriptIncludes = GetRegisteredScriptIncludes();
+			if (!getRegisteredScriptIncludes.ContainsValue(script))
+			{
+				getRegisteredScriptIncludes.Add(getRegisteredScriptIncludes.Count, script);
+			}
+		}
+
+		/// <summary>
 		/// Generates the content URL.
 		/// </summary>
 		/// <param name="htmlHelper">The HTML helper.</param>
@@ -185,6 +201,16 @@ if (typeof({0}) == 'undefined')
 		{
 			var registeredInlneScriptIncludes = GetRegisteredInlineScriptIncludes();
 			registeredInlneScriptIncludes.Add(inlineScript((WebViewPage)htmlHelper.ViewDataContainer).ToString());
+		}
+
+		/// <summary>
+		/// Include asp net script
+		/// </summary>
+		/// <param name="inlineScript">The inline script.</param>
+		public static void ScriptAspNetInlineInclude(string inlineScript)
+		{
+			var registeredInlneScriptIncludes = GetRegisteredInlineScriptIncludes();
+			registeredInlneScriptIncludes.Add("<script type=\"text/javascript\">" + inlineScript + "</script>");
 		}
 
 		/// <summary>

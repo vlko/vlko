@@ -84,6 +84,16 @@ namespace vlko.core.NH.Repository
 			return _criteria.Clone().Skip(startIndex*itemsPerPage).Take(itemsPerPage).List().ToArray();
 		}
 
+        /// <summary>
+        /// To the custom page.
+        /// </summary>
+        /// <param name="skipItems">The skip items.</param>
+        /// <param name="numberOfItems">The number of items.</param>
+        /// <returns>Items after skiped number.</returns>
+        public T[] ToCustomPage(int skipItems, int numberOfItems)
+        {
+            return _criteria.Clone().Skip(skipItems).Take(numberOfItems).List().ToArray();
+        }
 	}
 }
 
