@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using vlko.core.Base.Scheduler.Setting;
+using vlko.core.Base.Setting;
 using vlko.core.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.NH.Testing;

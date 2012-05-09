@@ -9,7 +9,7 @@ using vlko.BlogModule.Commands;
 using vlko.BlogModule.Commands.CRUDModel;
 using vlko.BlogModule.Search;
 using vlko.core;
-using vlko.core.Base.Scheduler.Setting;
+using vlko.core.Base.Setting;
 using vlko.core.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.RavenDB.Repository;

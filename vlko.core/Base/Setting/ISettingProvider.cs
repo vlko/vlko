@@ -1,4 +1,4 @@
-﻿namespace vlko.core.Base.Scheduler.Setting
+﻿namespace vlko.core.Base.Setting
 {
 	public interface ISettingProvider
 	{

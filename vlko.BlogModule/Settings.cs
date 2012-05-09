@@ -1,4 +1,4 @@
-﻿using vlko.core.Base.Scheduler.Setting;
+﻿using vlko.core.Base.Setting;
 
 namespace vlko.BlogModule
 {

@@ -5,7 +5,7 @@ using System.Web;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace vlko.core.Base.Scheduler.Setting
+namespace vlko.core.Base.Setting
 {
     public static class SettingValueConverter
     {

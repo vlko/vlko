@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Linq;
 
-namespace vlko.core.Base.Scheduler.Setting
+namespace vlko.core.Base.Setting
 {
 	public class ConfigSettingProvider : ISettingProvider
 	{

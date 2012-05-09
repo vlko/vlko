@@ -1,9 +1,8 @@
 ﻿using vlko.core.Commands;
 using vlko.core.Commands.Model;
 using vlko.core.Repository;
-using vlko.core.Roots;
 
-namespace vlko.core.Base.Scheduler.Setting
+namespace vlko.core.Base.Setting
 {
 	public class DatabaseSettingProvider : ISettingProvider
 	{

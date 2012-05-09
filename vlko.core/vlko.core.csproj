@@ -119,7 +119,7 @@
     <Compile Include="Base\Scheduler\Scheduler.cs" />
     <Compile Include="Base\Scheduler\SchedulerTask.cs" />
     <Compile Include="Base\Scheduler\KeepAliveTask.cs" />
-    <Compile Include="Base\Scheduler\Setting\ConfigSettingProvider.cs" />
+    <Compile Include="Base\Setting\ConfigSettingProvider.cs" />
     <Compile Include="Base\ShortGuid.cs" />
     <Compile Include="Commands\Model\ResetUserPasswordStatus.cs" />
     <Compile Include="Commands\Model\ValidateUserStatus.cs" />
@@ -176,10 +176,10 @@
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\MailTemplate.cs" />
     <Compile Include="Tools\ModelMetadataExtensions.cs" />
-    <Compile Include="Base\Scheduler\Setting\DatabaseSettingProvider.cs" />
-    <Compile Include="Base\Scheduler\Setting\ISettingProvider.cs" />
-    <Compile Include="Base\Scheduler\Setting\SettingValue.cs" />
-    <Compile Include="Base\Scheduler\Setting\SettingValueConverter.cs" />
+    <Compile Include="Base\Setting\DatabaseSettingProvider.cs" />
+    <Compile Include="Base\Setting\ISettingProvider.cs" />
+    <Compile Include="Base\Setting\SettingValue.cs" />
+    <Compile Include="Base\Setting\SettingValueConverter.cs" />
     <Compile Include="Tools\StringTool.cs" />
     <Compile Include="ValidationAtribute\AntiXssAttribute.cs" />
     <Compile Include="ValidationAtribute\AntiXssHtmlTextAttribute.cs" />

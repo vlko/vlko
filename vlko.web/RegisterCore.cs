@@ -9,7 +9,7 @@ using NHibernate.Tool.hbm2ddl;
 using NLog;
 using Raven.Client.Embedded;
 using vlko.core;
-using vlko.core.Base.Scheduler.Setting;
+using vlko.core.Base.Setting;
 using vlko.core.Commands;
 using vlko.core.InversionOfControl;
 using vlko.core.Repository;
