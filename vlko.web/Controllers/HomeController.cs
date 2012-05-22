@@ -19,7 +19,7 @@ namespace vlko.web.Controllers
 		/// <returns>Action result.</returns>
 		public ActionResult Index(PagedModel<object> pageModel)
 		{
-			pageModel.PageItems = 18;
+			pageModel.PageItems = 16;
 			pageModel.LoadData(RepositoryFactory.Command<ITimeline>().GetAll(DateTime.Now));
 			return ViewWithAjax(pageModel);
 		}

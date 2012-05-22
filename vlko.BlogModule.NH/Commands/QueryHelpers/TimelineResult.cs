@@ -10,20 +10,22 @@ namespace vlko.BlogModule.NH.Commands.QueryHelpers
 {
 	public class TimelineResult : IQueryResult<object>
 	{
-		public const int MaximumResults = 200;
+	    private readonly IQueryable<TimelineData> _firstColumn;
+	    private readonly IQueryable<TimelineData> _secondColumn;
+	    public const int MaximumResults = 200;
 
-		private readonly IQueryable<TimelineData> _timelineItems;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimelineResult" /> class.
+        /// </summary>
+        /// <param name="firstColumn">The first column.</param>
+        /// <param name="secondColumn">The second column.</param>
+        public TimelineResult(IQueryable<TimelineData> firstColumn, IQueryable<TimelineData> secondColumn)
+        {
+            _firstColumn = firstColumn;
+            _secondColumn = secondColumn;
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="TimelineResult"/> class.
-		/// </summary>
-		/// <param name="timelineItems">The timeline items.</param>
-		public TimelineResult(IQueryable<TimelineData> timelineItems)
-		{
-			_timelineItems = timelineItems;
-		}
-
-		/// <summary>
+	    /// <summary>
 		/// Orders the by (NotImplementedException).
 		/// </summary>
 		/// <param name="query">The query.</param>
@@ -49,7 +51,7 @@ namespace vlko.BlogModule.NH.Commands.QueryHelpers
 		/// <returns>Counts of items in query.</returns>
 		public int Count()
 		{
-			return _timelineItems.Count();
+			return _firstColumn.Count() + _secondColumn.Count();
 		}
 
 		/// <summary>
@@ -78,6 +80,22 @@ namespace vlko.BlogModule.NH.Commands.QueryHelpers
 			{
 				itemsPerPage = MaximumResults;
 			}
+
+		    var firstColumnCount = _firstColumn.Count();
+            var secondColumnCount = _secondColumn.Count();
+
+		    var firstPageItems = itemsPerPage/2;
+            var secondPageItems = itemsPerPage - firstPageItems;
+            var firstSkip = startIndex * firstPageItems;
+            var secondSkip = startIndex * secondPageItems;
+
+            if (secondSkip + secondPageItems > secondColumnCount)
+            {
+                secondPageItems = secondColumnCount - secondSkip;
+                firstPageItems = itemsPerPage - Math.Max(secondPageItems, 0);
+                // todo: finish this!!!
+                firstSkip = do
+            }
 
 			// check ranges
 			var dataItems =

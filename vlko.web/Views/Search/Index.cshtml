@@ -17,7 +17,7 @@
 	@Html.ActionLink("sort by date", "Date", new { Model.Query })
 </section>
 @if (Model.SearchResults != null) { 
-<section id="search_results">
+<section id="search_results" class="row">
 
 	@foreach (var searchResult in Model.SearchResults)
 	{

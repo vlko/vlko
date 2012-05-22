@@ -1,7 +1,7 @@
 ﻿@model StaticTextViewModel
 @using vlko.BlogModule.Commands.ViewModel
 @using vlko.core.Tools
-<article class="note">
+<article class="note span6">
 	<a href="@Url.Action(Model.FriendlyUrl, "Page")"><img src="@Url.Content("~/Content/images/note.png")" alt="Note link" class="icon-link" />
 		<span class="date">@String.Format("{0:g}", Model.ChangeDate)</span>	
 		<h3 class="title">@Model.Title</h3>

@@ -1,0 +1,35 @@
+﻿// List resources
+
+TwitterList, "lists/create":POST, CreateList, string listOwner, string name
+TwitterList, "lists/create":POST, CreateList, string listOwner, string name, string description
+TwitterList, "lists/create":POST, CreateList, string listOwner, string name, string description, string mode
+
+TwitterCursorList<TwitterList>, "lists", ListListsFor, string screenName, long cursor
+TwitterList, "lists/show", GetList, string ownerScreenName, string slug
+TwitterList, "lists/destroy":POST, DeleteList, long listId
+
+IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnList, string ownerScreenName, string slug
+IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnList, string ownerScreenName, string slug, int perPage
+IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnList, string ownerScreenName, string slug, int page, int perPage
+IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnListSince, string ownerScreenName, string slug, long sinceId
+IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnListSince, string ownerScreenName, string slug, long sinceId, int perPage
+IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnListSince, string ownerScreenName, string slug, long sinceId, int page, int perPage
+IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnListBefore, string ownerScreenName, string slug, long maxId
+IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnListBefore, string ownerScreenName, string slug, long maxId, int perPage
+IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnListBefore, string ownerScreenName, string slug, long maxId, int page, int perPage
+
+// List Memberships Resources
+
+TwitterCursorList<TwitterList>, "lists/memberships", ListListMembershipsFor, string screenName, bool filterToOwnedLists, long cursor
+TwitterCursorList<TwitterUser>, "lists/members", ListListMembers, string ownerScreenName, string slug, long cursor
+TwitterUser, "lists/members/create":POST, AddListMember, string ownerScreenName, string slug, string screenName
+TwitterUser, "lists/members/destroy":POST, RemoveListMember, string ownerScreenName, string slug, string screenName
+TwitterUser, "lists/members/show", VerifyListMembership, string ownerScreenName, string slug, string screenName
+
+// List Subscribers resources
+
+IEnumerable<TwitterList>, "lists/all", ListListSubscriptionsFor, string screenName
+TwitterCursorList<TwitterUser>, "lists/subscribers", ListListSubscribers, string ownerScreenName, string slug, long cursor
+TwitterUser, "lists/subscribers/create":POST, FollowList, string ownerScreenName, string slug
+TwitterUser, "lists/subscribers/destroy":POST, UnfollowList, string ownerScreenName, string slug
+TwitterUser, "lists/subscribers/show", VerifyListSubscription, string ownerScreenName, string slug, string screenName

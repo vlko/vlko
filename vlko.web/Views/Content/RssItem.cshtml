@@ -1,7 +1,7 @@
 ﻿@model RssItemViewModel
 @using vlko.BlogModule.Commands.ViewModel
 @using vlko.core.Tools
-<article class="rss_item">
+<article class="rss_item span6">
 	<a href="@Model.Url">
 		<img src="@Url.Content("~/Content/images/rss.png")" alt="Note link"  class="icon-link"/>
 		<span class="date">@String.Format("{0:g}", Model.Published)</span>

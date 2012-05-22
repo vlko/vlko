@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Security.Application;
-using Twitterizer;
+using TweetSharp;
 using vlko.BlogModule.Commands;
 using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
 using vlko.core.Repository;
@@ -21,9 +22,11 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 		/// <returns>Authorize URL.</returns>
 		public string GetAuthorizeUrl(ConsumerAppIdent consumerAppIdent, string returnUrl)
 		{
-			var requestToken = OAuthUtility.GetRequestToken(
-				consumerAppIdent.ConsumerKey, consumerAppIdent.ConsumerSecret, returnUrl);
-			return OAuthUtility.BuildAuthorizationUri(requestToken.Token).AbsoluteUri;
+            var service = new TwitterService(consumerAppIdent.ConsumerKey, consumerAppIdent.ConsumerSecret);
+
+            var requestToken = service.GetRequestToken(returnUrl);
+
+            return service.GetAuthorizationUri(requestToken).AbsoluteUri;
 		}
 
 		/// <summary>
@@ -35,14 +38,15 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 		/// <returns>OAuth token.</returns>
 		public OAuthToken GetOAuthToken(ConsumerAppIdent consumerAppIdent, string requestToken, string requestVerifier)
 		{
-			var token = OAuthUtility.GetAccessToken(consumerAppIdent.ConsumerKey, consumerAppIdent.ConsumerSecret, requestToken, requestVerifier);
+            var service = new TwitterService(consumerAppIdent.ConsumerKey, consumerAppIdent.ConsumerSecret);
+            var accessToken = service.GetAccessToken(new OAuthRequestToken {Token = requestToken}, requestVerifier);
 
 			return new OAuthToken
 					{
 						ConsumerKey = consumerAppIdent.ConsumerKey,
 						ConsumerSecret = consumerAppIdent.ConsumerSecret,
-						Token = token.Token,
-						TokenSecret = token.TokenSecret
+                        Token = accessToken.Token,
+                        TokenSecret = accessToken.TokenSecret
 					};
 		}
 
@@ -57,20 +61,9 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 		{
 			try
 			{
-				var verify = TwitterAccount.VerifyCredentials(
-					new OAuthTokens
-						{
-							ConsumerKey = token.ConsumerKey,
-							ConsumerSecret = token.ConsumerSecret,
-							AccessToken = token.Token,
-							AccessTokenSecret = token.TokenSecret
-						});
-
-				return verify.ResponseObject != null;
-			}
-			catch (TwitterizerException)
-			{
-				return false;
+                var service = new TwitterService(token.ConsumerKey, token.ConsumerSecret, token.Token, token.TokenSecret);
+			    var user = service.VerifyCredentials();
+			    return user != null;
 			}
 			catch (ArgumentException)
 			{
@@ -90,23 +83,10 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 		/// </returns>
 		public TwitterStatus[] GetStatusesForUser(OAuthToken token, string userName, int page = 0, int pageCount = 50)
 		{
-			var userTimeline = Twitterizer.TwitterTimeline.UserTimeline(
-				new OAuthTokens
-					{
-						ConsumerKey = token.ConsumerKey,
-						ConsumerSecret = token.ConsumerSecret,
-						AccessToken = token.Token,
-						AccessTokenSecret = token.TokenSecret
-					},
-				new UserTimelineOptions
-					{
-						ScreenName = userName,
-						Page = page,
-						IncludeRetweets = true,
-						Count = pageCount
-					});
+            var service = new TwitterService(token.ConsumerKey, token.ConsumerSecret, token.Token, token.TokenSecret);
+            var timelineResult = service.ListTweetsOnUserTimeline(page, pageCount);
 
-			var result = from status in userTimeline.ResponseObject
+            var result = from status in timelineResult
 						 select new TwitterStatus
 									{
 										TwitterId = Convert.ToInt64(status.Id),
@@ -121,6 +101,35 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 									};
 			return result.ToArray();			
 		}
+
+        /// <summary>
+        /// Gets the retweets for user.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="pageCount">The page count.</param>
+        /// <returns>List of retweets of current user.</returns>
+        public TwitterStatus[] GetRetweetsForUser(OAuthToken token, string userName, int page = 0, int pageCount = 50)
+        {
+            var service = new TwitterService(token.ConsumerKey, token.ConsumerSecret, token.Token, token.TokenSecret);
+            var timelineResult = service.ListRetweetsByMe(page, pageCount);
+
+            var result = from status in timelineResult
+                         select new TwitterStatus
+                         {
+                             TwitterId = Convert.ToInt64(status.Id),
+                             CreatedDate = status.CreatedDate.ToLocalTime(),
+                             User = status.User.ScreenName,
+                             Text = status.RetweetedStatus == null
+                                 ? ParseStatusTextToHtml(status.Text)
+                                 : ParseStatusTextToHtml(status.RetweetedStatus.Text),
+                             Reply = status.InReplyToStatusId.HasValue,
+                             RetweetUser = status.RetweetedStatus != null ? status.RetweetedStatus.User.ScreenName : null,
+                             Hidden = status.InReplyToStatusId.HasValue
+                         };
+            return result.ToArray();
+        }
 
 		/********************************************
 		* following code reused from TweetSharp project http://tweetsharp.codeplex.com/SourceControl/changeset/view/10ab65e64a56#src%2fvs2010%2fnet40%2fTweetSharp%2fCore%2fExtensions%2fStringExtensions.cs

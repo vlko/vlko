@@ -1,6 +1,6 @@
 ﻿@using Microsoft.Security.Application
 @model vlko.BlogModule.Roots.TwitterStatus
-<article class="twitter_status">
+<article class="twitter_status span6">
 	<a  href="http://twitter.com/@Model.User/status/@Model.TwitterId">
 		<img src="@Url.Content("~/Content/images/twitter.png")" alt="Tweet link" class="icon-link"/>
 		<span class="date">@String.Format("{0:g}", Model.CreatedDate)</span>

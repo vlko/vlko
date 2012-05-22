@@ -17,7 +17,7 @@ namespace vlko.web.Controllers
 		[AntiXss]
 		public ActionResult Index(string query, PagedModel<object> pageModel)
 		{
-			pageModel.PageItems = 20;
+			pageModel.PageItems = 18;
 			if (!string.IsNullOrEmpty(query))
 			{
 				var searchQuery = HttpContext.Request.QueryString["query"];

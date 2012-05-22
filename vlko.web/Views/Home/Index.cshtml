@@ -4,7 +4,7 @@
 	ViewBag.Title = "Home Page";
 }
 <h2 id="timeline">Moja časová os</h2>
-<section id="search_results">
+<section id="search_results" class="row">
 	@if (Model.CurrentPage == 1)
 	{
 		@Html.Partial("~/Views/Content/AboutTile.cshtml")

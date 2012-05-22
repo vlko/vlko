@@ -5,7 +5,7 @@ $secondaryColor: #309b46;
 $rareColor: #8cbf26;
 $formBorder: #ccc;
 $errorColor: #ff0000;
-$pageHeight: 960px;
+
 $baseFontSize: 16px;
 $baseLineHeight: 1.6em;
 
@@ -18,15 +18,16 @@ $linkColor: #1ba1e2;
 $linkColorHover: darken($linkColor, 10);
 
 // Griditude
-$gridColumns: 16;
-$gridColumnWidth: 40px;
-$gridGutterWidth: 20px;
-$extraSpace: 40px;
+$gridColumns: 12;
+$gridColumnWidth: 70px;
+$gridGutterWidth: 10px;
+$extraSpace: 0;
 $siteWidth: ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1));
+$pageHeight: $siteWidth;
 
 // Baseline grid
-$basefont: 16px;
-$baseline: 22px;
+$basefont: 20px;
+$baseline: 27px;
 
 // Color Scheme
 $baseColor: #1ba1e2; // Set a base color
@@ -80,6 +81,7 @@ $purple: #7a43b6;
 	width: $pageHeight;
 	margin-left: auto;
 	margin-right: auto;
+    padding-left: 20px;
 }
 
 #header {
@@ -94,7 +96,7 @@ $purple: #7a43b6;
 	padding: 5px 0 0 10px;
 	margin: 0;
 	border: none;
-	font-size: 40px;
+	font-size: 30px;
 	font-weight: normal;
 	color: black;
 	text-transform: uppercase;
@@ -106,13 +108,14 @@ $purple: #7a43b6;
 }
 
 #logo {
-	margin-left: 15px;
+    position: absolute;
+	right: 5px;
+    top: 5px;
 }
 
 #main {
-	padding: 30px 30px 15px 30px;
+	padding: 30px 0 15px 0;
 	margin-bottom: 30px;
-	line-height: 1.25em;
 	_height: 1px; /* only IE6 applies CSS properties starting with an underscore */
 }
 
@@ -124,8 +127,13 @@ $purple: #7a43b6;
 	font-size: .9em;
 }
 #search {
-	float:right;
+	position: absolute;
+    right: 3px;
+    bottom: 3px;
 	padding: 18px 10px 0px 0px;
+    input, label {
+        font-size: 18px;
+    }
 	.input-append {
 		input {
 			margin-right: 5px;
@@ -147,8 +155,8 @@ $purple: #7a43b6;
 		input {
 			padding-left: 0px;
 			padding-right: 0px;
-			line-height: 12px;
-			*line-height: 10px;
+			line-height: 11px;
+			*line-height: 9px;
 			border: 0;
 			@include box-shadow(none);
 		}
@@ -182,7 +190,7 @@ $purple: #7a43b6;
 #menucontainer {
 	position: absolute;
 	bottom: 3px;
-	left: 10px;
+	left: -10px;
 }
 
 #menu {
@@ -193,11 +201,12 @@ $purple: #7a43b6;
 	li {
 		display: inline;
 		list-style: none;
-		font-size: 22px;
+		font-size: 26px;
 		a {
 			padding: 5px 10px 5px 10px;
 			text-decoration: none;
 			color: silver;
+            @include transition(all .1s ease-in);
 			&:hover {
 				font-size: 125%;
 				color: black;
@@ -215,6 +224,7 @@ $purple: #7a43b6;
 		a {
 			font-size: 125%;
 			color: black;
+            @include transition(all .1s ease-in);
 			&:hover {
 				font-size: 135%;
 				@include transition(all .1s ease-in);
@@ -231,8 +241,9 @@ $purple: #7a43b6;
 
 #title {
 	display:block;
-	float:left;
+	float:right;
 	text-align:left;
+    padding-right: 13px;
 }
 /* Blog module specific styles
 ----------------------------------------------------------*/
@@ -245,39 +256,39 @@ $purple: #7a43b6;
 #timeline {
 	background: transparent url("/Content/images/timeline.gif") no-repeat left top;
 }
+
 .note-main{
 	background: transparent url("/Content/images/note-main.gif") no-repeat left top;
 }
 .twitter_status, .rss_item, .note, .one-note, .comment {
-	width: 200px;
-	height: 200px;
-	float:left;
+    height: $gridColumnWidth * 2;
+    margin-bottom: $gridGutterWidth;
 	color: white;
-	position: relative;
-	
-	margin: 0 15px 15px 0;
-	background-color: $baseColor;
+	background-color: black;
 	overflow: hidden;
+    position: relative;
 	a {
 		cursor: pointer;
-		color:white;
+		color: white;
 		text-decoration: underline;
 		&:hover {
-			color: $baseColor;
+			color: black;
 		}
 		* {
 			color: white;
 			cursor: pointer;
+            &:hover {
+			    color: white;
+		    }
 		}
 		
 	}
 	&>a, &>.title {
-		padding: 5px;
+		padding: 2px 9px;
 		display: block;
 		text-decoration: none;
 		color: white;
 		&:hover {
-			color:white;
 			text-decoration: none;
 		}
 		.text {
@@ -288,21 +299,25 @@ $purple: #7a43b6;
 		}
 	}
 	&:hover {
-		background-color: $metroButtonColor;
-		.date {
-			background-color: $metroButtonColor;
-		}
+        color: white;
+		background-color: $baseColor;
+        * {
+           color: white; 
+        }
+        .date, .author, .comments {
+            display: block;
+            background-color: black;
+        }
 	}
 	.icon-link {
-		position: absolute;
-		left: 3px;
-		top: 3px;
+		float:right;
+		margin: 3px -3px 3px 3px;
 	}
 	h3 {
-		line-height: normal;
+		line-height: $baseline+8px;
 	}
 	.title {
-		margin-top:20px;
+		margin-top: 3px;
 		margin-bottom: 3px;
 	}
 	.text, .content-text {
@@ -310,17 +325,19 @@ $purple: #7a43b6;
 		overflow-x: auto;
 	}
 	.date, .author, .comments {
-		right: 3px;
 		position: absolute;
 		padding: 0px 25px 0px 5px;
 		line-height: 20px;
-		font-size: 12px;
+		font-size: 14px;
+        display: none;
 	}
-	.date {
-		top: 3px;
-	}
+    .date {
+		right: 3px;
+        bottom: 3px;
+    }
 	.author, .comments {
-		bottom: 3px;
+		bottom: 26px;
+        right: 3px;
 	}
 }
 #page_view_content {
@@ -344,7 +361,8 @@ $purple: #7a43b6;
 		}
 	}
 	.title, .text {
-		margin-right: 200px;
+        padding-left: 16px;
+		margin-right: 250px;
 	}
 	.comments, .author, .publish-date, .date {
 		clear:right;
@@ -355,16 +373,16 @@ $purple: #7a43b6;
 	}
 }
 .note .comments, .comments {
-	background: $baseColor url("/Content/images/comments.png") no-repeat right top;
+	background: black url("/Content/images/comments.png") no-repeat right top;
 }
 .author {
-	background: $baseColor url("/Content/images/author.gif") no-repeat right top;
+	background: black url("/Content/images/author.gif") no-repeat right top;
 }
 .publish-date {
-	background: $baseColor url("/Content/images/publish.gif") no-repeat right top;
+	background: black url("/Content/images/publish.gif") no-repeat right top;
 }
 .date {
-	background: $baseColor url("/Content/images/change.png") no-repeat right top;
+	background: black url("/Content/images/change.png") no-repeat right top;
 }
 .comment-sort {
 	img {

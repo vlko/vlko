@@ -34,7 +34,7 @@
 				@using (Html.BeginForm((object)Routes.IndexOfSearch(), FormMethod.Get)) {
 				@*	@Html.Hidden("Page", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Page"]);*@
 					<div class="input-append">
-						@Html.TextBox("Query", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Query"], new { @class="large" })
+						@Html.TextBox("Query", Html.ViewContext.RequestContext.HttpContext.Request.QueryString["Query"], new { @class="medium" })
 						<label class="add-on active">
 							<input type="submit" value="Search" class="btn"/>
 						</label>
@@ -44,9 +44,9 @@
 			<div id="menucontainer">
 			
 				<ul id="menu">              
-					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.HomeController ? " class=\"selected\"" : string.Empty)>@Html.Link("Home", (object)Routes.IndexOfHome())</li>
-					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.AboutController ? " class=\"selected\"" : string.Empty)>@Html.Link("About", (object)Routes.IndexOfAbout())</li>
-					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.PageController ? " class=\"selected\"" : string.Empty)>@Html.Link("Blog", (object)Routes.IndexOfPage())</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.HomeController ? " class=\"selected\"" : string.Empty)>@Html.Link("home", (object)Routes.IndexOfHome())</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.AboutController ? " class=\"selected\"" : string.Empty)>@Html.Link("about", (object)Routes.IndexOfAbout())</li>
+					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.PageController ? " class=\"selected\"" : string.Empty)>@Html.Link("blog", (object)Routes.IndexOfPage())</li>
 					@if (Request.IsAuthenticated) {
 						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.StaticPageController ? " class=\"selected\"" : string.Empty)>@Html.Link("Static text", (object)Routes.IndexOfStaticPageFromAdmin())</li>
 						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.CommentController ? " class=\"selected\"" : string.Empty)>@Html.Link("Comments", (object)Routes.IndexOfCommentFromAdmin())</li>

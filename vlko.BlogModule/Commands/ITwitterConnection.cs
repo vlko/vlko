@@ -45,5 +45,15 @@ namespace vlko.BlogModule.Commands
 		/// List of twitter status for specified user.
 		/// </returns>
 		TwitterStatus[] GetStatusesForUser(OAuthToken token, string userName, int page = 0, int pageCount = 20);
+
+        /// <summary>
+        /// Gets the retweets for user.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="pageCount">The page count.</param>
+        /// <returns>List of retweets of current user.</returns>
+        TwitterStatus[] GetRetweetsForUser(OAuthToken token, string userName, int page = 0, int pageCount = 20);
 	}
 }

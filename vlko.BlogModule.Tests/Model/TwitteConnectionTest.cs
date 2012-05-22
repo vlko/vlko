@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
-using Twitterizer;
 using vlko.BlogModule.Commands;
 using vlko.BlogModule.Commands.ComplexHelpers.Twitter;
 using vlko.BlogModule.Implementation.OtherTech.Commands;
@@ -40,7 +39,6 @@ namespace vlko.BlogModule.Tests.Model
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(TwitterizerException))]
 		public void Test_authorize_url_fail()
 		{
 			const string returnUrl = "http://localhost/returnurl";

@@ -21,6 +21,10 @@
     </UpgradeBackupLocation>
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,6 +70,12 @@
     <Reference Include="Esent.Interop, Version=1.7.0.0, Culture=neutral, PublicKeyToken=8dd49bbdae3f61af, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB-Embedded.1.0.888\lib\net40\Esent.Interop.dll</HintPath>
     </Reference>
+    <Reference Include="Hammock">
+      <HintPath>..\packages\Hammock.1.2.9\lib\4.0\Hammock.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock.ClientProfile">
+      <HintPath>..\packages\TweetSharp.2.1.3\lib\4.0\Hammock.ClientProfile.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlSanitizationLibrary, Version=4.2.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
@@ -93,7 +103,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\TweetSharp.2.1.3\lib\4.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=3.3.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -173,9 +183,8 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Twitterizer2, Version=2.4.0.26532, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\twitterizer.2.4.0.26532\lib\net40\Twitterizer2.dll</HintPath>
+    <Reference Include="TweetSharp">
+      <HintPath>..\packages\TweetSharp.2.1.3\lib\4.0\TweetSharp.dll</HintPath>
     </Reference>
     <Reference Include="WebActivator">
       <HintPath>..\packages\WebActivator.1.5\lib\net40\WebActivator.dll</HintPath>
@@ -281,13 +290,12 @@
     <Content Include="Content\images\vlko-logo.png" />
     <Content Include="Content\jquery-ui.custom.css" />
     <Content Include="Content\Site.css">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Site.scss</DependentUpon>
     </Content>
-    <Content Include="GettingStarted.txt" />
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.scss</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
-    <Content Include="Json.NET.license.txt" />
     <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
@@ -642,6 +650,7 @@
     </None>
     <Content Include="Views\Content\AboutTile.cshtml" />
     <Content Include="Views\Content\PagingTile.cshtml" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vlko.BlogModule.NH\vlko.BlogModule.NH.csproj">
@@ -689,10 +698,7 @@
     <None Include="CodeTemplates\AddView\CSHTML\Edit.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Empty.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\List.tt" />
-    <None Include="Content\Site.scss">
-      <Generator>ScssGenerator</Generator>
-      <LastGenOutput>Site.css</LastGenOutput>
-    </None>
+    <None Include="Content\Site.scss" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

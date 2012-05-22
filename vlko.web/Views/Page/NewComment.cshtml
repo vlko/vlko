@@ -54,7 +54,7 @@
 		<div class="clearfix@(!Html.IsValid(model => model.Text) ? " error" : string.Empty)">
 			@Microsoft.Web.Mvc.Html.HtmlHelperExtensions.LabelFor(Html, model => model.Text)
 			<div class="input">
-			@Html.TextAreaFor(model => model.Text, cssClass: "xxlarge")
+			@Html.TextAreaFor(model => model.Text, cssClass: "xxlarge", rows: 7)
 			@{if (Model.ChangeUser != null) {
 
 				Html.ScriptInclude("~/Scripts/tiny_mce/jquery.tinymce.js");

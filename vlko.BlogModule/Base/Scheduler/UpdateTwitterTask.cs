@@ -54,6 +54,8 @@ namespace vlko.BlogModule.Base.Scheduler
 			bool proceedNextPage = false;
 			int currentPage = 0;
 			var statusToStore = new List<TwitterStatus>();
+
+            // process tweets
 			do
 			{
 
@@ -78,6 +80,33 @@ namespace vlko.BlogModule.Base.Scheduler
 				}
 
 			} while (proceedNextPage);
+
+            currentPage = 0;
+            // process retweets
+            do
+            {
+
+                var items = twitterConnection.GetRetweetsForUser(oAuthToken, twitterUser, currentPage, 100);
+
+                using (RepositoryFactory.StartUnitOfWork())
+                {
+                    var storedItems = twitterData.GetByTwitterIds(items.Select(status => status.TwitterId));
+
+
+                    // add if item not yet stored
+                    foreach (var twitterStatus in items)
+                    {
+                        if (!storedItems.Any(item => item.TwitterId == twitterStatus.TwitterId)
+                            && !statusToStore.Any(item => item.TwitterId == twitterStatus.TwitterId))
+                        {
+                            statusToStore.Add(twitterStatus);
+                        }
+                    }
+                    ++currentPage;
+                    proceedNextPage = items.Length > 0 && storedItems.Length == 0;
+                }
+
+            } while (proceedNextPage);
 
 			using (var tran = RepositoryFactory.StartTransaction(IoC.Resolve<SearchUpdateContext>()))
 			{

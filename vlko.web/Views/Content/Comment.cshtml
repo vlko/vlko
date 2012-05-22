@@ -2,7 +2,7 @@
 @using vlko.BlogModule.Commands.ViewModel
 @using vlko.BlogModule.Roots; 
 @using vlko.core.Tools;   
-<article class="comment">
+<article class="comment span6">
 	<a title="Comment" rel="@Model.Id.ToString()" href="@Url.RouteUrl("PageView", routeValues: new
 																		{
 																			friendlyUrl = ((StaticText)Model.Content).FriendlyUrl,

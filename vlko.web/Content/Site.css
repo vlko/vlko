@@ -104,7 +104,7 @@ textarea {
     clear: both; }
 
 .container {
-  width: 940px;
+  width: 950px;
   margin: 0 auto;
   zoom: 1; }
   .container:before, .container:after {
@@ -128,63 +128,63 @@ textarea {
   .row .span1, .row .span2, .row .span3, .row .span4, .row .span5, .row .span6, .row .span7, .row .span8, .row .span9, .row .span10, .row .span11, .row .span12, .row .span13, .row .span14, .row .span15, .row .span16 {
     display: inline;
     float: left;
-    margin-left: 20px; }
+    margin-left: 10px; }
   .row .span1 {
-    width: 40px; }
+    width: 70px; }
   .row .span2 {
-    width: 100px; }
+    width: 150px; }
   .row .span3 {
-    width: 160px; }
+    width: 230px; }
   .row .span4 {
-    width: 220px; }
+    width: 310px; }
   .row .span5 {
-    width: 280px; }
+    width: 390px; }
   .row .span6 {
-    width: 340px; }
+    width: 470px; }
   .row .span7 {
-    width: 400px; }
+    width: 550px; }
   .row .span8 {
-    width: 460px; }
+    width: 630px; }
   .row .span9 {
-    width: 520px; }
+    width: 710px; }
   .row .span10 {
-    width: 580px; }
+    width: 790px; }
   .row .span11 {
-    width: 640px; }
+    width: 870px; }
   .row .span12 {
-    width: 700px; }
+    width: 950px; }
   .row .span13 {
-    width: 760px; }
+    width: 1030px; }
   .row .span14 {
-    width: 820px; }
+    width: 1110px; }
   .row .span15 {
-    width: 880px; }
+    width: 1190px; }
   .row .span16 {
-    width: 940px; }
+    width: 1270px; }
   .row .offset1 {
-    margin-left: 80px; }
+    margin-left: 70px; }
   .row .offset2 {
-    margin-left: 140px; }
+    margin-left: 150px; }
   .row .offset3 {
-    margin-left: 200px; }
+    margin-left: 230px; }
   .row .offset4 {
-    margin-left: 260px; }
+    margin-left: 310px; }
   .row .offset5 {
-    margin-left: 320px; }
+    margin-left: 390px; }
   .row .offset6 {
-    margin-left: 380px; }
+    margin-left: 470px; }
   .row .offset7 {
-    margin-left: 440px; }
+    margin-left: 550px; }
   .row .offset8 {
-    margin-left: 500px; }
+    margin-left: 630px; }
   .row .offset9 {
-    margin-left: 560px; }
+    margin-left: 710px; }
   .row .offset10 {
-    margin-left: 620px; }
+    margin-left: 790px; }
   .row .offset11 {
-    margin-left: 680px; }
+    margin-left: 870px; }
   .row .offset12 {
-    margin-left: 740px; }
+    margin-left: 950px; }
 
 html, body {
   background-color: #fff; }
@@ -192,9 +192,9 @@ html, body {
 body {
   margin: 0;
   font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: normal;
-  line-height: 22px;
+  line-height: 27px;
   color: gray;
   text-rendering: optimizeLegibility; }
 
@@ -204,11 +204,11 @@ body {
     text-decoration: underline; }
 
 .container {
-  width: 940px;
+  width: 950px;
   margin: 0 auto; }
 
 .container-fluid {
-  padding: 0 20px;
+  padding: 0 10px;
   zoom: 1; }
   .container-fluid:before, .container-fluid:after {
     display: table;
@@ -217,11 +217,11 @@ body {
     clear: both; }
   .container-fluid .sidebar {
     float: left;
-    width: 220px; }
+    width: 310px; }
   .container-fluid .content {
-    min-width: 700px;
-    max-width: 1180px;
-    margin-left: 240px; }
+    min-width: 630px;
+    max-width: 1270px;
+    margin-left: 320px; }
 
 a {
   color: #1ba1e2;
@@ -236,12 +236,12 @@ a {
  * Headings, body text, lists, code, and more for a versatile and durable typography system
  * ---------------------------------------------------------------------------------------- */
 p {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: normal;
-  line-height: 22px;
-  margin-bottom: 11px; }
+  line-height: 27px;
+  margin-bottom: 13.5px; }
   p small {
-    font-size: 14px;
+    font-size: 18px;
     color: #bfbfbf; }
 
 h1, h2, h3, h4, h5, h6 {
@@ -251,41 +251,41 @@ h1, h2, h3, h4, h5, h6 {
     color: #bfbfbf; }
 
 h1 {
-  margin-bottom: 22px;
-  font-size: 33px;
-  line-height: 44px; }
+  margin-bottom: 27px;
+  font-size: 37px;
+  line-height: 54px; }
   h1 small {
-    font-size: 21px; }
+    font-size: 25px; }
 
 h2 {
-  font-size: 27px;
-  line-height: 44px; }
+  font-size: 31px;
+  line-height: 54px; }
   h2 small {
-    font-size: 17px; }
+    font-size: 21px; }
 
 h3, h4, h5, h6 {
-  line-height: 44px; }
+  line-height: 54px; }
 
 h3 {
-  font-size: 21px; }
+  font-size: 25px; }
   h3 small {
-    font-size: 17px; }
+    font-size: 21px; }
 
 h4 {
-  font-size: 19px; }
+  font-size: 23px; }
   h4 small {
-    font-size: 15px; }
+    font-size: 19px; }
 
 h5 {
-  font-size: 17px; }
+  font-size: 21px; }
 
 h6 {
-  font-size: 16px;
+  font-size: 20px;
   color: #bfbfbf;
   text-transform: uppercase; }
 
 ul, ol {
-  margin: 0 0 22px 25px; }
+  margin: 0 0 27px 25px; }
 
 ul ul,
 ul ol,
@@ -300,7 +300,7 @@ ol {
   list-style: decimal; }
 
 li {
-  line-height: 22px;
+  line-height: 27px;
   color: gray; }
 
 ul.unstyled {
@@ -308,13 +308,13 @@ ul.unstyled {
   margin-left: 0; }
 
 dl {
-  margin-bottom: 22px; }
+  margin-bottom: 27px; }
   dl dt, dl dd {
-    line-height: 22px; }
+    line-height: 27px; }
   dl dt {
     font-weight: bold; }
   dl dd {
-    margin-left: 11px; }
+    margin-left: 13.5px; }
 
 hr {
   margin: 0 0 19px;
@@ -335,32 +335,32 @@ em {
   color: #bfbfbf; }
 
 blockquote {
-  margin-bottom: 22px;
+  margin-bottom: 27px;
   border-left: 5px solid #eee;
   padding-left: 15px; }
   blockquote p {
-    font-size: 17px;
+    font-size: 21px;
     font-weight: 300;
-    line-height: 22px;
+    line-height: 27px;
     margin-bottom: 0; }
   blockquote small {
     display: block;
-    font-size: 15px;
+    font-size: 19px;
     font-weight: 300;
-    line-height: 22px;
+    line-height: 27px;
     color: #bfbfbf; }
     blockquote small:before {
       content: '\2014 \00A0'; }
 
 address {
   display: block;
-  line-height: 22px;
-  margin-bottom: 22px; }
+  line-height: 27px;
+  margin-bottom: 27px; }
 
 code, pre {
   padding: 0 3px 2px;
   font-family: Monaco, Andale Mono, Courier New, monospace;
-  font-size: 15px; }
+  font-size: 19px; }
 
 code {
   background-color: #fee9cc;
@@ -370,10 +370,10 @@ code {
 pre {
   background-color: #f5f5f5;
   display: block;
-  padding: 21px;
-  margin: 0 0 22px;
-  line-height: 22px;
-  font-size: 15px;
+  padding: 26px;
+  margin: 0 0 27px;
+  line-height: 27px;
+  font-size: 19px;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   white-space: pre;
@@ -384,11 +384,11 @@ pre {
  * Base styles for various input types, form layouts, and states
  * ------------------------------------------------------------- */
 form {
-  margin-bottom: 22px; }
+  margin-bottom: 27px; }
 
 fieldset {
-  margin-bottom: 22px;
-  padding-top: 22px; }
+  margin-bottom: 27px;
+  padding-top: 27px; }
   fieldset legend {
     display: block;
     margin-left: 150px;
@@ -401,7 +401,7 @@ fieldset {
     color: #404040; }
 
 .clearfix {
-  margin-bottom: 22px; }
+  margin-bottom: 27px; }
 
 label, input, select, textarea {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -411,8 +411,8 @@ label, input, select, textarea {
 
 label {
   padding-top: 6px;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 20px;
+  line-height: 27px;
   float: left;
   width: 130px;
   text-align: right;
@@ -427,10 +427,10 @@ input[type=checkbox], input[type=radio] {
 input, textarea, select, .uneditable-input {
   display: inline-block;
   width: 210px;
-  height: 22px;
+  height: 27px;
   padding: 4px;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 20px;
+  line-height: 27px;
   color: #454545;
   border: 2px solid #454545; }
 
@@ -458,8 +458,8 @@ input[type=button], input[type=reset], input[type=submit] {
   height: auto; }
 
 select, input[type=file] {
-  height: 33px;
-  line-height: 33px; }
+  height: 40.5px;
+  line-height: 40.5px; }
 
 textarea {
   height: auto; }
@@ -546,19 +546,19 @@ input[readonly]:focus, textarea[readonly]:focus, input.disabled {
 
 .actions {
   background-color: #f5f5f5;
-  margin-top: 22px;
-  margin-bottom: 22px;
-  padding: 11px 20px 11px 150px; }
+  margin-top: 27px;
+  margin-bottom: 27px;
+  padding: 13.5px 20px 13.5px 150px; }
   .actions .secondary-action {
     float: right; }
     .actions .secondary-action a {
-      line-height: 39px; }
+      line-height: 44px; }
       .actions .secondary-action a:hover {
         text-decoration: underline; }
 
 .help-inline, .help-block {
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 19px;
+  line-height: 27px;
   color: #bfbfbf; }
 
 .help-inline {
@@ -592,8 +592,8 @@ input[readonly]:focus, textarea[readonly]:focus, input.disabled {
   padding: 4px 4px 4px 5px;
   color: #bfbfbf;
   font-weight: normal;
-  line-height: 22px;
-  height: 22px;
+  line-height: 27px;
+  height: 27px;
   text-align: center;
   text-shadow: 0 1px 0 #fff;
   color: #454545;
@@ -625,13 +625,13 @@ input[readonly]:focus, textarea[readonly]:focus, input.disabled {
       float: none;
       width: auto;
       padding: 0;
-      line-height: 22px;
+      line-height: 27px;
       text-align: left;
       white-space: normal; }
       .inputs-list li label strong {
         color: #454545; }
       .inputs-list li label small {
-        font-size: 15px;
+        font-size: 19px;
         font-weight: normal; }
     .inputs-list li ul.inputs-list {
       margin-left: 25px;
@@ -645,7 +645,7 @@ input[readonly]:focus, textarea[readonly]:focus, input.disabled {
 .form-stacked {
   padding-left: 20px; }
   .form-stacked fieldset {
-    padding-top: 11px; }
+    padding-top: 13.5px; }
   .form-stacked legend {
     margin-left: 0; }
   .form-stacked label {
@@ -654,10 +654,10 @@ input[readonly]:focus, textarea[readonly]:focus, input.disabled {
     width: auto;
     font-weight: bold;
     text-align: left;
-    line-height: 24px;
+    line-height: 29px;
     padding-top: 0; }
   .form-stacked .clearfix {
-    margin-bottom: 11px; }
+    margin-bottom: 13.5px; }
     .form-stacked .clearfix div.input {
       margin-left: 0; }
   .form-stacked .inputs-list {
@@ -683,13 +683,13 @@ input[readonly]:focus, textarea[readonly]:focus, input.disabled {
  * ---------------------------------------- */
 table {
   width: 100%;
-  margin-bottom: 22px;
+  margin-bottom: 27px;
   padding: 0;
   border-collapse: separate;
-  font-size: 16px; }
+  font-size: 20px; }
   table th, table td {
     padding: 10px 10px 9px;
-    line-height: 16.5px;
+    line-height: 20.25px;
     text-align: left;
     vertical-align: middle;
     border-bottom: 1px solid #ddd; }
@@ -774,8 +774,8 @@ table .headerSortUp.purple, table .headerSortDown.purple {
  * pagination styling
  * ---------------------------------------------------------------------------- */
 .pagination {
-  height: 44px;
-  margin: 22px 0; }
+  height: 54px;
+  margin: 27px 0; }
   .pagination ul {
     float: left;
     margin: 0; }
@@ -786,7 +786,7 @@ table .headerSortUp.purple, table .headerSortDown.purple {
         min-width: 1.2em;
         padding: 0 14px;
         margin-right: 3px;
-        line-height: 42px;
+        line-height: 52px;
         color: #454545;
         font-weight: bold;
         border: 2px solid #454545;
@@ -804,7 +804,7 @@ table .headerSortUp.purple, table .headerSortDown.purple {
         background-color: transparent;
         color: gray; }
       .pagination ul li.last a {
-        margin-right: 22px; }
+        margin-right: 27px; }
       .pagination ul li.info a {
         border: 0; }
 
@@ -879,7 +879,7 @@ table .headerSortUp.purple, table .headerSortDown.purple {
   display: inline-block;
   padding: 5px 14px 6px;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   line-height: normal;
   color: #454545;
@@ -926,12 +926,12 @@ table .headerSortUp.purple, table .headerSortDown.purple {
     -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05); }
   .btn.large {
-    font-size: 19px;
+    font-size: 23px;
     line-height: normal;
     padding: 9px 14px 9px; }
   .btn.small {
     padding: 7px 9px 7px;
-    font-size: 14px; }
+    font-size: 18px; }
 
 button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   padding: 0;
@@ -943,7 +943,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .well {
   background-color: #f5f5f5;
   margin-bottom: 20px;
-  padding: 11px 22px;
+  padding: 13.5px 27px;
   min-height: 20px; }
 
 .field-validation-valid, .validation-summary-valid {
@@ -954,7 +954,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border-color: #eedc94 #eedc94 #e4c652;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  margin-bottom: 22px;
+  margin-bottom: 27px;
   padding: 7px 14px;
   color: #404040;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -964,7 +964,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25); }
   .validation-summary-errors h5, .alert-message h5 {
-    line-height: 22px; }
+    line-height: 27px; }
   .validation-summary-errors p, .alert-message p {
     margin-bottom: 0; }
   .validation-summary-errors div, .alert-message div {
@@ -1416,7 +1416,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     margin-bottom: -1px;
     margin-right: 2px;
     padding: 0 15px;
-    line-height: 43px; }
+    line-height: 53px; }
     .tabs li a:hover {
       background-color: #e6e6e6;
       border-bottom: 1px solid #bfbfbf; }
@@ -1456,9 +1456,10 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 /* PRIMARY LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 .page {
-  width: 960px;
+  width: 950px;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  padding-left: 20px; }
 
 #header {
   position: relative;
@@ -1471,7 +1472,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   padding: 5px 0 0 10px;
   margin: 0;
   border: none;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: normal;
   color: black;
   text-transform: uppercase; }
@@ -1482,12 +1483,13 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   text-transform: none; }
 
 #logo {
-  margin-left: 15px; }
+  position: absolute;
+  right: 5px;
+  top: 5px; }
 
 #main {
-  padding: 30px 30px 15px 30px;
+  padding: 30px 0 15px 0;
   margin-bottom: 30px;
-  line-height: 1.25em;
   _height: 1px;
   /* only IE6 applies CSS properties starting with an underscore */ }
 
@@ -1499,8 +1501,12 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   font-size: .9em; }
 
 #search {
-  float: right;
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
   padding: 18px 10px 0px 0px; }
+  #search input, #search label {
+    font-size: 18px; }
   #search .input-append input {
     margin-right: 5px; }
   #search .add-on {
@@ -1517,8 +1523,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     #search .add-on input {
       padding-left: 0px;
       padding-right: 0px;
-      line-height: 12px;
-      *line-height: 10px;
+      line-height: 11px;
+      *line-height: 9px;
       border: 0;
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
@@ -1544,7 +1550,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 #menucontainer {
   position: absolute;
   bottom: 3px;
-  left: 10px; }
+  left: -10px; }
 
 #menu {
   padding: 0;
@@ -1554,11 +1560,16 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   #menu li {
     display: inline;
     list-style: none;
-    font-size: 22px; }
+    font-size: 26px; }
     #menu li a {
       padding: 5px 10px 5px 10px;
       text-decoration: none;
-      color: silver; }
+      color: silver;
+      -webkit-transition: all 0.1s ease-in;
+      -moz-transition: all 0.1s ease-in;
+      -o-transition: all 0.1s ease-in;
+      -ms-transition: all 0.1s ease-in;
+      transition: all 0.1s ease-in; }
       #menu li a:hover {
         font-size: 125%;
         color: black;
@@ -1574,7 +1585,12 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
         text-decoration: none; }
   #menu li.selected a {
     font-size: 125%;
-    color: black; }
+    color: black;
+    -webkit-transition: all 0.1s ease-in;
+    -moz-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -ms-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in; }
     #menu li.selected a:hover {
       font-size: 135%;
       -webkit-transition: all 0.1s ease-in;
@@ -1590,8 +1606,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 #title {
   display: block;
-  float: left;
-  text-align: left; }
+  float: right;
+  text-align: left;
+  padding-right: 13px; }
 
 /* Blog module specific styles
 ----------------------------------------------------------*/
@@ -1608,61 +1625,65 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background: transparent url("/Content/images/note-main.gif") no-repeat left top; }
 
 .twitter_status, .rss_item, .note, .one-note, .comment {
-  width: 200px;
-  height: 200px;
-  float: left;
+  height: 140px;
+  margin-bottom: 10px;
   color: white;
-  position: relative;
-  margin: 0 15px 15px 0;
-  background-color: #1ba1e2;
-  overflow: hidden; }
+  background-color: black;
+  overflow: hidden;
+  position: relative; }
   .twitter_status a, .rss_item a, .note a, .one-note a, .comment a {
     cursor: pointer;
     color: white;
     text-decoration: underline; }
     .twitter_status a:hover, .rss_item a:hover, .note a:hover, .one-note a:hover, .comment a:hover {
-      color: #1ba1e2; }
+      color: black; }
     .twitter_status a *, .rss_item a *, .note a *, .one-note a *, .comment a * {
       color: white;
       cursor: pointer; }
+      .twitter_status a *:hover, .rss_item a *:hover, .note a *:hover, .one-note a *:hover, .comment a *:hover {
+        color: white; }
   .twitter_status > a, .twitter_status > .title, .rss_item > a, .rss_item > .title, .note > a, .note > .title, .one-note > a, .one-note > .title, .comment > a, .comment > .title {
-    padding: 5px;
+    padding: 2px 9px;
     display: block;
     text-decoration: none;
     color: white; }
     .twitter_status > a:hover, .twitter_status > .title:hover, .rss_item > a:hover, .rss_item > .title:hover, .note > a:hover, .note > .title:hover, .one-note > a:hover, .one-note > .title:hover, .comment > a:hover, .comment > .title:hover {
-      color: white;
       text-decoration: none; }
     .twitter_status > a .text, .twitter_status > .title .text, .rss_item > a .text, .rss_item > .title .text, .note > a .text, .note > .title .text, .one-note > a .text, .one-note > .title .text, .comment > a .text, .comment > .title .text {
       overflow: hidden; }
     .twitter_status > a.fill, .twitter_status > .title.fill, .rss_item > a.fill, .rss_item > .title.fill, .note > a.fill, .note > .title.fill, .one-note > a.fill, .one-note > .title.fill, .comment > a.fill, .comment > .title.fill {
       height: 100%; }
   .twitter_status:hover, .rss_item:hover, .note:hover, .one-note:hover, .comment:hover {
-    background-color: #8cbf26; }
-    .twitter_status:hover .date, .rss_item:hover .date, .note:hover .date, .one-note:hover .date, .comment:hover .date {
-      background-color: #8cbf26; }
+    color: white;
+    background-color: #1ba1e2; }
+    .twitter_status:hover *, .rss_item:hover *, .note:hover *, .one-note:hover *, .comment:hover * {
+      color: white; }
+    .twitter_status:hover .date, .twitter_status:hover .author, .twitter_status:hover .comments, .rss_item:hover .date, .rss_item:hover .author, .rss_item:hover .comments, .note:hover .date, .note:hover .author, .note:hover .comments, .one-note:hover .date, .one-note:hover .author, .one-note:hover .comments, .comment:hover .date, .comment:hover .author, .comment:hover .comments {
+      display: block;
+      background-color: black; }
   .twitter_status .icon-link, .rss_item .icon-link, .note .icon-link, .one-note .icon-link, .comment .icon-link {
-    position: absolute;
-    left: 3px;
-    top: 3px; }
+    float: right;
+    margin: 3px -3px 3px 3px; }
   .twitter_status h3, .rss_item h3, .note h3, .one-note h3, .comment h3 {
-    line-height: normal; }
+    line-height: 35px; }
   .twitter_status .title, .rss_item .title, .note .title, .one-note .title, .comment .title {
-    margin-top: 20px;
+    margin-top: 3px;
     margin-bottom: 3px; }
   .twitter_status .text, .twitter_status .content-text, .rss_item .text, .rss_item .content-text, .note .text, .note .content-text, .one-note .text, .one-note .content-text, .comment .text, .comment .content-text {
     line-height: normal;
     overflow-x: auto; }
   .twitter_status .date, .twitter_status .author, .twitter_status .comments, .rss_item .date, .rss_item .author, .rss_item .comments, .note .date, .note .author, .note .comments, .one-note .date, .one-note .author, .one-note .comments, .comment .date, .comment .author, .comment .comments {
-    right: 3px;
     position: absolute;
     padding: 0px 25px 0px 5px;
     line-height: 20px;
-    font-size: 12px; }
+    font-size: 14px;
+    display: none; }
   .twitter_status .date, .rss_item .date, .note .date, .one-note .date, .comment .date {
-    top: 3px; }
-  .twitter_status .author, .twitter_status .comments, .rss_item .author, .rss_item .comments, .note .author, .note .comments, .one-note .author, .one-note .comments, .comment .author, .comment .comments {
+    right: 3px;
     bottom: 3px; }
+  .twitter_status .author, .twitter_status .comments, .rss_item .author, .rss_item .comments, .note .author, .note .comments, .one-note .author, .one-note .comments, .comment .author, .comment .comments {
+    bottom: 26px;
+    right: 3px; }
 
 #page_view_content .page_comment {
   min-height: 30px;
@@ -1679,7 +1700,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   #page_view_content .page_comment:hover {
     background-color: #eaeaea; }
 #page_view_content .title, #page_view_content .text {
-  margin-right: 200px; }
+  padding-left: 16px;
+  margin-right: 250px; }
 #page_view_content .comments, #page_view_content .author, #page_view_content .publish-date, #page_view_content .date {
   clear: right;
   float: right;
@@ -1688,16 +1710,16 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   color: white; }
 
 .note .comments, .comments {
-  background: #1ba1e2 url("/Content/images/comments.png") no-repeat right top; }
+  background: black url("/Content/images/comments.png") no-repeat right top; }
 
 .author {
-  background: #1ba1e2 url("/Content/images/author.gif") no-repeat right top; }
+  background: black url("/Content/images/author.gif") no-repeat right top; }
 
 .publish-date {
-  background: #1ba1e2 url("/Content/images/publish.gif") no-repeat right top; }
+  background: black url("/Content/images/publish.gif") no-repeat right top; }
 
 .date {
-  background: #1ba1e2 url("/Content/images/change.png") no-repeat right top; }
+  background: black url("/Content/images/change.png") no-repeat right top; }
 
 .comment-sort img {
   border: 1px solid White; }
