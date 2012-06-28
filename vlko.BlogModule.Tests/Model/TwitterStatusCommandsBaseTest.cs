@@ -33,7 +33,7 @@ namespace vlko.BlogModule.Tests.Model
 				            			{
 											Id = Guid.NewGuid(),
 				            				TwitterId = 1,
-				            				Text = "Status1",
+				            				Description = "Status1",
 				            				User = "twit_user1",
 				            				Hidden = false,
 				            				CreatedDate = new DateTime(2010, 10, 10),
@@ -48,7 +48,7 @@ namespace vlko.BlogModule.Tests.Model
 				            			{
 											Id = Guid.NewGuid(),
 				            				TwitterId = 2,
-				            				Text = "Status2",
+				            				Description = "Status2",
 				            				User = "twit_user1",
 				            				Hidden = false,
 				            				CreatedDate = new DateTime(2010, 10, 11),
@@ -63,7 +63,7 @@ namespace vlko.BlogModule.Tests.Model
 				            			{
 											Id = Guid.NewGuid(),
 				            				TwitterId = 3,
-				            				Text = "Status3",
+				            				Description = "Status3",
 				            				User = "twit_user1",
 				            				Hidden = false,
 				            				CreatedDate = new DateTime(2010, 10, 11).AddMinutes(1),
@@ -96,7 +96,7 @@ namespace vlko.BlogModule.Tests.Model
 				var item = new TwitterStatus()
 				           	{
 				           		TwitterId = 4,
-				           		Text = "Status4",
+                                Description = "Status4",
 				           		User = "twit_user2",
 				           		Hidden = false,
 				           		CreatedDate = new DateTime(2010, 10, 11),

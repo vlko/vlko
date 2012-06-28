@@ -29,7 +29,6 @@
 		public virtual string Text
 		{
 			get { return Description; }
-			set { Description = value; }
 		}
 
 		/// <summary>

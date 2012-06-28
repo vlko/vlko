@@ -136,7 +136,7 @@ namespace vlko.BlogModule.Tests.Model
 							TwitterId = 0,
 							CreatedDate = startDate.AddDays(-2).AddMinutes(2),
 							Modified = startDate.AddDays(-2).AddMinutes(2),
-							Text = "twitter status",
+                            Description = "twitter status",
 							User = _user.Name,
 							AreCommentAllowed = false,
 							RetweetUser = "Home",
@@ -164,7 +164,7 @@ namespace vlko.BlogModule.Tests.Model
 							{
 								TwitterId = i + 1,
 								CreatedDate = startDate.AddDays(-i),
-								Text = "twitter status",
+                                Description = "twitter status",
 								User = _user.Name,
 								AreCommentAllowed = false,
 								Hidden = false,

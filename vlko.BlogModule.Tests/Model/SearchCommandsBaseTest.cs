@@ -45,6 +45,7 @@ namespace vlko.BlogModule.Tests.Model
 		public virtual void Cleanup()
 		{
 			TestProvider.TearDown();
+            IoC.Resolve<ISearchProvider>().DeleteIndex();
 		}
 
 		public virtual void Test_index_static_text()
@@ -91,7 +92,7 @@ namespace vlko.BlogModule.Tests.Model
 				{
 					Id = Guid.NewGuid(),
 					CreatedDate = DateTime.Now,
-					Text = "very long test",
+                    Description = "very long test",
 					User = _user.Name
 				});
 				tran.Commit();
@@ -408,7 +409,7 @@ namespace vlko.BlogModule.Tests.Model
 															TwitterId = 0,
 															CreatedDate = startDate.AddDays(-2),
 															Modified = startDate.AddDays(-2),
-															Text = "twitter status",
+                                                            Description = "twitter status",
 															User = _user.Name,
 															AreCommentAllowed = false,
 															RetweetUser = "Home"
@@ -451,7 +452,7 @@ namespace vlko.BlogModule.Tests.Model
 														{
 															TwitterId = i + 1,
 															CreatedDate = startDate.AddDays(-i),
-															Text = "twitter status",
+                                                            Description = "twitter status",
 															User = _user.Name,
 															AreCommentAllowed = false,
 															Hidden = false,
@@ -462,6 +463,7 @@ namespace vlko.BlogModule.Tests.Model
 
 				tran.Commit();
 			}
+            TestProvider.WaitForIndexing();
 		}
 	}
 }

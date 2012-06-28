@@ -15,17 +15,27 @@ namespace vlko.BlogModule.Search
 		private Analyzer _analyzer;
 		private IndexWriter _writer;
 		private int _currentWriters;
+	    private string _pathToIndex;
 
-		/// <summary>
+	    /// <summary>
 		/// Initializes this instance.
 		/// </summary>
 		/// <param name="indexFolder"></param>
 		public void Initialize(string indexFolder)
 		{
-			var pathToIndex = Path.Combine(indexFolder, "Index");
-			_directory = FSDirectory.GetDirectory(pathToIndex);
+	        _pathToIndex = Path.Combine(indexFolder, "Index");
+            _directory = FSDirectory.GetDirectory(_pathToIndex);
 			_analyzer = new StandardAnalyzer();
 		}
+
+        /// <summary>
+        /// Deletes the index.
+        /// </summary>
+        public void DeleteIndex()
+        {
+            _directory.Close();
+            System.IO.Directory.Delete(_pathToIndex, true);
+        }
 
 		/// <summary>
 		/// Gets the index writer.

@@ -92,7 +92,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 										TwitterId = Convert.ToInt64(status.Id),
 										CreatedDate = status.CreatedDate.ToLocalTime(),
 										User = status.User.ScreenName,
-										Text = status.RetweetedStatus == null 
+										Description = status.RetweetedStatus == null 
 											? ParseStatusTextToHtml(status.Text) 
 											: ParseStatusTextToHtml(status.RetweetedStatus.Text),
 										Reply = status.InReplyToStatusId.HasValue,
@@ -121,7 +121,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
                              TwitterId = Convert.ToInt64(status.Id),
                              CreatedDate = status.CreatedDate.ToLocalTime(),
                              User = status.User.ScreenName,
-                             Text = status.RetweetedStatus == null
+                             Description = status.RetweetedStatus == null
                                  ? ParseStatusTextToHtml(status.Text)
                                  : ParseStatusTextToHtml(status.RetweetedStatus.Text),
                              Reply = status.InReplyToStatusId.HasValue,

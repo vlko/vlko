@@ -13,6 +13,14 @@ namespace vlko.BlogModule.Search
 		/// </summary>
 		void Initialize(string indexFolder);
 
+        /// <summary>
+        /// Deletes the index.
+        /// </summary>
+        /// <remarks>
+        /// Used in test environment to delete index folder.
+        /// </remarks>
+	    void DeleteIndex();
+
 		/// <summary>
 		/// Gets the index writer.
 		/// </summary>
