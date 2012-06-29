@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using ConfOrm;
-using ConfOrm.NH;
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using vlko.core.Roots;
 
 namespace vlko.core.NH
@@ -19,31 +19,22 @@ namespace vlko.core.NH
 			return new [] { typeof (AppSetting), typeof(User)};
 		}
 
-		/// <summary>
-		/// Initializes the mappings.
-		/// </summary>
-		/// <param name="orm">The orm.</param>
-		/// <param name="mapper">The mapper.</param>
-		public void InitMappings(ObjectRelationalMapper orm, Mapper mapper)
+        /// <summary>
+        /// Initializes the mappings.
+        /// </summary>
+        /// <param name="mapper">The mapper.</param>
+        public void InitMappings(ConventionModelMapper mapper)
 		{
-			// list all the entities we want to map.
-			IEnumerable<Type> baseEntities = ListOfModelTypes();
+            mapper.Class<AppSetting>(mapping =>
+                                         {
+                                             mapping.Property(item => item.Value, pm => pm.Length(255));
+                                         });
 
-			// we map non Content classes as normal
-			orm.TablePerClass(baseEntities);
-
-			orm.Poid<AppSetting>(item => item.Id);
-			
-
-			mapper.Customize<AppSetting>(mapping => mapping.Property(item => item.Value, pm => pm.Length(255)));
-
-			mapper.Customize<User>(mapping =>
-			{
-				mapping.Property(item => item.Email, pm => pm.Unique(true));
-				mapping.Property(item => item.Password, pm => pm.Length(64));
-			});
-			orm.ExcludeProperty<User>(item => item.IsAuthenticated);
-			orm.ExcludeProperty<User>(item => item.AuthenticationType);
+            mapper.Class<User>(mapping =>
+            {
+                mapping.Property(item => item.Email, pm => pm.Unique(true));
+                mapping.Property(item => item.Password, pm => pm.Length(64));
+            });
 		}
 	}
 }

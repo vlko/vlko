@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ConfOrm;
-using ConfOrm.NH;
-using ConfOrm.Patterns;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
 using vlko.core.InversionOfControl;
 using vlko.core.NH.Repository;
@@ -36,22 +34,34 @@ namespace vlko.core.NH
 		/// <param name="config">The configuration.</param>
 		public static void InitMappings(Configuration config)
 		{
-			var orm = new ObjectRelationalMapper();
+            var mapper = new ConventionModelMapper();
 
-			var mapper = new Mapper(orm);
+		    mapper.BeforeMapProperty += (inspector, member, customizer) =>
+		                                    {
+		                                        if (member.LocalMember.GetPropertyOrFieldType() == typeof (string) &&
+		                                            !member.LocalMember.Name.EndsWith("Text"))
+		                                        {
+		                                            customizer.Length(50);
+		                                        }
+		                                        if (member.LocalMember.GetPropertyOrFieldType() == typeof (string) &&
+		                                            member.LocalMember.Name.EndsWith("Text"))
+		                                        {
+                                                    customizer.Type(NHibernateUtil.StringClob);
+		                                        }
+		                                    };
 
-			mapper.AddPropertyPattern(mi => mi.GetPropertyOrFieldType() == typeof(string) && !mi.Name.EndsWith("Text"), pm => pm.Length(50));
-			mapper.AddPropertyPattern(mi => mi.GetPropertyOrFieldType() == typeof(string) && mi.Name.EndsWith("Text"), pm => pm.Type(NHibernateUtil.StringClob));
+		    mapper.BeforeMapBag += (inspector, member, customizer) =>
+		                               {
+		                                   customizer.Cascade(Cascade.All | Cascade.DeleteOrphans);
+		                               };
 
-			orm.Patterns.PoidStrategies.Add(new AssignedPoidPattern());
+            foreach (var componentDbInit in IoC.ResolveAllInstances<IComponentDbInit>())
+            {
+                componentDbInit.InitMappings(mapper);
+            }
 
-			foreach (var componentDbInit in IoC.ResolveAllInstances<IComponentDbInit>())
-			{
-				componentDbInit.InitMappings(orm, mapper);
-			}
-
-			// compile the mapping for the specified entities
-			HbmMapping mappingDocument = mapper.CompileMappingFor(ListOfModelTypes());
+            // compile the mapping for the specified entities
+            HbmMapping mappingDocument = mapper.CompileMappingFor(ListOfModelTypes());
 
 			// inject the mapping in NHibernate
 			config.AddDeserializedMapping(mappingDocument, "Domain");

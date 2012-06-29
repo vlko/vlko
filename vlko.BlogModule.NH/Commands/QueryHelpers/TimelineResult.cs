@@ -91,70 +91,102 @@ namespace vlko.BlogModule.NH.Commands.QueryHelpers
 
             if (secondSkip + secondPageItems > secondColumnCount)
             {
-                secondPageItems = secondColumnCount - secondSkip;
-                firstPageItems = itemsPerPage - Math.Max(secondPageItems, 0);
-                // todo: finish this!!!
-                firstSkip = do
+                secondPageItems = Math.Max(secondColumnCount - secondSkip, 0);
+                firstPageItems = itemsPerPage - secondPageItems;
+                if (secondPageItems == 0)
+                {
+                    firstSkip = startIndex*itemsPerPage - secondColumnCount;
+                }
+            }
+            else if(firstSkip + firstPageItems > firstColumnCount)
+            {
+                firstPageItems = Math.Max(firstColumnCount - firstSkip, 0);
+                secondPageItems = itemsPerPage - firstPageItems;
+                if (firstPageItems == 0)
+                {
+                    secondSkip = startIndex*itemsPerPage - firstColumnCount;
+                }
             }
 
 			// check ranges
-			var dataItems =
-				_timelineItems.Skip(startIndex * itemsPerPage).Take(itemsPerPage).ToArray();
+			var firstColumnData = _firstColumn.Skip(firstSkip).Take(firstPageItems).ToArray();
+            var secondColumnData = _secondColumn.Skip(firstSkip).Take(firstPageItems).ToArray();
+
 
 			// get ids from search results
-			for (int i = 0; i < dataItems.Length; i++)
-			{
-				var id = dataItems[i].Id;
-				var type = dataItems[i].ContentType;
+		    Action<TimelineData[]> assignIds = (dataItems) =>
+		                                           {
+		                                               for (int i = 0; i < dataItems.Length; i++)
+		                                               {
+		                                                   var id = dataItems[i].Id;
+		                                                   var type = dataItems[i].ContentType;
 
-				switch (type)
-				{
-					case ContentType.RssItem:
-						rssItemIdents.Add(id);
-						break;
-					case ContentType.StaticText:
-						staticTextIds.Add(id);
-						break;
-					case ContentType.TwitterStatus:
-						twitterStatusIds.Add(id);
-						break;
-					default:
-						break;
-				}
-			}
+		                                                   switch (type)
+		                                                   {
+		                                                       case ContentType.RssItem:
+		                                                           rssItemIdents.Add(id);
+		                                                           break;
+		                                                       case ContentType.StaticText:
+		                                                           staticTextIds.Add(id);
+		                                                           break;
+		                                                       case ContentType.TwitterStatus:
+		                                                           twitterStatusIds.Add(id);
+		                                                           break;
+		                                                       default:
+		                                                           break;
+		                                                   }
+		                                               }
+		                                           };
+		    assignIds(firstColumnData);
+            assignIds(secondColumnData);
 			// get real data from db
 			var staticTexts = RepositoryFactory.Command<IStaticTextData>().GetByIds(staticTextIds).ToArray().ToDictionary(staticText => staticText.Id);
 			var twitterStatuses = RepositoryFactory.Command<ITwitterStatusCommands>().GetByIds(twitterStatusIds).ToArray().ToDictionary(twitterStatus => twitterStatus.Id);
 			var rssItems = RepositoryFactory.Command<IRssItemCommands>().GetByIds(rssItemIdents).ToArray().ToDictionary(rssItem => rssItem.Id);
 
-			// compute result
+            // compute result
 			var result = new List<object>();
-			foreach (var item in dataItems)
-			{
-				switch (item.ContentType)
-				{
-					case ContentType.RssItem:
-						if (rssItems.ContainsKey(item.Id))
-						{
-							result.Add(rssItems[item.Id]);
-						}
-						break;
-					case ContentType.StaticText:
-						if (staticTexts.ContainsKey(item.Id))
-						{
-							result.Add(staticTexts[item.Id]);
-						}
-						break;
-					case ContentType.TwitterStatus:
-						if (twitterStatuses.ContainsKey(item.Id))
-						{
-							result.Add(twitterStatuses[item.Id]);
-						}
-						break;
-					default:
-						break;
-				}
-			}
+
+		    Action<TimelineData> resolveId = (item) =>
+		                                         {
+		                                             switch (item.ContentType)
+		                                             {
+		                                                 case ContentType.RssItem:
+		                                                     if (rssItems.ContainsKey(item.Id))
+		                                                     {
+		                                                         result.Add(rssItems[item.Id]);
+		                                                     }
+		                                                     break;
+		                                                 case ContentType.StaticText:
+		                                                     if (staticTexts.ContainsKey(item.Id))
+		                                                     {
+		                                                         result.Add(staticTexts[item.Id]);
+		                                                     }
+		                                                     break;
+		                                                 case ContentType.TwitterStatus:
+		                                                     if (twitterStatuses.ContainsKey(item.Id))
+		                                                     {
+		                                                         result.Add(twitterStatuses[item.Id]);
+		                                                     }
+		                                                     break;
+		                                                 default:
+		                                                     break;
+		                                             }
+		                                         };
+			
+            int itemIndex = 0;
+		    do
+		    {
+                if (itemIndex < firstColumnData.Length)
+                {
+                    resolveId(firstColumnData[itemIndex]);
+                }
+                if (itemIndex < secondColumnData.Length)
+                {
+                    resolveId(secondColumnData[itemIndex]);
+                }
+		        ++itemIndex;
+		    } while (itemIndex < firstColumnData.Length && itemIndex < secondColumnData.Length);
 
 			return result.ToArray();
 		}

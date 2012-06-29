@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConfOrm;
-using ConfOrm.NH;
-using ConfOrm.Patterns;
+using NHibernate.Bytecode.CodeDom;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
+using NHibernate.Mapping.ByCode;
 using vlko.BlogModule.NH.Tests.Repository.NRepository.Implementation;
 using vlko.core.NH.Repository;
 using vlko.core.NH.Testing;
@@ -21,18 +20,20 @@ namespace vlko.BlogModule.NH.Tests.Repository.NRepository
 
 		public override void ConfigureMapping(Configuration configuration)
 		{
-			var orm = new ObjectRelationalMapper();
-			var mapper = new Mapper(orm);
+            var mapper = new ConventionModelMapper();
 
-			mapper.AddPropertyPattern(mi => mi.GetPropertyOrFieldType() == typeof(string), pm => pm.Length(50));
-			orm.Patterns.PoidStrategies.Add(new AssignedPoidPattern());
+		    mapper.BeforeMapProperty += (inspector, member, customizer) =>
+		                                    {
+		                                        if (member.LocalMember.GetPropertyOrFieldType() == typeof (string))
+		                                        {
+		                                            customizer.Length(50);
+		                                        }
+		                                    };
+		    mapper.BeforeMapClass += (inspector, type, customizer) => customizer.Id(im => im.Generator(Generators.Assigned));
 			// define the mapping shape
 
 			// list all the entities we want to map.
 			IEnumerable<Type> baseEntities = GetMappingTypes();
-
-			// we map all classes as Table per class
-			orm.TablePerClass(baseEntities);
 
 			// compile the mapping for the specified entities
 			HbmMapping mappingDocument = mapper.CompileMappingFor(baseEntities);

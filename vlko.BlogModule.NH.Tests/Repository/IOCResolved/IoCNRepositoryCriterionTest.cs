@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using ConfOrm;
-using ConfOrm.NH;
-using ConfOrm.Patterns;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Mapping.ByCode;
@@ -15,7 +12,6 @@ using vlko.core.NH.Repository;
 using vlko.core.NH.Repository.RepositoryAction;
 using vlko.core.NH.Testing;
 using vlko.core.Repository.RepositoryAction;
-using TypeExtensions = ConfOrm.TypeExtensions;
 
 namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
 {
@@ -56,34 +52,35 @@ namespace vlko.BlogModule.NH.Tests.Repository.IOCResolved
 
 		public override void ConfigureMapping(NHibernate.Cfg.Configuration configuration)
 		{
-			var orm = new ObjectRelationalMapper();
-			var mapper = new Mapper(orm);
+            var mapper = new ConventionModelMapper();
 
-			mapper.AddPropertyPattern(mi => TypeExtensions.GetPropertyOrFieldType(mi) == typeof(string), pm => pm.Length(50));
-			orm.Patterns.PoidStrategies.Add(new NativePoidPattern());
-			orm.Patterns.PoidStrategies.Add(new GuidOptimizedPoidPattern());
+            mapper.BeforeMapProperty += (inspector, member, customizer) =>
+            {
+                if (member.LocalMember.GetPropertyOrFieldType() == typeof(string))
+                {
+                    customizer.Length(50);
+                }
+            };
+            mapper.BeforeMapClass += (inspector, type, customizer) => customizer.Id(im => im.Generator(Generators.GuidComb));
 
-			// list all the entities we want to map.
-			IEnumerable<Type> baseEntities = GetMappingTypes();
+            // define the mapping shape
+            mapper.Class<Hotel>(ca => ca.List(item => item.Reservations, cm => cm.Key(km => km.Column("HotelId"))));
+            mapper.Class<Room>(ca => ca.List(item => item.Reservations, cm => cm.Key(km =>
+            {
+                km.Column("RoomId");
+                km.OnDelete(OnDeleteAction.NoAction);
+            })));
+            mapper.Class<Reservation>(ca =>
+            {
+                ca.ManyToOne(item => item.Hotel, m => { m.Column("HotelId"); m.Insert(false); m.Update(false); m.Lazy(LazyRelation.Proxy); });
+                ca.ManyToOne(item => item.Room, m => { m.Column("RoomId"); m.Insert(false); m.Update(false); m.Lazy(LazyRelation.Proxy); });
+            });
 
-			// we map all classes as Table per class
-			orm.TablePerClass(baseEntities);
+            // list all the entities we want to map.
+            IEnumerable<Type> baseEntities = GetMappingTypes();
 
-			mapper.Customize<Hotel>(ca => ca.Collection(item => item.Reservations, cm => cm.Key(km => km.Column("HotelId"))));
-			mapper.Customize<Room>(ca => ca.Collection(item => item.Reservations, cm => cm.Key(km =>
-			{
-				km.Column("RoomId");
-				km.OnDelete(OnDeleteAction.NoAction);
-			})));
-			mapper.Customize<Reservation>(ca =>
-			{
-				ca.ManyToOne(item => item.Hotel, m => { m.Column("HotelId"); m.Insert(false); m.Update(false); m.Lazy(LazyRelation.Proxy); });
-				ca.ManyToOne(item => item.Room, m => { m.Column("RoomId"); m.Insert(false); m.Update(false); m.Lazy(LazyRelation.Proxy); });
-			});
-
-
-			// compile the mapping for the specified entities
-			HbmMapping mappingDocument = mapper.CompileMappingFor(baseEntities);
+            // compile the mapping for the specified entities
+            HbmMapping mappingDocument = mapper.CompileMappingFor(baseEntities);
 
 			// inject the mapping in NHibernate
 			configuration.AddDeserializedMapping(mappingDocument, "Domain");

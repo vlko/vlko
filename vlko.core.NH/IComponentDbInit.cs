@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.Composition;
-using ConfOrm;
-using ConfOrm.NH;
+using NHibernate.Mapping.ByCode;
 
 namespace vlko.core.NH
 {
@@ -14,11 +13,10 @@ namespace vlko.core.NH
 		/// <returns>List of model types for this component.</returns>
 		Type[] ListOfModelTypes();
 
-		/// <summary>
-		/// Initializes the mappings.
-		/// </summary>
-		/// <param name="orm">The orm.</param>
-		/// <param name="mapper">The mapper.</param>
-		void InitMappings(ObjectRelationalMapper orm, Mapper mapper);
+        /// <summary>
+        /// Initializes the mappings.
+        /// </summary>
+        /// <param name="mapper">The mapper.</param>
+        void InitMappings(ConventionModelMapper mapper);
 	}
 }

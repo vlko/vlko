@@ -27,10 +27,13 @@ namespace vlko.BlogModule.RavenDB.Commands
 				timelineItems = timelineItems.Where(content => content.PublishDate <= pivotDate);
 			}
 
-			// sort descending by publish date and transform just to id
-			return new TimelineResult(timelineItems
-										.OrderByDescending(content => content.PublishDate)
-										);
+            // sort descending by publish date and transform just to id
+            return new TimelineResult(timelineItems
+                                        .OrderByDescending(content => content.PublishDate)
+                                        .Where(content => content.ContentType == ContentType.TwitterStatus),
+                                      timelineItems
+                                        .OrderByDescending(content => content.PublishDate)
+                                        .Where(content => content.ContentType != ContentType.TwitterStatus));
 		}
 	}
 }

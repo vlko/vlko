@@ -28,11 +28,20 @@ namespace vlko.BlogModule.NH.Commands
 			// sort descending by publish date and transform just to id
 			return new TimelineResult(timelineItems
 			                          	.OrderByDescending(content => content.PublishDate)
+                                        .Where(content => content.ContentType == ContentType.TwitterStatus)
 			                          	.Select(content => new TimelineData
 			                          	                   	{
 			                          	                   		Id = content.Id,
 			                          	                   		ContentType = content.ContentType
-			                          	                   	}));
+			                          	                   	}),
+                                      timelineItems
+                                        .OrderByDescending(content => content.PublishDate)
+                                        .Where(content => content.ContentType != ContentType.TwitterStatus)
+                                        .Select(content => new TimelineData
+                                        {
+                                            Id = content.Id,
+                                            ContentType = content.ContentType
+                                        }));
 		}
 	}
 }

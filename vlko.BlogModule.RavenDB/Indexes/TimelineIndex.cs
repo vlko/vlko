@@ -12,7 +12,7 @@ namespace vlko.BlogModule.RavenDB.Indexes
 		public TimelineIndex()
 		{
 			Map = contents => from item in contents
-							  select new {item.PublishDate, item.Hidden };
+							  select new {item.PublishDate, item.Hidden, item.ContentType };
 			TransformResults = (database, contents) => from item in contents
 			                                           select new
 			                                                  	{
