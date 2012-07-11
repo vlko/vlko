@@ -110,7 +110,7 @@ namespace vlko.BlogModule.NH.Commands.QueryHelpers
 
 			// check ranges
 			var firstColumnData = _firstColumn.Skip(firstSkip).Take(firstPageItems).ToArray();
-            var secondColumnData = _secondColumn.Skip(firstSkip).Take(firstPageItems).ToArray();
+            var secondColumnData = _secondColumn.Skip(secondSkip).Take(secondPageItems).ToArray();
 
 
 			// get ids from search results
@@ -186,7 +186,7 @@ namespace vlko.BlogModule.NH.Commands.QueryHelpers
                     resolveId(secondColumnData[itemIndex]);
                 }
 		        ++itemIndex;
-		    } while (itemIndex < firstColumnData.Length && itemIndex < secondColumnData.Length);
+		    } while (itemIndex < firstColumnData.Length || itemIndex < secondColumnData.Length);
 
 			return result.ToArray();
 		}

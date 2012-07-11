@@ -110,7 +110,7 @@ namespace vlko.BlogModule.RavenDB.Commands.QueryHelpers
 
             // check ranges
             var firstColumnData = _firstColumn.Skip(firstSkip).Take(firstPageItems).As<TimelineData>().ToArray();
-            var secondColumnData = _secondColumn.Skip(firstSkip).Take(firstPageItems).As<TimelineData>().ToArray();
+            var secondColumnData = _secondColumn.Skip(secondSkip).Take(secondPageItems).As<TimelineData>().ToArray();
 
 
             // get ids from search results
@@ -188,7 +188,7 @@ namespace vlko.BlogModule.RavenDB.Commands.QueryHelpers
                     resolveId(secondColumnData[itemIndex]);
                 }
                 ++itemIndex;
-            } while (itemIndex < firstColumnData.Length && itemIndex < secondColumnData.Length);
+            } while (itemIndex < firstColumnData.Length || itemIndex < secondColumnData.Length);
 
             return result.ToArray();
 		}

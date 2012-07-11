@@ -79,6 +79,7 @@
     <Compile Include="Model\SearchCommandsTest.cs" />
     <Compile Include="Model\StaticTextCommandsTest.cs" />
     <Compile Include="Model\SystemMessageCommandsTest.cs" />
+    <Compile Include="Model\TimelinePagingTest.cs" />
     <Compile Include="Model\TimelineTest.cs" />
     <Compile Include="Model\TwitterStatusCommandsTest.cs" />
     <Compile Include="Model\UserAuthenticationTest.cs" />

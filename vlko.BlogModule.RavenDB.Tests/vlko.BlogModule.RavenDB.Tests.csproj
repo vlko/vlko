@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="Model\CommentCommandsTest.cs" />
     <Compile Include="Model\AppSettingCommandsTest.cs" />
+    <Compile Include="Model\TimelinePagingTest.cs" />
     <Compile Include="Model\RssFeedCommandsTest.cs" />
     <Compile Include="Model\RssItemCommandsTest.cs" />
     <Compile Include="Model\SearchCommandsTest.cs" />

@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Model\AppSettingCommandsBaseTest.cs" />
     <Compile Include="Model\CommentCommandsBaseTest.cs" />
+    <Compile Include="Model\TimelinePagingBaseTest.cs" />
     <Compile Include="Model\RssFeedCommandsBaseTest.cs" />
     <Compile Include="Model\RssItemCommandsBaseTest.cs" />
     <Compile Include="Model\SearchCommandsBaseTest.cs" />
