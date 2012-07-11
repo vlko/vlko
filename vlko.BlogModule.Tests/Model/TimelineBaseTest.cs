@@ -53,12 +53,12 @@ namespace vlko.BlogModule.Tests.Model
 				Assert.AreEqual(203 - 2 /* two items are out of date range */, timeline.Count());
 				var data = timeline.ToArray();
 				Assert.AreNotEqual(timeline.Count(), data.Length);
-                Assert.IsInstanceOfType(data[0], typeof(TwitterStatus));
-                Assert.IsInstanceOfType(data[1], typeof(StaticTextViewModel));
-                Assert.IsInstanceOfType(data[2], typeof(TwitterStatus));
-                Assert.IsInstanceOfType(data[3], typeof(StaticTextViewModel));
-                Assert.IsInstanceOfType(data[4], typeof(TwitterStatus));
-				Assert.IsInstanceOfType(data[5], typeof(RssItemViewModelWithId));
+                Assert.IsInstanceOfType(data[0], typeof(StaticTextViewModel));
+                Assert.IsInstanceOfType(data[1], typeof(TwitterStatus));
+                Assert.IsInstanceOfType(data[2], typeof(StaticTextViewModel));
+                Assert.IsInstanceOfType(data[3], typeof(TwitterStatus));
+                Assert.IsInstanceOfType(data[4], typeof(RssItemViewModelWithId));
+                Assert.IsInstanceOfType(data[5], typeof(TwitterStatus));
 			}
 		}
 
@@ -70,9 +70,9 @@ namespace vlko.BlogModule.Tests.Model
 				Assert.AreEqual(203 - 2 /* two items are out of date range */, timeline.Count());
 				var data = timeline.ToPage(0, 20);
 				Assert.AreEqual(20, data.Length);
-                Assert.IsInstanceOfType(timeline.ToPage(0, 2)[0], typeof(TwitterStatus));
-                Assert.IsInstanceOfType(timeline.ToPage(1, 2)[1], typeof(StaticTextViewModel));
-				Assert.IsInstanceOfType(timeline.ToPage(2, 2)[1], typeof (RssItemViewModel));
+                Assert.IsInstanceOfType(timeline.ToPage(0, 2)[0], typeof(StaticTextViewModel));
+                Assert.IsInstanceOfType(timeline.ToPage(1, 2)[1], typeof(TwitterStatus));
+				Assert.IsInstanceOfType(timeline.ToPage(2, 2)[0], typeof (RssItemViewModel));
 			}
 		}
 

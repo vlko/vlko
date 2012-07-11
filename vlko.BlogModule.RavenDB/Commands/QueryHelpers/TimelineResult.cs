@@ -179,13 +179,13 @@ namespace vlko.BlogModule.RavenDB.Commands.QueryHelpers
             int itemIndex = 0;
             do
             {
-                if (itemIndex < firstColumnData.Length)
-                {
-                    resolveId(firstColumnData[itemIndex]);
-                }
                 if (itemIndex < secondColumnData.Length)
                 {
                     resolveId(secondColumnData[itemIndex]);
+                }
+                if (itemIndex < firstColumnData.Length)
+                {
+                    resolveId(firstColumnData[itemIndex]);
                 }
                 ++itemIndex;
             } while (itemIndex < firstColumnData.Length || itemIndex < secondColumnData.Length);

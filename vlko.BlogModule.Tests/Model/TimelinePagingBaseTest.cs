@@ -160,12 +160,12 @@ namespace vlko.BlogModule.Tests.Model
             Assert.AreEqual(expectedNumberOfItems, data.Length);
             for (int i = 0; i < data.Length; i++)
             {
-                bool otherItem = i%2 == 1;
-                if (otherItem && otherEndIndex != null && otherEndIndex < i)
+                bool otherItem = i%2 == 0;
+                if (otherItem && otherEndIndex != null && otherEndIndex <= i)
                 {
                     otherItem = false;
                 }
-                if (!otherItem && firstEndIndex != null && firstEndIndex <= i)
+                if (!otherItem && firstEndIndex != null && firstEndIndex < i)
                 {
                     otherItem = true;
                 }
