@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <version>1.1</version>
+    <authors>@vlkodotnet</authors>
+    <owners />
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/vlko/vlko</projectUrl>
+    <dependencies>
+		<dependency id="Castle.Core" version="2.5.2" />
+		<dependency id="Newtonsoft.Json" version="4.0.8" />
+		<dependency id="NLog" version="2.0.0.2000" />
+		<dependency id="RavenDB.Embedded" version="1.0.960" />
+		<dependency id="RavenDB.Client" version="1.0.960" />
+		<dependency id="RavenDB.Database" version="1.0.960" />
+    </dependencies>
+    <id>vlko.core.RavenDB</id>
+    <title>vlko.core - RavenDB</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>RavenDB data access for vlko.core</description>
+    <releaseNotes>1.1 - stable release</releaseNotes>
+  </metadata>
+	<files>
+		<file src="\lib\vlko.core.RavenDB.dll" target="lib" />
+	</files>  
+</package>
