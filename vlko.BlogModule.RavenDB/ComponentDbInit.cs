@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
 using Raven.Client;
 using Raven.Client.Document;
 using vlko.BlogModule.RavenDB.Indexes;

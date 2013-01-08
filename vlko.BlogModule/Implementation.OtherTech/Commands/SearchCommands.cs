@@ -63,7 +63,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 			doc.Add(new Field("Date", DateTools.DateToString(status.CreatedDate, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.NOT_ANALYZED));
 			doc.Add(new Field("User", status.User +  " " + status.RetweetUser, Field.Store.NO, Field.Index.ANALYZED));
 
-			doc.SetBoost(3F);
+			doc.Boost = 3F;
 
 			tranContext.IndexWriter.AddDocument(doc);
 		}
@@ -90,7 +90,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 			doc.Add(new Field("Date", DateTools.DateToString(staticText.ChangeDate, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.NOT_ANALYZED));
 			doc.Add(new Field("User", staticText.Creator.Name, Field.Store.NO, Field.Index.ANALYZED));
 
-			doc.SetBoost(5F);
+			doc.Boost =5F;
 
 			tranContext.IndexWriter.AddDocument(doc);
 		}
@@ -117,7 +117,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 			doc.Add(new Field("Date", DateTools.DateToString(rssItem.Published, DateTools.Resolution.SECOND), Field.Store.NO, Field.Index.NOT_ANALYZED));
 			doc.Add(new Field("User", rssItem.Author, Field.Store.NO, Field.Index.ANALYZED));
 
-			doc.SetBoost(3F);
+		    doc.Boost = 3F;
 
 			tranContext.IndexWriter.AddDocument(doc);
 		}
@@ -154,7 +154,7 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 			var queryParser = searchContext.GetQueryParser(new[] { "Text", "Title", "User"});
 			var query = queryParser.Parse(queryString);
 
-			Filter filter = RangeFilter.Less("Published", DateTools.DateToString(DateTime.Now.AddSeconds(1), DateTools.Resolution.SECOND));
+            Filter filter = TermRangeFilter.Less("Published", DateTools.DateToString(DateTime.Now.AddSeconds(1), DateTools.Resolution.SECOND));
 
 
 			var topDocs = searchContext.IndexSearcher.Search(query, filter, MaximalSearchDepthConst);
@@ -178,9 +178,9 @@ namespace vlko.BlogModule.Implementation.OtherTech.Commands
 			var queryParser = searchContext.GetQueryParser(new[] { "Text", "Title", "User" });
 			var query = queryParser.Parse(queryString);
 
-			Filter filter = RangeFilter.Less("Published", DateTools.DateToString(DateTime.Now.AddSeconds(1), DateTools.Resolution.SECOND));
+            Filter filter = TermRangeFilter.Less("Published", DateTools.DateToString(DateTime.Now.AddSeconds(1), DateTools.Resolution.SECOND));
 
-			var topDocs = searchContext.IndexSearcher.Search(query, filter, MaximalSearchDepthConst, new Sort("Date", true));
+            var topDocs = searchContext.IndexSearcher.Search(query, filter, MaximalSearchDepthConst, new Sort(new SortField("Date", SortField.STRING, true)));
 
 			return new SearchResult(topDocs, searchContext.IndexSearcher);
 		}

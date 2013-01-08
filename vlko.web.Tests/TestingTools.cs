@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using vlko.BlogModule.NH.Commands;
 using vlko.core.Authentication;
 using vlko.core.Base;
 using vlko.core.Commands;
@@ -10,6 +11,8 @@ namespace vlko.web.Tests
 {
 	public static class TestingTools
 	{
+        private static CommentCrud referenceToBlogNHImplementation = new CommentCrud();
+        private static System.Data.SQLite.SQLiteJournalModeEnum referenceToSQLite = System.Data.SQLite.SQLiteJournalModeEnum.Default;
 		/// <summary>
 		/// Binds the model.
 		/// </summary>

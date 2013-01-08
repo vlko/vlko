@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
 using Raven.Client;
 using Raven.Client.Document;
+using Raven.Imports.Newtonsoft.Json;
 using vlko.core.InversionOfControl;
 using vlko.core.RavenDB.Indexes;
 using vlko.core.RavenDB.Repository;

@@ -5,6 +5,7 @@ using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
+using Lucene.Net.Util;
 using Directory = Lucene.Net.Store.Directory;
 
 namespace vlko.BlogModule.Search
@@ -24,8 +25,8 @@ namespace vlko.BlogModule.Search
 		public void Initialize(string indexFolder)
 		{
 	        _pathToIndex = Path.Combine(indexFolder, "Index");
-            _directory = FSDirectory.GetDirectory(_pathToIndex);
-			_analyzer = new StandardAnalyzer();
+            _directory = FSDirectory.Open(_pathToIndex);
+            _analyzer = new StandardAnalyzer(Version.LUCENE_CURRENT);
 		}
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace vlko.BlogModule.Search
 			{
 				if (_currentWriters == 0)
 				{
-					_writer = new IndexWriter(_directory, _analyzer);
+					_writer = new IndexWriter(_directory, _analyzer, IndexWriter.MaxFieldLength.UNLIMITED);
 				}
 				++_currentWriters;
 			}
@@ -87,7 +88,7 @@ namespace vlko.BlogModule.Search
 		/// <returns>Query parser.</returns>
 		public MultiFieldQueryParser GetQueryParser(string[] fields)
 		{
-			return new MultiFieldQueryParser(fields, _analyzer);
+            return new MultiFieldQueryParser(Version.LUCENE_CURRENT, fields, _analyzer);
 		}
 
 		/// <summary>

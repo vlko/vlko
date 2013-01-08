@@ -3,6 +3,7 @@
   <Description>This is a default test run configuration for a local test run.</Description>
   <Deployment>
     <DeploymentItem filename="GeneralRepositoryTest\log4net.config" />
+    <DeploymentItem filename="packages\System.Data.SQLite.1.0.83.0\content\net40\x86\SQLite.Interop.dll" />
   </Deployment>
   <Execution>
     <TestTypeSpecific>

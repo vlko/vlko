@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 using Raven.Client.Connection;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
@@ -9,6 +8,7 @@ using Raven.Client.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Raven.Client;
+using Raven.Imports.Newtonsoft.Json.Linq;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
 using System.Collections.Generic;
@@ -46,6 +46,8 @@ namespace vlko.core.RavenDB.Repository
 		/// </value>
 		public static IDocumentStore DocumentStoreInstance { get; set; }
 
+        public static MultiTypeHiLoKeyGenerator KeyGenerator = new MultiTypeHiLoKeyGenerator(5);
+
 		const string StackIdent = "SessionFactory.CurrentStack";
 
 		[ThreadStatic]
@@ -81,7 +83,7 @@ namespace vlko.core.RavenDB.Repository
 				staleIndexUnitOfWork = RepositoryFactory.StartUnitOfWork();
 			}
 			// wait for all index
-			foreach (var index in Current.Advanced.DatabaseCommands.GetIndexNames(0, int.MaxValue))
+			foreach (var index in Current.Advanced.DocumentStore.DatabaseCommands.GetIndexNames(0, int.MaxValue))
 			{
 				var indexName = ((JValue) index).Value as string;
 				SessionFactory.Current.Advanced.LuceneQuery<object>(indexName)
@@ -307,7 +309,7 @@ namespace vlko.core.RavenDB.Repository
 		/// <returns></returns>
 		public static bool Exists(object id)
 		{
-			return Current.Advanced.DatabaseCommands.Get(ConvertToStringId(id)) != null;
+			return Current.Load<T>(ConvertToStringId(id)) != null;
 		}
 
 		/// <summary>
@@ -451,7 +453,7 @@ namespace vlko.core.RavenDB.Repository
 		/// <returns>Generate id based on </returns>
 		public static string GenerateId(T entity)
 		{
-            return Current.Advanced.DocumentStore.Conventions.GenerateDocumentKey(entity).ToLower();
+            return SessionFactory.KeyGenerator.GenerateDocumentKey(Current.Advanced.DocumentStore.DatabaseCommands, Current.Advanced.DocumentStore.Conventions, entity).ToLower();
 		}
 
 		/// <summary>

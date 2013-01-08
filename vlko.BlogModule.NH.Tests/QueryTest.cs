@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using Rhino.Mocks.Constraints;
+using vlko.BlogModule.NH.Commands;
 using vlko.core.Repository;
 using vlko.core.Repository.Exceptions;
 
@@ -12,6 +13,8 @@ namespace vlko.BlogModule.NH.Tests
     {
         private MockRepository _mocker;
         private IRepositoryFactoryResolver _factoryResolver;
+        private static CommentCrud referenceToBlogNHImplementation = new CommentCrud();
+        private static System.Data.SQLite.SQLiteJournalModeEnum referenceToSQLite = System.Data.SQLite.SQLiteJournalModeEnum.Default;
 
         [TestInitialize]
         public void InitializeTreadManager()

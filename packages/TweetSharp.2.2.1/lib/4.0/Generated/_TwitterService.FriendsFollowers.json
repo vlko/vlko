@@ -1,0 +1,34 @@
+﻿TwitterCursorList<int>, "followers/ids", ListFollowerIdsOf, int userId, long cursor
+TwitterCursorList<int>, "followers/ids", ListFollowerIdsOf, string screenName, long cursor
+TwitterCursorList<int>, "friends/ids", ListFriendIdsOf, string screenName, long cursor
+TwitterCursorList<int>, "friends/ids", ListFriendIdsOf, int userId, long cursor
+// TODO: friendships/exits
+TwitterCursorList<int>, "friendships/incoming", GetIncomingFriendRequests
+TwitterCursorList<int>, "friendships/incoming", GetIncomingFriendRequests, long cursor
+TwitterCursorList<int>, "friendships/outgoing", GetOutgoingFriendRequests
+TwitterCursorList<int>, "friendships/outgoing", GetOutgoingFriendRequests, long cursor
+TwitterFriendship, "friendships/show", GetFriendshipInfo, string sourceScreenName, string targetScreenName
+TwitterFriendship, "friendships/show", GetFriendshipInfo, int sourceId, int targetId
+TwitterUser, "friendships/create":POST, FollowUser, int userId
+TwitterUser, "friendships/create":POST, FollowUser, string screenName
+TwitterUser, "friendships/destroy":DELETE, UnfollowUser, string screenName
+TwitterUser, "friendships/destroy":DELETE, UnfollowUser, int userId
+IEnumerable<TwitterFriendshipLookup>, "friendships/lookup", ListFriendshipsFor, IEnumerable<string> screenName
+IEnumerable<TwitterFriendshipLookup>, "friendships/lookup", ListFriendshipsFor, IEnumerable<int> userId
+IEnumerable<TwitterFriendshipLookup>, "friendships/lookup", ListFriendshipsFor, IEnumerable<string> screenName, IEnumerable<int> userId
+// TODO: friendships/update
+// TODO: friendships/no_retweet_ids
+
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriends
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriends, long cursor
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, int userId 
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, int userId, long cursor
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, string screenName
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, string screenName, long cursor
+
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowers
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowers, long cursor
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, int userId 
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, int userId, long cursor
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, string screenName
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, string screenName, long cursor

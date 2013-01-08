@@ -59,7 +59,7 @@ namespace vlko.BlogModule.Search
 		/// <returns>Counts of items in query.</returns>
 		public int Count()
 		{
-			return Math.Min(_topDocs.totalHits, SearchCommands.MaximalSearchDepthConst);
+			return Math.Min(_topDocs.TotalHits, SearchCommands.MaximalSearchDepthConst);
 		}
 
 		/// <summary>
@@ -87,13 +87,13 @@ namespace vlko.BlogModule.Search
 			var rssItemIdents = new List<string>();
 
 			// check ranges
-			startIndex = Math.Min(startIndex * itemsPerPage, _topDocs.totalHits);
-			int numberOfResult = Math.Min(Math.Min(startIndex + itemsPerPage, startIndex + MaximumRawResults), _topDocs.totalHits);
+			startIndex = Math.Min(startIndex * itemsPerPage, _topDocs.TotalHits);
+            int numberOfResult = Math.Min(Math.Min(startIndex + itemsPerPage, startIndex + MaximumRawResults), _topDocs.TotalHits);
 
 			// get ids from search results
 			for (int i = startIndex; i < numberOfResult; i++)
 			{
-				var docId = _topDocs.scoreDocs[i].doc;
+				var docId = _topDocs.ScoreDocs[i].Doc;
 				var doc = _searcher.Doc(docId);
 				var id = doc.Get(IdField);
 				var type = doc.Get(TypeField);

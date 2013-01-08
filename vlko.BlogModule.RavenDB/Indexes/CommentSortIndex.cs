@@ -15,7 +15,7 @@ namespace vlko.BlogModule.RavenDB.Indexes
 		{
 			Map = comments => from item in comments
 			               select new { Content_Id = item.Content.Id, item.CreatedDate, item.Level };
-		    Analyzers.Add(comment => comment.Id, typeof (StandardAnalyzer).FullName);
+            Analyzers.Add(comment => comment.Id, typeof(StandardAnalyzer).FullName);
             Index(item => item.Content.Id, FieldIndexing.Analyzed);
 		}
 	}

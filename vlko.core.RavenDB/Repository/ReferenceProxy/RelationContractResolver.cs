@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Newtonsoft.Json.Serialization;
 using Raven.Client.Document;
+using Raven.Imports.Newtonsoft.Json;
+using Raven.Imports.Newtonsoft.Json.Serialization;
 
 namespace vlko.core.RavenDB.Repository.ReferenceProxy
 {
@@ -23,7 +24,7 @@ namespace vlko.core.RavenDB.Repository.ReferenceProxy
 			DefaultMembersSearchFlags = original.DefaultMembersSearchFlags;
 		}
 
-		protected override JsonProperty CreateProperty(MemberInfo member, Newtonsoft.Json.MemberSerialization memberSerialization)
+		protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
 		{
 			JsonProperty property = base.CreateProperty(member, memberSerialization);
 

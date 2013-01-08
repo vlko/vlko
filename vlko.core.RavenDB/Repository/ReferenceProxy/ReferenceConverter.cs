@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using Castle.DynamicProxy;
-using Newtonsoft.Json;
 using Raven.Client.Document;
+using Raven.Imports.Newtonsoft.Json;
 using vlko.core.Tools;
 
 namespace vlko.core.RavenDB.Repository.ReferenceProxy
