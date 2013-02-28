@@ -13,6 +13,7 @@ namespace vlko.core.Base
 	/// </summary>
 	public class BaseController : Controller
 	{
+	    private IUnitOfWork _session = null;
 		/// <summary>
 		/// Gets the user info (returns null if user not authenticated).
 		/// </summary>
@@ -21,18 +22,17 @@ namespace vlko.core.Base
 			get { return User is UserPrincipal ? ((UserPrincipal) User).User : null; }
 		}
 
-		/// <summary>
-		/// Executes the specified request context.
-		/// </summary>
-		/// <param name="requestContext">The request context.</param>
-		/// <exception cref="T:System.ArgumentNullException">The <paramref name="requestContext"/> parameter is null.</exception>
-		protected override void Execute(RequestContext requestContext)
-		{
-			using (var session = RepositoryFactory.StartUnitOfWork())
-			{
-				base.Execute(requestContext);
-			}
-		}
+        protected override System.IAsyncResult BeginExecute(RequestContext requestContext, System.AsyncCallback callback, object state)
+        {
+            _session = RepositoryFactory.StartUnitOfWork();
+            return base.BeginExecute(requestContext, callback, state);
+        }
+
+        protected override void EndExecute(System.IAsyncResult asyncResult)
+        {
+            base.EndExecute(asyncResult);
+            _session.Dispose();
+        }
 
 		/// <summary>
 		/// Called when authorization occurs.

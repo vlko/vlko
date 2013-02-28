@@ -3,7 +3,7 @@
 <head>
 	<title>vlko - @ViewBag.Title</title>
 	<meta name="description" content="vlko - one coder of many">
-	<meta name="author" content="twitter:@@vlkodotnet">
+	<meta name="author" content="twitter:@Html.Raw('@')vlkodotnet">
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -48,9 +48,9 @@
 					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.AboutController ? " class=\"selected\"" : string.Empty)>@Html.Link("about", (object)Routes.IndexOfAbout())</li>
 					<li @Html.Raw(ViewContext.Controller is vlko.web.Controllers.PageController ? " class=\"selected\"" : string.Empty)>@Html.Link("blog", (object)Routes.IndexOfPage())</li>
 					@if (Request.IsAuthenticated) {
-						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.StaticPageController ? " class=\"selected\"" : string.Empty)>@Html.Link("Static text", (object)Routes.IndexOfStaticPageFromAdmin())</li>
-						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.CommentController ? " class=\"selected\"" : string.Empty)>@Html.Link("Comments", (object)Routes.IndexOfCommentFromAdmin())</li>
-						<li@Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.RssFeedController ? " class=\"selected\"" : string.Empty)>@Html.Link("Rss", (object)Routes.IndexOfRssFeedFromAdmin())</li>
+						<li @Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.StaticPageController ? " class=\"selected\"" : string.Empty)>@Html.Link("Static text", (object)Routes.IndexOfStaticPageFromAdmin())</li>
+						<li @Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.CommentController ? " class=\"selected\"" : string.Empty)>@Html.Link("Comments", (object)Routes.IndexOfCommentFromAdmin())</li>
+						<li @Html.Raw(ViewContext.Controller is vlko.web.Areas.Admin.Controllers.RssFeedController ? " class=\"selected\"" : string.Empty)>@Html.Link("Rss", (object)Routes.IndexOfRssFeedFromAdmin())</li>
 					}
 				</ul>
 			</div>

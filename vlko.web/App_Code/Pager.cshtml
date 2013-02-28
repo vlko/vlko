@@ -73,7 +73,7 @@
 		}
 		if (i >= lowestPage && i <= highestPage)
 		{
-			<li@activeClass(i)>@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, i.ToString(), routeName, pageRoutes(i), null))</li>
+			<li @activeClass(i)>@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, i.ToString(), routeName, pageRoutes(i), null))</li>
 		}
 		if (i > highestPage)
 		{

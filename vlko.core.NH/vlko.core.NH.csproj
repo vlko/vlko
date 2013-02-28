@@ -81,7 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="vlko.core.NH.nuspec" />
+    <None Include="vlko.core.NH.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vlko.core\vlko.core.csproj">
