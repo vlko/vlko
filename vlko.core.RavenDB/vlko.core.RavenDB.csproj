@@ -88,7 +88,9 @@
     <Compile Include="Testing\RavenDBTestProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="vlko.core.RavenDB.nuspec" />
   </ItemGroup>
   <ItemGroup>

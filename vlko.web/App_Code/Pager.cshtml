@@ -5,9 +5,7 @@
 	var routeValuesDictionary = new System.Web.Routing.RouteValueDictionary(routeValues);
 	routeValuesDictionary.Add("Page", 0);
 
-	Func<int, IHtmlString> activeClass = (pageNumber) => html.Raw(pageNumber == pageModel.CurrentPage ? " class='active'" : string.Empty);
-	
-	Func<int, string> active = (pageNumber) => pageNumber == pageModel.CurrentPage ? " active" : string.Empty; 
+	Func<int, string> active = (pageNumber) => pageNumber == pageModel.CurrentPage ? " active" : null; 
 
 	Func<int, System.Web.Routing.RouteValueDictionary> pageRoutes = (pageNumber) =>
 	                                                                	{
@@ -59,7 +57,7 @@
 	{
 		<li class="last next disabled"><a>&gt;&gt;</a></li>
 	}                                                                                              	
-	<li class="first@(active(1))">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, "1", routeName, pageRoutes(1), null))</li>
+	<li class="first @(active(1))">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, "1", routeName, pageRoutes(1), null))</li>
 
 	@for (int i = 2; i < pagesNumber; i++)
 	{
@@ -73,7 +71,7 @@
 		}
 		if (i >= lowestPage && i <= highestPage)
 		{
-			<li @activeClass(i)>@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, i.ToString(), routeName, pageRoutes(i), null))</li>
+			<li class="@active(i)">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, i.ToString(), routeName, pageRoutes(i), null))</li>
 		}
 		if (i > highestPage)
 		{
@@ -86,24 +84,24 @@
 	}
 	@if (pagesNumber > 1)
 	{
-		<li class="last@(active(pagesNumber))">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, pagesNumber.ToString(), routeName, pageRoutes(pagesNumber), null))</li>
+		<li class="last @(active(pagesNumber))">@html.Raw(System.Web.Mvc.HtmlHelper.GenerateRouteLink(html.ViewContext.RequestContext, html.RouteCollection, pagesNumber.ToString(), routeName, pageRoutes(pagesNumber), null))</li>
 	}
 	<li class="info disabled"><a>@string.Format("{0} - {1} of {2}", startItemNumber, endItemNumber, pageModel.Count)</a></li>
 	</ul></div>
 
-		vlko.core.HtmlExtender.ScriptManager.ScriptInclude(html, "~/Scripts/Pager.js");
+	vlko.core.HtmlExtender.ScriptManager.ScriptInclude(html, "~/Scripts/Pager.js");
 
-		vlko.core.HtmlExtender.ScriptManager.ScriptInlineInclude(html,
-			@<script type="text/javascript">
-		$(function () {
-			@{
-				var contentId = (string)item.ViewData["content"];
-				if (string.IsNullOrEmpty(contentId))
-				{
-					contentId = "content";
-				}
-			}
-			$("#@contentId").ajaxPager();
-		});
-		</script>);	
+	vlko.core.HtmlExtender.ScriptManager.ScriptInlineInclude(html,
+	    @<script type="text/javascript">
+	    $(function () {
+		    @{
+			    var contentId = (string)item.ViewData["content"];
+			    if (string.IsNullOrEmpty(contentId))
+			    {
+				    contentId = "content";
+			    }
+		    }
+		    $("#@contentId").ajaxPager();
+	    });
+	    </script>);	
 }
