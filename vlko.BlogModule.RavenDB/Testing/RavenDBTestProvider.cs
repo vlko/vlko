@@ -7,11 +7,12 @@ using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Database.Extensions;
 using vlko.core.InversionOfControl;
+using vlko.core.RavenDB;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 using vlko.core.Testing;
 
-namespace vlko.core.RavenDB.Testing
+namespace vlko.BlogModule.RavenDB.Testing
 {
 	public class RavenDBTestProvider : ITestProvider
 	{

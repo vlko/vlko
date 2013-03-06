@@ -631,6 +631,21 @@
     <Content Include="Views\Content\AboutTile.cshtml" />
     <Content Include="Views\Content\PagingTile.cshtml" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
+    <Content Include="Scripts\jquery-1.6.4.min.js.map">
+      <DependentUpon>jquery-1.6.4.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.8.16.min.js.map">
+      <DependentUpon>jquery-ui-1.8.16.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js.map">
+      <DependentUpon>jquery.unobtrusive-ajax.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.min.js.map">
+      <DependentUpon>jquery.validate.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
+      <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vlko.BlogModule.NH\vlko.BlogModule.NH.csproj">

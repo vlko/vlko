@@ -84,8 +84,6 @@
     <Compile Include="Repository\Transaction.cs" />
     <Compile Include="Repository\UniqueIdentException.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
-    <Compile Include="Testing\LocalClientTest.cs" />
-    <Compile Include="Testing\RavenDBTestProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

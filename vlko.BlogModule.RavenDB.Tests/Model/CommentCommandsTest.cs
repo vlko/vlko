@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using vlko.BlogModule.RavenDB.Testing;
 using vlko.BlogModule.Tests;
 using vlko.BlogModule.Tests.Model;
-using vlko.core.RavenDB.Testing;
 
 namespace vlko.BlogModule.RavenDB.Tests.Model
 {

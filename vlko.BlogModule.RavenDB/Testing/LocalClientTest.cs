@@ -5,10 +5,11 @@ using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Embedded;
 using Raven.Database.Extensions;
+using vlko.core.RavenDB;
 using vlko.core.RavenDB.Repository;
 using vlko.core.Repository;
 
-namespace vlko.core.RavenDB.Testing
+namespace vlko.BlogModule.RavenDB.Testing
 {
 	public abstract class LocalClientTest
 	{

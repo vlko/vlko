@@ -99,6 +99,8 @@
     <Compile Include="Indexes\ReduceModelView\RssFeedCount.cs" />
     <Compile Include="Indexes\RssFeedsWithItemsCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Testing\LocalClientTest.cs" />
+    <Compile Include="Testing\RavenDBTestProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vlko.BlogModule\vlko.BlogModule.csproj">
