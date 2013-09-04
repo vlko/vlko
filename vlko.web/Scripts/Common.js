@@ -166,8 +166,11 @@ function createContentDialog(settings) {
 		dialog.inner.hide().css("overflow", "none").height("auto");
 
 		dialog.inner.show("slide", { "direction": "right" }, function () {
-			$(":focusable:first", dialog.inner).click().focus();
-		}); // close dialog
+		    $(":focusable:first", dialog.inner)
+			    .not(':input[type=button], :input[type=submit], :input[type=reset]')
+		        .click().focus();
+		});
+	    // close dialog
 		
 		dialog.close = function (action) {
 			$(contentDialog).remove();

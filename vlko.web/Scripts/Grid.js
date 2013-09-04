@@ -40,7 +40,7 @@
 
 		this.each(function () {
 			// edit buttons
-			$(".action:.edit:visible")
+			$(".action.edit:visible")
 				.click(function () {
 					createLoading();
 					var nextUrl = $(this).attr("href");
@@ -100,7 +100,6 @@
 								prevUrl: config.prevUrl
 							});
 							closeLoading();
-							addToHistory(nextUrl);
 						},
 						error: ajaxException
 					});
