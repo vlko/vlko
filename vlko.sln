@@ -1,64 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 11
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1C0B78A4-CD91-4154-81FF-618CC8AE868F}"
-	ProjectSection(SolutionItems) = preProject
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-		vlko.vsmdi = vlko.vsmdi
-		vlko2.vsmdi = vlko2.vsmdi
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{945D4521-B12E-4B54-9415-862C2D4E8588}"
-	ProjectSection(SolutionItems) = preProject
-		nuget\Global.asax.cs = nuget\Global.asax.cs
-		nuget\HomeController.cs = nuget\HomeController.cs
-		nuget\Index.cshtml = nuget\Index.cshtml
-		nuget\NH.web.config.transform = nuget\NH.web.config.transform
-		nuget\RegisterCoreNH.cs.pp = nuget\RegisterCoreNH.cs.pp
-		nuget\RegisterCoreRaven.cs.pp = nuget\RegisterCoreRaven.cs.pp
-		nuget\vlko base template.vsix = nuget\vlko base template.vsix
-		nuget\vlko.core.1.0.nupkg = nuget\vlko.core.1.0.nupkg
-		nuget\vlko.core.NH.1.0.nupkg = nuget\vlko.core.NH.1.0.nupkg
-		nuget\vlko.core.RavenDB.1.0.nupkg = nuget\vlko.core.RavenDB.1.0.nupkg
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.web", "vlko.web\vlko.web.csproj", "{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.web.Tests", "vlko.web.Tests\vlko.web.Tests.csproj", "{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}"
-EndProject
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core", "vlko.core\vlko.core.csproj", "{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.Tests", "vlko.core.Tests\vlko.core.Tests.csproj", "{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule", "vlko.BlogModule\vlko.BlogModule.csproj", "{2D2F6A81-4568-4861-B3CE-E798B46671AB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.NH", "vlko.BlogModule.NH\vlko.BlogModule.NH.csproj", "{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.RavenDB", "vlko.BlogModule.RavenDB\vlko.BlogModule.RavenDB.csproj", "{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.NH.Tests", "vlko.BlogModule.NH.Tests\vlko.BlogModule.NH.Tests.csproj", "{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.RavenDB.Tests", "vlko.BlogModule.RavenDB.Tests\vlko.BlogModule.RavenDB.Tests.csproj", "{F151E381-27CC-485D-8AB5-D4C2FD9380AD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.NH", "vlko.core.NH\vlko.core.NH.csproj", "{FCD22BED-2009-4E6E-889F-A84B15B9E7F2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.RavenDB", "vlko.core.RavenDB\vlko.core.RavenDB.csproj", "{C354C632-E30B-480A-A2F3-4D1D573DB71B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.BlogModule.Tests", "vlko.BlogModule.Tests\vlko.BlogModule.Tests.csproj", "{82E23EFB-9E50-4276-81FB-501A373F50D9}"
-EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = vlko2.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AFB1A4E-EA0F-42C2-BF3E-E00726732FC1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,44 +23,18 @@ Global
 		{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D2F6A81-4568-4861-B3CE-E798B46671AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D2F6A81-4568-4861-B3CE-E798B46671AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D2F6A81-4568-4861-B3CE-E798B46671AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D2F6A81-4568-4861-B3CE-E798B46671AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E9502F9-3B16-4E2A-97C3-22148B1B6D57}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60AFCB00-F678-4F13-ADF9-14E20AE92FAA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82E23EFB-9E50-4276-81FB-501A373F50D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82E23EFB-9E50-4276-81FB-501A373F50D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82E23EFB-9E50-4276-81FB-501A373F50D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82E23EFB-9E50-4276-81FB-501A373F50D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5DC2D15-1FAB-40FA-91FC-C736DCF6494D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF388F7B-D2D7-4BBE-A3D8-992774CE59D4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F151E381-27CC-485D-8AB5-D4C2FD9380AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F151E381-27CC-485D-8AB5-D4C2FD9380AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F151E381-27CC-485D-8AB5-D4C2FD9380AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F151E381-27CC-485D-8AB5-D4C2FD9380AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCD22BED-2009-4E6E-889F-A84B15B9E7F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCD22BED-2009-4E6E-889F-A84B15B9E7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCD22BED-2009-4E6E-889F-A84B15B9E7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCD22BED-2009-4E6E-889F-A84B15B9E7F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB655929-C61B-488B-A64E-961479F934B3}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = vlko2.vsmdi
 	EndGlobalSection
 EndGlobal

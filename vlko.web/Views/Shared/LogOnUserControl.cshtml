@@ -1,6 +1,0 @@
-﻿@if (Request.IsAuthenticated) {
-	<text>Welcome <b>@User.Identity.Name</b>! [  @Html.Link("Log Off", (object)Routes.LogOffOfAccount) ]</text>
-}
-else {
-	<text>[ @Html.Link("Log On", (object)Routes.LogOnOfAccount) ]</text>
-}
