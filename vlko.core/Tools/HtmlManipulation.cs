@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Security.Application;
 
 namespace vlko.core.Tools
 {
@@ -16,7 +15,7 @@ namespace vlko.core.Tools
 		/// <returns>Html input with removed tags.</returns>
 		public static string RemoveTags(this string htmlInput)
 		{
-			string result = Sanitizer.GetSafeHtmlFragment(htmlInput).Trim();
+			string result = HtmlSanitizer.Sanitize(htmlInput).Trim();
 			return Regex.Replace(result, @"<(.|\n)*?>", string.Empty);
 		}
 
@@ -35,8 +34,8 @@ namespace vlko.core.Tools
 			}
 			if (input.Length > shortenLength)
 			{
-				return input.Substring(0, shortenLength) 
-					+ (string.IsNullOrEmpty(additionalShortenText) 
+				return input.Substring(0, shortenLength)
+					+ (string.IsNullOrEmpty(additionalShortenText)
 						? string.Empty
 						: additionalShortenText);
 			}

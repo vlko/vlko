@@ -6,7 +6,13 @@
         /// Gets or sets the page items.
         /// </summary>
         /// <value>The page items.</value>
-        int PageItems { get; set; }
+        int PageSize { get; set; }
+
+        /// <summary>
+        /// Gets the allowed page sizes.
+        /// </summary>
+        /// <value>The allowed page sizes.</value>
+        int[] AllowedPageSizes { get; }
 
         /// <summary>
         /// Gets or sets the current page.
@@ -24,6 +30,6 @@
         /// Gets the pages number.
         /// </summary>
         /// <value>The pages number.</value>
-        int PagesNumber { get;}
+        int PagesNumber { get; }
     }
 }

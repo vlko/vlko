@@ -17,7 +17,7 @@ namespace vlko.core.Tools
         public static string Generate(string title)
         {
             // remove diacritics
-            title = RemoveDiacritics(title);
+            title = title.RemoveDiacritics();
 
             // remove entities
             title = Regex.Replace(title, @"&\w+;", "");
@@ -31,7 +31,7 @@ namespace vlko.core.Tools
             // replace spaces with single dash
             title = Regex.Replace(title, @"\s+", "-");
 
-            // if we end up with multiple dashes, collapse to single dash            
+            // if we end up with multiple dashes, collapse to single dash
             title = Regex.Replace(title, @"\-{2,}", "-");
 
             // make it all lower case
@@ -47,25 +47,5 @@ namespace vlko.core.Tools
 
             return title;
         }
-
-        /// <summary>
-        /// Removes the diacritics.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <returns>Text with removed diacritic.</returns>
-        public static String RemoveDiacritics(String text)
-        {
-            String normalizedString = text.Normalize(NormalizationForm.FormD);
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for (int i = 0; i < normalizedString.Length; i++)
-            {
-                Char c = normalizedString[i];
-                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
-                    stringBuilder.Append(c);
-            }
-
-            return stringBuilder.ToString();
-        } 
     }
 }

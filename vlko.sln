@@ -5,9 +5,11 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core", "vlko.core\vlko.core.csproj", "{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.Tests", "vlko.core.Tests\vlko.core.Tests.csproj", "{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vlko.core.Tests", "vlko.core.Tests\vlko.core.Tests.csproj", "{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.RavenDB", "vlko.core.RavenDB\vlko.core.RavenDB.csproj", "{C354C632-E30B-480A-A2F3-4D1D573DB71B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vlko.core.web", "vlko.core.web\vlko.core.web.csproj", "{63B8996B-C3F4-4BB2-93A7-104FD9FBB0DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C354C632-E30B-480A-A2F3-4D1D573DB71B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63B8996B-C3F4-4BB2-93A7-104FD9FBB0DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B8996B-C3F4-4BB2-93A7-104FD9FBB0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63B8996B-C3F4-4BB2-93A7-104FD9FBB0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B8996B-C3F4-4BB2-93A7-104FD9FBB0DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

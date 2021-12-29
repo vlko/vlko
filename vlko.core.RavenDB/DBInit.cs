@@ -1,73 +1,56 @@
-﻿using System;
+﻿using Raven.Client;
+using Raven.Client.Documents;
+using Raven.Client.Documents.Conventions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Raven.Client;
-using Raven.Client.Document;
-using Raven.Imports.Newtonsoft.Json;
 using vlko.core.InversionOfControl;
-using vlko.core.RavenDB.Indexes;
-using vlko.core.RavenDB.Repository;
-using vlko.core.RavenDB.Repository.ReferenceProxy;
-using vlko.core.Roots;
+using vlko.core.RavenDB;
+using vlko.core.RavenDB.DBAccess;
 
-namespace vlko.core.RavenDB
+namespace vlko.core.DBAccess
 {
-	public static class DBInit
-	{
-		/// <summary>
-		/// Lists the of model types.
-		/// </summary>
-		/// <returns>List of model types.</returns>
-		public static Type[] ListOfModelTypes()
-		{
-			List<Type> result = new List<Type>();
-			foreach (var componentDbInit in IoC.ResolveAllInstances<IComponentDbInit>())
-			{
-				result.AddRange(componentDbInit.ListOfModelTypes());
-			}
-			return result.ToArray();
-			
-		}
+    public static class DBInit
+    {
 
-		/// <summary>
-		/// Registers the indexes.
-		/// </summary>
-		/// <param name="documentStore">The document store.</param>
-		private static void RegisterIndexes(IDocumentStore documentStore)
-		{
-			
-		}
+        /// <summary>
+        /// Registers raven session for specified document store.
+        /// </summary>
+        /// <param name="store">The document store.</param>
+        public static void RegisterRavenSessionProvider(this DB.DBInfoHolder infoHolder, IDocumentStore store, bool initializedStore = false)
+        {
+            infoHolder.RegisterSessionProvider(new RavenAsyncDatabase(store));
+            infoHolder.RegisterSessionProvider(new RavenDatabase(store));
 
-		/// <summary>
-		/// Registers the document store.
-		/// </summary>
-		/// <param name="documentStore">The document store.</param>
-		public static void RegisterDocumentStore(IDocumentStore documentStore)
-		{
-			SessionFactory.DocumentStoreInstance = documentStore;
+            if (!initializedStore)
+            {
+                SetGenericsConvention(store);
+                store.Initialize();
+            }
 
-			documentStore.Conventions.CustomizeJsonSerializer += json => json.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+            PreloadData(store, infoHolder.Ident);
+        }
 
-			// register custom contract resolver to handle relations
-			documentStore.Conventions.JsonContractResolver = new RelationContractResolver(
-				(DefaultRavenContractResolver)documentStore.Conventions.JsonContractResolver,
-				documentStore.Conventions,
-				ListOfModelTypes());
+        public static void SetGenericsConvention(IDocumentStore documentStore)
+        {
+            // generics without generic type
+            documentStore.Conventions.FindCollectionName = type =>
+            {
+                if (type.IsGenericType)
+                    return type.Name;
+                return DocumentConventions.DefaultGetCollectionName(type);
+            };
+        }
 
-			var componentInstances = IoC.ResolveAllInstances<IComponentDbInit>().ToArray();
+        static void PreloadData(IDocumentStore store, string ident)
+        {
+            var componentInstances = IoC.Scope[ident].ResolveAllInstances<IComponentDbInit>().ToArray();
 
-			// customize document store
-			foreach (var componentDbInit in componentInstances)
-			{
-				componentDbInit.CustomizeDocumentStore(documentStore);
-			}
-
-			// register indexes
-			foreach (var componentDbInit in componentInstances)
-			{
-				componentDbInit.RegisterIndexes(documentStore);
-			}
-		}
-	}
+            // preload data
+            foreach (var componentDbInit in componentInstances)
+            {
+                componentDbInit.PreloadData(store, ident);
+            }
+        }
+    }
 }
