@@ -3,6 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
 	  <Version>2.0.0</Version>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Authors>vlko</Authors>
+	  <Description>Base package for asp.mvc project with a lot usefull helpers, bundlers, base controller and view page.</Description>
+	  <Copyright>@vlkodotnet</Copyright>
+	  <PackageProjectUrl>https://github.com/vlko/vlko</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/vlko/vlko</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <Company>@vlkodotnet</Company>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup>

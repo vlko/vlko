@@ -1,7 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
-		<Version>2.0.0</Version>
+		<Version>2.0.2</Version>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Authors>vlko</Authors>
+		<Description>Base package for project with a lot usefull helper functions and IoC wrapper.</Description>
+		<Copyright>@vlkodotnet</Copyright>
+		<PackageProjectUrl>https://github.com/vlko/vlko</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/vlko/vlko</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Company>@vlkodotnet</Company>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<ItemGroup>
