@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vlko.core", "vlko.core\vlko.core.csproj", "{1C4AF4A0-C399-4090-AEAB-0FB18E3181B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vlko.core.Tests", "vlko.core.Tests\vlko.core.Tests.csproj", "{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vlko.core.tests", "vlko.core.Tests\vlko.core.tests.csproj", "{26AE4C58-C5D8-4F44-8479-E2E250AF88F0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vlko.core.RavenDB", "vlko.core.RavenDB\vlko.core.RavenDB.csproj", "{C354C632-E30B-480A-A2F3-4D1D573DB71B}"
 EndProject
@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MIT.Licence.txt = MIT.Licence.txt
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vlko.core.sql", "vlko.core.sql\vlko.core.sql.csproj", "{88826896-ACA6-4173-B7D3-EB7310C3886F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,14 +41,15 @@ Global
 		{63B8996B-C3F4-4BB2-93A7-104FD9FBB0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63B8996B-C3F4-4BB2-93A7-104FD9FBB0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63B8996B-C3F4-4BB2-93A7-104FD9FBB0DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88826896-ACA6-4173-B7D3-EB7310C3886F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88826896-ACA6-4173-B7D3-EB7310C3886F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88826896-ACA6-4173-B7D3-EB7310C3886F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88826896-ACA6-4173-B7D3-EB7310C3886F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB655929-C61B-488B-A64E-961479F934B3}
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = vlko2.vsmdi
 	EndGlobalSection
 EndGlobal

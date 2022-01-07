@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "vlko.core.Tests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "PQSQL_TEST_DB": "test",
+        "PQSQL_USER": "postgres",
+        "PQSQL_PSWD": "your_password"
+      }
+    }
+  }
+}
