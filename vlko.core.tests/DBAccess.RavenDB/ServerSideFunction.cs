@@ -9,10 +9,10 @@ using System.Text;
 using vlko.core.DBAccess;
 using vlko.core.InversionOfControl;
 using vlko.core.RavenDB.DBAccess;
-using vlko.core.tests.DBAccess.ServerSideModel;
+using vlko.core.tests.DBAccess.RavenDB.ServerSideModel;
 using Xunit;
 
-namespace vlko.core.tests.DBAccess
+namespace vlko.core.tests.DBAccess.RavenDB
 {
     public class ServerSideFunction : LocalStaticMemoryClientTest
     {

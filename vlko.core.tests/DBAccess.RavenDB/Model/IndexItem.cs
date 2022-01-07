@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace vlko.core.tests.DBAccess.Model
+namespace vlko.core.tests.DBAccess.RavenDB.Model
 {
     public class IndexItem
     {

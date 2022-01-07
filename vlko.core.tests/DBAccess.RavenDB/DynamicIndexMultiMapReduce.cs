@@ -10,11 +10,11 @@ using System.Text;
 using vlko.core.DBAccess;
 using vlko.core.InversionOfControl;
 using vlko.core.RavenDB.DBAccess;
-using vlko.core.tests.DBAccess.DynamicModel;
-using vlko.core.tests.DBAccess.Model;
+using vlko.core.tests.DBAccess.RavenDB.DynamicModel;
+using vlko.core.tests.DBAccess.RavenDB.Model;
 using Xunit;
 
-namespace vlko.core.tests.DBAccess
+namespace vlko.core.tests.DBAccess.RavenDB
 {
     public class DynamicIndexMultiMapReduce : LocalStaticMemoryClientTest
     {

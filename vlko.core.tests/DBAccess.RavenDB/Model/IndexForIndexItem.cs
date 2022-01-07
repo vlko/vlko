@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace vlko.core.tests.DBAccess.Model
+namespace vlko.core.tests.DBAccess.RavenDB.Model
 {
     public class IndexForIndexItem : AbstractIndexCreationTask<IndexItem, ProjectionItem>
     {

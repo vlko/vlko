@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using vlko.core.RavenDB.DBAccess;
 
-namespace vlko.core.tests.DBAccess.Model
+namespace vlko.core.tests.DBAccess.RavenDB.Model
 {
     public class TestTransformer : AbstractTransformer<IndexItem, TransformResult>
     {

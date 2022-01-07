@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace vlko.core.tests.DBAccess.ServerSideModel
+namespace vlko.core.tests.DBAccess.RavenDB.ServerSideModel
 {
     public class ServerSideFunctionIndex : AbstractIndexCreationTask<DataModel, ServerSideResult>
     {

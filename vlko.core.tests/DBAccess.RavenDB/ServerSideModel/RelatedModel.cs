@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace vlko.core.tests.DBAccess.ServerSideModel
+namespace vlko.core.tests.DBAccess.RavenDB.ServerSideModel
 {
     public class RelatedModel
     {

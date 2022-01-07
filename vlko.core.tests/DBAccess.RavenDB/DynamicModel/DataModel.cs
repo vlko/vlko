@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace vlko.core.tests.DBAccess.DynamicModel
+namespace vlko.core.tests.DBAccess.RavenDB.DynamicModel
 {
     public class DataModel
     {

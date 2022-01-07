@@ -1,22 +1,24 @@
 ﻿using finstat.BLL.tests;
+using Raven.Client.Documents;
 using Raven.Client.Documents.Queries.Timings;
 using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using vlko.core.DBAccess;
 using vlko.core.InversionOfControl;
 using vlko.core.RavenDB.DBAccess;
-using vlko.core.tests.DBAccess.Model;
+using vlko.core.tests.DBAccess.RavenDB.Model;
 using Xunit;
 
-namespace vlko.core.tests.DBAccess
+namespace vlko.core.tests.DBAccess.RavenDB
 {
-    public class SyncSessionTest : LocalStaticMemoryClientTest
+    public class AsyncSessionTest : LocalStaticMemoryClientTest
     {
-        private static string storeIdent = "sync_session";
-        static SyncSessionTest()
+        private static string storeIdent = "async_session";
+        static AsyncSessionTest()
         {
             var scope = IoC.Scope[storeIdent];
             scope.AddCatalogAssembly(Assembly.Load("vlko.core"));
@@ -24,7 +26,7 @@ namespace vlko.core.tests.DBAccess
             scope.Initialize();
         }
 
-        public SyncSessionTest()
+        public AsyncSessionTest()
         {
             var scope = IoC.Scope[storeIdent];
             SetUp(InitDB, storeIdent, scope);
@@ -32,7 +34,7 @@ namespace vlko.core.tests.DBAccess
 
         private void InitDB(string storeIdent)
         {
-            FillWithData(storeIdent);
+            SyncSessionTest.FillWithData(storeIdent);
             using (var session = DB.StartSession<RavenSession>(storeIdent))
             {
                 new IndexForIndexItem().Execute(session.Advanced.DocumentStore);
@@ -40,76 +42,51 @@ namespace vlko.core.tests.DBAccess
             }
         }
 
-        internal static void FillWithData(string storeIdent)
-        {
-            Func<int, IndexItem> generateItem = index => new IndexItem
-            {
-                Id = $"test-{index}",
-                Text = $"text-{index}",
-                NotIndexed = $"not-indexed-text-{index}",
-                Value = index * 1.1,
-                Date = new DateTime(2000 + index, 1, 1),
-                Integer = index,
-                NullDate = index % 2 == 0 ? new DateTime(2000 + index, 2, 1) : (DateTime?)null,
-                NullValue = index % 2 == 1 ? index * 2 : (double?)null,
-
-            };
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
-            using (var tran = session.StartTransaction())
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    session.Store(generateItem(i));
-                }
-                tran.Commit();
-            }
-        }
-
         [Fact]
-        public void StoreLoadDelete()
+        public async Task StoreLoadDelete()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             using (var tran = session.StartTransaction())
             {
-                session.Store(new SimpleItem
+                await session.StoreAsync(new SimpleItem
                 {
                     Id = "delete-test",
                     Text = "test"
                 });
-                tran.Commit();
+                await tran.CommitAsync();
             }
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             using (var tran = session.StartTransaction())
             {
-                var item = session.Load<SimpleItem>("delete-test");
+                var item = await session.LoadAsync<SimpleItem>("delete-test");
                 item.ShouldNotBeNull();
-                session.Delete(item);
-                tran.Commit();
+                await session.DeleteAsync(item);
+                await tran.CommitAsync();
             }
 
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
-                var item = session.Load<SimpleItem>("delete-test", false);
+                var item = await session.LoadAsync<SimpleItem>("delete-test", false);
                 item.ShouldBeNull();
             }
         }
 
         [Fact]
-        public void StoreInTransaction()
+        public async Task StoreInTransaction()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             using (var tran = session.StartTransaction())
             {
-                session.Store(new SimpleItem
+                await session.StoreAsync(new SimpleItem
                 {
                     Id = "store-test",
                     Text = "test"
                 });
-                tran.Commit();
+                await tran.CommitAsync();
             }
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
-                var item = session.Load<SimpleItem>("store-test");
+                var item = await session.LoadAsync<SimpleItem>("store-test");
                 item.ShouldNotBeNull();
                 item.Id.ShouldBe("store-test");
                 item.Text.ShouldBe("test");
@@ -117,26 +94,26 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void LoadMore()
+        public async Task LoadMore()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             using (var tran = session.StartTransaction())
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    session.Store(new SimpleItem
+                    await session.StoreAsync(new SimpleItem
                     {
                         Id = "more-test" + i,
                         Text = "test" + i
                     });
                 }
 
-                tran.Commit();
+                await tran.CommitAsync();
             }
 
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
-                var items = session.LoadMore<SimpleItem>("more-test0", "more-test1", "more-test2", "more-test3", "more-test4", "not-existing");
+                var items = await session.LoadMoreAsync<SimpleItem>("more-test0", "more-test1", "more-test2", "more-test3", "more-test4", "not-existing");
                 // last one is null as not existing
                 items.Count.ShouldBe(6);
                 items["not-existing"].ShouldBeNull();
@@ -149,21 +126,21 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void LoadMoreWithTransformer()
+        public async Task LoadMoreWitTransformer()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             using (var tran = session.StartTransaction())
             {
-                session.Store(new SimpleItem
+                await session.StoreAsync(new SimpleItem
                 {
                     Id = "transform-load",
                     Text = "TransformDocumentLoad"
                 });
-                tran.Commit();
+                await tran.CommitAsync();
             }
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
-                var items = session.LoadMoreWithTransformer<IndexItem, TestLoadTransformer, TransformResult>("test-0", "test-10", "test-99", "not-existing");
+                var items = await session.LoadMoreWithTransformerAsync<IndexItem, TestLoadTransformer, TransformResult>("test-0", "test-10", "test-99", "not-existing");
                 // last one is null as not existing
                 items.Length.ShouldBe(3);
                 // test first item
@@ -185,21 +162,21 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void LoadWithTransformer()
+        public async Task LoadWithTransformer()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             using (var tran = session.StartTransaction())
             {
-                session.Store(new SimpleItem
+                await session.StoreAsync(new SimpleItem
                 {
                     Id = "transform-load",
                     Text = "TransformDocumentLoad"
                 });
-                tran.Commit();
+                await tran.CommitAsync();
             }
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
-                var item = session.LoadWithTransformer<IndexItem, TestLoadTransformer, TransformResult>("test-0");
+                var item = await session.LoadWithTransformerAsync<IndexItem, TestLoadTransformer, TransformResult>("test-0");
                 // test first item
                 item.ShouldNotBeNull();
                 item.Id.ShouldBe("test-0");
@@ -209,72 +186,11 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void TestEvict()
+        public async Task RunQuery()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
-            using (var tran = session.StartTransaction())
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
-                session.Store(new SimpleItem
-                {
-                    Id = "evict-test",
-                    Text = "test"
-                });
-                for (int i = 0; i < 7; i++)
-                {
-                    session.Store(new SimpleItem
-                    {
-                        Id = "evict-test" + i,
-                        Text = "test" + i
-                    });
-                }
-
-                tran.Commit();
-            }
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
-            {
-                var toStoreManually = session.Load<SimpleItem>("evict-test");
-                toStoreManually.Text += "change";
-                var outOfTransaction = session.Load<SimpleItem>("evict-test5");
-                outOfTransaction.Text += "change";
-                using (var tran = session.StartTransaction())
-                {
-                    var item = session.Load<SimpleItem>("evict-test0");
-                    var itemToEvict = session.Load<SimpleItem>("evict-test1");
-                    var evictItems = session.LoadMoreEvict<SimpleItem>(new[] { "evict-test2", "evict-test3" });
-                    var evictItem = session.LoadEvict<SimpleItem>("evict-test4", true);
-
-                    item.Text += "change";
-                    itemToEvict.Text += "change";
-                    evictItems["evict-test2"].Text += "change";
-                    evictItems["evict-test3"].Text += "change";
-                    evictItem.Text += "change";
-
-                    session.Evict(itemToEvict);
-                    session.Store(toStoreManually);
-
-                    tran.Commit();
-                }
-            }
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
-            {
-                var item = session.Load<SimpleItem>("evict-test0");
-                var manuallyStored = session.Load<SimpleItem>("evict-test");
-                var notChangedItems = session.LoadMore<SimpleItem>("evict-test1", "evict-test2", "evict-test3", "evict-test4", "evict-test5");
-                item.Text.ShouldEndWith("change");
-                manuallyStored.Text.ShouldEndWith("change");
-                foreach (var notChanged in notChangedItems)
-                {
-                    notChanged.Value.Text.ShouldNotEndWith("change");
-                }
-            }
-        }
-
-        [Fact]
-        public void RunQuery()
-        {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
-            {
-                var items = session.Query<IndexForIndexItem, IndexItem>().ToArray();
+                var items = await session.Query<IndexForIndexItem, IndexItem>().ToArrayAsync();
                 items.ShouldNotBeNull();
                 items.Length.ShouldBe(100);
                 // test third item
@@ -300,12 +216,12 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void RunQueryWithProjection()
+        public async Task RunQueryWithProjection()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
-                var items = session.QueryWithProjection<IndexForIndexItem, ProjectionItem>()
-                        .ToArray();
+                var items = await session.QueryWithProjection<IndexForIndexItem, ProjectionItem>()
+                        .ToArrayAsync();
                 items.ShouldNotBeNull();
                 items.Length.ShouldBe(100);
                 // test third item
@@ -331,11 +247,11 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void RunDocumentQuery()
+        public async Task RunDocumentQuery()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
-                var items = session.DocumentQuery<IndexForIndexItem, IndexItem>().ToArray();
+                var items = await session.DocumentQuery<IndexForIndexItem, IndexItem>().ToArrayAsync();
                 items.ShouldNotBeNull();
                 items.Length.ShouldBe(100);
                 // test third item
@@ -361,13 +277,13 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void RunDocoumentQueryWithProjection()
+        public async Task RunDocoumentQueryWithProjection()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
                 QueryTimings timings;
-                var items = session.DocumentQueryWithProjection<IndexForIndexItem, ProjectionItem>()
-                    .Timings(out timings).ToArray();
+                var items = await session.DocumentQueryWithProjection<IndexForIndexItem, ProjectionItem>()
+                    .Timings(out timings).ToArrayAsync();
                 items.ShouldNotBeNull();
                 items.Length.ShouldBe(100);
                 // test third item
@@ -393,13 +309,13 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void RunQueryDef()
+        public async Task RunQueryDef()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
                 var query = session.Query<IndexForIndexItem, IndexItem>();
-                var page = session.GetQueryDef(query)
-                    .LoadPartial(0, 100);
+                var page = await session.GetQueryDef(query)
+                    .LoadPartialAsync(0, 100);
                 page.ShouldNotBeNull();
                 page.TotalCount.ShouldBe(100);
                 var items = page.PageData.ToArray();
@@ -426,14 +342,14 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void RunQueryDefProjection()
+        public async Task RunQueryDefProjection()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
                 var query = session.Query<IndexForIndexItem, IndexItem>();
-                var page = session.GetQueryDef(query)
+                var page = await session.GetQueryDef(query)
                     .Project<ProjectionItem>()
-                    .LoadPartial(0, 100);
+                    .LoadPartialAsync(0, 100);
                 page.ShouldNotBeNull();
                 page.TotalCount.ShouldBe(100);
                 var items = page.PageData.ToArray();
@@ -460,14 +376,14 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void RunQueryDefSimpleTransformer()
+        public async Task RunQueryDefSimpleTransformer()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
                 var query = session.Query<IndexForIndexItem, IndexItem>();
-                var page = session.GetQueryDef(query)
+                var page = await session.GetQueryDef(query)
                     .Transform<TransformResult, TestTransformer>()
-                    .LoadPartial(0, 100);
+                    .LoadPartialAsync(0, 100);
                 page.ShouldNotBeNull();
                 page.TotalCount.ShouldBe(100);
                 var items = page.PageData.ToArray();
@@ -485,24 +401,24 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void RunQueryDefTransformerWithLoad()
+        public async Task RunQueryDefTransformerWithLoad()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             using (var tran = session.StartTransaction())
             {
-                session.Store(new SimpleItem
+                await session.StoreAsync(new SimpleItem
                 {
                     Id = "transform-load",
                     Text = "TransformDocumentLoad"
                 });
-                tran.Commit();
+                await tran.CommitAsync();
             }
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
                 var query = session.Query<IndexForIndexItem, IndexItem>();
-                var page = session.GetQueryDef(query)
+                var page = await session.GetQueryDef(query)
                     .Transform<TransformResult, TestLoadTransformer>()
-                    .LoadPartial(0, 20);
+                    .LoadPartialAsync(0, 20);
                 page.ShouldNotBeNull();
                 page.TotalCount.ShouldBe(100);
                 page.PageData.Count().ShouldBe(20);
@@ -521,26 +437,26 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void RunQueryDefTransformerWithParams()
+        public async Task RunQueryDefTransformerWithParams()
         {
             var autoIdent = "transform-" + Guid.NewGuid();
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             using (var tran = session.StartTransaction())
             {
-                session.Store(new SimpleItem
+                await session.StoreAsync(new SimpleItem
                 {
                     Id = autoIdent,
                     Text = "TransformDocumentParamLoad"
                 });
-                tran.Commit();
+                await tran.CommitAsync();
             }
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
                 var query = session.Query<IndexForIndexItem, IndexItem>();
-                var page = session.GetQueryDef(query)
+                var page = await session.GetQueryDef(query)
                     .Transform<TransformResult, TestParamTransformer>(
                         new Dictionary<string, string> { { "ident", autoIdent } })
-                    .LoadPartial(0, 20);
+                    .LoadPartialAsync(0, 20);
                 page.ShouldNotBeNull();
                 page.TotalCount.ShouldBe(100);
                 page.PageData.Count().ShouldBe(20);
@@ -559,28 +475,28 @@ namespace vlko.core.tests.DBAccess
         }
 
         [Fact]
-        public void RunQueryDefStream()
+        public async Task RunQueryDefStream()
         {
             var autoIdent = "stream-" + Guid.NewGuid();
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             using (var tran = session.StartTransaction())
             {
-                session.Store(new SimpleItem
+                await session.StoreAsync(new SimpleItem
                 {
                     Id = autoIdent,
                     Text = "TransformStream"
                 });
-                tran.Commit();
+                await tran.CommitAsync();
             }
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
                 var query = session.Query<IndexForIndexItem, IndexItem>();
                 var stream = session.GetQueryDef(query)
                     .Transform<TransformResult, TestParamTransformer>(
                         new Dictionary<string, string> { { "ident", autoIdent } })
-                    .Stream(_ => _);
+                    .StreamAsync(_ => _);
                 var items = new List<TransformResult>();
-                foreach (var item in stream)
+                await foreach (var item in stream)
                 {
                     items.Add(item);
                 }
@@ -601,7 +517,7 @@ namespace vlko.core.tests.DBAccess
         [Fact]
         public void TypeIdentGenerating()
         {
-            using (var session = DB.StartSession<RavenSession>(storeIdent))
+            using (var session = DB.StartSession<RavenAsyncSession>(storeIdent))
             {
                 session.GetTypeIdent<SimpleItem>().ShouldBe("simpleitems");
                 session.GetTypeIdent<SomePerson>().ShouldBe("somepeople");

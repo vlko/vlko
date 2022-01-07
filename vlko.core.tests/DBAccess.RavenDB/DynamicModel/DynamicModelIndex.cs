@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 
-namespace vlko.core.tests.DBAccess.DynamicModel
+namespace vlko.core.tests.DBAccess.RavenDB.DynamicModel
 {
     public class DynamicModelIndex : AbstractMultiMapIndexCreationTask<DynamicModelResult>
     {
