@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -17,6 +17,7 @@
 	<ItemGroup>
 		<PackageReference Include="Dapper" Version="2.0.123" />
 		<PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
+		<PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.1" />
 		<PackageReference Include="Npgsql" Version="6.0.2" />
 		<PackageReference Include="Npgsql.Json.NET" Version="6.0.2" />
 	</ItemGroup>
