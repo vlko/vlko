@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Version>2.0.0</Version>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Authors>vlko</Authors>
+		<Description>Base package for accessing SQL databases.</Description>
+		<Copyright>@vlkodotnet</Copyright>
+		<PackageProjectUrl>https://github.com/vlko/vlko</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/vlko/vlko</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Company>@vlkodotnet</Company>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.0.123" />
+		<PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
+		<PackageReference Include="Npgsql" Version="6.0.2" />
+		<PackageReference Include="Npgsql.Json.NET" Version="6.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\vlko.core\vlko.core.csproj" />
+	</ItemGroup>
+
+</Project>
